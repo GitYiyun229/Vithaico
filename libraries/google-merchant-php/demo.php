@@ -1,0 +1,3 @@
+api_key = AIzaSyBeSQKRpkqyYU7xmmZTtRS9iVu7BisOXmU
+client_id = 11538776273-90e9ls3ttbjqu7c8a44oa6asnsa5onvn.apps.googleusercontent.com
+client_secret = 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

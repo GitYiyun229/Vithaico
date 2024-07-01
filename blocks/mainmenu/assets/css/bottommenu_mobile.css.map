@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,CAAC,CAAA;EACC,KAAK,EAAE,GAAG;CACX",
+    "sources": [
+        "bottommenu_mobile.scss"
+    ],
+    "names": [],
+    "file": "bottommenu_mobile.css"
+}

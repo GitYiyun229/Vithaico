@@ -1,0 +1,25 @@
+@media screen and (min-width: 1200px) {
+  #menu_left {
+    display: none;
+  }
+}
+
+.highlight_0 .field_name {
+  width: 100%;
+  background: #f1f1f1;
+  font-weight: bold;
+}
+
+.mm-title {
+  color: #000 !important;
+  font-size: 16px;
+}
+
+.mmhome {
+  padding: 0;
+}
+
+.mmhome img {
+  height: 70px !important;
+}
+/*# sourceMappingURL=mdefault.css.map */
