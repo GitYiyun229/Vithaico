@@ -1,22 +1,22 @@
-const memberModal = new bootstrap.Modal(
-  document.getElementById("memberModal"),
-  {}
-);
-let countInterval;
+// const memberModal = new bootstrap.Modal(
+//   document.getElementById("memberModal"),
+//   {}
+// );
+// let countInterval;
 
-$(document).on("click", ".btn-login", function (e) {
-  e.preventDefault();
-  $(".layout-modal").hide();
-  $(".layout-login").show();
-  memberModal.show();
-});
+// $(document).on("click", ".btn-login", function (e) {
+//   e.preventDefault();
+//   $(".layout-modal").hide();
+//   $(".layout-login").show();
+//   memberModal.show();
+// });
 
-$(document).on("click", ".btn-register", function (e) {
-  e.preventDefault();
-  $(".layout-modal").hide();
-  $(".layout-register-telephone").show();
-  memberModal.show();
-});
+// $(document).on("click", ".btn-register", function (e) {
+//   e.preventDefault();
+//   $(".layout-modal").hide();
+//   $(".layout-register-telephone").show();
+//   memberModal.show();
+// });
 
 $(document).on("click", ".modal-member-tab", function (e) {
   e.preventDefault();
@@ -62,7 +62,6 @@ $(document).on("paste", ".form-otp", function (e) {
   });
 });
 
-
 $("#form-login").on("keypress", function (e) {
   if (e.which == 13 && !e.shiftKey) {
     $("#btn-submit-login").click();
@@ -92,8 +91,6 @@ $("#btn-submit-login").click(function (e) {
     data: { token, userlog, passlog, redirect },
     dataType: "JSON",
     success: function (result) {
-      console.log(result);
-
       if (result.error) {
         invalid("userlog", result.message);
       } else {
@@ -125,14 +122,21 @@ function checkRegister() {
   if (!notEmpty("nameregister", alert_members1[0])) {
     return false;
   }
-
+  if (!notEmpty("phoneregister", alert_members1[9])) {
+    return false;
+  }
+  if (!isPhone("phoneregister", alert_members1[10])) {
+    return false;
+  }
+  if (!validationPhone("phoneregister", alert_members1[10])) {
+    return false;
+  }
   if (!notEmpty("emailregister", alert_members1[2])) {
     return false;
   }
   if (!emailValidator("emailregister", alert_members1[3])) {
     return false;
   }
-
   if (!notEmpty("passregister", alert_members1[4])) {
     return false;
   }
@@ -143,6 +147,9 @@ function checkRegister() {
     return false;
   }
   if (!lengthMin("repassregister", 8, alert_members1[8])) {
+    return false;
+  }
+  if (!validateCheckbox("checkregister_text", alert_members1[11])) {
     return false;
   }
   let name = $("input[name=nameregister]").val();
@@ -165,6 +172,7 @@ function checkRegister() {
         _this.html(`Đăng ký`).css("pointer-events", "auto");
         $(".register-success-telephone").html(email);
         $(".layout-modal").hide();
+       $("#memberModal").modal("show");
         $(".layout-register-success").show();
         let endTime = new Date().getTime() + 11 * 1000;
 

@@ -26,6 +26,9 @@ $alert = array(
     5 => FSText::_('Nhập lại mật khẩu của bạn'),
     6 => FSText::_('Mật khẩu chưa đúng, vui lòng nhập lại'),
     8 => FSText::_('Mật khẩu có ít nhất 8 ký tự'),
+    9 => FSText::_('Bạn chưa nhập phone'),
+    10 => FSText::_('Phone không đúng định dạng'),
+    11 => FSText::_('Vui lòng đồng ý điều khoản để đăng ký thành viên'),
 );
 
 
@@ -224,185 +227,47 @@ $alert = array(
     </div>
 </div>
 
-<?php if (!$user->userID) { ?>
-    <div class="modal fade" id="memberModal" tabindex="-1" aria-labelledby="memberModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body p-0">
-                    <div class="d-grid">
-                        <div class="p-5 grid-content">
-                            <div class="layout-modal layout-login">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
-                                <div class="d-flex align-items-center justify-content-center mb-2">
-                                    <h4 class="fs-4 m-0"><?php echo FSText::_('Đăng nhập') ?></h4>
-                                    <!-- <a href="" class="fs-4 modal-member-tab opacity-50" data="register-telephone"><?php echo FSText::_('Đăng ký') ?></a> -->
-                                </div>
-                                <div class="mb-5 text-center"><?php echo FSText::_('Chào mừng bạn đến với ShopUSA !') ?></div>
-                                <form action="" method="POST" id="form-login">
-                                    <div class="mb-4">
-                                        <input type="text" class="form-control" name="userlog" id="userlog" autocomplete placeholder="<?php echo FSText::_('Email/Số điện thoại') ?>">
-                                    </div>
-                                    <div class="mb-4 position-relative d-flex align-items-center">
-                                        <input type="password" class="form-control" name="passlog" id="passlog" autocomplete placeholder="********">
-                                        <a href="" class="toggle-password">
-                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M9.68634 6.31337L6.31301 9.68671M9.68634 6.31337C9.25301 5.88004 8.65967 5.61337 7.99967 5.61337C6.67967 5.61337 5.61301 6.68004 5.61301 8.00004C5.61301 8.66004 5.87967 9.25337 6.31301 9.68671M9.68634 6.31337L14.6663 1.33337M6.31301 9.68671L1.33301 14.6667M11.8797 3.84671C10.713 2.96671 9.37967 2.48671 7.99967 2.48671C5.64634 2.48671 3.45301 3.87337 1.92634 6.27337C1.32634 7.21337 1.32634 8.79337 1.92634 9.73337C2.45301 10.56 3.06634 11.2734 3.73301 11.8467M5.61301 13.02C6.37301 13.34 7.17967 13.5134 7.99967 13.5134C10.353 13.5134 12.5463 12.1267 14.073 9.72671C14.673 8.78671 14.673 7.20671 14.073 6.26671C13.853 5.92004 13.613 5.59337 13.3663 5.28671M10.3397 8.46671C10.1663 9.40671 9.39967 10.1734 8.45967 10.3467" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
-                                            </svg>
-                                            <svg style="display: none;" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M10.3866 7.99998C10.3866 9.31998 9.3199 10.3866 7.9999 10.3866C6.6799 10.3866 5.61323 9.31998 5.61323 7.99998C5.61323 6.67998 6.6799 5.61331 7.9999 5.61331C9.3199 5.61331 10.3866 6.67998 10.3866 7.99998Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
-                                                <path d="M7.9999 13.5133C10.3532 13.5133 12.5466 12.1266 14.0732 9.72665C14.6732 8.78665 14.6732 7.20665 14.0732 6.26665C12.5466 3.86665 10.3532 2.47998 7.9999 2.47998C5.64656 2.47998 3.45323 3.86665 1.92656 6.26665C1.32656 7.20665 1.32656 8.78665 1.92656 9.72665C3.45323 12.1266 5.64656 13.5133 7.9999 13.5133Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
-                                            </svg>
-                                        </a>
-                                    </div>
-                                    <div class="mb-4">
-                                        <a href="" id="btn-submit-login" class="form-submit text-uppercase d-flex align-items-center justify-content-center fw-medium"><?php echo FSText::_('Đăng nhập') ?></a>
-                                    </div>
-                                    <?php echo csrf::displayToken(); ?>
-                                    <input type="hidden" name="module" value="members">
-                                    <input type="hidden" name="view" value="log">
-                                    <input type="hidden" name="task" value="login">
-                                    <input type="hidden" name="redirect" value="<?php echo $Itemid == 1 ? URL_ROOT : URL_ROOT . substr($_SERVER['REQUEST_URI'], strlen(URL_ROOT_REDUCE)) ?>" />
-                                </form>
-                                <div class="mb-4 wrap position-relative d-flex align-items-center justify-content-center">
-                                    <span><?php echo FSText::_('Hoặc') ?></span>
-                                </div>
-                                <div class="mb-5 d-flex gap-3">
-                                    <a href="<?php echo FSRoute::_("index.php?module=members&view=facebook") ?>" class="btn-log-with w-100 d-flex align-items-center justify-content-center gap-2">
-                                        Facebook
-                                        <img src="/images/facebook.svg" alt="facebook" class="img-fluid">
-                                    </a>
-                                    <a href="<?php echo FSRoute::_("index.php?module=members&view=google") ?>" class="btn-log-with w-100 d-flex align-items-center justify-content-center gap-2">
-                                        Google
-                                        <img src="/images/google.svg" alt="google" class="img-fluid">
-                                    </a>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div><?php echo FSText::_('Bạn là khách hàng mới?') ?> <a href="" class="fw-bold modal-member-tab text-red" data="register-telephone"><?php echo FSText::_('Đăng ký') ?></a></div>
-                                    <a href="" class="modal-member-tab text-blue" data="password"><?php echo FSText::_('Quên mật khẩu?') ?></a>
-                                </div>
-                            </div>
-
-                            <div class="layout-modal layout-register-telephone" style="display: none;">
-                                <div class="d-flex gap-4 align-items-center justify-content-center mb-2">
-                                    <h4 class="fs-4 m-0"><?php echo FSText::_('Đăng ký') ?></h4>
-                                    <a href="" class="fs-4 modal-member-tab opacity-50" data="login"><?php echo FSText::_('Đăng nhập') ?></a>
-                                </div>
-                                <div class="mb-5 text-center"><?php echo FSText::_('Tạo tài khoản ShopUSA !') ?></div>
-                                <div class="form-register-container">
-                                    <form action="" method="POST" id="form-register">
-                                        <div class="mb-2  position-relative">
-
-                                            <div class="mb-4">
-                                                <input type="text" class="form-control" name="nameregister" id="nameregister" autocomplete placeholder="<?php echo FSText::_('Nhập họ và tên của bạn') ?>">
-                                            </div>
-                                            <div class="mb-4">
-                                                <input type="text" class="form-control" name="emailregister" id="emailregister" autocomplete placeholder="<?php echo FSText::_('Nhập email của bạn') ?>">
-                                            </div>
-                                            <div class="mb-4 d-flex align-items-center justify-content-center w-100 position-relative">
-                                                <div class="w-100">
-                                                    <input type="password" class="form-control w-100" name="passregister" id="passregister" autocomplete placeholder="<?php echo FSText::_('Mật khẩu') ?>">
-                                                    <a href="" class="toggle-password">
-                                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M9.68634 6.31337L6.31301 9.68671M9.68634 6.31337C9.25301 5.88004 8.65967 5.61337 7.99967 5.61337C6.67967 5.61337 5.61301 6.68004 5.61301 8.00004C5.61301 8.66004 5.87967 9.25337 6.31301 9.68671M9.68634 6.31337L14.6663 1.33337M6.31301 9.68671L1.33301 14.6667M11.8797 3.84671C10.713 2.96671 9.37967 2.48671 7.99967 2.48671C5.64634 2.48671 3.45301 3.87337 1.92634 6.27337C1.32634 7.21337 1.32634 8.79337 1.92634 9.73337C2.45301 10.56 3.06634 11.2734 3.73301 11.8467M5.61301 13.02C6.37301 13.34 7.17967 13.5134 7.99967 13.5134C10.353 13.5134 12.5463 12.1267 14.073 9.72671C14.673 8.78671 14.673 7.20671 14.073 6.26671C13.853 5.92004 13.613 5.59337 13.3663 5.28671M10.3397 8.46671C10.1663 9.40671 9.39967 10.1734 8.45967 10.3467" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
-                                                        </svg>
-                                                        <svg style="display: none;" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M10.3866 7.99998C10.3866 9.31998 9.3199 10.3866 7.9999 10.3866C6.6799 10.3866 5.61323 9.31998 5.61323 7.99998C5.61323 6.67998 6.6799 5.61331 7.9999 5.61331C9.3199 5.61331 10.3866 6.67998 10.3866 7.99998Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
-                                                            <path d="M7.9999 13.5133C10.3532 13.5133 12.5466 12.1266 14.0732 9.72665C14.6732 8.78665 14.6732 7.20665 14.0732 6.26665C12.5466 3.86665 10.3532 2.47998 7.9999 2.47998C5.64656 2.47998 3.45323 3.86665 1.92656 6.26665C1.32656 7.20665 1.32656 8.78665 1.92656 9.72665C3.45323 12.1266 5.64656 13.5133 7.9999 13.5133Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
-                                                        </svg>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="mb-4 d-flex align-items-center justify-content-center  position-relative w-100">
-                                                <div class="w-100">
-                                                    <input type="text" class="form-control w-100" name="repassregister" id="repassregister" autocomplete placeholder="<?php echo FSText::_('Nhập lại mật khẩu của bạn') ?>">
-                                                    <a href="" class="toggle-password">
-                                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M9.68634 6.31337L6.31301 9.68671M9.68634 6.31337C9.25301 5.88004 8.65967 5.61337 7.99967 5.61337C6.67967 5.61337 5.61301 6.68004 5.61301 8.00004C5.61301 8.66004 5.87967 9.25337 6.31301 9.68671M9.68634 6.31337L14.6663 1.33337M6.31301 9.68671L1.33301 14.6667M11.8797 3.84671C10.713 2.96671 9.37967 2.48671 7.99967 2.48671C5.64634 2.48671 3.45301 3.87337 1.92634 6.27337C1.32634 7.21337 1.32634 8.79337 1.92634 9.73337C2.45301 10.56 3.06634 11.2734 3.73301 11.8467M5.61301 13.02C6.37301 13.34 7.17967 13.5134 7.99967 13.5134C10.353 13.5134 12.5463 12.1267 14.073 9.72671C14.673 8.78671 14.673 7.20671 14.073 6.26671C13.853 5.92004 13.613 5.59337 13.3663 5.28671M10.3397 8.46671C10.1663 9.40671 9.39967 10.1734 8.45967 10.3467" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
-                                                        </svg>
-                                                        <svg style="display: none;" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M10.3866 7.99998C10.3866 9.31998 9.3199 10.3866 7.9999 10.3866C6.6799 10.3866 5.61323 9.31998 5.61323 7.99998C5.61323 6.67998 6.6799 5.61331 7.9999 5.61331C9.3199 5.61331 10.3866 6.67998 10.3866 7.99998Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
-                                                            <path d="M7.9999 13.5133C10.3532 13.5133 12.5466 12.1266 14.0732 9.72665C14.6732 8.78665 14.6732 7.20665 14.0732 6.26665C12.5466 3.86665 10.3532 2.47998 7.9999 2.47998C5.64656 2.47998 3.45323 3.86665 1.92656 6.26665C1.32656 7.20665 1.32656 8.78665 1.92656 9.72665C3.45323 12.1266 5.64656 13.5133 7.9999 13.5133Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
-                                                        </svg>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="mt-4 mb-4">
-                                            <a href="javascript:void(0)" id="btn-submit-register" class="form-submit text-uppercase d-flex align-items-center justify-content-center fw-medium">
-                                                <?php echo FSText::_('Đăng ký') ?>
-                                            </a>
-                                        </div>
-                                        <?php echo csrf::displayToken(); ?>
-                                    </form>
-
-                                </div>
-                                <div class="mb-4 wrap position-relative d-flex align-items-center justify-content-center">
-                                    <span><?php echo FSText::_('Hoặc') ?></span>
-                                </div>
-                                <div class="mb-5 d-flex gap-3">
-                                    <a href="<?php echo FSRoute::_("index.php?module=members&view=facebook") ?>" class="btn-log-with w-100 d-flex align-items-center justify-content-center gap-2">
-                                        Facebook
-                                        <img src="/images/facebook.svg" alt="facebook" class="img-fluid">
-                                    </a>
-                                    <a href="<?php echo FSRoute::_("index.php?module=members&view=google") ?>" class="btn-log-with w-100 d-flex align-items-center justify-content-center gap-2">
-                                        Google
-                                        <img src="/images/google.svg" alt="google" class="img-fluid">
-                                    </a>
-                                </div>
-                                <div class="text-center mb-4 ">
-                                    <div><?php echo FSText::_('Bằng việc đăng kí, bạn đã đồng ý với ShopUSA về') ?></div>
-                                    <div>
-                                        <a href="" class="text-red"><?php echo FSText::_('Điều khoản dịch vụ') ?></a>
-                                        &
-                                        <a href="" class="text-red"><?php echo FSText::_('Chính sách bảo mật') ?></a>
-                                    </div>
-                                </div>
-                                <div class="text-center">
-                                    <?php echo FSText::_('Bạn đã có tài khoản?') ?> <a href="" class="fw-bold modal-member-tab text-red" data="login"><?php echo FSText::_('Đăng nhập') ?></a>
-                                </div>
-                            </div>
-                            <div class="layout-modal layout-register-success" style="display: none;">
-                                <div class="text-center mb-5">
-                                    <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M18.0837 28.0001L24.687 34.6034L37.917 21.3967M28.0003 51.3334C40.8337 51.3334 51.3337 40.8334 51.3337 28.0001C51.3337 15.1667 40.8337 4.66675 28.0003 4.66675C15.167 4.66675 4.66699 15.1667 4.66699 28.0001C4.66699 40.8334 15.167 51.3334 28.0003 51.3334Z" stroke="#3BA500" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-                                </div>
-                                <div class="fs-4 register-success-message mb-5 text-center"></div>
-                                <div class="mb-4 text-center">
-                                    Bạn đã tạo thành công tài khoản với email <br>
-                                    <b class="register-success-telephone register-success-email"></b>
-                                </div>
-                                <div class="mb-4 text-center">
-                                    Bạn sẽ được chuyển hướng đến ShopUSA trong <p class="re-send-count-down-callback"></p> giây.
-                                </div>
-                                <a href="<?php echo URL_ROOT ?>" class="form-submit text-uppercase d-flex align-items-center justify-content-center fw-medium"><?php echo FSText::_('Quay lại trang chủ') ?></a>
-                            </div>
-
-                            <div class="layout-modal layout-password" style="display: none;">
-                                <a href="" class="modal-member-tab" data="login">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M14.9998 19.92L8.47984 13.4C7.70984 12.63 7.70984 11.37 8.47984 10.6L14.9998 4.07996" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-                                </a>
-                                <div class="d-flex align-items-center justify-content-between mb-2 mt-5">
-                                    <h4 class="fs-4 m-0"><?php echo FSText::_('Quên mật khẩu?') ?></h4>
-                                </div>
-                                <div class="mb-5"><?php echo FSText::_('Vui lòng nhập thông tin tài khoản để lấy lại mật khẩu') ?></div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-<?php } ?>
 <div class="alert_modal fade" id="alert_modal">
     <div class="alert_body">
         <div class="alert_message" id="alert_message">
 
         </div>
         <a id="a_message" onclick="close_alert()"><?php echo FSText::_('Đóng') ?></a>
+    </div>
+</div>
+<div class="modal fade" id="memberModal" tabindex="-1" aria-labelledby="memberModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="layout-modal layout-register-success" style="display: none;">
+                    <div class="text-center mb-5">
+                        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18.0837 28.0001L24.687 34.6034L37.917 21.3967M28.0003 51.3334C40.8337 51.3334 51.3337 40.8334 51.3337 28.0001C51.3337 15.1667 40.8337 4.66675 28.0003 4.66675C15.167 4.66675 4.66699 15.1667 4.66699 28.0001C4.66699 40.8334 15.167 51.3334 28.0003 51.3334Z" stroke="#3BA500" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <div class="fs-4 register-success-message mb-5 text-center"></div>
+                    <div class="mb-4 text-center">
+                        Bạn đã tạo thành công tài khoản với email <br>
+                        <b class="register-success-telephone register-success-email"></b>
+                    </div>
+                    <div class="mb-4 text-center">
+                        Bạn sẽ được chuyển hướng đến ShopUSA trong <p class="re-send-count-down-callback"></p> giây.
+                    </div>
+                    <a href="<?php echo URL_ROOT ?>" class="form-submit text-uppercase d-flex align-items-center justify-content-center fw-medium"><?php echo FSText::_('Quay lại trang chủ') ?></a>
+                </div>
+                <div class="layout-modal layout-password" style="display: none;">
+                    <a href="" class="modal-member-tab" data="login">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14.9998 19.92L8.47984 13.4C7.70984 12.63 7.70984 11.37 8.47984 10.6L14.9998 4.07996" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </a>
+                    <div class="d-flex align-items-center justify-content-between mb-2 mt-5">
+                        <h4 class="fs-4 m-0"><?php echo FSText::_('Quên mật khẩu?') ?></h4>
+                    </div>
+                    <div class="mb-5"><?php echo FSText::_('Vui lòng nhập thông tin tài khoản để lấy lại mật khẩu') ?></div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

@@ -119,7 +119,7 @@ class FSRoute
         $url1 = '';
         $lang = isset($_SESSION['lang']) ? $_SESSION['lang'] : 'en';
         switch ($module) {
-           
+
             case 'members':
                 switch ($view) {
                     case 'log': {
@@ -128,7 +128,9 @@ class FSRoute
                                     return $url_first . FSRoute::get_name_encode('dang-xuat', $lang);
                             }
                         }
-                    case 'facebook': 
+                    case 'members': {
+                        }
+                    case 'facebook':
                         switch ($task) {
                             case 'callback':
                                 return $url_first . FSRoute::get_name_encode('fb-oauth-callback', $lang);
@@ -145,6 +147,15 @@ class FSRoute
                             default:
                                 return $url_first . FSRoute::get_name_encode('don-hang-cua-toi', $lang);
                         }
+                    case 'user':
+                        switch ($task) {
+                            case 'login':
+                                return $url_first . FSRoute::get_name_encode('dang-nhap', $lang);
+                            case 'register':
+                                return $url_first . FSRoute::get_name_encode('dang-ky-tai-khoan', $lang);
+                            default:
+                                return $url_first . FSRoute::get_name_encode('don-hang-cua-toi', $lang);
+                        }
                     case 'level':
                         return $url_first . FSRoute::get_name_encode('hang-thanh-vien', $lang);
                     case 'address':
@@ -153,7 +164,6 @@ class FSRoute
                         return URL_ROOT . FSRoute::get_name_encode('san-pham-yeu-thich', $lang);
                     case 'dashboard':
                         return URL_ROOT . FSRoute::get_name_encode('tai-khoan-ca-nhan', $lang);
-
                     default:
                         return URL_ROOT . $url;
                 }
