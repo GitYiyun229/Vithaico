@@ -25,10 +25,6 @@ RewriteRule ^feeds$ rss.php [L]
 RewriteRule ^404.html$ index.php?module=home&view=home&task=display404&Itemid=11 [L]
 ErrorDocument 404 /404.html
 
-#amp
-#RewriteRule ^([^/]*)/amp/([^/]*)-n([0-9]*)$ index.php?module=news&view=amp_news&acode=$1&code=$2&id=$3&Itemid=50 [L]
-#RewriteRule ^amp/([^/]*)-p([0-9]*).html$ index.php?module=products&view=amp_product&code=$1&id=$2&Itemid=50 [L]
-
 #product
 RewriteRule ^([^/]*)-pc([0-9]*).html(.*) index.php?module=products&view=cat&code=$1&id=$2&Itemid=2&lang=vi&%{QUERY_STRING} [L]
 RewriteRule ^([^/]*)-p([0-9]*).html(.*) index.php?module=products&view=product&code=$1&id=$2&Itemid=3&lang=vi&%{QUERY_STRING} [L]
@@ -55,16 +51,9 @@ RewriteRule ^fb-oauth-callback(.*) index.php?module=members&view=facebook&task=c
 #contents
 RewriteRule ^([^/]*)-n([0-9]*).html(.*) index.php?module=contents&view=content&code=$1&id=$2&Itemid=5&lang=vi&%{QUERY_STRING} [L]
 
-#tiktok
-RewriteRule ^tiktok$ index.php?module=tiktok&view=home&Itemid=26&lang=vi [L]
-RewriteRule ^tiktok(/page-([0-9]*))(.*) index.php?module=tiktok&view=home&page=$2&Itemid=26&lang=vi [L]
 
-#api nhanh
-RewriteRule ^api/nhanh/webhooks-v2$ index.php?module=api&view=nhanh&task=webhooksNhanh&Itemid=200&lang=vi [L]
 
-#api ssc
-RewriteRule ^api/ssc/sku-webhooks$ index.php?module=api&view=ssc&task=webhooksSKU&Itemid=200&lang=vi [L]
-RewriteRule ^api/ssc/order-webhooks$ index.php?module=api&view=ssc&task=webhooksOrder&Itemid=200&lang=vi [L]
+
 
 
 Options +FollowSymLinks

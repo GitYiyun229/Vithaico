@@ -393,12 +393,10 @@ var Alert = new CustomAlert();
 function valid(element, helperMsg, type) {
   $("#" + element).removeClass("is-invalid");
   $("#" + element).addClass("is-valid");
-  //$("#" + element).parent().find('.label_error').prev().remove();
   $("#" + element)
     .parent()
     .find(".invalid-feedback")
     .remove();
-  //$("#" + element).parent().find('.label_success').prev().remove();
   $("#" + element)
     .parent()
     .find(".label_success")
@@ -409,12 +407,10 @@ function valid(element, helperMsg, type) {
  * Change border color where invalid
  */
 function invalid(element, helperMsg, type) {
-  //$("#" + element).parent().find('.label_error').prev().remove();
   $("#" + element)
     .parent()
     .find(".invalid-feedback")
     .remove();
-  //$("#" + element).parent().find('.label_success').prev().remove();
   $("#" + element)
     .parent()
     .find(".label_success")
@@ -426,9 +422,7 @@ function invalid(element, helperMsg, type) {
   );
   $("#" + element).addClass("is-invalid");
   $("#" + element).focus();
-  // $('html, body').animate({
-  //     scrollTop: $('#' + element).position().top,
-  // }, 'slow');
+
 }
 
 /************* NEW FUNTION : CHECK ALL, SUBMIT FORM ***********/

@@ -62,61 +62,6 @@ $(document).on("paste", ".form-otp", function (e) {
   });
 });
 
-// $("#btn-submit-register-password").click(function (e) {
-//   e.preventDefault();
-//     $("label.label_error").prev().remove();
-//     $("label.label_error").remove();
-//   let nameregister = $("input[name=nameregister]").val();
-//   let emailregister = $("input[name=emailregister]").val();
-//   let passwordregister = $("input[name=passwordregister]").val();
-//   let repassregister = $("input[name=repassregister]").val();
-
-//   if (!nameregister.trim()) {
-//     invalid("nameregister", "Vui lòng nhập tên của bạn");
-//     return false;
-//   }
-
-//   if (!emailregister.trim()) {
-//     invalid("emailregister", "Vui lòng nhập địa chỉ email của bạn");
-//     return false;
-//   }
-
-//   if (!passwordregister.trim()) {
-//     invalid("passwordregister", "Vui lòng nhập mật khẩu của bạn");
-//     return false;
-//   }
-
-//   if (!repassregister.trim()) {
-//     invalid("repassregister", "Vui lòng nhập mật khẩu của bạn");
-//     return false;
-//   }
-
-//     let password = $("input[name=passwordregister]").val();
-//     let _this = $(this);
-//     _this.html(`<div class="spinner-border text-light" role="status"><span class="visually-hidden">Loading...</span></div>`).css("pointer-events", "none");
-// $.ajax({
-//   url: "index.php?module=members&view=register&task=register&raw=1",
-//   type: "POST",
-//   data: { token, password },
-//   dataType: "JSON",
-//   success: function (result) {
-//     console.log(result);
-
-//     _this.html(`Đăng ký`).css("pointer-events", "auto");
-//     $(".layout-modal").hide();
-//     $(".layout-register-success").show();
-
-//     return;
-//   },
-//   error: function (XMLHttpRequest, textStatus, errorThrown) {
-//     console.log(
-//       "Có lỗi trong quá trình đưa lên máy chủ. Xin bạn vui lòng kiểm tra lỗi kết nối."
-//     );
-//     return;
-//   },
-// });
-
-// });
 
 $("#form-login").on("keypress", function (e) {
   if (e.which == 13 && !e.shiftKey) {

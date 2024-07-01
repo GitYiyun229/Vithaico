@@ -1,0 +1,131 @@
+@charset "UTF-8";
+html,
+body {
+  position: relative;
+  height: 100%;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.video-slider {
+  margin: 0;
+}
+
+.video-slider .video-item {
+  position: relative;
+}
+
+.video-slider .video-item video {
+  width: 100%;
+  height: 100vh;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.video-slider .video-item .right_video {
+  width: 50px;
+  padding: 10px;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
+}
+
+.video-slider .video-item .right_video .item_icon {
+  color: #fff;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.video-slider .video-item .right_video .item_icon:last-child {
+  margin-bottom: 0;
+}
+
+.video-slider .video-item .right_video .item_icon .bo_icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #fff;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  margin-bottom: 5px;
+}
+
+.video-slider .video-item .right_video .item_icon .text_icon {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.video-slider .video-item .right_video .item_icon .liked {
+  background-color: #000;
+  pointer-events: none;
+}
+
+.video-slider .video-item .right_video .item_icon .liked svg path {
+  fill: #fff;
+}
+
+header .site-logo-pc {
+  margin: auto;
+}
+
+header .home_page {
+  position: fixed;
+  padding: 5px 0;
+  top: 0;
+  left: 50%;
+  z-index: 1;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: 48px;
+  height: 50px;
+  display: inline-block;
+}
+
+.container {
+  padding: 0 !important;
+}
+
+.container #main_container {
+  margin: 0;
+}
+
+.container #main_container .main-column {
+  padding: 0;
+}
+
+video::-webkit-media-controls-mute-button,
+video::-webkit-media-controls-unmute-button {
+  display: none;
+  /* Ẩn biểu tượng âm lượng mặc định */
+  -webkit-transform: scale(2);
+          transform: scale(2);
+}
+
+video {
+  position: relative;
+}
+
+/* Tạo biểu tượng âm lượng tùy chỉnh */
+video::before {
+  content: '\1F50A';
+  /* Thay thế bằng ký tự Unicode tượng trưng cho biểu tượng âm lượng */
+  font-size: 40px;
+  /* Điều chỉnh kích thước của biểu tượng */
+  color: #ccc;
+  /* Điều chỉnh màu sắc của biểu tượng */
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  cursor: pointer;
+  -webkit-transform: scale(2);
+          transform: scale(2);
+}
+/*# sourceMappingURL=video.css.map */

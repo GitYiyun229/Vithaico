@@ -119,22 +119,7 @@ class FSRoute
         $url1 = '';
         $lang = isset($_SESSION['lang']) ? $_SESSION['lang'] : 'en';
         switch ($module) {
-            case 'api':
-                switch ($view) {
-                    case 'nhanh':
-                        switch ($task) {
-                            case 'webhooksNhanh':
-                                return $url_first . 'api/nhanh/webhooks-v2';
-                        }
-                    case 'ssc':
-                        switch ($task) {
-                            case 'webhooksSKU':
-                                return $url_first . 'api/ssc/sku-webhooks';
-                            case 'webhooksOrder':
-                                return $url_first . 'api/ssc/order-webhooks';
-                        }
-                }
-                break;
+           
             case 'members':
                 switch ($view) {
                     case 'log': {
@@ -212,12 +197,9 @@ class FSRoute
                         $code = isset($array_params['code']) ? $array_params['code'] : '';
                         $ccode = isset($array_params['ccode']) ? $array_params['ccode'] : '';
                         $id = isset($array_params['id']) ? $array_params['id'] : '';
-                        // return $url_first.'amp/'.$code.'-'.FSRoute::get_name_encode('n',$lang).$id.'.html';
                         return $url_first . $ccode . '/amp/' . $code . '-n' . $id;
                     case 'news':
-                        //                        $code = isset($array_params['code']) ? $array_params['code'] : '';
                         $ccode = isset($array_params['ccode']) ? $array_params['ccode'] : '';
-                        //                        $id = isset($array_params['id']) ? $array_params['id'] : '';
                         return $url_first . $ccode;
                     case 'tags':
                         $ccode = isset($array_params['ccode']) ? $array_params['ccode'] : '';
@@ -239,16 +221,6 @@ class FSRoute
                         return $url_first . $url;
                 }
                 break;
-
-            case 'tiktok':
-                switch ($view) {
-                    case 'home':
-                        return $url_first . 'tiktok';
-                    default:
-                        return $url_first . $url;
-                }
-                break;
-
             case 'contents':
                 switch ($view) {
                     case 'cat':
@@ -257,9 +229,6 @@ class FSRoute
                     case 'content':
                         $code = isset($array_params['code']) ? $array_params['code'] : '';
                         $id = isset($array_params['id']) ? $array_params['id'] : '';
-
-                        //                        $id = isset($array_params['id']) ? $array_params['id'] : '';
-                        //                        $code = isset($array_params['code']) ? $array_params['code'] : '';
                         return $url_first . $code . '-n' . $id . '.html';
                 }
                 break;

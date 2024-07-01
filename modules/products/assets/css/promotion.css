@@ -1,0 +1,36 @@
+.section-categories {
+  justify-content: center;
+  border: none;
+  background: #fff;
+  border-radius: 4px;
+  flex-wrap: nowrap;
+}
+.section-categories li {
+  width: 100%;
+}
+.section-categories .nav-link {
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-weight: 600;
+  color: #3B3B3B;
+  padding: 16px 8px;
+}
+.section-categories .nav-link.active {
+  border-color: #D53C00;
+  color: #D53C00;
+}
+.section-categories .nav-link:hover {
+  border-color: #D53C00;
+  color: #D53C00;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.layout-product-item {
+  width: calc((100% - 60px) / 5);
+}/*# sourceMappingURL=promotion.css.map */
