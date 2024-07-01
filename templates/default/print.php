@@ -8,14 +8,7 @@
 	$tmpl->addStylesheet('template');?>
 	<?php    $tmpl->loadHeader();?>
 	<script language="JavaScript" type="text/javascript">
-		//function select_print()
-//		{
-//			html =  document.getElementById('print').innerHTML;
-//			area_show =  document.getElementById('print-content-raw');
-//			area_hidden =  document.getElementById('print-content');
-//			area_show.innerHTML = html;
-//			document.getElementById('print').innerHTML = "";
-//		}
+
 	</script>
 </head>
 <!--
