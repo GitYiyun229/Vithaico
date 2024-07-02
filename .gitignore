@@ -3,4 +3,4 @@
 /upload_images
 /cache
 /log_mysql
-/includes
+/includes/config.php

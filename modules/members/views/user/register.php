@@ -61,7 +61,7 @@ $tmpl->addStylesheet('register', 'modules/members/assets/css');
                     <label class="checkbox style-c">
                         <input type="checkbox" class="check-dieukhoan" name="checkregister_text" id="checkregister_text">
                         <div class="checkbox__checkmark"></div>
-                        <div class="checkbox__body" >Tôi đã đọc và đồng ý các điều khoản thành viên </div>
+                        <div class="checkbox__body">Tôi đã đọc và đồng ý các điều khoản thành viên </div>
                     </label>
                 </div>
                 <div class="submit-register mt-3 mb-3">
