@@ -21,11 +21,6 @@ class MembersControllersDashboard extends MembersControllersMembers
         require PATH_BASE . "modules/$this->module/views/$this->view/default.php";
     }
 
-    public function login(){
-    }
-    public function register(){
-
-    }
     public function saveDashboard()
     {
         $this->auth('POST');
@@ -45,7 +40,6 @@ class MembersControllersDashboard extends MembersControllersMembers
         $row = compact('full_name', 'birthday', 'sex');
 
         if ($_FILES['image']["name"]) {
-            // $image = $this->model->upload_image('image', '_' . time(), 1000000, $this->arr_img_paths);
             $fsFile = FSFactory::getClass('FsFiles');
     
             $path = 'images' . DS . 'members' . DS . 'original' . DS;

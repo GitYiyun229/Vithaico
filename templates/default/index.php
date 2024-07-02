@@ -135,7 +135,7 @@ $alert = array(
             </div>
             <div class="header-top bg-white">
                 <!-- <div class="container d-flex align-items-center justify-content-between"> -->
-                <?php echo $tmpl->load_direct_blocks('product_categories', ['style' => 'menu_home']); ?>
+                <!-- <?php echo $tmpl->load_direct_blocks('product_categories', ['style' => 'menu_home']); ?> -->
                 <!-- </div> -->
             </div>
 
