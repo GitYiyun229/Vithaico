@@ -5,7 +5,11 @@ $tmpl->addStylesheet('register', 'modules/members/assets/css');
 <div class="container py-4">
     <div class="box-main-register m-auto">
         <div class="box-img-register text-center">
+<<<<<<< HEAD
             <img src="" alt="">
+=======
+            <img src="<?php echo URL_ROOT . "/images/login.svg"?>" alt="">
+>>>>>>> 17e8927964ffa27f44acdf64a2c16dc749439f60
         </div>
         <div class="text-dk my-4">
             <h4 class="fs-4 m-0 pb-3 text-uppercase text-center"><?php echo FSText::_('Đăng ký') ?></h4>
@@ -72,8 +76,16 @@ $tmpl->addStylesheet('register', 'modules/members/assets/css');
                 <?php echo csrf::displayToken(); ?>
             </form>
             <div class="login-res text-center d-flex gap-2 align-items-center justify-content-center">
+<<<<<<< HEAD
                 <p><?php echo FSText::_('Bạn đã có tài khoản?') ?></p> <a href="<?php echo FSRoute::_('index.php?module=members&view=user&task=login') ?>" class="fw-bold modal-member-tab text-red" data="login"><?php echo FSText::_('Đăng nhập') ?></a>
             </div>
         </div>
     </div>
 </div>
+=======
+                <p><?php echo FSText::_('Bạn đã có tài khoản?') ?></p> <a href="" class="fw-bold modal-member-tab text-red"><?php echo FSText::_('Đăng nhập') ?></a>
+            </div>
+        </div>
+    </div>
+</div>
+>>>>>>> 17e8927964ffa27f44acdf64a2c16dc749439f60

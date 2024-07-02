@@ -7,6 +7,7 @@ $tmpl->addStylesheet('login', 'modules/members/assets/css');
         <div class="box-img-register text-center">
             <img src="/modules/members/assets/images/Group 432.svg" alt="">
         </div>
+
         <div class="text-dk my-4">
             <h4 class="fs-4 m-0 pb-3 text-uppercase text-center"><?php echo FSText::_('Đăng nhập') ?></h4>
             <p class="summary-aff text-center">
@@ -46,6 +47,7 @@ $tmpl->addStylesheet('login', 'modules/members/assets/css');
                 <input type="hidden" name="task" value="login">
                 <input type="hidden" name="redirect" value="<?php echo $Itemid == 1 ? URL_ROOT : URL_ROOT . substr($_SERVER['REQUEST_URI'], strlen(URL_ROOT_REDUCE)) ?>" />
             </form>
+
 
             <div class="login-res d-flex align-items-center justify-content-between">
                 <div><?php echo FSText::_('Bạn là thành viên mới?') ?> <a href="<?php echo FSRoute::_('index.php?module=members&view=user&task=register') ?>" class="fw-bold modal-member-tab text-red" data="register-telephone"><?php echo FSText::_('Đăng ký') ?></a></div>
