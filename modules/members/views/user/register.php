@@ -5,11 +5,7 @@ $tmpl->addStylesheet('register', 'modules/members/assets/css');
 <div class="container py-4">
     <div class="box-main-register m-auto">
         <div class="box-img-register text-center">
-<<<<<<< HEAD
-            <img src="" alt="">
-=======
             <img src="<?php echo URL_ROOT . "/images/login.svg"?>" alt="">
->>>>>>> 17e8927964ffa27f44acdf64a2c16dc749439f60
         </div>
         <div class="text-dk my-4">
             <h4 class="fs-4 m-0 pb-3 text-uppercase text-center"><?php echo FSText::_('Đăng ký') ?></h4>
