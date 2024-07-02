@@ -21,6 +21,11 @@ class MembersControllersDashboard extends MembersControllersMembers
         require PATH_BASE . "modules/$this->module/views/$this->view/default.php";
     }
 
+    public function login(){
+    }
+    public function register(){
+
+    }
     public function saveDashboard()
     {
         $this->auth('POST');

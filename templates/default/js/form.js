@@ -293,7 +293,16 @@ function madeCheckbox(elemid, helperMsg) {
     return true;
   }
 }
-
+function validateCheckbox(elemid, helperMsg) {
+  var elem = $("#" + elemid);
+  if (!elem.is(":checked")) {
+    invalid(elemid, helperMsg);
+     elem.focus();
+    return false;
+  } else {
+    return true;
+  }
+}
 /*
  *  For checkbox multi.
  *  Min 1 item is checked
