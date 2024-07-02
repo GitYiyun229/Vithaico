@@ -4,7 +4,6 @@
   position: relative;
   background-color: #fff;
 }
-
 @media (min-width: 1000px) {
   .frame_body {
     width: 76%;
@@ -15,7 +14,6 @@
     margin-bottom: 50px;
   }
 }
-
 @media (max-width: 768px) {
   .frame_body {
     margin-bottom: 40px;
@@ -56,7 +54,6 @@
   width: 100%;
   border-radius: 10px;
 }
-
 .txtinput:focus {
   outline: none;
 }
@@ -86,7 +83,6 @@
   border-bottom: 1px solid #ddd;
   line-height: 35px;
 }
-
 @media (max-width: 768px) {
   .title_form {
     font-size: 22px;
@@ -96,5 +92,4 @@
 
 .label_error {
   margin-top: 5px;
-}
-/*# sourceMappingURL=login.css.map */
+}/*# sourceMappingURL=login.css.map */

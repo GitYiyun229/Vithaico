@@ -1,5 +1,6 @@
 <?php
 global $config, $tmpl, $module, $user;
+$tmpl->addStylesheet('register', 'modules/members/assets/css');
 $Itemid = FSInput::get('Itemid', 1, 'int');
 $totalCart = 0;
 if (!empty($_SESSION['cart'])) {
@@ -240,21 +241,20 @@ $alert = array(
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body p-0">
-                <div class="layout-modal layout-register-success" style="display: none;">
-                    <div class="text-center mb-5">
-                        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M18.0837 28.0001L24.687 34.6034L37.917 21.3967M28.0003 51.3334C40.8337 51.3334 51.3337 40.8334 51.3337 28.0001C51.3337 15.1667 40.8337 4.66675 28.0003 4.66675C15.167 4.66675 4.66699 15.1667 4.66699 28.0001C4.66699 40.8334 15.167 51.3334 28.0003 51.3334Z" stroke="#3BA500" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <div class="layout-modal pt-3 layout-register-success" style="display: none;">
+                    <div class="text-center mb-3">
+                        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="52" height="52" rx="26" fill="#3BA500" fill-opacity="0.08" />
+                            <rect x="6" y="6" width="40" height="40" rx="20" fill="#3BA500" fill-opacity="0.08" />
+                            <path d="M21.75 26L24.58 28.83L30.25 23.17M26 36C31.5 36 36 31.5 36 26C36 20.5 31.5 16 26 16C20.5 16 16 20.5 16 26C16 31.5 20.5 36 26 36Z" stroke="#3BA500" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
+
                     </div>
                     <div class="fs-4 register-success-message mb-5 text-center"></div>
                     <div class="mb-4 text-center">
-                        Bạn đã tạo thành công tài khoản với email <br>
-                        <b class="register-success-telephone register-success-email"></b>
+                        Đăng ký tài khoản thành công !
                     </div>
-                    <div class="mb-4 text-center">
-                        Bạn sẽ được chuyển hướng đến ShopUSA trong <p class="re-send-count-down-callback"></p> giây.
-                    </div>
-                    <a href="<?php echo URL_ROOT ?>" class="form-submit text-uppercase d-flex align-items-center justify-content-center fw-medium"><?php echo FSText::_('Quay lại trang chủ') ?></a>
+
                 </div>
                 <div class="layout-modal layout-password" style="display: none;">
                     <a href="" class="modal-member-tab" data="login">
