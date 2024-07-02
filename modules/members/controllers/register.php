@@ -150,6 +150,7 @@ class MembersControllersRegister extends FSControllers
         }
 
         $DataName = FSInput::get('name');
+        $DataPhone = FSInput::get('phone');
         $DataEmail = FSInput::get('email');
         $DataPass = FSInput::get('password');
         $DataConfirmPass = FSInput::get('repassword');
@@ -177,13 +178,12 @@ class MembersControllersRegister extends FSControllers
             goto exitFunc;
         }
 
-        $exist = $this->model->get_record("email = '" . $DataEmail . "' ", 'fs_members', 'id');
-
+        $exist = $this->model->get_record("telephone = '" . $DataPhone . "' ", 'fs_members', 'id');
         if ($exist) {
             $response = [
-                'type' => 'email',
+                'type' => 'phone',
                 'error' => true,
-                'message' => FSText::_('email đã được đăng ký thành viên trước đó!'),
+                'message' => FSText::_('Số điện thoại đã được đăng ký thành viên trước đó!'),
             ];
             goto exitFunc;
         }
@@ -191,6 +191,7 @@ class MembersControllersRegister extends FSControllers
         $row = [
             'full_name' => $DataName,
             'email' => $DataEmail,
+            'telephone' => $DataPhone,
             'password' => md5($DataPass),
             'created_time' => date('Y-m-d H:i:s'),
             'published' => 1,

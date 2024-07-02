@@ -48,7 +48,6 @@
                  <!--tạo thêm div scroll config ơer đây nhé !  -->
                  <input type="checkbox" name="checkregister_text" id="checkregister_text">
                  <label for="checkregister_text">Tôi đã đọc và đồng ý các điều khoản thành viên</label>
-
              </div>
 
              <div class="mt-4 mb-4">

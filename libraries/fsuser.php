@@ -116,8 +116,7 @@ class FSUser
                 $password = "'$password'";
         }
         $sql = "SELECT * FROM `" . $this->tbStore . "` 
-    	            WHERE (`email` = '$uname' OR `telephone` = '$uname') AND `password` = $password LIMIT 1";
-        
+    	            WHERE (`telephone` = '$uname') AND `password` = $password LIMIT 1";
         $db->query($sql);
         $user = $db->getObject();
 
