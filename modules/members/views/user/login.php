@@ -24,6 +24,13 @@ $tmpl->addStylesheet('login', 'modules/members/assets/css');
                     </svg>
                 </a>
             </div>
+            <div>
+                <label class="checkbox style-c">
+                    <input type="checkbox" class="check-dieukhoan" name="checkregister_text" id="checkregister_text">
+                    <div class="checkbox__checkmark"></div>
+                    <div class="checkbox__body">Tôi đã đọc và đồng ý các điều khoản thành viên </div>
+                </label>
+            </div>
             <div class="mb-4">
                 <a href="" id="btn-submit-login" class="form-submit text-uppercase d-flex align-items-center justify-content-center fw-medium"><?php echo FSText::_('Đăng nhập') ?></a>
             </div>
