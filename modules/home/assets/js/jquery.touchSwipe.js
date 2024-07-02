@@ -1,0 +1,1 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.4/jquery.touchSwipe.js" integrity="sha512-d+o1QCZseb9vqxwKX/JmoR9jHxMl//u6D1v6Zcjip6XCEKtQ/yPy6JWgGtKYJD9YHcgkSwhVUpRycdhjU/ALeA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

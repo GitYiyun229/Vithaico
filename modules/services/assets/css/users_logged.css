@@ -1,0 +1,29 @@
+.login_form{
+	float: left;
+    width: 300px;
+}
+.login_form label{
+    font-weight: bold;
+    color: #535353;
+}
+.login_form .txtinput{
+    width: 180px;
+}
+.person_login{
+	display: table-cell;
+    padding-left: 24px;
+    background: url("../images/infor_bg.jpg") repeat-y scroll left top transparent;
+}
+.row1{
+	background-color:#fff;
+}
+.table{
+	border-color:#fff;
+}
+.frame_color_m_c{
+	text-align:center;
+	padding-left:30px 10px 0px 10px;
+	font-weight:bold;
+	font-size:14px;
+	height:100px;
+}

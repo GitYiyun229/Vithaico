@@ -1,0 +1,440 @@
+<?php
+	class MenusModelsItems extends FSModels
+	{
+		var $limit;
+		var $page;
+		var $prefix ;
+		function __construct()
+		{
+			$limit = 30;
+			$limit_created_link = 30;
+			$page = FSInput::get('page');
+			$this->limit = $limit;
+			$this->limit_created_link = $limit_created_link;
+			$this->page = $page;
+			$this -> view = 'items';
+			$this -> table_name = FSTable_ad::_('fs_menus_items');
+			$this -> table_link = 'fs_menus_createlink';
+			parent::__construct();
+		}
+
+		function getMenuItems()
+		{
+			// get from database
+			global $db;
+			$query = $this->setQuery();
+			$db->query($query);
+			$result = $db->getObjectList();
+
+			// create tree
+			$tree  = FSFactory::getClass('tree','tree/');
+			$list = $tree -> indentRows2($result);
+
+			$limit = $this->limit;
+			$page  = $this->page?$this->page:1;
+
+			$start = $limit*($page-1);
+			$end = $start + $limit;
+
+			$list_new = array();
+			$i = 0;
+			foreach ($list as $row){
+				if($i >= $start && $i < $end){
+					$list_new[] = $row;
+				}
+				$i ++;
+				if($i > $end)
+					break;
+			}
+			return $list_new;
+
+
+
+
+//			$sql = $db->query_limit($query,$this->limit,$this->page);
+//			$result = $db->getObjectList();
+//
+//			return $result;
+		}
+
+		function getMenuGroups()
+		{
+			global $db;
+			$query = " SELECT group_name, id 
+						FROM fs_menus_groups WHERE published = 1 ";
+		$result = $db->getObjectList($query);
+
+		return $result;
+	}
+
+	function getMenuItemsToParent($group_id = 0)
+	{
+		global $db;
+		$where = '';
+		if ($group_id)
+			$where .= ' AND group_id = ' . $group_id . ' ';
+		$query = " SELECT name, id, parent_id as parent_id 
+						FROM " . $this->table_name . "
+						WHERE (show_admin = 1 OR group_id IS NOT NULL) " . $where . " ";
+
+		$result = $db->getObjectList($query);
+
+		$fs_tree  = FSFactory::getClass('tree', 'tree');
+		$list = $fs_tree->indentRows($result);
+		return $list;
+	}
+
+	function ajax_get_menu_by_group()
+	{
+		$group_id = FSInput::get('group_id');
+		$filter_group = FSInput::get('filter_group');
+		global $db;
+		$where = '';
+		if ($group_id && $filter_group)
+			$where .= ' AND group_id = ' . $group_id . ' ';
+		$query = " SELECT name, id, parent_id as parent_id 
+						FROM " . $this->table_name . "
+						WHERE (show_admin = 1 OR group_id IS NOT NULL) " . $where . " ";
+		$sql = $db->query($query);
+		$result = $db->getObjectList();
+		$fs_tree  = FSFactory::getClass('tree', 'tree');
+		$list = $fs_tree->indentRows($result);
+		array_unshift($list, (object)array('id' => 0, 'name' => FSText::_('Parent'), 'treename' => FSText::_('Parent'), 'parent_id' => 0));
+		return $list;
+	}
+
+	function setQuery()
+	{
+		$ordering = "";
+		$where = "  ";
+		if (isset($_SESSION[$this->prefix . 'sort_field'])) {
+			$sort_field = $_SESSION[$this->prefix . 'sort_field'];
+			$sort_direct = $_SESSION[$this->prefix . 'sort_direct'];
+			$sort_direct = $sort_direct ? $sort_direct : 'asc';
+			$ordering = '';
+			if ($sort_field)
+				$ordering .= " ORDER BY $sort_field $sort_direct,a.parent_id, created_time DESC, id DESC ";
+		}
+		if (!$ordering)
+			$ordering .= " ORDER BY created_time DESC , id DESC ";
+
+		if (isset($_SESSION[$this->prefix . 'keysearch'])) {
+			if ($_SESSION[$this->prefix . 'keysearch']) {
+				$keysearch = $_SESSION[$this->prefix . 'keysearch'];
+				$where .= " AND a.name LIKE '%" . $keysearch . "%' ";
+			}
+		}
+		// estore
+		if (isset($_SESSION[$this->prefix . 'filter0'])) {
+			$filter = $_SESSION[$this->prefix . 'filter0'];
+			if ($filter) {
+				$where .= ' AND group_id =  "' . $filter . '" ';
+			}
+		}
+
+		$gid = FSInput::get('gid');
+		//			$where = " WHERE  show_admin = 1 OR group_id IS NOT NULL ";
+		//			if($gid)
+		//				$where .= "  AND = $gid ";
+		$query = " SELECT a.*, parent_id as parent_id, b.group_name 
+						  FROM " . $this->table_name . " as a
+						  LEFT JOIN fs_menus_groups as b ON a.group_id  = b.id 
+						  WHERE  (show_admin = 1 OR group_id IS NOT NULL)  " .
+			$where .
+			$ordering . " ";
+		return $query;
+	}
+
+
+	function getMenuItemById($id)
+	{
+		$query = " SELECT *
+						  FROM " . $this->table_name . "
+						  WHERE id = $id ";
+
+		global $db;
+		$result = $db->getObject($query);
+		return $result;
+	}
+
+	/*
+		 * Save
+		 */
+
+	function save($row = array(), $use_mysql_real_escape_string = 1)
+	{
+		global $db;
+		$id = FSInput::get('id', 0, 'int');
+		$parent_id = FSInput::get('parent_id', 0, 'int');
+		if ($id) {
+			if ($parent_id == $id) {
+				Errors::_('Parent is not exactly');
+				return false;
+			}
+		}
+		$name = FSInput::get('name');
+		$alias = FSInput::get('alias');
+
+		if (!$name) {
+			return false;
+		}
+
+		$fsstring = FSFactory::getClass('FSString', '', '../');
+		if ($alias) {
+			$alias = $fsstring->stringStandart($alias);
+		} else {
+			$alias = $fsstring->stringStandart($name);
+		}
+		//			if($this -> check_exist_alias($name,$alias,$id, $this -> table_name)){
+		//				Errors::_('Name must unique');
+		//				return false;
+		//			}
+
+		$description = FSInput::get('description');
+		$bk_color = FSInput::get('bk_color');
+		$summary = FSInput::get('summary');
+		$group_id = FSInput::get('group_id');
+		$published = FSInput::get('published');
+		$ordering = FSInput::get('ordering');
+		$target  = FSInput::get('target');
+		$is_en  = FSInput::get('is_en');
+		$is_rewrite = FSInput::get('is_rewrite');
+		$icon  = FSInput::get('icon');
+		$link = htmlspecialchars_decode(FSInput::get('link'));
+
+		$default = FSInput::get('default', 0, 'int');
+		$time = date('Y-m-d H:i:s');
+		$show_admin = 1;
+
+		$color_bg = FSInput::get('color_bg');
+		$image_mb = $_FILES["image_mb"]["name"];
+		// image
+		$image = $_FILES["image"]["name"];
+		$sql_insert_img_field = "";
+		$sql_insert_img_value = "";
+
+		$sql_insert_parent_id_field = isset($parent_id) ? "parent_id," : "";
+		$sql_insert_parent_id_value = isset($parent_id) ? "'" . $parent_id . "'," : "";
+		$sql_update_parent_id = isset($parent_id) ? "parent_id = '" . $parent_id . "', " : "";
+
+		$sql_insert_default_field = isset($default) ? "`default`," : "";
+		$sql_insert_default_value = isset($default) ? "'" . $default . "'," : "";
+		$sql_update_default = isset($parent_id) ? "`default` = '" . $default . "', " : "";
+
+		$sql_update_img = " ";
+		if ($image) {
+			if ($id) {
+				$data = $this->get_record_by_id($id, 'fs_menus_items');
+				if ($data->image)
+					if (!@unlink(PATH_BASE . $data->image)) {
+						Errors::_('Not remove image');
+					}
+			}
+
+			$fsFile = FSFactory::getClass('FsFiles');
+			$path = PATH_BASE . 'images' . DS . 'menus' . DS;
+			$image = $fsFile->uploadImage("image", $path, 2000000);
+			if (!$image)
+				return false;
+
+			$sql_insert_img_field = "image,";
+			$sql_insert_img_value = "'images/menus/" . $image . "',";
+
+			$sql_update_img = "image = 'images/menus/" . $image . "', ";
+		}
+
+		if ($image_mb) {
+			$fsFile = FSFactory::getClass('FsFiles');
+			$path = PATH_BASE . 'images' . DS . 'menus' . DS;
+			$image_mb = $fsFile->uploadImage("image_mb", $path, 2000000);
+			if (!$image_mb)
+				return false;
+
+			$sql_insert_img_field .= "image_mb,";
+			$sql_insert_img_value .= "'images/menus/" . $image_mb . "',";
+
+			$sql_update_img .= "image_mb = 'images/menus/" . $image_mb . "', ";
+		}
+
+		if (@$id) {
+			if (!$parent_id) {
+				$level = 0;
+				$list_parent = $id;
+			} else {
+				$parent_item = $this->getMenuItemById($parent_id);
+				$level = ($parent_item->level + 1);
+				$list_parent = $parent_item->list_parent . "," . $id;
+			}
+
+			$sql = " UPDATE  " . $this->table_name . " SET 
+							name = '$name',
+							alias = '$alias',
+							description = '$description',
+                            summary = '$summary',
+                            bk_color = '$bk_color',
+							link = '$link',
+							" . $sql_update_parent_id . "
+							" . $sql_update_img . " 
+							group_id = '$group_id',
+							published = '$published',
+							ordering = '$ordering',
+							target = '$target',
+							show_admin = '$show_admin',
+							" . $sql_update_default . "
+							updated_time = '$time',
+							list_parent = '$list_parent',
+							level = '$level',
+							is_rewrite = '$is_rewrite',
+							icon = '$icon',
+							color_bg = '$color_bg'
+							
+						WHERE id = 	$id 
+				";
+			// print_r($sql);die;
+			$rows = $db->affected_rows($sql);
+
+			// $memcache = new Memcache();
+            // $memcache->addServer('127.0.0.1', 11211);
+            // $memcache->flush();
+
+			if ($rows) {
+				return $id;
+			}
+			return 0;
+		} else {
+			$sql = " INSERT INTO " . $this->table_name . "
+							(name,alias," . $sql_insert_img_field . "link," . $sql_insert_parent_id_field . "group_id,published,summary,bk_color,ordering,target,is_rewrite,show_admin," . $sql_insert_default_field . "updated_time,created_time,`color_bg`)
+							VALUES ('$name','$alias'," . $sql_insert_img_value . "'$link'," . $sql_insert_parent_id_value . "'$group_id','$published','$summary','$bk_color','$ordering','$target','$is_rewrite','$show_admin'," . $sql_insert_default_value . "'$time','$time','$color_bg')
+							";
+//							print_r($sql);die;
+			$id = $db->insert($sql);
+			if (!$id)
+				return;
+
+			if (!$parent_id) {
+				$level = 0;
+				$list_parent = $id;
+			} else {
+				$parent_item = $this->getMenuItemById($parent_id);
+				$level = ($parent_item->level + 1);
+				$list_parent = $parent_item->list_parent . "," . $id;
+			}
+
+			// update list_parent
+			$sql = " UPDATE  " . $this->table_name . " SET 
+							list_parent = '$list_parent',
+							level = '$level'
+							WHERE id = " . $id . " ";
+			$rows = $db->affected_rows($sql);
+
+
+
+			return $id;
+		}
+	}
+
+	/*
+		 * remove record
+		 */
+	//		}
+	/*********************************** CREATE LINK *********************************/
+
+	function getCreateLinks()
+	{
+		global $db;
+		$query = " SELECT *, parent_id as parent_id
+						FROM  " . $this->table_link . "
+						WHERE published = 1 
+						ORDER BY parent_id, ordering ";
+		$sql = $db->query($query);
+		$result = $db->getObjectList();
+		foreach ($result as $item) {
+			$item->name = FSText::_($item->name);
+		}
+
+		$fs_tree  = FSFactory::getClass('tree', 'tree');
+		$list = $fs_tree->indentRows($result);
+		return $list;
+	}
+
+	function getParentLink()
+	{
+		global $db;
+		$query = " SELECT parent, count(*) as nums_child
+						FROM  " . $this->table_link . "						 
+						WHERE 	 published = 1	
+						GROUP BY parent ";
+		$result = $db->getObjectList($sql);
+
+		return $result;
+	}
+
+	function get_linked_id()
+	{
+		$id = FSInput::get('id', 0, 'int');
+		if (!$id)
+			return;
+		global $db;
+		$query = " SELECT *
+						FROM  " . $this->table_link . "
+						WHERE published = 1
+						AND id = $id 
+						 ";
+		$result = $db->getObject($query);
+
+		return $result;
+	}
+
+
+	function set_query_create_link($add_table, $add_field_display, $add_field_value, $add_field_distinct)
+	{
+		$query  = '';
+		if ($add_field_distinct) {
+			if ($add_field_display != $add_field_value) {
+				echo "Khi đã chọn distinct, duy nhất chỉ xét một trường. Bạn hãy check lại trường hiển thị và trường dữ liệu";
+				return false;
+			}
+			$query .= ' SELECT DISTINCT ' . $add_field_display . ' ';
+		} else {
+			$query .= ' SELECT ' . $add_field_display . ' ,' . $add_field_value . '  ';
+		}
+		$query .= ' FROM ' . FSTable_ad::_($add_table);
+		$query .= '	WHERE published = 1 ';
+		return $query;
+	}
+	/*
+		 * get List data from table
+		 * for create link
+		 */
+	function get_data_from_table($add_table, $add_field_display, $add_field_value, $add_field_distinct)
+	{
+		$query = $this->set_query_create_link($add_table, $add_field_display, $add_field_value, $add_field_distinct);
+		if (!$query)
+			return;
+
+
+		global $db;
+		$sql = $db->query_limit($query, $this->limit_created_link, $this->page);
+		$result = $db->getObjectList();
+
+		return $result;
+	}
+
+	function get_total_create_link($add_table, $add_field_display, $add_field_value, $add_field_distinct)
+	{
+		global $db;
+		$query = $this->set_query_create_link($add_table, $add_field_display, $add_field_value, $add_field_distinct);
+
+		$total = $db->getTotal($query);
+		return $total;
+	}
+
+	function get_pagination_create_link($add_table, $add_field_display, $add_field_value, $add_field_distinct)
+	{
+		$total = $this->get_total_create_link($add_table, $add_field_display, $add_field_value, $add_field_distinct);
+		$pagination = new Pagination($this->limit_created_link, $total, $this->page);
+		return $pagination;
+	}
+
+	/*********************************** end CREATE LINK *********************************/
+}

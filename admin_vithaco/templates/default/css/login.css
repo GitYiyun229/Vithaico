@@ -1,0 +1,69 @@
+body {
+    background: url(../images/bg_body.jpg);
+}
+
+body.login-page {
+    background: red;
+}
+
+#login-from {
+    background: url(../images/bg_login_form.png) no-repeat;
+    width: 356px;
+    height: 275px;
+    position: fixed;
+}
+
+#login-from .txt_login {
+    background: none transparent;
+    display: block;
+    border: none;
+    padding: 0 0 0 0;
+    width: 195px;
+    height: 26px;
+    margin: 0 0 0 110px;
+    color: #b6b9bd;
+    outline: none !important;
+}
+
+#login-from #usermane {
+    margin-top: 88px;
+}
+
+#login-from #password {
+    margin-top: 15px;
+}
+
+#login-from input[type="submit"] {
+    display: block;
+    width: 82px;
+    height: 30px;
+    line-height: 30px;
+    border: 0 !important;
+    margin: 8px 0 0 100px;
+    padding: 0 0 0 0;
+    color: #354049;
+    font-size: 13px;
+    background: none transparent;
+    text-shadow: 1px 1px #d8e2ec;
+    cursor: pointer;
+}
+
+#login-from input[type="submit"]:hover {
+    color: #111;
+}
+
+#login-from .copyright {
+    text-align: center;
+    color: #505c6a;
+    font-size: 11px;
+    margin-top: 20px;
+}
+
+#login-from .copyright a {
+    color: #505c6a;
+    text-decoration: none;
+}
+
+#login-from .copyright a:hover {
+    text-decoration: underline;
+}

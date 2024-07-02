@@ -1,0 +1,31 @@
+.category_list {
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: space-evenly !important;
+  align-items: center !important;
+  .box-items {
+    overflow: hidden;
+    width: calc((100% - 160px) / 6);
+    .items {
+      justify-content: center;
+      gap: 16px;
+      justify-items: center;
+      align-items: center;
+      p {
+        color: #3b3b3b;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 140%;
+        transition: all 0.3s;
+      }
+    }
+    &:hover .items {
+      p {
+        text-decoration: none;
+        color: #d53c00;
+      }
+    }
+  }
+}
