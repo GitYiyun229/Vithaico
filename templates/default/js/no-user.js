@@ -166,30 +166,30 @@ function checkRegister() {
   $.ajax({
     url: "index.php?module=members&view=register&task=register&raw=1",
     type: "POST",
-    data: { token, name, email, password, repassword ,phone},
+    data: { token, name, email, password, repassword, phone },
     dataType: "JSON",
     success: function (result) {
-      // if (result.error == false) {
-      //   _this.html(`Đăng ký`).css("pointer-events", "auto");
-      //   $(".register-success-telephone").html(email);
+      if (result.error == false) {
+        _this.html(`Đăng ký`).css("pointer-events", "auto");
+        $(".register-success-telephone").html(email);
         $(".layout-modal").hide();
-       $("#memberModal").modal("show");
+        $("#memberModal").modal("show");
         $(".layout-register-success").show();
-      //   let endTime = new Date().getTime() + 11 * 1000;
+        let endTime = new Date().getTime() + 11 * 1000;
 
-      //   countInterval = setInterval(function () {
-      //     let currentTime = new Date().getTime();
-      //     let timeDifference = endTime - currentTime;
-      //     if (timeDifference > 0) {
-      //       let seconds = Math.floor((timeDifference % (1000 * 10)) / 1000);
-      //       $(".re-send-count-down-callback").text(seconds + "s");
-      //     } else {
-      //       clearInterval(countInterval);
-      //       $(".re-send-count-down-call-back").text("");
-      //       window.location.reload();
-      //     }
-      //   }, 1000);
-      // }
+        countInterval = setInterval(function () {
+          let currentTime = new Date().getTime();
+          let timeDifference = endTime - currentTime;
+          if (timeDifference > 0) {
+            let seconds = Math.floor((timeDifference % (1000 * 10)) / 1000);
+            $(".re-send-count-down-callback").text(seconds + "s");
+          } else {
+            clearInterval(countInterval);
+            $(".re-send-count-down-call-back").text("");
+            window.location.reload();
+          }
+        }, 1000);
+      }
       if (result.error == true) {
         _this.html(result.message).css("pointer-events", "auto");
         if (result.type == "pass") {
