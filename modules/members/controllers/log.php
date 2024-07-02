@@ -41,7 +41,7 @@ class MembersControllersLog extends FSControllers
         if (!$userlog || !$passlog) {
             $response = [
                 'error' => true,
-                'message' => FSText::_('Email/Số điện thoại, Mật khẩu không được bỏ trống!')
+                'message' => FSText::_('Số điện thoại, Mật khẩu không được bỏ trống!')
             ];
             goto exitFUnc;
         }
