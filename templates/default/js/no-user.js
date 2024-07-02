@@ -79,7 +79,9 @@ $("#btn-submit-login").click(function (e) {
     invalid("userlog", "Vui lòng nhập email hoặc số điện thoại!");
     return false;
   }
-
+  if (!validateCheckbox("checkregister_text", alert_members1[11])) {
+    return false;
+  }
   if (!passlog) {
     invalid("passlog", "Vui lòng nhập mật khẩu!");
     return false;
