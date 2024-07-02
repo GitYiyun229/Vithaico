@@ -1,7 +1,7 @@
 <?php
 
 $db_info = array(
-    'dbName' => 'localvithaico_db',
+    'dbName' => 'vithaico_db',
     'dbUser' => 'root',
     'dbPass' => 'root',
     'dbHost' => 'localhost'
