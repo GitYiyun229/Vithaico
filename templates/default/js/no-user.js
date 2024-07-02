@@ -154,6 +154,7 @@ function checkRegister() {
   }
   let name = $("input[name=nameregister]").val();
   let email = $("input[name=emailregister]").val();
+  let phone = $("input[name=phoneregister]").val();
   let password = $("input[name=passregister]").val();
   let repassword = $("input[name=repassregister]").val();
   let _this = $(this);
@@ -165,7 +166,7 @@ function checkRegister() {
   $.ajax({
     url: "index.php?module=members&view=register&task=register&raw=1",
     type: "POST",
-    data: { token, name, email, password, repassword },
+    data: { token, name, email, password, repassword ,phone},
     dataType: "JSON",
     success: function (result) {
       if (result.error == false) {
@@ -196,6 +197,9 @@ function checkRegister() {
         }
         if (result.type == "email") {
           invalid("emailregister", result.message);
+        }
+        if (result.type == "phone") {
+          invalid("phoneregister", result.message);
         }
       }
     },
