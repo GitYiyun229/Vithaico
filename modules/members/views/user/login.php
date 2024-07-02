@@ -5,10 +5,8 @@ $tmpl->addStylesheet('login', 'modules/members/assets/css');
 <div class="container">
     <div class="box-main-register m-auto">
         <div class="box-img-register text-center">
-            <img src="/modules/members/assets/images/Group 432.svg" alt="">
+            <img src="/modules/members/assets/images/login_image.svg" alt="">
         </div>
-
-        
         <div class="text-dk my-4">
             <h4 class="fs-4 m-0 pb-3 text-uppercase text-center"><?php echo FSText::_('Đăng nhập') ?></h4>
             <p class="summary-aff text-center">
