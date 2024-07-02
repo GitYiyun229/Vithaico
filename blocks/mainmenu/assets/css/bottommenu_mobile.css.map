@@ -1,9 +1,1 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,CAAC,CAAA;EACC,KAAK,EAAE,GAAG;CACX",
-    "sources": [
-        "bottommenu_mobile.scss"
-    ],
-    "names": [],
-    "file": "bottommenu_mobile.css"
-}
+{"version":3,"sources":["bottommenu_mobile.scss","bottommenu_mobile.css"],"names":[],"mappings":"AAAA;EACE,UAAA;ACCF","file":"bottommenu_mobile.css"}

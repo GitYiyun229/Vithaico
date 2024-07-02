@@ -1,11 +1,9 @@
 .page-favorite .section-more {
   gap: 10px;
 }
-
 .page-favorite .layout-product-item {
   width: calc((100% - 40px) / 5);
 }
-
 .page-favorite .layout-product-item .layout-img {
   height: 177.19px;
 }
@@ -18,7 +16,6 @@
     height: calc((100vw - 56px) / 3);
   }
 }
-
 @media (max-width: 450px) {
   .page-favorite .layout-product-item {
     width: calc((100% - 10px) / 2);
@@ -26,5 +23,4 @@
   .page-favorite .layout-product-item .layout-img {
     height: calc((100vw - 44px) / 2);
   }
-}
-/*# sourceMappingURL=favorite.css.map */
+}/*# sourceMappingURL=favorite.css.map */
