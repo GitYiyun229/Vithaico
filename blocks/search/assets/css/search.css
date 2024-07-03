@@ -6,25 +6,20 @@
   overflow: auto;
   width: 670px !important;
 }
-
 .autocomplete-suggestions::-webkit-scrollbar {
   width: 10px;
   right: 10px;
   position: absolute;
 }
-
 .autocomplete-suggestions::-webkit-scrollbar-track {
   background: #f5f5f5;
 }
-
 .autocomplete-suggestions::-webkit-scrollbar-thumb {
   background: #D53C00;
 }
-
 .autocomplete-suggestions::-webkit-scrollbar-thumb:hover {
   background: #C23700;
 }
-
 .autocomplete-suggestions a {
   color: #333;
   background: #fff;
@@ -32,18 +27,15 @@
   padding: 0.75rem 1rem;
   font-weight: 500;
 }
-
 .autocomplete-suggestions a img {
   width: 50px;
   height: 50px;
   -o-object-fit: contain;
      object-fit: contain;
 }
-
 .autocomplete-suggestions a:hover {
   background: #FBECE6;
 }
-
 .autocomplete-suggestions b {
   color: #D53C00;
 }
@@ -55,10 +47,8 @@
     width: 100% !important;
   }
 }
-
 @media (max-width: 450px) {
   .autocomplete-suggestions {
     top: 73px !important;
   }
-}
-/*# sourceMappingURL=search.css.map */
+}/*# sourceMappingURL=search.css.map */

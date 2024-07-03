@@ -19,7 +19,7 @@ class ProductsModelsProduct extends FSModels
         $id = FSInput::get('id', 0);
         $code = FSInput::get('code', '');
         global $db;
-        $sql = "SELECT id, name, image, alias, quantity, text_buy, category_id_wrapper, tablename,category_name, price, price_old, seo_title, seo_keyword, seo_description, `description`, status_prd, promotion_id, promotion_end_time, promotion_start_time, subtitle, sold_out, trademark, sale_brief, products_same, nick_name, products_related, comments_total
+        $sql = "SELECT id, name, image, alias, code, quantity, summary, text_buy, category_id_wrapper, tablename,category_name, price, price_discount, price_old, seo_title, seo_keyword, seo_description, `description`, status_prd, promotion_id, promotion_end_time, promotion_start_time, subtitle, sold_out, trademark, sale_brief, products_same, nick_name, products_related, comments_total
                 FROM $this->table
                 WHERE published = 1 AND id = $id AND alias = '$code'
         ";

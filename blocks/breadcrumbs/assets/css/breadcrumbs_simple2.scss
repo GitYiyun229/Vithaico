@@ -1,3 +1,3 @@
-.breadcrumb-item+.breadcrumb-item::before{
-    content:unset;
+.breadcrumb-item + .breadcrumb-item::before {
+  content: unset;
 }

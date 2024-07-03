@@ -31,56 +31,56 @@ class ProductsControllersProduct extends FSControllers
         global $tmpl, $config, $user;
         $model = $this->model;
         $timeNow = date('Y-m-d H:i:s');
-       
+
         $data = $model->getData();
         if (!$data) {
             setRedirect(URL_ROOT, FSText::_('Sản phẩm không tồn tại'), 'error');
         }
-        
+
         $promotionDiscount = NULL;
         if ($user->userID) {
             $promotionDiscount = $model->getPromotionDiscountProduct($data->id, $timeNow);
-        }       
+        }
 
         // tính lại giá sp nếu có discount hoặc flash sale
-        $data = $this->nomalizeProduct($data, $promotionDiscount);
+        // $data = $this->nomalizeProduct($data, $promotionDiscount);
 
         // ảnh sp, sp con
         $dataImage = $model->getDataImage($data->id);
 
         // tính lại giá sp con nếu có flash sale
-        $dataType = $model->getDataType($data->id);
-        if (!empty($dataType)) {
-            foreach ($dataType as $item) {
-                $item->price_public = $item->price;
-                $item->price_old = $item->price_old ?: $item->price;
-                $item->percent = $item->price_public && $item->price_old != 0 && $item->price_public < $item->price_old ? 100 - round($item->price_public / $item->price_old * 100, 0) : 0;
+        // $dataType = $model->getDataType($data->id);
+        // if (!empty($dataType)) {
+        //     foreach ($dataType as $item) {
+        //         $item->price_public = $item->price;
+        //         $item->price_old = $item->price_old ?: $item->price;
+        //         $item->percent = $item->price_public && $item->price_old != 0 && $item->price_public < $item->price_old ? 100 - round($item->price_public / $item->price_old * 100, 0) : 0;
 
-                if (!empty($promotionDiscount) && $user->userID) {
-                    if ($promotionDiscount->price && $promotionDiscount->price > 0) {
-                        $item->price_discount = $promotionDiscount->price;
-                    } else {
-                        $item->price_discount = $item->price_public - round($promotionDiscount->percent * $item->price_public / 100, -3);
-                    }
+        //         if (!empty($promotionDiscount) && $user->userID) {
+        //             if ($promotionDiscount->price && $promotionDiscount->price > 0) {
+        //                 $item->price_discount = $promotionDiscount->price;
+        //             } else {
+        //                 $item->price_discount = $item->price_public - round($promotionDiscount->percent * $item->price_public / 100, -3);
+        //             }
 
-                    if (!$promotionDiscount->quantity_user) {
-                        $item->price_public = $item->price_discount;
-                    }
-    
-                    $item->percent = round(100 - $item->price_public * 100 / $item->price_old, 0);
-                }
+        //             if (!$promotionDiscount->quantity_user) {
+        //                 $item->price_public = $item->price_discount;
+        //             }
 
-                foreach ($dataImage as $imgIndex => $img) {
-                    if ($img->sub_id == $item->id) {
-                        $item->thumbnail_index = $imgIndex + 1;
-                    }
-                }
-            }
-        }
+        //             $item->percent = round(100 - $item->price_public * 100 / $item->price_old, 0);
+        //         }
+
+        //         foreach ($dataImage as $imgIndex => $img) {
+        //             if ($img->sub_id == $item->id) {
+        //                 $item->thumbnail_index = $imgIndex + 1;
+        //             }
+        //         }
+        //     }
+        // }
 
         // sản phẩm cùng loại
         $dataSame = $model->getDataSame($data->products_same);
-        
+
         // sản phẩm liên quan
         $dataRelated = $model->getDataRelated($data->products_related, $data->id);
         $dataRelated = $this->nomalizeProducts($dataRelated);
@@ -96,11 +96,11 @@ class ProductsControllersProduct extends FSControllers
             $arrFieldSelectId = [];
 
             foreach ($dataExtend as $item) {
-                $arrFieldName[] = $item->field_name;       
+                $arrFieldName[] = $item->field_name;
             }
 
             $dataExtendValue = $model->getDataExtendValue($data->tablename, implode(', ', $arrFieldName), $data->id);
-            
+
             foreach ($dataExtend as $item) {
                 if (($item->field_type == 'foreign_one' || $item->field_type == 'foreign_multi') && @$dataExtendValue->{$item->field_name}) {
                     $arrFieldSelectId[] = $dataExtendValue->{$item->field_name};
@@ -141,23 +141,23 @@ class ProductsControllersProduct extends FSControllers
         $dataMore = $this->nomalizeProducts($dataMore);
 
         // lấy bình luận, tính rate sản phẩm
-        $dataRate = $model->getDataRate($data->id); 
+        $dataRate = $model->getDataRate($data->id);
         $totalRatePoint = 4.7;
         $totalRate = 0;
         $countRate = [];
         $arrAdmin = [];
-        if (!empty ($dataRate)) {
+        if (!empty($dataRate)) {
             $totalRatePoint = 0;
             array_reduce($dataRate, function ($carry, $item) use (&$totalRatePoint, &$totalRate, &$countRate, &$arrAdmin) {
                 if ($item->parent_id == 0) {
                     $totalRatePoint += $item->rating;
                     $totalRate++;
-            
+
                     $countRate[$item->rating] = ($countRate[$item->rating] ?? 0) + 1;
-            
+
                     return $carry;
                 }
-                
+
                 $arrAdmin[] = $item;
                 return $carry;
             });
@@ -175,7 +175,7 @@ class ProductsControllersProduct extends FSControllers
 
             $totalRatePoint = round($totalRatePoint / $totalRate, 1);
 
-            $rateId = array_map(function($item) {
+            $rateId = array_map(function ($item) {
                 return $item->id;
             }, $dataRate);
             $rateId = implode(',', $rateId);
@@ -194,7 +194,7 @@ class ProductsControllersProduct extends FSControllers
 
         $canonical = FSRoute::_("index.php?module=products&view=product&code=$data->alias&id=$data->id");
         $dataCategories = $model->getDataCategories($data->category_id_wrapper);
-      
+
         $breadcrumbs = [];
         foreach ($dataCategories as $item) {
             $breadcrumbs[] = [$item->name, FSRoute::_("index.php?module=products&view=cat&code=$item->alias&id=$item->id")];
@@ -230,14 +230,14 @@ class ProductsControllersProduct extends FSControllers
         if ($user->userID) {
             $favorite = $this->model->get_record("user_id = $user->userID AND product_id = $data->id", 'fs_members_favorite');
         }
- 
+
         include 'modules/' . $this->module . '/views/' . $this->view . '/default.php';
     }
- 
+
     public function loadMore()
     {
         $model = $this->model;
-       
+
         $products = $model->getDataMore();
         $products = $this->nomalizeProducts($products);
 
