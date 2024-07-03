@@ -2,9 +2,7 @@
 $tmpl->addStylesheet('members', 'modules/members/assets/css');
 $tmpl->addStylesheet('dashboard', 'modules/members/assets/css');
 $tmpl->addScript('default', 'modules/members/assets/js');
-
 ?>
-
 <div class="container">
     <div class="page-member">
         <div class="page-side">
