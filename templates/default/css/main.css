@@ -658,6 +658,105 @@ footer .footer-bot .copyright {
   display: inline-block;
 }
 
+.cart-hover {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 400px;
+  z-index: 2;
+  display: none;
+  padding: 24px;
+  box-shadow: 0px 0px 6px 6px rgba(0, 0, 0, 0.12);
+  background: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #fff;
+  border-radius: 8px;
+}
+.cart-hover .cart-hover-header {
+  padding: 0 0 12px 0;
+  color: #757575;
+  text-transform: uppercase;
+  border-bottom: 1px solid #f2f2f2;
+}
+.cart-hover .cart-hover-header h3.title_cart {
+  font-size: 14px;
+  font-weight: lighter;
+}
+.cart-hover .cart-hover-header .quantity_cart {
+  text-transform: none;
+}
+.cart-hover .cart-hover-header .quantity_cart span {
+  font-weight: 600;
+}
+.cart-hover .cart-hover-footer {
+  border-top: 1px solid #f2f2f2;
+  padding: 12px;
+}
+.cart-hover .cart-hover-footer .text-tamtinh span {
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-right: 10px;
+  font-size: 14px;
+}
+.cart-hover .cart-hover-footer a {
+  line-height: normal;
+  padding: 17px 20px;
+  color: #fff;
+  background: #dd2033;
+  border-radius: 8px;
+  width: 100%;
+  display: block;
+}
+.cart-hover .cart-hover-footer a:hover {
+  background: #c91d2e;
+}
+.cart-hover .cart-hover-body {
+  padding: 6px 0;
+}
+.cart-hover .cart-hover-item {
+  padding: 12px 12px;
+  display: grid;
+  grid-template-columns: 88px 3fr;
+  grid-gap: 12px;
+  line-height: normal;
+}
+.cart-hover .cart-hover-item img {
+  border-radius: 4px;
+  width: 88px;
+  height: 88px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  border-radius: 8px;
+}
+.cart-hover .cart-hover-item .sub-name {
+  color: #949494;
+  font-size: 12px;
+  margin: 6px 0px 16px 0px;
+}
+.cart-hover .cart-hover-item .sub-name p span.span-price-origin {
+  color: #757575;
+  font-size: 14px;
+  line-height: normal;
+  text-decoration: line-through;
+}
+.cart-hover .cart-hover-item .delete-cart {
+  right: -15px !important;
+}
+.cart-hover .cart-hover-item .item-price {
+  font-weight: lighter;
+  font-size: 16px;
+  color: #3b3b3b;
+}
+
+.header-right {
+  width: 100px;
+  position: relative;
+}
+.header-right:hover .cart-hover {
+  display: block;
+}
+
 #memberModal .modal-dialog {
   max-width: 420px;
 }
