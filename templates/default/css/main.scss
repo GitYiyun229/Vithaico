@@ -690,6 +690,110 @@ footer {
     }
   }
 }
+.cart-hover {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 400px;
+  z-index: 2;
+  display: none;
+  padding: 24px;
+  box-shadow: 0px 0px 6px 6px rgba(0, 0, 0, 0.12);
+  background: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #fff;
+  border-radius: 8px;
+
+  .cart-hover-header {
+    padding: 0 0 12px 0;
+    color: #757575;
+    text-transform: uppercase;
+    border-bottom: 1px solid #f2f2f2;
+    h3.title_cart {
+      font-size: 14px;
+      font-weight: lighter;
+    }
+    .quantity_cart {
+      text-transform: none;
+      span {
+        font-weight: 600;
+      }
+    }
+  }
+  .cart-hover-footer {
+    // background: #f2f2f2;
+    border-top: 1px solid #f2f2f2;
+    padding: 12px;
+    .text-tamtinh {
+      span {
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        margin-right: 10px;
+        font-size: 14px;
+      }
+    }
+    a {
+      line-height: normal;
+      padding: 17px 20px;
+      color: #fff;
+      background: #dd2033;
+      border-radius: 8px;
+      width: 100%;
+      display: block;
+      &:hover {
+        background: #c91d2e;
+      }
+    }
+  }
+  .cart-hover-body {
+    padding: 6px 0;
+  }
+  .cart-hover-item {
+    padding: 12px 12px;
+    display: grid;
+    grid-template-columns: 88px 3fr;
+    grid-gap: 12px;
+    line-height: normal;
+    img {
+      border-radius: 4px;
+      width: 88px;
+      height: 88px;
+      object-fit: contain;
+      // border: 1px solid #dedede;
+      border-radius: 8px;
+    }
+    .sub-name {
+      color: #949494;
+      font-size: 12px;
+      margin: 6px 0px 16px 0px;
+      p span.span-price-origin {
+        color: #757575;
+        font-size: 14px;
+        line-height: normal;
+        text-decoration: line-through;
+      }
+    }
+    .delete-cart {
+      right: -15px !important;
+    }
+    .item-price {
+      // text-align: right;
+      font-weight: lighter;
+      font-size: 16px;
+      color: #3b3b3b;
+    }
+  }
+}
+.header-right {
+  width: 100px;
+  position: relative;
+  &:hover {
+    .cart-hover {
+      display: block;
+    }
+  }
+}
 
 #memberModal {
   .modal-dialog {
