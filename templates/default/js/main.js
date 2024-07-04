@@ -60,31 +60,58 @@ $(".toggle-password").click(function (e) {
   }
 });
 
+// Bắt sự kiện khi người dùng click vào nút upload ảnh
 $(".btn-upload-image").click(function (e) {
-  e.preventDefault();
-  $(this).prev(".input-upload-image").click();
+    e.preventDefault();
+    // Kích hoạt sự kiện click trên input ẩn để chọn file
+    $(this).prev(".input-upload-image").click();
 });
 
+// Bắt sự kiện khi người dùng thay đổi file ảnh trong input
 $(document).on("change", ".input-upload-image", function () {
-  readURL(this);
+    // Gọi hàm readURL để xử lý việc hiển thị ảnh và đẩy dữ liệu vào input trong form
+    readURL(this);
 });
 
 function readURL(input) {
-  if (input.nextElementSibling.nextElementSibling.nextElementSibling) {
-    input.nextElementSibling.nextElementSibling.nextElementSibling.remove();
-  }
-  if (input.files && input.files[0]) {
-    //Giới hạn file <= 1Mb
-    if (input.files[0].size > 1048576) {
-      invalid(input.id, "Vui lòng nhập ảnh kích thước không quá 1 MB");
-      return false;
+    let element = input;
+    for (let i = 0; i < 3; i++) {
+        if (element && element.nextElementSibling) {
+            element = element.nextElementSibling;
+        } else {
+            element = null;
+            break;
+        }
     }
-    var reader = new FileReader();
-    reader.onload = function (e) {
-      input.previousElementSibling.src = e.target.result;
-    };
-    reader.readAsDataURL(input.files[0]);
-  }
+    if (element) {
+        element.remove();
+    }
+
+    if (input.files && input.files[0]) {
+        // Giới hạn file <= 1Mb
+        if (input.files[0].size > 1048576) {
+            invalid(input.id, "Vui lòng nhập ảnh kích thước không quá 1 MB");
+            return false;
+        }
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            // Cập nhật ảnh cho cả hai input
+            let imgElements = document.getElementsByClassName(input.getAttribute("data-img"));
+            Array.from(imgElements).forEach(function (imgElement) {
+                imgElement.src = e.target.result;
+            });
+
+            // Đẩy dữ liệu ảnh vào input trong form
+            const mainFormImageInput = document.getElementById('image');
+            if (mainFormImageInput) {
+                mainFormImageInput.files = input.files;
+            }
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+
+    // Tạm thời bỏ dòng này để không gọi submit form tự động
+ $(".page-dashboard-image").submit();
 }
 
 let isCartHoverVisible = false;

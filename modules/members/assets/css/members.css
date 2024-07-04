@@ -1,5 +1,5 @@
 .app-main-content {
-  background: #FAFAFA;
+  background: #fafafa;
 }
 
 .page-member {
@@ -14,13 +14,23 @@
   color: #757575;
 }
 
+.custom {
+  padding: 8px 16px 8px 0px;
+  height: 40px;
+}
+
 .page-border-radius {
   border-radius: 4px;
 }
 
+.btn-upload-image {
+  bottom: 0;
+  right: 0px;
+}
+
 .user-name-sidebar img {
-  width: 44px;
-  height: 44px;
+  width: 80px;
+  height: 80px;
   border-radius: 100%;
   border: 1px solid #fff;
   -o-object-fit: cover;

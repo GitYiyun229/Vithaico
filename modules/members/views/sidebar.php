@@ -2,20 +2,28 @@
 $view = FSInput::get('view');
 // $tmpl->addScript('scroll', 'modules/members/assets/js');
 ?>
+<form class="page-content page-dashboard-image p-4 bg-white page-border-radius d-flex  justify-content-center" method="POST" enctype="multipart/form-data">
+    <div class="d-flex align-items-center gap-2 mb-3 user-name-sidebar justify-content-center">
 
-<div class="d-flex align-items-center gap-2 mb-3 user-name-sidebar">
-    <div class="">
-        <img src="<?php echo URL_ROOT . $this->userImage ?>" alt="user" class="img-fluid img-image">
-        <input type="file" class="input-upload-image d-none" name="image" id="image" accept=".png, .jpg, .jpeg" data-img="img-image">
-        <a href="" class="btn-upload-image"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="24" height="24" rx="12" fill="black" fill-opacity="0.4" />
-                <path d="M5.33398 9.58449C5.33398 9.35094 5.33398 9.23417 5.34373 9.13582C5.43772 8.18719 6.18816 7.43674 7.13679 7.34275C7.23515 7.33301 7.35822 7.33301 7.60437 7.33301C7.69922 7.33301 7.74664 7.33301 7.78691 7.33057C8.30106 7.29943 8.75129 6.97493 8.94341 6.49701C8.95846 6.45958 8.97252 6.41739 9.00065 6.33301C9.02878 6.24863 9.04284 6.20644 9.05789 6.16901C9.25002 5.69109 9.70024 5.36658 10.2144 5.33545C10.2547 5.33301 10.2991 5.33301 10.3881 5.33301H13.6132C13.7022 5.33301 13.7466 5.33301 13.7869 5.33545C14.3011 5.36658 14.7513 5.69109 14.9434 6.16901C14.9585 6.20644 14.9725 6.24863 15.0007 6.33301C15.0288 6.41739 15.0428 6.45958 15.0579 6.49701C15.25 6.97493 15.7002 7.29943 16.2144 7.33057C16.2547 7.33301 16.3021 7.33301 16.3969 7.33301C16.6431 7.33301 16.7662 7.33301 16.8645 7.34275C17.8131 7.43674 18.5636 8.18719 18.6576 9.13582C18.6673 9.23417 18.6673 9.35094 18.6673 9.58449V14.7997C18.6673 15.9198 18.6673 16.4798 18.4493 16.9077C18.2576 17.284 17.9516 17.5899 17.5753 17.7817C17.1475 17.9997 16.5874 17.9997 15.4673 17.9997H8.53398C7.41388 17.9997 6.85383 17.9997 6.426 17.7817C6.04968 17.5899 5.74372 17.284 5.55197 16.9077C5.33398 16.4798 5.33398 15.9198 5.33398 14.7997V9.58449Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M12.0007 14.9997C13.4734 14.9997 14.6673 13.8058 14.6673 12.333C14.6673 10.8602 13.4734 9.66634 12.0007 9.66634C10.5279 9.66634 9.33398 10.8602 9.33398 12.333C9.33398 13.8058 10.5279 14.9997 12.0007 14.9997Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-        </a>
+        <div class="item-image-user position-relative">
+            <!-- <img src="/modules/members/assets/images/no_image_user.svg" alt="user" class="img-fluid img-image"> -->
+            <img src="<?php echo URL_ROOT . $this->userImage ?>" alt="user" class="img-fluid img-image">
+            <input type="file" class="input-upload-image d-none" name="image" id="image" accept=".png, .jpg, .jpeg" data-img="img-image">
+            <a href="" class="btn-upload-image position-absolute">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="24" height="24" rx="12" fill="black" fill-opacity="0.4" />
+                    <path d="M5.33398 9.58449C5.33398 9.35094 5.33398 9.23417 5.34373 9.13582C5.43772 8.18719 6.18816 7.43674 7.13679 7.34275C7.23515 7.33301 7.35822 7.33301 7.60437 7.33301C7.69922 7.33301 7.74664 7.33301 7.78691 7.33057C8.30106 7.29943 8.75129 6.97493 8.94341 6.49701C8.95846 6.45958 8.97252 6.41739 9.00065 6.33301C9.02878 6.24863 9.04284 6.20644 9.05789 6.16901C9.25002 5.69109 9.70024 5.36658 10.2144 5.33545C10.2547 5.33301 10.2991 5.33301 10.3881 5.33301H13.6132C13.7022 5.33301 13.7466 5.33301 13.7869 5.33545C14.3011 5.36658 14.7513 5.69109 14.9434 6.16901C14.9585 6.20644 14.9725 6.24863 15.0007 6.33301C15.0288 6.41739 15.0428 6.45958 15.0579 6.49701C15.25 6.97493 15.7002 7.29943 16.2144 7.33057C16.2547 7.33301 16.3021 7.33301 16.3969 7.33301C16.6431 7.33301 16.7662 7.33301 16.8645 7.34275C17.8131 7.43674 18.5636 8.18719 18.6576 9.13582C18.6673 9.23417 18.6673 9.35094 18.6673 9.58449V14.7997C18.6673 15.9198 18.6673 16.4798 18.4493 16.9077C18.2576 17.284 17.9516 17.5899 17.5753 17.7817C17.1475 17.9997 16.5874 17.9997 15.4673 17.9997H8.53398C7.41388 17.9997 6.85383 17.9997 6.426 17.7817C6.04968 17.5899 5.74372 17.284 5.55197 16.9077C5.33398 16.4798 5.33398 15.9198 5.33398 14.7997V9.58449Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M12.0007 14.9997C13.4734 14.9997 14.6673 13.8058 14.6673 12.333C14.6673 10.8602 13.4734 9.66634 12.0007 9.66634C10.5279 9.66634 9.33398 10.8602 9.33398 12.333C9.33398 13.8058 10.5279 14.9997 12.0007 14.9997Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </a>
+        </div>
     </div>
-</div>
-
+    <?php echo csrf::displayToken() ?>
+    <input type="hidden" name="module" value="members">
+    <input type="hidden" name="view" value="dashboard">
+    <input type="hidden" name="task" value="saveDashboard_image">
+    <input type="hidden" name="id" value="<?php echo $user->userID ?>">
+</form>
 <div class="user-menu-sidebar mb-3 pb-3">
     <h4>Thông tin tài khoản</h2>
         <a href="<?php echo FSRoute::_('index.php?module=members&view=dashboard') ?>" class="<?php echo $view == 'dashboard'  ? 'active' : '' ?>">

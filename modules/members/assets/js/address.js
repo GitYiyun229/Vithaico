@@ -1,5 +1,7 @@
 $('.form-select2').each(function(){
     let idModal = $(this).closest('.modal').attr('id');
+    console.log(idModal);
+
     $(this).select2({
         dropdownParent: $('#' + idModal),
     })

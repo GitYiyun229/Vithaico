@@ -12,6 +12,19 @@ class MembersControllersDashboard extends MembersControllersMembers
         // $tmpl->assign('breadcrumbs', $breadcrumbs);
         $tmpl->addTitle(FSText::_('Trang cá nhân'));
 
+        $userInfo=$user->userInfo;
+        $where_province= $userInfo->city_id ? $userInfo->city_id : '';
+        $province = $this->model->get_records($where_province, 'fs_provinces', 'code, name, code_name', 'code_name ASC');
+        $where_bank = $userInfo->bank_code ? $userInfo->bank_code : '';
+        $banks = $this->model->get_records("", 'fs_banks', 'id, bank_name, bank_code', 'id ASC');
+
+        $where_district = $userInfo->district_id ? $userInfo->district_id : '';
+        $district = $this->model->get_records("province_code = '$where_province'", 'fs_districts', 'code, name, code_name, province_code');
+
+        $where_ward = $userInfo->ward_id ? $userInfo->ward_id : '';
+        $ward = $this->model->get_records("district_code = '$where_district'", 'fs_wards', 'code, name, code_name, district_code');
+        // print_r($ward);
+
         $sex = [
             FSText::_('Nam'),
             FSText::_('Nữ'),
@@ -29,6 +42,18 @@ class MembersControllersDashboard extends MembersControllersMembers
         $full_name = FSInput::get('name');
         $birthday = FSInput::get('birthday');
         $sex = FSInput::get('sex');
+
+        $city_id = FSInput::get('province');
+        $district_id = FSInput::get('district');
+        $ward_id = FSInput::get('ward');
+        $address = FSInput::get('address');
+
+
+
+        $bank_code = FSInput::get('bank');
+        $bank_stk = FSInput::get('stk');
+        $bank_name = FSInput::get('chustk');
+
         $return = FSRoute::_('index.php?module=members&view=dashboard');
 
         $member = $this->model->get_record("id = $id", $this->table);
@@ -37,8 +62,29 @@ class MembersControllersDashboard extends MembersControllersMembers
             setRedirect($return, "Thành viên không tồn tại!", 'error');
         }
 
-        $row = compact('full_name', 'birthday', 'sex');
+        $row = compact('full_name', 'birthday', 'sex', 'city_id' , 'district_id', 'ward_id', 'address', 'bank_code', 'bank_name', 'bank_stk');
 
+        $id = $this->model->_update($row, $this->table, "id = $id");
+
+        if ($id) {
+            setRedirect($return, "Cập nhật thành công!", 'success');
+        } else {
+            setRedirect($return, "Cập nhật không thành công!", 'error');
+        }
+    }
+    public function saveDashboard_image()
+    {
+        $this->auth('POST');
+
+        $id = FSInput::get('id');
+        $return = FSRoute::_('index.php?module=members&view=dashboard');
+
+        $member = $this->model->get_record("id = $id", $this->table);
+
+        if (!$member) {
+            setRedirect($return, "Thành viên không tồn tại!", 'error');
+        }
+        // print_r($_FILES['image']["name"]);die;
         if ($_FILES['image']["name"]) {
             $fsFile = FSFactory::getClass('FsFiles');
     
