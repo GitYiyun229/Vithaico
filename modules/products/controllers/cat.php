@@ -20,16 +20,17 @@ class ProductsControllersCat extends FSControllers
     {
         global $tmpl;
         $model = $this->model;
-      
+
         $getPrice = $this->getPrice;
         $getFilter = $this->getFilter;
         $getSort = $this->getSort;
 
         $arrSort = [
-           1=> FSText::_('phổ biến'),
-           2=> FSText::_('hàng mới'),
-           3=> FSText::_('giá từ thấp đến cao'),
-           4=> FSText::_('giá từ cao đến thấp'),
+            0 => FSText::_('Gợi ý'),
+            1 => FSText::_('Phổ biến'),
+            2 => FSText::_('Hàng mới'),
+            3 => FSText::_('Giá từ thấp đến cao'),
+            4 => FSText::_('Giá từ cao đến thấp'),
         ];
 
         $cat = $model->getCat();
@@ -40,19 +41,19 @@ class ProductsControllersCat extends FSControllers
 
         $query = $model->setQueryBody($cat->id, $getPrice, $getFilter, $getSort);
         $products = $model->getProducts($query);
-        
+
         $products = $this->nomalizeProducts($products);
-    
-        $total = $model->getTotal($query);    
+
+        $total = $model->getTotal($query);
 
         $categoriesWrap = $model->getCategoriesWrap($cat->list_parents);
         $breadcrumbs = [];
-        foreach ($categoriesWrap as $item) { 
+        foreach ($categoriesWrap as $item) {
             $breadcrumbs[] = [
-                $item->name, 
+                $item->name,
                 FSRoute::_("index.php?module=products&view=cat&code=$item->alias&id=$item->id")
             ];
-        } 
+        }
         $canonical = FSRoute::_("index.php?module=products&view=cat&code=$cat->alias&id=$cat->id");
         $tmpl->assign('breadcrumbs', $breadcrumbs);
         $tmpl->assign('canonical', $canonical);

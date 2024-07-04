@@ -1,0 +1,34 @@
+ul {
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.parent-ul {
+  display: flex;
+  gap: 32px;
+  height: 80px;
+}
+.parent-ul li {
+  height: 100%;
+}
+.parent-ul li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-weight: 700;
+  position: relative;
+  color: #000000;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+@media all and (max-width: 1000px) {
+  .parent-ul {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .parent-ul li a {
+    justify-content: flex-start;
+  }
+}/*# sourceMappingURL=multilevel.css.map */

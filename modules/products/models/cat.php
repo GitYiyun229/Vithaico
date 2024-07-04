@@ -12,7 +12,7 @@ class ProductsModelsCat extends FSModels
         parent::__construct();
         $this->limit = FSInput::get('limit', 50);
     }
-    
+
     public function getCat()
     {
         global $db;
@@ -56,7 +56,7 @@ class ProductsModelsCat extends FSModels
         switch ($sort) {
             case 0:
                 $sql .= "ordering ASC";
-                break; 
+                break;
             case 1:
                 $sql .= "is_new DESC";
                 break;
@@ -133,10 +133,11 @@ class ProductsModelsCat extends FSModels
     {
         global $db;
         $query = "SELECT id, field_name, field_name_display, foreign_id FROM fs_products_tables WHERE table_name = '$table' AND is_filter = 1 ORDER BY ordering ASC, id DESC";
-        return $db->getObjectList($query,USE_MEMCACHE);
+        return $db->getObjectList($query, USE_MEMCACHE);
     }
 
-    function getFilterItem($id){ 
+    function getFilterItem($id)
+    {
         global $db;
         $query = "SELECT id, name, group_id FROM fs_extends_items WHERE published = 1 AND group_id IN ($id) ORDER BY ordering ASC, id DESC";
         return $db->getObjectList($query, USE_MEMCACHE);

@@ -114,3 +114,24 @@ function readURL(input) {
  $(".page-dashboard-image").submit();
 }
 
+let isCartHoverVisible = false;
+
+$(document).click(function (event) {
+  var target = $(event.target);
+  if (!target.closest(".cart_header").length) {
+    $(".cart-hover").css("display", "none");
+    isCartHoverVisible = false;
+  }
+});
+
+$(".cart_header > svg").click(function () {
+  if (isCartHoverVisible) {
+    console.log(1);
+    $(".cart-hover").css("display", "none");
+    isCartHoverVisible = false;
+  } else {
+    console.log(2);
+    $(".cart-hover").css("display", "block");
+    isCartHoverVisible = true;
+  }
+});
