@@ -1,6 +1,6 @@
 <?php
-require_once PATH_BASE . 'modules/api/controllers/nhanh.php';
-require_once PATH_BASE . 'modules/api/controllers/ssc.php';
+// require_once PATH_BASE . 'modules/api/controllers/nhanh.php';
+// require_once PATH_BASE . 'modules/api/controllers/ssc.php';
 
 class ProductsControllersCart extends FSControllers
 {

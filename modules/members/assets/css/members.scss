@@ -1,5 +1,5 @@
-.app-main-content{
-  background: #FAFAFA;
+.app-main-content {
+  background: #fafafa;
 }
 .page-member {
   display: grid;
@@ -12,15 +12,21 @@
     color: #757575;
   }
 }
-
+.custom {
+  padding: 8px 16px 8px 0px;
+  height: 40px;
+}
 .page-border-radius {
   border-radius: 4px;
 }
-
+.btn-upload-image {
+  bottom: 0;
+  right: 0px;
+}
 .user-name-sidebar {
   img {
-    width: 44px;
-    height: 44px;
+    width: 80px;
+    height: 80px;
     border-radius: 100%;
     border: 1px solid #fff;
     object-fit: cover;
@@ -115,37 +121,37 @@
 }
 
 @media (max-width: 960px) {
-  .page-member{
+  .page-member {
     display: flex !important;
     flex-direction: column;
   }
-  .page-content{
+  .page-content {
     flex-direction: column-reverse;
     gap: 15px;
     .pe-4,
-    .ps-4{
+    .ps-4 {
       width: 100%;
       padding-right: 0 !important;
       padding-left: 0 !important;
       border-left: none !important;
     }
-    .pe-4{
-      .custom{
+    .pe-4 {
+      .custom {
         display: grid !important;
         grid-template-columns: 1fr 3fr 1fr;
-        .col-2{
+        .col-2 {
           width: 100%;
         }
-        .col-8{
+        .col-8 {
           width: 100%;
           text-align: center;
         }
-        .col-1{
+        .col-1 {
           width: 100%;
           text-align: right;
         }
       }
-      .text-end{
+      .text-end {
         text-align: center !important;
       }
     }
