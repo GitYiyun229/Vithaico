@@ -5,7 +5,7 @@ class Product_categoriesBModelsProduct_categories
 	{
 		global $db;
 		$table = FSTable::_('fs_products_categories');
-		$sql = "SELECT id, name, alias, icon, icon_hover,level,parent_id FROM $table WHERE published = 1 AND show_in_homepage = 1";
+		$sql = "SELECT id, name, alias, icon,image, icon_hover,level,parent_id FROM $table WHERE published = 1 AND show_in_homepage = 1";
 		$db->query($sql);
 		return $db->getObjectList();
 	}
@@ -13,7 +13,7 @@ class Product_categoriesBModelsProduct_categories
 	{
 		global $db;
 		$table = FSTable::_('fs_products_categories');
-		$sql = "SELECT id, name, alias, icon, icon_hover,level,parent_id 
+		$sql = "SELECT id, name, alias, icon,image, icon_hover,level,parent_id 
 		FROM $table
 		 WHERE published = 1 AND show_in_homepage = 1 and parent_id = $id";
 		$db->query($sql);

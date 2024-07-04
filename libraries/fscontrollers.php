@@ -327,17 +327,12 @@ class FSControllers
 	public function layoutProductItem($item)
 	{
 		$url = FSRoute::_("index.php?module=products&view=product&code=$item->alias&id=$item->id");
-		$src = URL_ROOT . str_replace(['/original/', '.jpg', '.png'], ['/larges/', '.webp', '.webp'], $item->image);
+		$src = URL_ROOT . str_replace(['/original/', '.jpg', '.png'], ['/resize/', '.webp', '.webp'], $item->image);
 
 ?>
 		<div class="layout-product-item position-relative">
 			<div class="box-img">
 				<img src="<?php echo $src ?>" alt="" class="img-fluid layout-img" onerror="this.src='/images/not_picture.png'">
-			</div>
-			<div class="layout-addcart position-absolute">
-				<p class="btn-submit add-cart text-center fw-bold">
-					<?php echo FSText::_('Thêm vào giỏ') ?>
-				</p>
 			</div>
 			<a href="<?php echo $url ?>" title="<?php echo $item->name ?>" class="layout-product-item position-relative" target="_blank">
 				<div class="layout-content">
@@ -346,24 +341,7 @@ class FSControllers
 					</div>
 					<div class="layout-public-price">
 						<div class="price">
-							<?php echo format_money($item->price_discount, '₫') ?>
-						</div>
-						<div class="layout-origin-price">
-							<?php echo $item->price_old && $item->price_discount < $item->price_old ? format_money($item->price_old, '₫') : '' ?>
-						</div>
-						<div class="layout-info">
-							<?php if ($item->have_flash) { ?>
-								<div class="item-info item-flash">Flashsale</div>
-							<?php } ?>
-							<?php if ($item->is_gift) { ?>
-								<div class="item-info item-gift">Quà tặng</div>
-							<?php } ?>
-							<?php if ($item->freeship) { ?>
-								<div class="item-info item-freeship">Freeship</div>
-							<?php } ?>
-							<?php if ($item->percent) { ?>
-								<div class="item-info item-percent">- <?php echo $item->percent ?>%</div>
-							<?php } ?>
+							<?php echo format_money($item->price, '₫') ?>
 						</div>
 					</div>
 				</div>
