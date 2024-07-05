@@ -7,12 +7,12 @@ ul {
   display: flex;
   gap: 32px;
   height: 80px;
-  li {
+  .li_header {
     height: 100%;
     a {
       display: flex;
       align-items: center;
-      justify-content: center;
+      // justify-content: center;
       height: 100%;
       font-weight: 700;
       position: relative;
@@ -36,6 +36,25 @@ ul {
           // top: 100%;
         }
       }
+    }
+    .dropdown-menu {
+      border-radius: 5px;
+      width: 275px;
+      padding: 0px;
+      background: #fff;
+      overflow: hidden;
+      .sub-menu-item {
+        a {
+          padding: 15px 20px;
+        }
+        &:hover a {
+          background: #ea212d;
+          color: #fff;
+        }
+      }
+    }
+    &:hover .dropdown-menu {
+      display: block;
     }
   }
 }

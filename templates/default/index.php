@@ -66,37 +66,24 @@ $alert = array(
                         </svg>
                     </a>
                 </div>
-                <!-- <div class="cart_header">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M16.0004 9V6C16.0004 3.79086 14.2095 2 12.0004 2C9.79123 2 8.00037 3.79086 8.00037 6V9M3.59237 10.352L2.99237 16.752C2.82178 18.5717 2.73648 19.4815 3.03842 20.1843C3.30367 20.8016 3.76849 21.3121 4.35839 21.6338C5.0299 22 5.94374 22 7.77142 22H16.2293C18.057 22 18.9708 22 19.6423 21.6338C20.2322 21.3121 20.6971 20.8016 20.9623 20.1843C21.2643 19.4815 21.179 18.5717 21.0084 16.752L20.4084 10.352C20.2643 8.81535 20.1923 8.04704 19.8467 7.46616C19.5424 6.95458 19.0927 6.54511 18.555 6.28984C17.9444 6 17.1727 6 15.6293 6L8.37142 6C6.82806 6 6.05638 6 5.44579 6.28984C4.90803 6.54511 4.45838 6.95458 4.15403 7.46616C3.80846 8.04704 3.73643 8.81534 3.59237 10.352Z"
-                            stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    </?php $tmpl->load_direct_blocks('cart', array('style' => 'default')); ?>
-                </div> -->
-                <div class="header-right d-flex align-items-center justify-content-end">
+                <div class="cart_header d-flex align-items-center justify-content-end">
                     <a href="<?php echo FSRoute::_('index.php?module=products&view=cart') ?>"
                         title="<?php echo FSText::_('Giỏ hàng') ?>" class="header-cart position-relative">
                         <div class="cart-session d-grid">
                             <div class="cart-session-left">
-                                <svg width="26" height="26" viewBox="0 0 26 26" fill="none"
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
-                                        d="M2.16663 2.16667H3.58164C3.84816 2.16667 3.98142 2.16667 4.08866 2.21568C4.18316 2.25887 4.26325 2.32833 4.31937 2.41577C4.38306 2.515 4.4019 2.64693 4.43959 2.91077L4.95234 6.5M4.95234 6.5L6.09189 14.8757C6.2365 15.9386 6.3088 16.47 6.5629 16.87C6.7868 17.2225 7.1078 17.5028 7.48726 17.6772C7.91789 17.875 8.45423 17.875 9.52691 17.875H18.7979C19.819 17.875 20.3296 17.875 20.7468 17.6913C21.1147 17.5293 21.4303 17.2682 21.6583 16.9371C21.9168 16.5616 22.0123 16.0601 22.2034 15.057L23.6373 7.52883C23.7046 7.17579 23.7382 6.99927 23.6895 6.86129C23.6467 6.74025 23.5624 6.63832 23.4515 6.57369C23.325 6.5 23.1454 6.5 22.786 6.5H4.95234ZM10.8333 22.75C10.8333 23.3483 10.3483 23.8333 9.74996 23.8333C9.15165 23.8333 8.66663 23.3483 8.66663 22.75C8.66663 22.1517 9.15165 21.6667 9.74996 21.6667C10.3483 21.6667 10.8333 22.1517 10.8333 22.75ZM19.5 22.75C19.5 23.3483 19.0149 23.8333 18.4166 23.8333C17.8183 23.8333 17.3333 23.3483 17.3333 22.75C17.3333 22.1517 17.8183 21.6667 18.4166 21.6667C19.0149 21.6667 19.5 22.1517 19.5 22.75Z"
-                                        stroke="#3B3B3B" stroke-width="1.5" stroke-linecap="round"
+                                        d="M16.0004 9V6C16.0004 3.79086 14.2095 2 12.0004 2C9.79123 2 8.00037 3.79086 8.00037 6V9M3.59237 10.352L2.99237 16.752C2.82178 18.5717 2.73648 19.4815 3.03842 20.1843C3.30367 20.8016 3.76849 21.3121 4.35839 21.6338C5.0299 22 5.94374 22 7.77142 22H16.2293C18.057 22 18.9708 22 19.6423 21.6338C20.2322 21.3121 20.6971 20.8016 20.9623 20.1843C21.2643 19.4815 21.179 18.5717 21.0084 16.752L20.4084 10.352C20.2643 8.81535 20.1923 8.04704 19.8467 7.46616C19.5424 6.95458 19.0927 6.54511 18.555 6.28984C17.9444 6 17.1727 6 15.6293 6L8.37142 6C6.82806 6 6.05638 6 5.44579 6.28984C4.90803 6.54511 4.45838 6.95458 4.15403 7.46616C3.80846 8.04704 3.73643 8.81534 3.59237 10.352Z"
+                                        stroke="black" stroke-width="1.5" stroke-linecap="round"
                                         stroke-linejoin="round" />
                                 </svg>
                             </div>
-                            <div class="cart-session-right">
-                                <div
-                                    class="cart-quantity cart-text-quantity  d-flex align-items-center justify-content-center fw-bold">
-                                    <?php echo $totalCart ?></div>
-                                <span></span>
-                                <p class="mb-0">Cart</p>
-                            </div>
+
                         </div>
                     </a>
                     <div class="cart-hover">
+
                         <div class="cart-hover-header d-flex flex-wrap align-items-center justify-content-between">
                             <h3 class="title_cart ">
                                 <?php echo FSText::_('Giỏ hàng') ?>
@@ -111,8 +98,8 @@ $alert = array(
                         <div class="cart-hover-body">
                             <?php if (!empty($cartList)) { ?>
                             <?php foreach ($cartList as $item) {
-                                    $total_money_cart +=  $total_money_cart + ($item['price'] * $item['quantity']);
-                                ?>
+                                        $total_money_cart +=  $total_money_cart + ($item['price'] * $item['quantity']);
+                                    ?>
                             <div class="cart-hover-item position-relative">
                                 <a href="<?php echo $item['url'] ?>" class=""><img src="<?php echo $item['image'] ?>"
                                         alt="<?php echo $item['product_name'] ?>" class="img-fluid"></a>
@@ -172,7 +159,8 @@ $alert = array(
                     <?php } ?>
                     <div class="box_members_click">
                         <?php if (!$user->userID) { ?>
-                        <a href="" class="btn-guest btn-login" title="<?php echo FSText::_('Đăng nhập') ?>">
+                        <a href="<?php echo FSRoute::_('index.php?module=members&view=user&task=login') ?>"
+                            class="btn-guest btn-login" title="<?php echo FSText::_('Đăng nhập') ?>">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -185,7 +173,8 @@ $alert = array(
                                 <?php echo FSText::_('Đăng nhập') ?>
                             </span>
                         </a>
-                        <a href="" class="btn-guest btn-register" title="<?php echo FSText::_('Đăng ký') ?>">
+                        <a href="<?php echo FSRoute::_('index.php?module=members&view=user&task=register') ?>"
+                            class="btn-guest btn-register" title="<?php echo FSText::_('Đăng ký') ?>">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path

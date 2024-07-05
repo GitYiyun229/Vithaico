@@ -1509,12 +1509,16 @@ class FSModels
 		if (!$field)
 			return false;
 		$ids = FSInput::get('id', array(), 'array');
+		// print_r($ids);
+		// die;
 		if (count($ids)) {
 			global $db;
 			$str_ids = implode(',', $ids);
 			$sql = " UPDATE " . $this->table_name . "
 							SET `" . $field . "` = $value
 						WHERE id IN ( $str_ids ) ";
+			// print_r($sql);
+			// die;
 			$rows = $db->affected_rows($sql);
 			$this->freeMemcache();
 			return $rows;

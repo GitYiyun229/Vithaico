@@ -20,6 +20,10 @@ class FSRoute
     {
         $lang_url = array(
             'ct' => 'ce',
+
+            'tin-tuc' => ['en' => 'news', 'jp' => 'news-jp'],
+            'cn' => ['en' => 'cne', 'jp' => 'cnj'],
+            'dn' => ['en' => 'dne', 'jp' => 'dnj'],
         );
         if ($lang == 'vi')
             return $name;
@@ -201,32 +205,49 @@ class FSRoute
                         return $url_first . $url;
                 }
                 break;
+                // case 'news':
+                //     switch ($view) {
+                //         case 'amp_news':
+                //             $code = isset($array_params['code']) ? $array_params['code'] : '';
+                //             $ccode = isset($array_params['ccode']) ? $array_params['ccode'] : '';
+                //             $id = isset($array_params['id']) ? $array_params['id'] : '';
+                //             return $url_first . $ccode . '/amp/' . $code . '-n' . $id;
+                //         case 'news':
+                //             $ccode = isset($array_params['ccode']) ? $array_params['ccode'] : '';
+                //             return $url_first . $ccode;
+                //         case 'tags':
+                //             $ccode = isset($array_params['ccode']) ? $array_params['ccode'] : '';
+                //             return $url_first . $ccode;
+                //         case 'cat':
+                //             $ccode = isset($array_params['ccode']) ? $array_params['ccode'] : '';
+                //             return $url_first . $ccode;
+                //         case 'home':
+                //             return $url_first . 'blogs/all';
+                //         case 'search':
+
+                //             $keyword = isset($array_params['keyword']) ? $array_params['keyword'] : '';
+                //             $url = URL_ROOT . 'tim-kiem-tin-tuc';
+                //             if ($keyword) {
+                //                 $url .= '-' . $keyword;
+                //             }
+                //             return $url;
+                //         default:
+                //             return $url_first . $url;
+                //     }
+                //     break;
             case 'news':
                 switch ($view) {
-                    case 'amp_news':
-                        $code = isset($array_params['code']) ? $array_params['code'] : '';
-                        $ccode = isset($array_params['ccode']) ? $array_params['ccode'] : '';
-                        $id = isset($array_params['id']) ? $array_params['id'] : '';
-                        return $url_first . $ccode . '/amp/' . $code . '-n' . $id;
                     case 'news':
-                        $ccode = isset($array_params['ccode']) ? $array_params['ccode'] : '';
-                        return $url_first . $ccode;
-                    case 'tags':
-                        $ccode = isset($array_params['ccode']) ? $array_params['ccode'] : '';
-                        return $url_first . $ccode;
+                        $code = isset($array_params['code']) ? $array_params['code'] : '';
+                        // $ccode = isset($array_params['ccode']) ? $array_params['ccode'] : '';
+                        $id = isset($array_params['id']) ? $array_params['id'] : '';
+                        return $url_first . FSRoute::get_name_encode('tin-tuc', $lang) . '/' . $code . '-' . FSRoute::get_name_encode('dn', $lang) . $id;
                     case 'cat':
                         $ccode = isset($array_params['ccode']) ? $array_params['ccode'] : '';
-                        return $url_first . $ccode;
+                        $id = isset($array_params['id']) ? $array_params['id'] : '';
+                        return $url_first . FSRoute::get_name_encode('tin-tuc', $lang) . '/' . $ccode . '-' . FSRoute::get_name_encode('cn', $lang) . $id;
                     case 'home':
-                        return $url_first . 'blogs/all';
-                    case 'search':
-
-                        $keyword = isset($array_params['keyword']) ? $array_params['keyword'] : '';
-                        $url = URL_ROOT . 'tim-kiem-tin-tuc';
-                        if ($keyword) {
-                            $url .= '-' . $keyword;
-                        }
-                        return $url;
+                        return $url_first . FSRoute::get_name_encode('tin-tuc', $lang);
                     default:
                         return $url_first . $url;
                 }

@@ -4,68 +4,65 @@ class NewsModelsHome extends FSModels
 {
     function __construct()
     {
-
         parent::__construct();
         global $module_config;
-        FSFactory::include_class('parameters');
-        $current_parameters = new Parameters($module_config->params);
-        $limit = $current_parameters->getParams('limit');
-        $limit = 14;
-        $this->limit = $limit;
-
+        // FSFactory::include_class('parameters');
+        // $current_parameters = new Parameters($module_config->params);
+        // $limit = $current_parameters->getParams('limit');
+        // $limit = 6;
+        // $fstable = FSFactory::getClass('fstable');
+        $this->table_news = FSTable::_('fs_news', 1);
+        $this->table_category = FSTable::_('fs_news_categories', 1);
+        $this->limit = 8;
     }
 
     function set_query_body()
     {
-        $date1 = FSInput::get("date_search");
-        $where = "";
-        $fs_table = FSFactory::getClass('fstable');
-        $query = " FROM " . $fs_table->getTable('fs_news') . "
-						  WHERE 
-						  	 published = 1 
-						  	" . $where .
-            " ORDER BY  ordering DESC,created_time DESC, id DESC 
-						 ";
+        $query = "  FROM " . $this->table_news . "
+        WHERE published = 1 AND is_hot = 0 ORDER BY created_time desc";
         return $query;
     }
 
-    /*
-     * get Category current
-     * By Id or By code
-     */
-    function getCategory()
+    function get_list_categories()
     {
-        $fs_table = FSFactory::getClass('fstable');
-        $code = FSInput::get('ccode');
-        if ($code) {
-            $where = " AND alias = '$code' ";
-        } else {
-            $id = FSInput::get('id', 0, 'int');
-            if (!$id)
-                die('Not exist this url');
-            $where = " AND id = '$id' ";
-        }
-        $query = " SELECT id,name, icon, alias,parent_id as parent_id,seo_title,seo_keyword,seo_description
-						FROM " . $fs_table->getTable('fs_news_categories') . " 
-						WHERE published = 1 " . $where;
         global $db;
+        $query = "SELECT id, name, alias, image
+                  FROM " . $this->table_category . "
+                  WHERE published = 1
+                  ORDER BY ordering ASC";
         $sql = $db->query($query);
-        $result = $db->getObject();
-        return $result;
-    }
-
-    function getNewsList($query_body)
-    {
-        if (!$query_body)
-            return;
-
-        global $db;
-        $query = " SELECT id,title,summary,image, created_time,category_id, category_alias, alias,comments_total,comments_published,hits";
-        $query .= $query_body;
-        $sql = $db->query_limit($query, $this->limit, $this->page);
         $result = $db->getObjectList();
         return $result;
     }
+
+    function get_list_hot()
+    {
+        global $db;
+        $query = "SELECT id, title, alias, image, summary, category_name, created_time
+                  FROM " . $this->table_news . "
+                  WHERE published = 1 AND is_hot = 1
+                  ORDER BY created_time DESC, ordering ASC LIMIT 5";
+        $sql = $db->query($query);
+        // print_r($sql);
+        // die;
+        $result = $db->getObjectList();
+        return $result;
+    }
+
+    function get_list_new($query_body)
+    {
+        if (!$query_body)
+            return;
+        global $db;
+        $query = " SELECT id, title, alias, image, icon, summary, category_name, created_time ";
+        $query .= $query_body;
+        $sql = $db->query_limit($query, $this->limit, $this->page);
+        // print_r($sql);
+        // die;
+        $result = $db->getObjectList();
+        return $result;
+    }
+
 
     function getTotal($query_body)
     {
@@ -83,15 +80,14 @@ class NewsModelsHome extends FSModels
     {
         FSFactory::include_class('Pagination');
         $pagination = new Pagination($this->limit, $total, $this->page);
+        // print_r($pagination) ;
         return $pagination;
     }
 
     function getLoadmore($total, $pagecurrent, $detect)
     {
         FSFactory::include_class('Loadmore');
-        $loadmore = new Loadmore ($pagecurrent, 15, $total, $this->page);
+        $loadmore = new Loadmore($pagecurrent, 15, $total, $this->page);
         return $loadmore;
     }
 }
-
-?>

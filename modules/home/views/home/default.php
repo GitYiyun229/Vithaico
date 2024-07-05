@@ -20,7 +20,7 @@
          </div>
      </div>
      <div class="section-mid sec-mar">
-         <?php echo $tmpl->load_direct_blocks('banners', ['category_id' => '3', 'style' => 'default']); ?>
+         <?php echo $tmpl->load_direct_blocks('banners', ['category_id' => '2', 'style' => 'default']); ?>
      </div>
 
      <div class="container section-product-categories sec-mar ">
