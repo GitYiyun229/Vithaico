@@ -9,13 +9,12 @@ ul {
   gap: 32px;
   height: 80px;
 }
-.parent-ul li {
+.parent-ul .li_header {
   height: 100%;
 }
-.parent-ul li a {
+.parent-ul .li_header a {
   display: flex;
   align-items: center;
-  justify-content: center;
   height: 100%;
   font-weight: 700;
   position: relative;
@@ -23,6 +22,24 @@ ul {
   font-size: 16px;
   text-transform: uppercase;
 }
+.parent-ul .li_header .dropdown-menu {
+  border-radius: 5px;
+  width: 275px;
+  padding: 0px;
+  background: #fff;
+  overflow: hidden;
+}
+.parent-ul .li_header .dropdown-menu .sub-menu-item a {
+  padding: 15px 20px;
+}
+.parent-ul .li_header .dropdown-menu .sub-menu-item:hover a {
+  background: #ea212d;
+  color: #fff;
+}
+.parent-ul .li_header:hover .dropdown-menu {
+  display: block;
+}
+
 @media all and (max-width: 1000px) {
   .parent-ul {
     flex-direction: column;

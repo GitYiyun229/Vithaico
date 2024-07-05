@@ -1,0 +1,120 @@
+.section-banner {
+}
+.section-cat-news {
+  background: #f5f5f5;
+  margin-bottom: 48px;
+  .list_cat_news {
+    .item_cat_new {
+      display: grid;
+      justify-items: center;
+      gap: 16px;
+      padding: 16px 105px;
+      transition: 0.3s ease-in-out;
+      .img-icon {
+      }
+      .item-name {
+        font-size: 16px;
+        text-transform: uppercase;
+      }
+      &:hover {
+        background-color: #fff;
+      }
+    }
+    .active_cat {
+      color: #d51e29;
+      background-color: #fff;
+    }
+  }
+}
+.news_home_main {
+  .top_h3_cat {
+    margin-top: 48px;
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    margin-bottom: 48px;
+    .h3_title_new {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 33px;
+      color: #000;
+      text-transform: uppercase;
+      margin-bottom: 0;
+      width: 150px;
+    }
+    .h3_bor_right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      &::before {
+        width: 6px;
+        height: 25px;
+        border-radius: 0 3px 3px 0;
+        background-color: #d51e29;
+        content: "";
+      }
+    }
+
+    .color-box {
+      width: calc(100% - 150px - 40px);
+    }
+    .list_cat_news {
+    }
+    .color-box {
+      background-color: rgba(244, 248, 250, 1);
+      height: 17px;
+    }
+  }
+
+  .grid_hot_news {
+    .item_new {
+      .title_new {
+        margin-bottom: 0 !important;
+      }
+      .summary_new {
+        display: none !important;
+      }
+    }
+    .item_big {
+      .title_new {
+        margin-bottom: 15px !important;
+      }
+      .summary_new {
+        display: -webkit-box !important;
+      }
+    }
+  }
+}
+@media all and (max-width: 1000px) {
+  main {
+    .news_home_main {
+      .top_h3_cat {
+        .list_cat_news {
+          overflow-x: auto;
+          overflow-y: hidden;
+          white-space: nowrap;
+          justify-content: unset;
+        }
+      }
+    }
+  }
+}
+@media all and (max-width: 500px) {
+  main {
+    .news_home_main {
+      .top_h3_cat {
+        gap: 20px;
+        .h3_title_new {
+          font-size: 18px;
+          width: fit-content;
+        }
+        .list_cat_news {
+          width: calc(100% - 80px - 20px);
+          .item_cat_new {
+            padding: 10px 18px;
+          }
+        }
+      }
+    }
+  }
+}

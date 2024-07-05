@@ -8,42 +8,19 @@ class NewsModelsNews extends FSModels
         $page = FSInput::get('page');
         $this->limit = $limit;
         $this->page = $page;
-        $fstable = FSFactory::getClass('fstable');
-        $this->table_name = $fstable->_('fs_news');
-        $this->table_category = $fstable->_('fs_news_categories');
-        $this->table_comment = $fstable->_('fs_news_comments');
-    }
-    function get_product($id_pr)
-    {
-        if (!$id_pr)
-            return "";
-        $query = " SELECT id,alias,name,category_alias,category_id,image,price,price_old
-						FROM fs_products
-						WHERE id = $id_pr";
-
-        global $db;
-        $sql = $db->query($query);
-        $result = $db->getObject();
-        return $result;
-    }
-    function get_sale_product($id)
-    {
-        global $db;
-        $now = date('Y-m-d H:i:s');
-        $query = " SELECT discount, discount_unit, total, ordered 
-						 FROM fs_flash_sale_detail
-						 WHERE published = 1 AND product_id = $id AND date_end >= '" . $now . "'
-						 ";
-        //echo $query;
-        $result = $db->getObject($query, USE_MEMCACHE);
-        return $result;
+        // $fstable = FSFactory::getClass('fstable');
+        $this->table_name = FSTable::_('fs_news', 1);
+        $this->table_category = FSTable::_('fs_news_categories', 1);
+        $this->table_comment = FSTable::_('fs_news_comments', 1);
+        $this->table_banner = FSTable::_('fs_banners', 1);
     }
 
     function get_category_by_id($category_id)
     {
         if (!$category_id)
             return "";
-        $query = " SELECT id,name,name_display,is_comment, alias, display_tags,display_title,display_sharing,display_comment,display_category,display_created_time,display_related,updated_time,display_summary
+        $query = " SELECT id,name,name_display,is_comment, alias, display_tags,display_title,display_sharing,display_comment,
+                        display_category,display_created_time,display_related,updated_time,display_summary,products_related
 						FROM " . $this->table_category . "  
 						WHERE id = $category_id ";
         global $db;
@@ -52,28 +29,118 @@ class NewsModelsNews extends FSModels
         return $result;
     }
 
-    /*
-     * get Article
-     */
     function getNews()
     {
-        $id = FSInput::get('id', 0, 'int');
+        $id = FSInput::get2('id', 0, 'int');
         if ($id) {
-            $where = " AND id = '$id' ";
+            $where = " id = '$id' ";
         } else {
-            $ccode = FSInput::get('ccode');
-            if (!$ccode)
+            $code = FSInput::get('code');
+            if (!$code)
                 die('Not exist this url');
-            $where = " AND alias = '$ccode' ";
+            $where = " alias = '$code' ";
         }
         $fs_table = FSFactory::getClass('fstable');
         $query = " SELECT *
-						FROM " . $fs_table->getTable('fs_news') . " 
-						WHERE published = 1 
+						FROM " . $fs_table->getTable('fs_news', 1) . " 
+						WHERE published = 1 and 
 						" . $where . " ";
+        //print_r($query) ;
         global $db;
         $sql = $db->query($query);
         $result = $db->getObject();
+        return $result;
+    }
+
+    function update_hits($news_id)
+    {
+        if (USE_MEMCACHE) {
+            $fsmemcache = FSFactory::getClass('fsmemcache');
+            $mem_key = 'array_hits';
+
+            $data_in_memcache = $fsmemcache->get($mem_key);
+            if (!isset($data_in_memcache))
+                $data_in_memcache = array();
+            if (isset($data_in_memcache[$news_id])) {
+                $data_in_memcache[$news_id]++;
+            } else {
+                $data_in_memcache[$news_id] = 1;
+            }
+            $fsmemcache->set($mem_key, $data_in_memcache, 10000);
+        } else {
+            if (!$news_id)
+                return;
+
+            // count
+            global $db, $econfig;
+            $sql = " UPDATE fs_news 
+						SET hits = hits + 1 
+						WHERE  id = '$news_id' 
+					 ";
+            $db->query($sql);
+            $rows = $db->affected_rows();
+            return $rows;
+        }
+    }
+
+    function get_list()
+    {
+        global $db;
+        $query = " SELECT id, title, created_time, image, summary, alias
+						FROM " . $this->table_name . "
+						WHERE published = 1
+						ORDER BY created_time DESC LIMIT 4
+						";
+        $db->query($query);
+        $result = $db->getObjectList();
+        return $result;
+    }
+
+    function get_list_categories($id)
+    {
+        global $db;
+        $query = "SELECT id, name, alias
+                  FROM " . $this->table_category . "
+                  WHERE published = 1 and parent_id = $id
+                  ORDER BY ordering asc, id ASC";
+        $sql = $db->query($query);
+        $result = $db->getObjectList();
+        // print_r($result);die;
+        return $result;
+    }
+
+    function get_list_related($id, $cid)
+    {
+        global $db;
+        $query = ' SELECT id,title,alias,image,summary,created_time,category_name
+						FROM ' . FSTable::_('fs_news', 1) . '
+						WHERE published = 1 AND id != ' . $id . ' AND category_id_wrapper LIKE "%,' . $cid . ',%"
+						ORDER BY ordering DESC, id DESC LIMIT 4';
+        $db->query($query);
+        $result = $db->getObjectList();
+        return $result;
+    }
+
+    function get_list_hot()
+    {
+        global $db;
+        $query = "SELECT id, title, alias, image, summary, category_name, created_time
+                  FROM " . $this->table_name . "
+                  WHERE published = 1 AND is_hot = 1
+                  ORDER BY created_time DESC, ordering ASC LIMIT 5";
+        $sql = $db->query($query);
+        $result = $db->getObjectList();
+        return $result;
+    }
+    function get_list_promotion()
+    {
+        global $db;
+        $query = "SELECT id, title, alias, image, summary, category_name, created_time
+                  FROM " . $this->table_name . "
+                  WHERE published = 1 AND is_promotion = 1
+                  ORDER BY created_time DESC, ordering ASC LIMIT 5";
+        $sql = $db->query($query);
+        $result = $db->getObjectList();
         return $result;
     }
 
@@ -183,8 +250,8 @@ class NewsModelsNews extends FSModels
         global $db;
         if (!$news_id)
             return;
-//			$limit = 5;
-//			$id = FSInput::get('id');
+        //			$limit = 5;
+        //			$id = FSInput::get('id');
         $query = " SELECT name,created_time,id,email,comment,parent_id,level,news_id
 						FROM fs_news_comments
 						WHERE news_id = $news_id
@@ -315,38 +382,6 @@ class NewsModelsNews extends FSModels
         return $result;
     }
 
-    function update_hits()
-    {
-
-        $code = FSInput::get('ccode');
-//        if (USE_MEMCACHE) {
-//            $fsmemcache = FSFactory::getClass('fsmemcache');
-//            $mem_key = 'array_hits';
-//
-//            $data_in_memcache = $fsmemcache->get($mem_key);
-//            if (!isset($data_in_memcache))
-//                $data_in_memcache = array();
-//            if (isset($data_in_memcache[$news_id])) {
-//                $data_in_memcache[$news_id]++;
-//            } else {
-//                $data_in_memcache[$news_id] = 1;
-//            }
-//            $fsmemcache->set($mem_key, $data_in_memcache, 10000);
-//
-//        } else {
-            if (!$code)
-                return;
-
-            global $db, $econfig;
-            $sql = " UPDATE fs_news 
-						SET hits = hits + 1 
-						WHERE  alias = '$code' 
-					 ";
-            $rows = $db->affected_rows($sql);
-            return $rows;
-//        }
-    }
-
     function get_news_realted($str)
     {
         global $db;
@@ -388,16 +423,16 @@ class NewsModelsNews extends FSModels
         $id = $this->_add($row, $this->table_comment);
 
         return $id;
-
     }
 
-    function add_point($id,$check,$point){
+    function add_point($id, $check, $point)
+    {
         global $db;
-        if($check == 0){
+        if ($check == 0) {
             $point += 1;
             $query = "UPDATE fs_news_comments SET add_point = $point WHERE id = $id ";
-        } else if($check == 1){
-            if($point != 0)
+        } else if ($check == 1) {
+            if ($point != 0)
                 $point -= 1;
             $query = "UPDATE fs_news_comments SET add_point = $point WHERE id = $id ";
         }
@@ -413,10 +448,10 @@ class NewsModelsNews extends FSModels
         $fs_table = FSFactory::getClass('fstable');
         $where = '';
         $where .= ' record_id <> 0 and ( alias = "' . $code . '" OR old_alias = "' . $code . '" ) ';
-//        $where .= ' AND id = ' . $id;
+        //        $where .= ' AND id = ' . $id;
         global $db;
         $query = "SELECT  * FROM fs_redirect WHERE $where ";
-//        echo $query;die;
+        //        echo $query;die;
         $db->query($query);
         return $db->getObject('', USE_MEMCACHE);
     }
@@ -450,5 +485,3 @@ class NewsModelsNews extends FSModels
     //     return $db->getObject('', USE_MEMCACHE);
     // }
 }
-
-?>

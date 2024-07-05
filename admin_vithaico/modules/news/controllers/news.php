@@ -41,7 +41,7 @@ class NewsControllersNews extends Controllers
         // data from fs_news_categories
         $categories_home = $model->get_categories_tree();
         $maxOrdering = $model->getMaxOrdering();
-            $tag = $model->get_tags();
+        $tag = $model->get_tags();
         $uploadConfig = base64_encode('add|' . session_id());
         $list_key = $model->get_records(' new_id = "' . $uploadConfig . '"', 'fs_news_keyword');
 
@@ -54,10 +54,10 @@ class NewsControllersNews extends Controllers
         $id = $ids[0];
         $model = $this->model;
         $categories = $model->get_news_categories_tree_by_permission();
-//			$tags_categories = $model->get_tags_categories();
+        //			$tags_categories = $model->get_tags_categories();
         $data = $model->get_record_by_id($id);
         $news_related = $model->get_news_related($data->news_related);
-            $tag = $model->get_tags();
+        $tag = $model->get_tags();
         // data from fs_news_categories
         include 'modules/' . $this->module . '/views/' . $this->view . '/detail.php';
     }
@@ -256,10 +256,19 @@ class NewsControllersNews extends Controllers
     {
         $this->is_check('is_hot', 1, 'is_hot');
     }
+    function is_promotion()
+    {
+        $this->is_check('is_promotion', 1, 'is_promotion');
+    }
 
     function unis_hot()
     {
         $this->unis_check('is_hot', 0, 'un_hot');
+    }
+
+    function unis_promotion()
+    {
+        $this->unis_check('is_promotion', 0, 'un_promotion');
     }
 
     function is_new()
@@ -313,7 +322,4 @@ class NewsControllersNews extends Controllers
         $link = FSRoute::_('index.php?module=news&view=news&id=' . $data->id . '&code=' . $data->alias . '&ccode=' . $data->category_alias);
         return '<a target="_blink" href="' . $link . '" title="Xem ngoài font-end">' . $data->title . '</a>';
     }
-
 }
-
-?>

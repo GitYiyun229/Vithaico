@@ -14,10 +14,10 @@ class MainMenuBControllersMainMenu
 		}
 
 		$style = $style ? $style : 'default';
-		 
+
 		if (!$group)
 			return;
-		 
+
 		$model = new MainMenuBModelsMainMenu();
 		$list = $model->getList($group);
 		if (!$list)
