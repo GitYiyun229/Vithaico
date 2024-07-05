@@ -901,13 +901,17 @@ footer .footer-bot .copyright {
 .password-rule svg {
   display: none;
 }
+
 .password-rule.success {
   color: #3ba500;
+  display: block;
 }
 .password-rule.success svg:nth-child(1) {
   display: inline-block;
 }
+
 .password-rule.error {
+  display: block;
   color: #e71313;
 }
 .password-rule.error svg:nth-child(2) {

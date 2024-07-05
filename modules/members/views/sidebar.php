@@ -46,7 +46,7 @@ $view = FSInput::get('view');
             </svg>
             Sổ địa chỉ
         </a>
-        <a href="<?php echo FSRoute::_('index.php?module=members&view=favorite') ?>" class="<?php echo $view == 'favorite'  ? 'active' : '' ?>">
+        <a href="<?php echo FSRoute::_('index.php?module=members&view=favorite') ?>" class="<?php echo $view == 'introduce'  ? 'active' : '' ?>">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M10.517 17.3417C10.2337 17.4417 9.76699 17.4417 9.48366 17.3417C7.06699 16.5167 1.66699 13.075 1.66699 7.24168C1.66699 4.66668 3.74199 2.58334 6.30033 2.58334C7.81699 2.58334 9.15866 3.31668 10.0003 4.45001C10.842 3.31668 12.192 2.58334 13.7003 2.58334C16.2587 2.58334 18.3337 4.66668 18.3337 7.24168C18.3337 13.075 12.9337 16.5167 10.517 17.3417Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
@@ -54,6 +54,14 @@ $view = FSInput::get('view');
         </a>
 
         <!-- //new -->
+        <a href="<?php echo FSRoute::_('index.php?module=members&view=introduce') ?>" class="<?php echo $view == 'introduce'  ? 'active' : '' ?>">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6.66667 10.167H12.5M6.66667 13.5003H10.3167M13.3333 3.35033C16.1083 3.50033 17.5 4.52533 17.5 8.33366V13.3337C17.5 16.667 16.6667 18.3337 12.5 18.3337H7.5C3.33333 18.3337 2.5 16.667 2.5 13.3337V8.33366C2.5 4.53366 3.89167 3.50033 6.66667 3.35033M8.33333 5.00033H11.6667C13.3333 5.00033 13.3333 4.16699 13.3333 3.33366C13.3333 1.66699 12.5 1.66699 11.6667 1.66699H8.33333C7.5 1.66699 6.66667 1.66699 6.66667 3.33366C6.66667 5.00033 7.5 5.00033 8.33333 5.00033Z" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+
+
+            Thống kê danh sách F1
+        </a>
         <a href="<?php echo FSRoute::_('index.php?module=members&view=favorite') ?>" class="<?php echo $view == 'favorite'  ? 'active' : '' ?>">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15.0436 8.74362C14.8121 10.9185 13.5797 12.9566 11.5406 14.1339C8.15267 16.0899 3.82057 14.9292 1.86456 11.5413L1.65623 11.1804M0.954324 7.25553C1.18583 5.08062 2.41815 3.04252 4.45731 1.86521C7.84521 -0.0908 12.1773 1.06998 14.1333 4.45789L14.3417 4.81873M0.910156 13.0545L1.5202 10.7778L3.79691 11.3879M12.201 4.61124L14.4777 5.22128L15.0878 2.94458M7.99897 4.24956V7.99956L10.0823 9.24956" stroke="#757575" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />

@@ -939,17 +939,19 @@ footer {
   svg {
     display: none;
   }
-  &.success {
-    color: #3ba500;
-    svg:nth-child(1) {
-      display: inline-block;
-    }
+}
+.password-rule.success {
+  color: #3ba500;
+  display: block;
+  svg:nth-child(1) {
+    display: inline-block;
   }
-  &.error {
-    color: #e71313;
-    svg:nth-child(2) {
-      display: inline-block;
-    }
+}
+.password-rule.error {
+  display: block;
+  color: #e71313;
+  svg:nth-child(2) {
+    display: inline-block;
   }
 }
 
