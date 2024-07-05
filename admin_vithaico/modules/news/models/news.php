@@ -13,9 +13,13 @@ class NewsModelsNews extends FSModels
 
         //$this -> table_types = 'fs_news_types';
         $this->arr_img_paths = array(
-            array('large', 520, 290, 'resize_image_fix_height_webp'),
-            array('resize', 250, 140, 'resize_image_fix_height_webp'),
-            array('small', 120, 68, 'resize_image_fix_height_webp')
+            // array('large', 770, 480, 'resize_image_fix_height_webp'),
+            // array('resize', 400, 225, 'resize_image_fix_height_webp'),
+            // array('small', 370, 208, 'resize_image_fix_height_webp'),
+            // array('tiny', 270, 150, 'resize_image_fix_height_webp')
+            array('resized', 282, 188, 'resize_image_fix_height_webp'),
+            array('small', 120, 80, 'resize_image_fix_height_webp'),
+            array('large', 588, 392, 'resize_image_fix_height_webp')
         );
         $this->table_category_name = FSTable_ad::_('fs_news_categories', 1);
         $this->table_name = FSTable_ad::_('fs_news', 1);
@@ -88,7 +92,7 @@ class NewsModelsNews extends FSModels
                 $where .= " AND a.title LIKE '%" . $keysearch . "%' ";
             }
         }
-        $query = " SELECT a.id,a.title,a.alias,a.image,a.category_name,a.author,a.created_time,a.updated_time,a.is_hot,a.show_in_homepage,a.published,a.author
+        $query = " SELECT a.id,a.title,a.alias,a.image,a.category_name,a.author,a.created_time,a.updated_time,a.is_hot,a.is_promotion,a.show_in_homepage,a.published,a.author
 						  FROM 
 						  	" . $this->table_name . " AS a
 						  	WHERE 1=1 " .
@@ -114,20 +118,20 @@ class NewsModelsNews extends FSModels
         $row['category_alias_wrapper'] = $cat->alias_wrapper;
         $row['category_name'] = $cat->name;
         $row['category_alias'] = $cat->alias;
-        
-         $record_relate = FSInput::get('news_record_related',array(),'array');
-         $row['news_related'] ='';
-         if(count($record_relate)){
-         	$record_relate = array_unique($record_relate);
-         	$row['news_related'] = ','.implode(',', $record_relate).',';
-         }
+
+        $record_relate = FSInput::get('news_record_related', array(), 'array');
+        $row['news_related'] = '';
+        if (count($record_relate)) {
+            $record_relate = array_unique($record_relate);
+            $row['news_related'] = ',' . implode(',', $record_relate) . ',';
+        }
 
         $row['content'] = htmlspecialchars_decode(FSInput::get('content'));
-        $row['content'] = str_replace("'","&apos;",$row['content']);
-        $row['content'] = str_replace('src="data:image/png;base64','',$row['content']);
+        $row['content'] = str_replace("'", "&apos;", $row['content']);
+        $row['content'] = str_replace('src="data:image/png;base64', '', $row['content']);
         $time = date('Y-m-d H:i:s');
         $row['published'] = FSInput::get('published');
-        $row['end_time'] = date('Y-m-d H:i:s',strtotime(FSInput::get('end_time')));
+        $row['end_time'] = date('Y-m-d H:i:s', strtotime(FSInput::get('end_time')));
         $user_id = isset($_SESSION['ad_userid']) ? $_SESSION['ad_userid'] : '';
         if (!$user_id)
             return false;
@@ -135,67 +139,69 @@ class NewsModelsNews extends FSModels
         $user = $this->get_record_by_id($user_id, 'fs_users', 'username');
         if ($id) {
             $row['updated_time'] = $time;
-//            $row['end_time'] = $time;
+            //            $row['end_time'] = $time;
             $row['author_last'] = $user->username;
             $row['author_last_id'] = $user_id;
         } else {
             $row['created_time'] = $time;
             $row['updated_time'] = $time;
-//            $row['end_time'] = $time;
-//            $row['start_time'] = $time;
+            //            $row['end_time'] = $time;
+            //            $row['start_time'] = $time;
             $row['author'] = $user->username;
             $row['author_id'] = $user_id;
         }
 
         $tags = FSInput::get('tags', '', 'array');
         $list_tags_id = implode(',', $tags);
-        $list_tags_id = ','.$list_tags_id.',';
+        $list_tags_id = ',' . $list_tags_id . ',';
         $row['tags'] = $list_tags_id;
 
         $fsstring = FSFactory::getClass('FSString', '', '../');
         $alias = $fsstring->stringStandart($title);
         $row['alias'] = FSInput::get('alias') ? FSInput::get('alias') : $alias;
 
-        $check_alias = $this->check_exist_alias_redirect($id,$alias);
-        if($check_alias){
-            Errors::_('Alias của bạn đã bị trùng tên','alert');
-            $row['alias'] = $this -> genarate_alias_news($row['alias'],$id);
+        $check_alias = $this->check_exist_alias_redirect($id, $alias);
+        if ($check_alias) {
+            Errors::_('Alias của bạn đã bị trùng tên', 'alert');
+            $row['alias'] = $this->genarate_alias_news($row['alias'], $id);
         }
 
         $total = FSInput::get('new_field_total');
-        if($total){
+        if ($total) {
             $row_faq = [];
-            for($i = 0; $i < $total; $i++){
-                if(FSInput::get('question_'.$i) && FSInput::get('answer_'.$i)){
-                    $row_faq[$i]['question'] = FSInput::get('question_'.$i); 
-                    $row_faq[$i]['answer'] = FSInput::get('answer_'.$i);
+            for ($i = 0; $i < $total; $i++) {
+                if (FSInput::get('question_' . $i) && FSInput::get('answer_' . $i)) {
+                    $row_faq[$i]['question'] = FSInput::get('question_' . $i);
+                    $row_faq[$i]['answer'] = FSInput::get('answer_' . $i);
                 }
             }
-            $row['faq'] = json_encode($row_faq,JSON_UNESCAPED_UNICODE);
+            $row['faq'] = json_encode($row_faq, JSON_UNESCAPED_UNICODE);
         }
 
         $rs = parent::save($row);
-        $this->save_redirect($id,$rs,$row['alias']);
+        $this->save_redirect($id, $rs, $row['alias']);
 
         return $rs;
     }
 
-    function check_exist_alias_redirect($id,$alias){
+    function check_exist_alias_redirect($id, $alias)
+    {
         global $db;
         $where = '';
-        if($id)
+        if ($id)
             $where .= " and record_id <> $id ";
         $sql = "SELECT * FROM fs_redirect WHERE alias = '$alias' $where ";
         $db->query($sql);
         return $db->getObject();
     }
 
-    function save_redirect($id,$rs,$alias){
+    function save_redirect($id, $rs, $alias)
+    {
         global $db;
-        if($id){
+        if ($id) {
             $query = "UPDATE fs_redirect set record_id = $id, alias = '$alias', `module` = 'news', `view` = 'news' WHERE record_id = $id AND `module` = 'news' AND `view` = 'news'";
             $db->affected_rows($query);
-        }else{
+        } else {
             $query = "INSERT INTO fs_redirect (record_id,alias,`module`,`view`) 
                       VALUE ($rs,'$alias','news','news')";
             $db->insert($query);
@@ -306,7 +312,7 @@ class NewsModelsNews extends FSModels
         $total_field_change = count($field_change_arr);
         $record_change_success = 0;
         for ($i = 0; $i < $total; $i++) {
-//	        	$str_update = '';
+            //	        	$str_update = '';
             $row = array();
             $update = 0;
             foreach ($field_change_arr as $field_item) {
@@ -354,8 +360,6 @@ class NewsModelsNews extends FSModels
             }
         }
         return $record_change_success;
-
-
     }
 
     function get_linked_id()
@@ -449,8 +453,9 @@ class NewsModelsNews extends FSModels
         return $result;
     }
 
-    function remove(){
-        $id = FSInput::get('id',array(),'array');
+    function remove()
+    {
+        $id = FSInput::get('id', array(), 'array');
 
         // foreach ($id as $item){
         //     $this -> _remove('record_id  = '.$item .' and `module` = "news" and `view` = "news" ','fs_redirect');
@@ -458,7 +463,4 @@ class NewsModelsNews extends FSModels
         $rs = parent::remove();
         return $rs;
     }
-
 }
-
-?>

@@ -4,7 +4,7 @@ $tmpl->addScript('category', 'modules/products/assets/js');
 $tmpl->addStylesheet('default', 'blocks/product_categories/assets/css');
 ?>
 <div class="section-banner">
-    <?php echo $tmpl->load_direct_blocks('banners', ['category_id' => '6', 'style' => 'default']); ?>
+    <?php echo $tmpl->load_direct_blocks('banners', ['category_id' => '3', 'style' => 'default']); ?>
 </div>
 
 <div class="section-menu">
@@ -23,18 +23,20 @@ $tmpl->addStylesheet('default', 'blocks/product_categories/assets/css');
                 <div class="select-menu">
                     <?php echo FSText::_('Sắp xếp theo') ?>
                     <div class="select">
-                        <p><?php foreach ($arrSort as $i => $item) { ?><span class="fw-bold"><?= $active = $i == $getSort ? $item : ''; ?></span><?php } ?></p>
+                        <p><?php foreach ($arrSort as $i => $item) { ?><span
+                                class="fw-bold"><?= $active = $i == $getSort ? $item : ''; ?></span><?php } ?></p>
                         <i class="fas fa-angle-down"></i>
                     </div>
                     <div class="options-list">
                         <?php foreach ($arrSort as $i => $item) {
                             $active = $i == $getSort ? 'active' : '';
                         ?>
-                            <div class="filter-div">
-                                <a class="filter-sort position-relative option <?php echo $active ?>" data="<?php echo $i ?>">
-                                    <?php echo $item ?>
-                                </a>
-                            </div>
+                        <div class="filter-div">
+                            <a class="filter-sort position-relative option <?php echo $active ?>"
+                                data="<?php echo $i ?>">
+                                <?php echo $item ?>
+                            </a>
+                        </div>
                         <?php } ?>
                     </div>
                 </div>
@@ -50,7 +52,9 @@ $tmpl->addStylesheet('default', 'blocks/product_categories/assets/css');
             }
             ?> -->
 
-            <div class="section-item loading-scroll w-100" category="<?php echo $cat->id ?>" limit="<?php echo $this->model->limit ?>" total-current="<?php echo count($products) ?>" total="<?php echo $total ?>" page="1"></div>
+            <div class="section-item loading-scroll w-100" category="<?php echo $cat->id ?>"
+                limit="<?php echo $this->model->limit ?>" total-current="<?php echo count($products) ?>"
+                total="<?php echo $total ?>" page="1"></div>
         </div>
 
         <input type="hidden" name="sort" value="<?php echo $getSort ?>">

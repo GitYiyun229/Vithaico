@@ -158,6 +158,8 @@ class Controllers
 	}
 	function is_check($fields = '', $value = 1, $title = '')
 	{
+
+
 		$model = $this->model;
 		$rows = $model->change_status($fields, $value);
 		$link = 'index.php?module=' . $this->module . '&view=' . $this->view;
@@ -174,6 +176,8 @@ class Controllers
 	{
 		$model = $this->model;
 		$rows = $model->change_status($fields, $value);
+		// print_r($rows);
+		// die;
 		$link = 'index.php?module=' . $this->module . '&view=' . $this->view;
 		$page = FSInput::get('page', 0);
 		if ($page > 1)
@@ -833,26 +837,26 @@ class Controllers
 	public function getAjaxSearchProduct_()
 	{
 		$result = [];
-        $model = $this->model;
-        $list = $model->getAjaxSearchProduct_();
+		$model = $this->model;
+		$list = $model->getAjaxSearchProduct_();
 
-        if (!empty($list)) {
-            foreach ($list as $item) {
+		if (!empty($list)) {
+			foreach ($list as $item) {
 				$item->image = URL_ROOT . str_replace(['/original/', '.png', '.jpg'], ['/resized/', '.webp', '.webp'], $item->image);
 				$item->href = FSRoute::_("index.php?module=products&view=product&code=$item->alias&id=$item->id");
 				// $item->price_public = format_money($item->price_public);
 				$item->price = format_money($item->price);
 				$item->value = $item->href;
-				$result[] = $item; 
-            }
-        }
+				$result[] = $item;
+			}
+		}
 
-        $sugges_result = [
-            'query' => FSInput::get('query'),
-            'suggestions' => $result
+		$sugges_result = [
+			'query' => FSInput::get('query'),
+			'suggestions' => $result
 		];
 
-        echo json_encode($sugges_result);
+		echo json_encode($sugges_result);
 		exit;
 	}
 
@@ -860,13 +864,13 @@ class Controllers
 	{
 		$list = $this->model->getAjaxSearchProduct();
 		if (!empty($list)) {
-            foreach ($list as $item) {
+			foreach ($list as $item) {
 				$item->image = URL_ROOT . str_replace(['/original/', '.png', '.jpg'], ['/resized/', '.webp', '.webp'], $item->image);
 				$item->href = FSRoute::_("index.php?module=products&view=product&code=$item->alias&id=$item->id");
 				$item->price = format_money($item->price);
 				$item->quantity = $item->quantity ?: 0;
-            }
-        }
+			}
+		}
 		echo json_encode($list);
 		exit;
 	}
