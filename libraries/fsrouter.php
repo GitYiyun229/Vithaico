@@ -166,6 +166,8 @@ class FSRoute
                         return URL_ROOT . FSRoute::get_name_encode('so-dia-chi', $lang);
                     case 'favorite':
                         return URL_ROOT . FSRoute::get_name_encode('san-pham-yeu-thich', $lang);
+                    case 'introduce':
+                        return URL_ROOT . FSRoute::get_name_encode('danh-sach-thanh-vien-gioi-thieu', $lang);
                     case 'dashboard':
                         return URL_ROOT . FSRoute::get_name_encode('tai-khoan-ca-nhan', $lang);
                     default:

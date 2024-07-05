@@ -278,8 +278,6 @@ function saveChangeInfoDashboard(telephone, email, _this) {
   });
 }
 
-
-
 $("#btn-submit-password").click(function (e) {
   e.preventDefault();
 
@@ -287,7 +285,6 @@ $("#btn-submit-password").click(function (e) {
   let new_password = $("#new_password").val().trim();
   let re_new_password = $("#re_new_password").val().trim();
   $(".label_error").remove();
-
   if (!password) {
     invalid("current_password", "Vui lòng nhập mật khẩu");
   } else if (!new_password) {
@@ -295,7 +292,6 @@ $("#btn-submit-password").click(function (e) {
   } else if (!re_new_password || new_password !== re_new_password) {
     invalid("re_new_password", "Mật khẩu nhập lại không đúng");
   }
-
   if (checkRulePassword(password, new_password, re_new_password)) {
     console.log(3452343242);
     $.ajax({
@@ -328,21 +324,15 @@ $("input[name=new_password]").on("input", function () {
   let re_new_password = $("#re_new_password").val().trim();
   checkRulePassword(password, new_password, re_new_password);
 });
-
 function checkRulePassword(password, new_password, re_new_password) {
   let updateRuleStatus = (selector, isValid) => {
     $(selector)
       .addClass(isValid ? "success" : "error")
       .removeClass(isValid ? "error" : "success");
   };
- console.log(3452343242);
   updateRuleStatus(".lowercase-rule", /[a-z]/.test(new_password));
   updateRuleStatus(".uppercase-rule", /[A-Z]/.test(new_password));
   updateRuleStatus(".min-rule", /^.{8,}$/.test(new_password));
-
   return (
-    $(".password-rule.error").length === 0 &&
-    password &&
-    re_new_password === new_password
-  );
+    $(".password-rule.error").length === 0 && password && re_new_password === new_password );
 }
