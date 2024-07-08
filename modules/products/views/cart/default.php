@@ -54,13 +54,7 @@ $tmpl->addScript('cart', 'modules/products/assets/js');
                                 </div>
                             <?php } ?>
 
-                            <div class="section-discount-code p-3">
-                                <label for="discount" class="fw-semibold mb-2"><?php echo FSText::_('Mã giảm giá/ Thẻ quà tặng') ?></label>
-                                <div class="discount-box">
-                                    <input type="text" class="form-control" name="discount" id="discount" placeholder="<?php echo FSText::_('Nhập mã giảm giá') ?>">
-                                    <a href="" class="add-discount d-flex align-items-center justify-content-center fw-semibold"><?php echo FSText::_('Áp dụng') ?></a>
-                                </div>
-                            </div>
+                          
 
                             <div class="section-price-item">
                                 <div class="d-flex align-items-center justify-content-between pe-3 ps-3 mb-3 mt-3">
@@ -98,22 +92,7 @@ $tmpl->addScript('cart', 'modules/products/assets/js');
                     <div class="section-item bg-white">
                         <div class="section-header d-flex align-items-center justify-content-between p-3">
                             <div class="section-title fw-medium"><?php echo FSText::_('Thông tin giao hàng') ?></div>
-                            <div class="d-flex align-items-center gap-2">
-                                <?php if ($user->userID) { ?>
-                                    <div class="user-level level-<?php echo $user->userInfo->level ?> d-flex align-items-center text-uppercase fw-medium">
-                                        <img src="/images/user-level.svg" alt="level" class="img-fluid">
-                                        <?php echo $this->userLevel[$user->userInfo->level] ?>
-                                    </div>
-                                    <span class="text-grey">|</span>
-                                    <a href="" data-bs-toggle="modal" data-bs-target="#modalAddress" class="d-flex align-items-center gap-2 red-500">
-                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.99997 9.4535C9.14872 9.4535 10.08 8.52225 10.08 7.3735C10.08 6.22475 9.14872 5.2935 7.99997 5.2935C6.85122 5.2935 5.91997 6.22475 5.91997 7.3735C5.91997 8.52225 6.85122 9.4535 7.99997 9.4535Z" stroke="#D53C00" stroke-width="1.5"/><path d="M2.4133 6.16016C3.72664 0.386831 12.28 0.393498 13.5866 6.16683C14.3533 9.5535 12.2466 12.4202 10.4 14.1935C9.05997 15.4868 6.93997 15.4868 5.5933 14.1935C3.7533 12.4202 1.64664 9.54683 2.4133 6.16016Z" stroke="#D53C00" stroke-width="1.5"/></svg>
-                                        Chọn từ sổ địa chỉ
-                                    </a>
-                                <?php } else { ?>
-                                    <span class="login-title"><?php echo FSText::_('Bạn đã có tài khoản?') ?> </span>
-                                    <a href="" class="fw-semibold red-500 btn-login"><?php echo FSText::_('Đăng nhập') ?></a>
-                                <?php } ?>
-                            </div>
+                           
                         </div>
                         <div class="section-body p-3 d-flex flex-wrap section-form">
                             <div class="col-4">
@@ -169,7 +148,7 @@ $tmpl->addScript('cart', 'modules/products/assets/js');
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="section-item bg-white">
+                    <div class="section-item bg-white">
                         <div class="section-header d-flex align-items-center justify-content-between p-3">
                             <div class="section-title fw-medium"><?php //echo FSText::_('Phương thức vận chuyển') ?></div>
                             <div class="freeship-title">
@@ -188,11 +167,11 @@ $tmpl->addScript('cart', 'modules/products/assets/js');
                         </div>
                         <div class="section-body section-transport p-3">
                             <div class="text-center pt-5 pb-5">
-                                <img src="<?php //echo URL_ROOT ?>images/truck-icon.svg" alt="" class="img-fluid mb-3">
-                                <div><?php //echo FSText::_('Vui lòng chọn tỉnh / thành để có danh sách phương thức vận chuyển.') ?></div>
+                                <img src="<?php echo URL_ROOT ?>images/truck-icon.svg" alt="" class="img-fluid mb-3">
+                                <div><?php echo FSText::_('Vui lòng chọn tỉnh / thành để có danh sách phương thức vận chuyển.') ?></div>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                     <div class="section-item bg-white">
                         <div class="section-header d-flex align-items-center justify-content-between p-3">
                             <div class="section-title fw-medium"><?php echo FSText::_('Phương thức thanh toán') ?></div>
