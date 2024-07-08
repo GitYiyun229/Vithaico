@@ -3,7 +3,6 @@
 $tmpl->addStylesheet('select2.min');
 $tmpl->addStylesheet('members', 'modules/members/assets/css');
 $tmpl->addStylesheet('dashboard', 'modules/members/assets/css');
-
 $tmpl->addScript('select2.min');
 $tmpl->addScript('default', 'modules/members/assets/js');
 ?>

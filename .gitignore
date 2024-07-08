@@ -5,3 +5,4 @@
 /log_mysql
 /includes
 .gitignore
+/libraries/bitrix
