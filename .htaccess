@@ -26,6 +26,10 @@ RewriteRule ^404.html$ index.php?module=home&view=home&task=display404&Itemid=11
 ErrorDocument 404 /404.html
 
 
+#--------------------contact --------------------------------index.php?module=contact&view=contact&code=----------------------
+RewriteRule ^lien-he$ index.php?module=contact&view=contact&Itemid=43&lang=vi [L]
+RewriteRule ^contact$ index.php?module=contact&view=contact&Itemid=43&lang=en [L]
+
 #-----------------------------tin tức---------------------------------------------------------------------------------------
 RewriteRule ^tin-tuc/([^/]*)-cn([0-9]*)/(page-([0-9]*)) index.php?module=news&view=cat&ccode=$1&id=$2&Itemid=3&page=$4&lang=vi [L]
 RewriteRule ^tin-tuc/([^/]*)-cn([0-9]*)$ index.php?module=news&view=cat&ccode=$1&id=$2&Itemid=3&lang=vi [L]

@@ -12,26 +12,36 @@ $(".section-user-btn").hover(function () {
   }
 });
 
-$(".owl-flashsale").owlCarousel({
-  center: true,
-  items: 1,
-  loop: false,
-  margin: 15,
-  nav: true,
-  dots: false,
-  autoplayHoverPause: true,
+$(".slider-hot-news").slick({
+  slidesToShow: 4,
+  slidesToScroll: 1,
+  arrows: true,
+  infinite: false,
+  prevArrow:
+    '<button class="slick-prev"><svg width="12" height="22" viewBox="0 0 12 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 21L1 11L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>',
+  nextArrow:
+    '<button class="slick-next"><svg width="12" height="22" viewBox="0 0 12 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 21L11 11L1 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>',
 });
+// $(".owl-flashsale").owlCarousel({
+//   center: true,
+//   items: 1,
+//   loop: false,
+//   margin: 15,
+//   nav: true,
+//   dots: false,
+//   autoplayHoverPause: true,
+// });
 
-$("#owl-tiktok").owlCarousel({
-  center: false,
-  items: 1,
-  loop: false,
-  margin: 15,
-  nav: true,
-  dots: true,
-  autoWidth: true,
-  lazyLoad: true,
-});
+// $("#owl-tiktok").owlCarousel({
+//   center: false,
+//   items: 1,
+//   loop: false,
+//   margin: 15,
+//   nav: true,
+//   dots: true,
+//   autoWidth: true,
+//   lazyLoad: true,
+// });
 
 const debounce = (mainFunction, delay) => {
   let timer;
@@ -43,68 +53,68 @@ const debounce = (mainFunction, delay) => {
   };
 };
 
-$(window).on(
-  "scroll",
-  debounce(function () {
-    let load = $(".loading-scroll");
-    let page = parseInt(load.attr("page")) + 1;
-    let totalCurrent = parseInt(load.attr("total-current"));
-    let total = parseInt(load.attr("total"));
-    let limit = parseInt(load.attr("limit"));
+// $(window).on(
+//   "scroll",
+//   debounce(function () {
+//     let load = $(".loading-scroll");
+//     let page = parseInt(load.attr("page")) + 1;
+//     let totalCurrent = parseInt(load.attr("total-current"));
+//     let total = parseInt(load.attr("total"));
+//     let limit = parseInt(load.attr("limit"));
 
-    if (isElementInViewport($(".loading-scroll")[0]) && totalCurrent < total) {
-      load.fadeIn().append(loadingHtml);
-      load.attr("page", page);
-      load.attr("total-current", totalCurrent + limit);
+//     if (isElementInViewport($(".loading-scroll")[0]) && totalCurrent < total) {
+//       load.fadeIn().append(loadingHtml);
+//       load.attr("page", page);
+//       load.attr("total-current", totalCurrent + limit);
 
-      loadMoreContent(page, limit, load);
-    }
-  }, 300)
-);
+//       loadMoreContent(page, limit, load);
+//     }
+//   }, 300)
+// );
 
-function isElementInViewport(el) {
-  var rect = el.getBoundingClientRect();
-  return (
-    rect.top >= 0 &&
-    rect.left >= 0 &&
-    rect.bottom <=
-      (window.innerHeight || document.documentElement.clientHeight) &&
-    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-  );
-}
+// function isElementInViewport(el) {
+//   var rect = el.getBoundingClientRect();
+//   return (
+//     rect.top >= 0 &&
+//     rect.left >= 0 &&
+//     rect.bottom <=
+//       (window.innerHeight || document.documentElement.clientHeight) &&
+//     rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+//   );
+// }
 
-function loadMoreContent(page, limit, load) {
-  $.ajax({
-    url: "index.php?module=home&view=home&task=loadMore&raw=1",
-    type: "GET",
-    data: { page, limit },
-    dataType: "html",
-    success: function (result) {
-      $(".section-product .products").append(result);
-      load.fadeOut().html("");
-    },
-    error: function (XMLHttpRequest, textStatus, errorThrown) {
-      console.log(
-        "Có lỗi trong quá trình đưa lên máy chủ. Xin bạn vui lòng kiểm tra lỗi kết nối."
-      );
-      load.fadeOut().html("");
-    },
-  });
-}
-$(document).ready(function () {
-  $(".slider-flashsale").slick({
-    slidesToShow: 6,
-    rows: 2,
-    slidesToScroll: 6,
-    arrows: true,
-    infinite: true,
-    speed: 300,
-    prevArrow:
-      '<button class="slick-prev"><svg width="12" height="22" viewBox="0 0 12 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 21L1 11L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>',
-    nextArrow:
-      '<button class="slick-next"><svg width="12" height="22" viewBox="0 0 12 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 21L11 11L1 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>',
-  });
-});
+// function loadMoreContent(page, limit, load) {
+//   $.ajax({
+//     url: "index.php?module=home&view=home&task=loadMore&raw=1",
+//     type: "GET",
+//     data: { page, limit },
+//     dataType: "html",
+//     success: function (result) {
+//       $(".section-product .products").append(result);
+//       load.fadeOut().html("");
+//     },
+//     error: function (XMLHttpRequest, textStatus, errorThrown) {
+//       console.log(
+//         "Có lỗi trong quá trình đưa lên máy chủ. Xin bạn vui lòng kiểm tra lỗi kết nối."
+//       );
+//       load.fadeOut().html("");
+//     },
+//   });
+// }
+// $(document).ready(function () {
+//   $(".slider-flashsale").slick({
+//     slidesToShow: 6,
+//     rows: 2,
+//     slidesToScroll: 6,
+//     arrows: true,
+//     infinite: true,
+//     speed: 300,
+//     prevArrow:
+//       '<button class="slick-prev"><svg width="12" height="22" viewBox="0 0 12 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 21L1 11L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>',
+//     nextArrow:
+//       '<button class="slick-next"><svg width="12" height="22" viewBox="0 0 12 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 21L11 11L1 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>',
+//   });
+// });
 
 // const coutDown = (day, hour, minute, second) => {
 //   setInterval(() => {
@@ -178,22 +188,21 @@ function countDown(days, hours, minutes, seconds) {
     var minutesLeft = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     var secondsLeft = Math.floor((distance % (1000 * 60)) / 1000);
 
-
-   if (daysLeft < 10) {
-     daysLeft = "0" + daysLeft;
-   }
-   if (hoursLeft < 10) {
-     hoursLeft = "0" + hoursLeft;
-   }
-   if (minutesLeft < 10) {
-     minutesLeft = "0" + minutesLeft;
-   }
-   if (secondsLeft < 10) {
-     secondsLeft = "0" + secondsLeft;
-   }
+    if (daysLeft < 10) {
+      daysLeft = "0" + daysLeft;
+    }
+    if (hoursLeft < 10) {
+      hoursLeft = "0" + hoursLeft;
+    }
+    if (minutesLeft < 10) {
+      minutesLeft = "0" + minutesLeft;
+    }
+    if (secondsLeft < 10) {
+      secondsLeft = "0" + secondsLeft;
+    }
     $("#demo163").html(
       "<span class='fw-bold number_'>" +
-        daysLeft+
+        daysLeft +
         "</span>" +
         " : " +
         "<span class='fw-bold number_'>" +
@@ -202,7 +211,8 @@ function countDown(days, hours, minutes, seconds) {
         " : " +
         "<span class='fw-bold number_'>" +
         minutesLeft +
-        "</span>" + " : " +
+        "</span>" +
+        " : " +
         "<span class='fw-bold number_'>" +
         secondsLeft +
         "</span>"

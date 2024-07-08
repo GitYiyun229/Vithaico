@@ -1,74 +1,147 @@
-.box_map {
-  margin-bottom: 70px;
-  margin-top: 30px;
+main .section-banner {
+  margin-bottom: 48px;
 }
-.box_map h1 {
-  font-size: 18px;
-  line-height: 24px;
-  margin: 0;
-  padding-bottom: 10px;
-  font-weight: bold;
-  border-bottom: 1px solid #DDDDDD;
-  margin-bottom: 10px;
+main .map-contact {
+  margin-bottom: 48px;
 }
-.box_map .list_address {
-  overflow: hidden;
+main .map-contact iframe {
+  width: 100%;
+  height: 316px;
 }
-.box_map .list_address .list_faq_content {
-  height: 686px;
-  overflow-y: auto;
+main .contact-box {
+  display: grid;
+  grid-template-columns: 480px auto;
+  grid-gap: 48px;
 }
-.box_map .list_address .list_faq_content .item_ad {
-  cursor: pointer;
-  padding: 15px 0;
-  display: flex;
-  justify-content: flex-start;
-  align-items: start;
-  border-bottom: 1px solid #EEEEEE;
+main .contact-box .left-box {
+  background-color: rgba(250, 248, 244, 0.72);
+  border-radius: 16px;
+  padding: 48px;
+  height: -moz-fit-content;
+  height: fit-content;
 }
-.box_map .list_address .list_faq_content .item_ad .left_map {
-  padding-left: 10px;
-}
-.box_map .list_address .list_faq_content .item_ad .left_map h3 {
+main .contact-box .left-box .title_contact {
+  color: #ea212d;
+  margin-bottom: 40px;
+  font-weight: 700;
   text-transform: uppercase;
+  font-size: 24px;
+  line-height: 34px;
+}
+main .contact-box .left-box .line_contact {
+  display: grid;
+  grid-template-columns: 48px auto;
+  grid-gap: 24px;
+  margin-bottom: 24px;
+}
+main .contact-box .left-box .line_contact .line_right p {
+  color: #000;
   font-size: 16px;
-  line-height: 24px;
-  font-weight: bold;
-  margin: 0 0 6px 0;
+  line-height: 21px;
+  font-weight: 400;
 }
-.box_map .list_address .list_faq_content .item_ad .left_map p {
-  line-height: 24px;
-  margin-bottom: 6px;
-  padding-left: 20px;
-  background: url("../images/map.svg") top 5px left 0 no-repeat;
+main .contact-box .left-box .line_contact .line_right .text_bold {
+  margin-bottom: 8px;
+  color: #757575;
 }
-.box_map .list_address .list_faq_content .item_ad .left_map a {
-  display: block;
-  line-height: 24px;
-  padding-left: 20px;
-  background: url("../images/phone.svg") top 5px left 0 no-repeat;
+main .contact-box .right-box .heading-contact {
+  color: #000;
+  font-size: 24px;
+  line-height: 33px;
+  font-weight: 700;
+  margin-bottom: 24px;
 }
-@media (max-width: 991px) {
-  .box_map .list_address {
-    margin-bottom: 30px;
-    box-shadow: 0 3px 2px -2px gray;
+main .contact-box .right-box .summary_contact {
+  margin-bottom: 24px;
+}
+main .contact-box .right-box .summary_contact p {
+  color: rgb(117, 117, 117);
+  font-size: 16px;
+  line-height: 21px;
+  font-weight: 400;
+}
+main .contact-box .right-box .summary_contact p:last-child {
+  margin-top: 8px;
+}
+main .contact-box .right-box #frmContact {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 24px 16px;
+}
+main .contact-box .right-box #frmContact .box label {
+  color: rgb(117, 117, 117);
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+main .contact-box .right-box #frmContact .box input,
+main .contact-box .right-box #frmContact .box textarea {
+  border-radius: 8px;
+  background-color: rgb(245, 245, 245);
+  padding: 10px 16px 12px;
+}
+main .contact-box .right-box #frmContact .box input::-moz-placeholder, main .contact-box .right-box #frmContact .box textarea::-moz-placeholder {
+  color: rgb(148, 148, 148);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+}
+main .contact-box .right-box #frmContact .box input::placeholder,
+main .contact-box .right-box #frmContact .box textarea::placeholder {
+  color: rgb(148, 148, 148);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+}
+main .contact-box .right-box #frmContact .box .submitFrmC {
+  display: inline-block;
+  background-color: #ea212d;
+  padding: 19px 42px;
+  border-radius: 100px;
+  color: #fff;
+  font-size: 14px;
+  line-height: 19px;
+}
+main .contact-box .right-box #frmContact .box-area {
+  grid-area: auto/1/auto/3;
+}
+
+@media all and (max-width: 1000px) {
+  main .map-contact {
+    margin-bottom: 0;
   }
-  .box_map .list_address .list_faq_content {
-    height: 260px;
+  main .contact-box {
+    display: block;
+  }
+  main .contact-box .right-box {
+    padding: 48px;
   }
 }
-
-#style-44::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
-  background-color: #F5F5F5;
-}
-
-#style-44::-webkit-scrollbar {
-  width: 5px;
-  background-color: #ccc;
-}
-
-#style-44::-webkit-scrollbar-thumb {
-  background-color: #F9920F;
-  border: 2px solid #F9920F;
+@media all and (max-width: 500px) {
+  main .map-contact iframe {
+    width: 100%;
+    height: 316px;
+  }
+  main .contact-box .left-box {
+    padding: 16px;
+  }
+  main .contact-box .left-box .title_contact {
+    font-size: 18px;
+    line-height: 30px;
+  }
+  main .contact-box .right-box {
+    padding: 16px;
+    padding-top: 0;
+  }
+  main .contact-box .right-box #frmContact {
+    display: block;
+  }
+  main .contact-box .right-box #frmContact .box input,
+  main .contact-box .right-box #frmContact .box textarea {
+    margin-bottom: 16px;
+  }
+  main .contact-box .right-box #frmContact .box-area:last-child {
+    text-align: center;
+  }
 }/*# sourceMappingURL=contact.css.map */

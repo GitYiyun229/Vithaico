@@ -1,12 +1,12 @@
  <?php
     $tmpl->addStylesheet('slick', 'libraries/slick-js');
-    $tmpl->addStylesheet('slick.theme', 'libraries/slick-js');
-    $tmpl->addStylesheet('owl.carousel.min', 'libraries/OwlCarousel2-2.3.4/dist/assets');
-    $tmpl->addStylesheet('owl.theme.default.min', 'libraries/OwlCarousel2-2.3.4/dist/assets');
+    // $tmpl->addStylesheet('owl.carousel.min', 'libraries/OwlCarousel2-2.3.4/dist/assets');
+    // $tmpl->addStylesheet('owl.theme.default.min', 'libraries/OwlCarousel2-2.3.4/dist/assets');
     $tmpl->addStylesheet('default', 'modules/home/assets/css');
-    $tmpl->addScript('owl.carousel.min', 'libraries/OwlCarousel2-2.3.4/dist');
+
+    // $tmpl->addScript('owl.carousel.min', 'libraries/OwlCarousel2-2.3.4/dist');
+    $tmpl->addScript('slick', 'libraries/slick-js');
     $tmpl->addScript('default', 'modules/home/assets/js');
-    $tmpl->addScript('slick.min', 'libraries/slick-js');
     ?>
  <div class="page-home">
      <div class="d-flex gap-3 section-top mb-3">
@@ -23,40 +23,42 @@
          <?php echo $tmpl->load_direct_blocks('banners', ['category_id' => '2', 'style' => 'default']); ?>
      </div>
 
-     <div class="container section-product-categories sec-mar ">
-         <p class="title-1"> <?= FSText::_('Sản phẩm') ?></p>
-         <h4 class="title-2 mb-3 mt-3"><?= FSText::_('Danh mục sản phẩm') ?></h4>
-         <?php echo $tmpl->load_direct_blocks('product_categories', ['style' => 'menu_home']); ?>
+     <div class=" section-product-categories sec-mar">
+         <div class="container">
+             <p class="title-1"> <?= FSText::_('Sản phẩm') ?></p>
+             <h4 class="title-2 mb-3 mt-3"><?= FSText::_('Danh mục sản phẩm') ?></h4>
+             <?php echo $tmpl->load_direct_blocks('product_categories', ['style' => 'menu_home']); ?>
+         </div>
+
      </div>
 
      <div class="section-feedback sec-mar">
-         <p class="title-1"> <?= FSText::_('Cảm nhận') ?></p>
-         <h4 class="title-2 mb-3 mt-3"><?= FSText::_('Hội viên nói về Vithaico') ?></h4>
+         <div class="container">
+             <p class="title-1"> <?= FSText::_('Cảm nhận') ?></p>
+             <h4 class="title-2 mb-3 mt-3"><?= FSText::_('Hội viên nói về Vithaico') ?></h4>
+         </div>
+
      </div>
 
+     <div class="section-jdo sec-mar">
 
-     <!--     <div class="section-product bg-white mb-3">
-            <div class="mb-4 section-title fw-bold"><?php echo FSText::_('Gợi ý cho bạn') ?></div>
-            <div class="tab-content">
-                <div class="tab-pane fade show active" id="nav-0" role="tabpanel" aria-labelledby="nav-0-tab" tabindex="0">
-                    <div class="products d-flex flex-wrap product-gap">
-                        <?php foreach ($products as $item) { ?>
-                            <?php echo $this->layoutProductItem($item) ?>
-                        <?php } ?>
-                    </div>
-                    <div class="loading-scroll w-100" limit="20" total-current="<?php echo count($products) ?>" total="<?php echo $total ?>" page="1"></div>
-                </div>
+     </div>
 
-                <?php foreach ($categories as $item) { ?>
-                    <div class="tab-pane fade" id="nav-<?php echo $item->id ?>" role="tabpanel" aria-labelledby="nav-<?php echo $item->id ?>-tab" tabindex="0">
-                        <div class="d-flex flex-wrap product-gap">
-                            <?php foreach ($item->products as $prd) { ?>
-                                <?php echo $this->layoutProductItem($prd) ?>
-                            <?php } ?>
-                        </div>
-                    </div>
-                <?php } ?>
-            </div>
-        </div>
-    </div>
-</div> -->
+     <div class="section-news sec-mar">
+         <div class="container">
+             <p class="title-1"> <?= FSText::_('Tin tức') ?></p>
+             <h4 class="title-2 mb-3 mt-3"><?= FSText::_('Tin tức & Sự kiện') ?></h4>
+             <?php if (!empty($list_hot_news)) { ?>
+             <div class="mb-4 list_grid_news <?php echo count($list_hot_news) > 4 ? 'slider-hot-news ' : '' ?>">
+                 <?php foreach ($list_hot_news as $i => $item) {
+                            echo $tmpl->newItem($i + 1, $item);
+                        } ?>
+             </div>
+             <?php } ?>
+
+             <div class="show-all">
+                 <a class="all" href="<?= FSRoute::_('index.php?module=news&view=home') ?>">Xem tất cả</a>
+             </div>
+         </div>
+     </div>
+ </div>

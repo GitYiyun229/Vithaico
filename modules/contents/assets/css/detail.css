@@ -1,8 +1,8 @@
 .container .main-content {
   display: grid;
   grid-template-columns: 1fr 4fr;
-  grid-gap: 30px;
-  padding: 20px 0;
+  grid-gap: 48px;
+  margin-top: 48px;
 }
 .container .main-content .menu-left .h2_c {
   font-size: 16px;
@@ -18,18 +18,21 @@
   padding-left: 0px;
   font-size: 14px;
 }
-.container .main-content .menu-left .list li:hover a {
-  color: #d53c00;
-}
 .container .main-content .menu-left .list li a {
   display: block;
   padding: 12px 0;
   color: #3b3b3b;
 }
+.container .main-content .menu-left .list li:hover a {
+  color: #d53c00;
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding-left: 16px;
+}
 .container .main-content .menu-left .list .active {
   padding-left: 16px;
-  background: #fff;
-  border-radius: 4px;
+  background: #f5f5f5;
+  border-radius: 8px;
 }
 .container .main-content .menu-left .list .active a {
   color: #d53c00;
@@ -40,16 +43,25 @@
   justify-content: space-between;
 }
 .container .main-content .content-right .top h2 {
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 24px;
+  font-weight: 700;
   color: #3b3b3b;
-  margin-bottom: 7px;
+  position: relative;
+  padding-bottom: 24px;
+}
+.container .main-content .content-right .top h2::before {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 2px;
+  background-color: #d51e29;
+  bottom: 0;
 }
 .container .main-content .content-right .top .see_more {
   display: none;
 }
 .container .main-content .content-right .content__ {
-  padding: 24px;
+  margin-top: 24px;
   background: #fff;
   border-radius: 4px;
   font-size: 14px;

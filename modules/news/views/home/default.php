@@ -1,7 +1,6 @@
 <?php
 global $tmpl;
 $tmpl->addStylesheet('home', 'modules/news/assets/css');
-$tmpl->addScript('default', 'modules/news/assets/js');
 ?>
 
 <div class="section-banner">
@@ -16,10 +15,12 @@ $tmpl->addScript('default', 'modules/news/assets/js');
             </div>
         </a>
         <?php foreach ($list_cat as $item) { ?>
-            <a href="<?php echo FSRoute::_('index.php?module=news&view=cat&ccode=' . $item->alias . '&id=' . $item->id . ' ') ?>" class="item_cat_new">
-                <img src="<?php echo URL_ROOT . image_replace_webp($item->image, 'original')  ?>" alt="<?php echo $item->name ?>" class="img-fluid img-icon">
-                <div class="item-name"><?php echo $item->name ?></div>
-            </a>
+        <a href="<?php echo FSRoute::_('index.php?module=news&view=cat&ccode=' . $item->alias . '&id=' . $item->id . ' ') ?>"
+            class="item_cat_new">
+            <img src="<?php echo URL_ROOT . image_replace_webp($item->image, 'original')  ?>"
+                alt="<?php echo $item->name ?>" class="img-fluid img-icon">
+            <div class="item-name"><?php echo $item->name ?></div>
+        </a>
         <?php } ?>
     </div>
 
@@ -41,7 +42,7 @@ $tmpl->addScript('default', 'modules/news/assets/js');
     </div>
     <div class="list_grid_news">
         <?php foreach ($list_news as $i => $item) { ?>
-            <?php echo $tmpl->newItem($i + 1, $item) ?>
+        <?php echo $tmpl->newItem($i + 1, $item) ?>
         <?php } ?>
     </div>
 </div>
