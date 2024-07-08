@@ -274,7 +274,7 @@ $alert = array(
                         <img src="<?php echo URL_ROOT . $config['logo'] ?>" alt="">
                     </h3>
                     <div class="site_name-footer">
-                        <p><?php echo  $config['company'] ?></p>
+                        <p><?php echo  $config['name_company'] ?></p>
                     </div>
                     <div class="info_company">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

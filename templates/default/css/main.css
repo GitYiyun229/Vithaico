@@ -288,7 +288,15 @@ footer .footer-bot .copyright {
 }
 
 .sec-mar {
-  margin-bottom: 80px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.title_see_price {
+  color: #2476ff;
+}
+.title_see_price:hover {
+  color: #dd2033;
 }
 
 .btn-submit.add-cart {

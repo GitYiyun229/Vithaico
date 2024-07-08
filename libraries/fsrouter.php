@@ -20,7 +20,7 @@ class FSRoute
     {
         $lang_url = array(
             'ct' => 'ce',
-
+            'lien-he' => ['en' => 'contact', 'jp' => 'contact-jp'],
             'tin-tuc' => ['en' => 'news', 'jp' => 'news-jp'],
             'cn' => ['en' => 'cne', 'jp' => 'cnj'],
             'dn' => ['en' => 'dne', 'jp' => 'dnj'],
@@ -262,6 +262,9 @@ class FSRoute
                         $id = isset($array_params['id']) ? $array_params['id'] : '';
                         return $url_first . $code . '-n' . $id . '.html';
                 }
+                break;
+            case 'contact':
+                return $url_first . FSRoute::get_name_encode('lien-he', $lang);
                 break;
 
 

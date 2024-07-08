@@ -16,6 +16,8 @@ class HomeControllersHome extends FSControllers
             $item->products = $this->nomalizeProducts($item->products);
         }
 
+        $list_hot_news = $this->model->get_list_hot();
+
         $query = $model->setQuery();
         $products = $model->getProducts($query);
         $products = $this->nomalizeProducts($products);
@@ -29,7 +31,7 @@ class HomeControllersHome extends FSControllers
         $flashsaleProducts = [];
         if (!empty($flashsaleProductsOriginal)) {
 
-            
+
             $date_flash_sale = $model->GetDateFlashSale();
             $specificDate = strtotime($date_flash_sale->date_end);
             $currentTime = time();
