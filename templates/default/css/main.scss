@@ -78,26 +78,48 @@ header {
     .box_members_click {
       display: none;
       width: 250px;
-      padding: 8px;
+      padding: 12px 24px;
       border-radius: 16px;
       overflow: hidden;
       position: absolute;
-      top: 100%;
-      right: 0;
+      top: 20px;
+      right: -100px;
       background-color: #fff;
       z-index: 10;
       border: 1px solid #fff;
       box-shadow: 0px 0px 6px 6px rgba(0, 0, 0, 0.12);
-
+      .user_login_btn.user_header_btn img {
+        width: 44px;
+        height: 44px;
+        span {
+          margin-left: 10px;
+        }
+      }
+      .row-p {
+        height: 1px;
+        background: #ebebeb;
+        margin: 15px 0px 5px 0px;
+      }
+      .btn-guest-2 {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        font-weight: 500;
+        color: #2476ff;
+        font-size: 12px;
+        line-height: 19px;
+        padding: 10px 0px;
+        border-radius: 8px;
+      }
       .btn-guest {
         display: flex;
         gap: 12px;
         align-items: center;
         font-weight: 700;
         color: #000;
-        font-size: 14px;
+        font-size: 12px;
         line-height: 19px;
-        padding: 10px 12px;
+        padding: 10px 0px;
         border-radius: 8px;
 
         svg {
@@ -527,6 +549,20 @@ footer {
   .pre-page,
   .first-page {
     background: #fff;
+  }
+}
+.cart-session-right.position-absolute {
+  top: -5px;
+  display: block;
+  color: #fff;
+  left: 15px;
+  .cart-quantity.cart-text-quantity {
+    height: 17px;
+    width: 17px;
+    background: red;
+    border-radius: 50%;
+    font-size: 10px;
+    color: #fff;
   }
 }
 
