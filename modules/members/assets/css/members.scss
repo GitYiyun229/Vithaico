@@ -1,4 +1,4 @@
-main{
+main {
   background: #f5f5f5;
 }
 .app-main-content {
@@ -6,13 +6,18 @@ main{
 }
 .page-member {
   display: grid;
-  grid-template-columns: 240px auto;
+  grid-template-columns: 250px auto;
   grid-gap: 24px;
   .text-red {
     color: #d53c00;
   }
   .text-grey {
     color: #757575;
+  }
+}
+.address-dashboard {
+  .col-4{
+    width: calc((100% - 1rem) / 3 );
   }
 }
 .custom {
@@ -95,7 +100,7 @@ main{
 }
 
 .user-menu-sidebar {
-  border-bottom: 1px solid #dedede;
+  // border-bottom: 1px solid #dedede;
   a {
     display: flex;
     gap: 10px;
@@ -114,6 +119,9 @@ main{
       background: #d53c00;
       color: #fff;
       padding-left: 16px;
+      svg path {
+        stroke: #fff;
+      }
     }
     &.active {
       background: #d53c00;
@@ -160,7 +168,7 @@ main{
     }
   }
 }
-.page-sidebar{
+.page-sidebar {
   background: #ffffff;
   border-radius: 16px;
 }

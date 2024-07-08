@@ -9,7 +9,7 @@ $tmpl->addScript('default', 'modules/members/assets/js');
 <div class="container">
     <div class="page-member">
         <div class="page-side">
-            <div class="page-sidebar p-4">
+            <div class="page-sidebar p-4 pb-2">
                 <?php include PATH_BASE . 'modules/members/views/sidebar.php' ?>
             </div>
         </div>
@@ -25,42 +25,45 @@ $tmpl->addScript('default', 'modules/members/assets/js');
                         </div>
                     </div>
 
-                    <div class="d-flex align-items-center mb-3 gap-2 flex-wrap">
+                    <div class="d-flex align-items-center mb-3 ">
                         <label for="address" class="col-3"><?php echo FSText::_('Địa chỉ') ?></label>
-                        <div class="col">
-                            <select name="province" class="form-control form-select2 form-province">
-                                <option value="0"><?php echo FSText::_('Tỉnh/TP') ?></option>
-                                <?php foreach ($province as $item) { ?>
-                                    <option value="<?php echo $item->code ?>" <?php echo $where_province == $item->code ? 'selected'  : '' ?>><?php echo $item->name ?></option>
-                                <?php } ?>
-                            </select>
+                        <div class="col-9 d-flex align-items-center mb-3 gap-2 address-dashboard">
+                            <div class="col-4">
+                                <select name="province" class="form-control form-select2 form-province">
+                                    <option value="0"><?php echo FSText::_('Tỉnh/TP') ?></option>
+                                    <?php foreach ($province as $item) { ?>
+                                        <option value="<?php echo $item->code ?>" <?php echo $where_province == $item->code ? 'selected'  : '' ?>><?php echo $item->name ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                            <div class="col-4 ">
+                                <select name="district" class="form-control form-select2 form-district">
+                                    <?php if (empty($where_province)) { ?>
+                                        <option value="0"><?php echo FSText::_('Quận/Huyện') ?></option>
+                                    <?php } else { ?>
+                                        <?php foreach ($district as $districtItem) {
+                                        ?>
+                                            <option value="<?php echo $districtItem->code ?>" <?php echo $where_district == $districtItem->code ? 'selected' : '' ?>><?php echo $districtItem->name ?></option>
+                                        <?php }
+                                        ?>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <select name="ward" class="form-control form-select2 form-ward">
+                                    <?php if (empty($where_province)) { ?>
+                                        <option value="0"><?php echo FSText::_('Phường/Xã') ?></option>
+                                    <?php } else { ?>
+                                        <?php foreach ($ward as $wardItem) {
+                                        ?>
+                                            <option value="<?php echo $wardItem->code ?>" <?php echo $wardItem->code == $where_ward ? 'selected' : '' ?>><?php echo $wardItem->name ?></option>
+                                        <?php }
+                                        ?>
+                                    <?php } ?>
+                                </select>
+                            </div>
                         </div>
-                        <div class=" col">
-                            <select name="district" class="form-control form-select2 form-district">
-                                <?php if (empty($where_province)) { ?>
-                                    <option value="0"><?php echo FSText::_('Quận/Huyện') ?></option>
-                                <?php } else { ?>
-                                    <?php foreach ($district as $districtItem) {
-                                    ?>
-                                        <option value="<?php echo $districtItem->code ?>" <?php echo $where_district == $districtItem->code ? 'selected' : '' ?>><?php echo $districtItem->name ?></option>
-                                    <?php }
-                                    ?>
-                                <?php } ?>
-                            </select>
-                        </div>
-                        <div class="col">
-                            <select name="ward" class="form-control form-select2 form-ward">
-                                <?php if (empty($where_province)) { ?>
-                                    <option value="0"><?php echo FSText::_('Phường/Xã') ?></option>
-                                <?php } else { ?>
-                                    <?php foreach ($ward as $wardItem) {
-                                    ?>
-                                        <option value="<?php echo $wardItem->code ?>" <?php echo $wardItem->code == $where_ward ? 'selected' : '' ?>><?php echo $wardItem->name ?></option>
-                                    <?php }
-                                    ?>
-                                <?php } ?>
-                            </select>
-                        </div>
+
                     </div>
                     <div class="d-flex align-items-center mb-3 flex-wrap">
                         <label for="address" class="col-3"><?php echo FSText::_('') ?></label>
@@ -92,8 +95,11 @@ $tmpl->addScript('default', 'modules/members/assets/js');
                     <div class="d-flex align-items-center mb-3 flex-wrap">
                         <label for="link_aff" class="col-3"><?php echo FSText::_('Link giới thiệu') ?></label>
                         <div class="col-9">
-                            <div class="col ref_code copy">
-                                <input type="text" value="<?php echo FSRoute::_('index.php?module=members&view=user&task=register') . '?code=' . $user->userInfo->ref_code ?>" class="form-control link_aff_copy" name="link_aff">
+                            <div class="col ref_code copy position-relative">
+                                <input type="text" value="<?php echo FSRoute::_('index.php?module=members&view=user&task=register') . '?code=86' . $user->userInfo->id ?>" class="form-control link_aff_copy" id="link_aff" name="link_aff">
+                                <div onclick="myFunction()" class="position-absolute top-50 end-0 translate-middle-y px-4">
+                                    <img src="/modules/members/assets/images/icon-copy.svg" alt="img-copy">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -173,7 +179,7 @@ $tmpl->addScript('default', 'modules/members/assets/js');
                         <div class="mb-5"><?php echo FSText::_('Để bảo mật tài khoản, vui lòng không chia sẻ mật khẩu cho người khác.') ?></div>
                         <div class="mb-3 d-flex flex-wrap align-items-center position-relative">
                             <input type="password" class="form-control" name="current_password" id="current_password" autocomplete placeholder="<?php echo FSText::_('Nhập mật khẩu hiện tại') ?>">
-                            <a href="" class="toggle-password">
+                            <a href="" class="toggle-password position-absolute end-0">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M9.68634 6.31337L6.31301 9.68671M9.68634 6.31337C9.25301 5.88004 8.65967 5.61337 7.99967 5.61337C6.67967 5.61337 5.61301 6.68004 5.61301 8.00004C5.61301 8.66004 5.87967 9.25337 6.31301 9.68671M9.68634 6.31337L14.6663 1.33337M6.31301 9.68671L1.33301 14.6667M11.8797 3.84671C10.713 2.96671 9.37967 2.48671 7.99967 2.48671C5.64634 2.48671 3.45301 3.87337 1.92634 6.27337C1.32634 7.21337 1.32634 8.79337 1.92634 9.73337C2.45301 10.56 3.06634 11.2734 3.73301 11.8467M5.61301 13.02C6.37301 13.34 7.17967 13.5134 7.99967 13.5134C10.353 13.5134 12.5463 12.1267 14.073 9.72671C14.673 8.78671 14.673 7.20671 14.073 6.26671C13.853 5.92004 13.613 5.59337 13.3663 5.28671M10.3397 8.46671C10.1663 9.40671 9.39967 10.1734 8.45967 10.3467" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
@@ -185,7 +191,7 @@ $tmpl->addScript('default', 'modules/members/assets/js');
                         </div>
                         <div class="mb-3 d-flex flex-wrap align-items-center position-relative">
                             <input type="password" class="form-control" name="new_password" id="new_password" autocomplete placeholder="<?php echo FSText::_('Nhập mật khẩu mới') ?>">
-                            <a href="" class="toggle-password">
+                            <a href="" class="toggle-password position-absolute end-0">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M9.68634 6.31337L6.31301 9.68671M9.68634 6.31337C9.25301 5.88004 8.65967 5.61337 7.99967 5.61337C6.67967 5.61337 5.61301 6.68004 5.61301 8.00004C5.61301 8.66004 5.87967 9.25337 6.31301 9.68671M9.68634 6.31337L14.6663 1.33337M6.31301 9.68671L1.33301 14.6667M11.8797 3.84671C10.713 2.96671 9.37967 2.48671 7.99967 2.48671C5.64634 2.48671 3.45301 3.87337 1.92634 6.27337C1.32634 7.21337 1.32634 8.79337 1.92634 9.73337C2.45301 10.56 3.06634 11.2734 3.73301 11.8467M5.61301 13.02C6.37301 13.34 7.17967 13.5134 7.99967 13.5134C10.353 13.5134 12.5463 12.1267 14.073 9.72671C14.673 8.78671 14.673 7.20671 14.073 6.26671C13.853 5.92004 13.613 5.59337 13.3663 5.28671M10.3397 8.46671C10.1663 9.40671 9.39967 10.1734 8.45967 10.3467" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
@@ -197,7 +203,7 @@ $tmpl->addScript('default', 'modules/members/assets/js');
                         </div>
                         <div class="mb-3 d-flex flex-wrap align-items-center position-relative">
                             <input type="password" class="form-control" name="re_new_password" id="re_new_password" autocomplete placeholder="<?php echo FSText::_('Nhập lại mật khẩu mới') ?>">
-                            <a href="" class="toggle-password">
+                            <a href="" class="toggle-password position-absolute end-0">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M9.68634 6.31337L6.31301 9.68671M9.68634 6.31337C9.25301 5.88004 8.65967 5.61337 7.99967 5.61337C6.67967 5.61337 5.61301 6.68004 5.61301 8.00004C5.61301 8.66004 5.87967 9.25337 6.31301 9.68671M9.68634 6.31337L14.6663 1.33337M6.31301 9.68671L1.33301 14.6667M11.8797 3.84671C10.713 2.96671 9.37967 2.48671 7.99967 2.48671C5.64634 2.48671 3.45301 3.87337 1.92634 6.27337C1.32634 7.21337 1.32634 8.79337 1.92634 9.73337C2.45301 10.56 3.06634 11.2734 3.73301 11.8467M5.61301 13.02C6.37301 13.34 7.17967 13.5134 7.99967 13.5134C10.353 13.5134 12.5463 12.1267 14.073 9.72671C14.673 8.78671 14.673 7.20671 14.073 6.26671C13.853 5.92004 13.613 5.59337 13.3663 5.28671M10.3397 8.46671C10.1663 9.40671 9.39967 10.1734 8.45967 10.3467" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
@@ -250,9 +256,10 @@ $tmpl->addScript('default', 'modules/members/assets/js');
 <?php } ?>
 <script>
     function myFunction() {
-        var copyText = document.getElementById("myInput");
+        var copyText = document.getElementById("link_aff");
         copyText.select();
         copyText.setSelectionRange(0, 99999);
         navigator.clipboard.writeText(copyText.value);
+        flashMessage('', 'Copy link thành công !');
     }
 </script>
