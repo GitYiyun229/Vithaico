@@ -8,7 +8,7 @@ main {
 
 .page-member {
   display: grid;
-  grid-template-columns: 240px auto;
+  grid-template-columns: 250px auto;
   grid-gap: 24px;
 }
 .page-member .text-red {
@@ -16,6 +16,10 @@ main {
 }
 .page-member .text-grey {
   color: #757575;
+}
+
+.address-dashboard .col-4 {
+  width: calc((100% - 1rem) / 3);
 }
 
 .custom {
@@ -68,9 +72,6 @@ main {
   background: linear-gradient(254deg, #1cafb7 -21.74%, #3dd5e1 6.11%, #139697 32.91%, #1eb7c3 58.29%, #139697 73.8%, #139294 104.47%);
 }
 
-.user-menu-sidebar {
-  border-bottom: 1px solid #dedede;
-}
 .user-menu-sidebar a {
   display: flex;
   gap: 10px;
@@ -90,6 +91,9 @@ main {
   background: #d53c00;
   color: #fff;
   padding-left: 16px;
+}
+.user-menu-sidebar a:hover svg path {
+  stroke: #fff;
 }
 .user-menu-sidebar a.active {
   background: #d53c00;

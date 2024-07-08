@@ -83,7 +83,7 @@ header {
       overflow: hidden;
       position: absolute;
       top: 20px;
-      right: 0;
+      right: -100px;
       background-color: #fff;
       z-index: 10;
       border: 1px solid #fff;
@@ -104,8 +104,8 @@ header {
         display: flex;
         gap: 12px;
         align-items: center;
-        font-weight: 700;
-        color: #000;
+        font-weight: 500;
+        color: #2476ff;
         font-size: 12px;
         line-height: 19px;
         padding: 10px 0px;
