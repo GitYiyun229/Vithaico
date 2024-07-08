@@ -7,13 +7,25 @@
   display: grid;
   justify-items: center;
   border-radius: 24px;
-  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.1), -2px -2px 1px rgba(0, 0, 0, 0.1), -2px 2px 1px rgba(0, 0, 0, 0.1), 2px -2px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
 }
 .list_product_categories .box_item .item .img-icon {
   border-radius: 24px;
+  overflow: hidden;
+  -o-object-fit: contain;
+     object-fit: contain;
+  transition: 0.3s ease-in-out;
+  padding: 16px;
 }
 .list_product_categories .box_item .item .item_name {
   font-size: 20px;
   text-transform: uppercase;
   font-weight: 700;
+}
+.list_product_categories .box_item:hover .item {
+  box-shadow: 0px 0px 8px 8px rgba(0, 0, 0, 0.12);
+}
+.list_product_categories .box_item:hover .item .img-icon {
+  transform: scale(1.1);
 }/*# sourceMappingURL=default_home.css.map */

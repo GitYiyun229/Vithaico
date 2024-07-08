@@ -68,11 +68,11 @@ $tmpl->addScript('product', 'modules/products/assets/js');
                 <div class="p-price">
                     <div class="p-price_retail">
                         <div class="p-title"><?php echo FSText::_('Giá bán lẻ:') ?></div>
-                        <?php if (!$user->userID) { ?>
+                        <?php if ($user->userID) { ?>
                         <div class="price fs-5 fw-bold" id="price" data-price="<?php echo $data->price ?>">
                             <?php echo format_money($data->price, '₫') ?></div>
                         <?php } else { ?>
-                        <a href="" class="fst-italic"><?= FSText::_('Đăng nhập để xem giá') ?></a>
+                        <a href="" class="title_see_price"><?= FSText::_('Đăng nhập để xem giá') ?></a>
                         <?php } ?>
                     </div>
                     <div class="p-price_discount">
@@ -81,7 +81,7 @@ $tmpl->addScript('product', 'modules/products/assets/js');
                         <div class="price fs-5 fw-bold" id="price_discount">
                             <?php echo format_money($data->price_discount, '₫') ?></div>
                         <?php } else { ?>
-                        <a href="" class="fst-italic"><?= FSText::_('Đăng nhập để xem giá') ?></a>
+                        <a href="" class="title_see_price"><?= FSText::_('Đăng nhập để xem giá') ?></a>
                         <?php } ?>
 
                     </div>
