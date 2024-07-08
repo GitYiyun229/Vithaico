@@ -332,12 +332,13 @@ class FSControllers
 		$src = URL_ROOT . str_replace(['/original/', '.jpg', '.png'], ['/resize/', '.webp', '.webp'], $item->image);
 
 ?>
-<div class="layout-product-item position-relative">
-    <div class="box-img">
-        <img src="<?php echo $src ?>" alt="" class="img-fluid layout-img" onerror="this.src='/images/not_picture.png'">
-    </div>
-    <a href="<?php echo $url ?>" title="<?php echo $item->name ?>" class="layout-product-item position-relative"
-        target="_blank">
+<div class="layout-product-item position-relative"> <a href="<?php echo $url ?>" title="<?php echo $item->name ?>"
+        class="layout-product-item position-relative" target="_blank">
+        <div class="box-img">
+            <img src="<?php echo $src ?>" alt="" class="img-fluid layout-img"
+                onerror="this.src='/images/not_picture.png'">
+        </div>
+
         <div class="layout-content">
             <div class="layout-name">
                 <?php echo $item->name ?>

@@ -25,6 +25,21 @@ class HomeModelsHome extends FSModels
         return $sql;
     }
 
+    public function getContents($category_id = null)
+    {
+        if (!$category_id) {
+            $category_id = 1;
+        }
+        $fs_table = FSFactory::getClass('fstable');
+        $query = " SELECT id,title,image,title_display,source_website,content,category_id,category_id_wrapper,category_alias,category_name, summary,display_column, display_title, alias, tags,tags_group, created_time, updated_time, rating_count,rating_sum,seo_title,seo_keyword,seo_description
+						FROM " . $fs_table->getTable('fs_contents') . " 
+						WHERE published = 1 AND category_published = 1
+						AND category_id = $category_id";
+        global $db;
+        $sql = $db->query($query);
+        $result = $db->getObject();
+        return $result;
+    }
     public function getProductCategories()
     {
         global $db;
@@ -32,6 +47,7 @@ class HomeModelsHome extends FSModels
 
         return $db->getObjectList($sql, USE_MEMCACHE);
     }
+
 
     public function get_tiktok()
     {
