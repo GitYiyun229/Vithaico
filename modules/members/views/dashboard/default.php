@@ -6,7 +6,6 @@ $tmpl->addStylesheet('dashboard', 'modules/members/assets/css');
 
 $tmpl->addScript('select2.min');
 $tmpl->addScript('default', 'modules/members/assets/js');
-
 ?>
 <div class="container">
     <div class="page-member">
@@ -23,7 +22,7 @@ $tmpl->addScript('default', 'modules/members/assets/js');
                     <div class="d-flex align-items-center mb-3 flex-wrap">
                         <label for="name" class="col-3"><?php echo FSText::_('Họ và tên') ?></label>
                         <div class="col-9">
-                            <input type="text" class="form-control" placeholder="<?php echo FSText::_('Họ và tên') ?>" name="name" id="name" value="<?php echo $user->userInfo->full_name ?>">
+                            <input type="text"  class="form-control" placeholder="<?php echo FSText::_('Họ và tên') ?>" name="name" id="name" value="<?php echo $user->userInfo->full_name ?>">
                         </div>
                     </div>
 
@@ -94,13 +93,11 @@ $tmpl->addScript('default', 'modules/members/assets/js');
                     <div class="d-flex align-items-center mb-3 flex-wrap">
                         <label for="link_aff" class="col-3"><?php echo FSText::_('Link giới thiệu') ?></label>
                         <div class="col-9">
-                            <div class="col">
-                                <input type="text" value="" class="form-control" name="link_aff" placeholder="">
+                            <div class="col ref_code copy">
+                                <input type="text" value="<?php echo FSRoute::_('index.php?module=members&view=user&task=register') . '?code=' . $user->userInfo->ref_code ?>" class="form-control link_aff_copy" name="link_aff">
                             </div>
                         </div>
                     </div>
-
-
                     <div class="d-flex align-items-center mb-3 flex-wrap">
                         <div class="col-6 pe-3">
                             <div class="mb-3 mt-5 fs-6 text-body-tertiary"><?php echo FSText::_('Thông tin nhận hoa hồng') ?></div>
@@ -153,12 +150,10 @@ $tmpl->addScript('default', 'modules/members/assets/js');
                             <?php } ?>
                         </div>
                     </div>
-
                     <div class="text-end mt-5">
                         <a href="" class="btn-submit submit-dashboard d-inline-block"><?php echo FSText::_('Cập nhật') ?></a>
                     </div>
                 </div>
-
                 <?php echo csrf::displayToken() ?>
                 <input type="hidden" name="module" value="members">
                 <input type="hidden" name="view" value="dashboard">
@@ -168,9 +163,6 @@ $tmpl->addScript('default', 'modules/members/assets/js');
         </div>
     </div>
 </div>
-
-
-
 <?php if (!$user->userInfo->type) { ?>
     <div class="modal fade modal-change" id="modalPassword" tabindex="-1" aria-labelledby="modalPasswordLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -257,3 +249,11 @@ $tmpl->addScript('default', 'modules/members/assets/js');
         </div>
     </div>
 <?php } ?>
+<script>
+    function myFunction() {
+        var copyText = document.getElementById("myInput");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(copyText.value);
+    }
+</script>

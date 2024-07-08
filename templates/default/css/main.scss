@@ -706,6 +706,31 @@ footer {
 //   scroll-behavior: auto;
 // }
 
+<<<<<<< HEAD
+.password-rule {
+  color: #a3a3a3;
+  display: none;
+  align-items: center;
+  gap: 2px;
+  svg {
+    display: none;
+  }
+}
+.password-rule.success {
+  color: #3ba500;
+  display: block;
+  svg:nth-child(1) {
+    display: inline-block;
+  }
+}
+.password-rule.error {
+  display: block;
+  color: #e71313;
+  svg:nth-child(2) {
+    display: inline-block;
+  }
+}
+=======
 // @keyframes ldio {
 //   0% {
 //     opacity: 1;
@@ -977,6 +1002,7 @@ footer {
 //     }
 //   }
 // }
+>>>>>>> ab7608c61c454c282b88c909aeeab723414490d3
 
 @media all and (max-width: 1000px) {
   .offcanvas-top {

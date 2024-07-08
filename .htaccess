@@ -57,10 +57,16 @@ RewriteRule ^dat-hang-thanh-cong$ index.php?module=products&view=cart&task=order
 
 #members
 RewriteRule ^tai-khoan-ca-nhan$ index.php?module=members&view=dashboard&Itemid=201&lang=vi [L]
-RewriteRule ^dang-ky-tai-khoan$ index.php?module=members&view=user&task=register&Itemid=201&lang=vi [L]
+
+RewriteRule ^dang-ky-tai-khoan(.*) index.php?module=members&view=user&task=register&Itemid=201&lang=vi&%{QUERY_STRING} [L]
 RewriteRule ^dang-nhap$ index.php?module=members&view=user&task=login&Itemid=201&lang=vi [L]
+
 RewriteRule ^don-hang-cua-toi(.*) index.php?module=members&view=orders&Itemid=201&lang=vi&%{QUERY_STRING} [L]
 RewriteRule ^chi-tiet-don-hang-([0-9]*)$ index.php?module=members&view=orders&task=detail&id=$1&Itemid=201&lang=vi [L]
+
+RewriteRule ^danh-sach-thanh-vien-gioi-thieu(.*) index.php?module=members&view=introduce&Itemid=201&lang=vi&%{QUERY_STRING} [L]
+RewriteRule ^danh-sach-thanh-vien-gioi-thieu([0-9]*)$ index.php?module=members&view=introduce&task=detail&id=$1&Itemid=201&lang=vi [L]
+
 RewriteRule ^hang-thanh-vien$ index.php?module=members&view=level&Itemid=201&lang=vi [L]
 RewriteRule ^so-dia-chi$ index.php?module=members&view=address&Itemid=201&lang=vi [L]
 RewriteRule ^san-pham-yeu-thich$ index.php?module=members&view=favorite&Itemid=201&lang=vi [L]

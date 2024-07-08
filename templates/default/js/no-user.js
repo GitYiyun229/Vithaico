@@ -159,6 +159,7 @@ function checkRegister() {
   let phone = $("input[name=phoneregister]").val();
   let password = $("input[name=passregister]").val();
   let repassword = $("input[name=repassregister]").val();
+  let ref_code = $("input[name=ref_code]").val();
   let _this = $(this);
   _this
     .html(
@@ -168,7 +169,7 @@ function checkRegister() {
   $.ajax({
     url: "index.php?module=members&view=register&task=register&raw=1",
     type: "POST",
-    data: { token, name, email, password, repassword, phone },
+    data: { token, name, email, password, repassword, phone, ref_code },
     dataType: "JSON",
     success: function (result) {
       if (result.error == false) {
