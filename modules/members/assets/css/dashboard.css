@@ -1,5 +1,12 @@
-.page-dashboard .col-3 {
-  border-left: 1px solid #ebebeb;
+.page-member .page-title {
+  padding: 24px 0 0 24px;
+  font-weight: 700;
+  color: #000000;
+}
+
+.page-dashboard .text-body-tertiary {
+  font-weight: 700;
+  color: #bfbfbf;
 }
 .page-dashboard .col-3 img {
   width: 120px;
@@ -151,4 +158,24 @@
   height: 24px;
   background-repeat: no-repeat;
   top: 0px;
+}
+
+form .dia-chi .col-2 {
+  width: 14.666667%;
+}
+form .select2-container--default .select2-selection--single {
+  background: #f5f5f5 !important;
+  border: 0 !important;
+  height: 40px;
+}
+form .select2-container--default .select2-selection--single .select2-selection__rendered {
+  padding-top: 8px;
+  padding-left: 16px;
+  font-size: 14px;
+}
+form span.select2-selection__arrow {
+  top: 7px !important;
+}
+form .form-bottom .col-6 {
+  border-right: 2px solid #f5f5f5;
 }/*# sourceMappingURL=dashboard.css.map */

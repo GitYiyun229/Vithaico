@@ -1,3 +1,6 @@
+main{
+  background: #f5f5f5;
+}
 .app-main-content {
   background: #fafafa;
 }
@@ -17,7 +20,7 @@
   height: 40px;
 }
 .page-border-radius {
-  border-radius: 4px;
+  border-radius: 16px;
 }
 .btn-upload-image {
   bottom: 0;
@@ -108,13 +111,13 @@
       margin-bottom: 0;
     }
     &:hover {
-      background: #fff;
-      color: #d53c00;
+      background: #d53c00;
+      color: #fff;
       padding-left: 16px;
     }
     &.active {
-      background: #fff;
-      color: #d53c00;
+      background: #d53c00;
+      color: #fff;
       padding-left: 16px;
     }
   }
@@ -156,4 +159,8 @@
       }
     }
   }
+}
+.page-sidebar{
+  background: #ffffff;
+  border-radius: 16px;
 }
