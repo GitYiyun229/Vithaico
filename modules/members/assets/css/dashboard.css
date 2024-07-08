@@ -160,18 +160,6 @@
   top: 0px;
 }
 
-form .input-name {
-  grid-template-columns: 1.5fr 8.5fr;
-}
-form .input-sex {
-  grid-template-columns: 1.5fr 8.5fr;
-}
-form .input-birthday {
-  grid-template-columns: 1.5fr 8.5fr;
-}
-form .select-address {
-  grid-template-columns: 1.5fr 3fr 3fr 3fr;
-}
 form .dia-chi .col-2 {
   width: 14.666667%;
 }
