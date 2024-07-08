@@ -32,10 +32,12 @@ RewriteRule ^tin-tuc/([^/]*)-cn([0-9]*)$ index.php?module=news&view=cat&ccode=$1
 RewriteRule ^news/([^/]*)-cne([0-9]*)/(page([0-9]*))$ index.php?module=news&view=cat&ccode=$1&id=$2&Itemid=3&page=$4&lang=en [L]
 RewriteRule ^news/([^/]*)-cne([0-9]*)$ index.php?module=news&view=cat&ccode=$1&id=$2&Itemid=3&lang=en [L]
 
+
 RewriteRule ^tin-tuc/page-([0-9]*)$ index.php?module=news&view=home&Itemid=2&page=$1&lang=vi [L]
 RewriteRule ^tin-tuc$ index.php?module=news&view=home&Itemid=2&lang=vi [L]
 RewriteRule ^news/(page-([0-9]*))$ index.php?module=news&view=home&ccode=$1&Itemid=2&page=$2&lang=en [L]
 RewriteRule ^news$ index.php?module=news&view=home&Itemid=2&lang=en [L]
+
 
 RewriteRule ^tin-tuc/([^/]*)-dn([0-9]*)$ index.php?module=news&view=news&code=$1&id=$2&Itemid=4&lang=vi [L]
 RewriteRule ^news/([^/]*)-dne([0-9]*)$ index.php?module=news&view=news&code=$1&id=$2&Itemid=4&lang=en [L]
