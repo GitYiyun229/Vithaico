@@ -1,6 +1,18 @@
+.page-member {
+  .page-title {
+    padding: 24px 0 0 24px ;
+    font-weight: 700;
+    color: #000000;
+  }
+}
+
 .page-dashboard {
+  .text-body-tertiary {
+    font-weight: 700;
+    color: #bfbfbf;
+  }
+
   .col-3 {
-    border-left: 1px solid #ebebeb;
     img {
       width: 120px;
       height: 120px;
@@ -152,5 +164,48 @@
     height: 24px;
     background-repeat: no-repeat;
     top: 0px;
+  }
+}
+form {
+ 
+  .input-name{
+    grid-template-columns: 1.5fr 8.5fr;
+  }
+  .input-sex{
+    grid-template-columns: 1.5fr 8.5fr;
+  }
+  .input-birthday{
+    grid-template-columns: 1.5fr 8.5fr;
+  }
+  .select-address{
+    grid-template-columns: 1.5fr 3fr 3fr 3fr;
+  }
+  .dia-chi{
+    .col-2{
+      width: 14.666667%;
+    }
+  }
+  .pe-4 {
+    // padding-right: 0 !important;
+  }
+  .select2-container--default .select2-selection--single {
+    background: #f5f5f5 !important;
+    border: 0 !important;
+    height: 40px;
+  }
+  .select2-container--default .select2-selection--single .select2-selection__rendered {
+    // padding: 0 !important;
+    padding-top: 8px;
+    padding-left: 16px;
+    font-size: 14px;
+  }
+  span.select2-selection__arrow {
+    top: 7px !important;
+  }
+
+  .form-bottom{
+    .col-6{
+      border-right: 2px solid #f5f5f5;
+    }
   }
 }

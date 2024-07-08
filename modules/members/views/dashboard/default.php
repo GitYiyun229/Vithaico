@@ -10,19 +10,19 @@ $tmpl->addScript('default', 'modules/members/assets/js');
 <div class="container">
     <div class="page-member">
         <div class="page-side">
-            <div class="page-sidebar">
+            <div class="page-sidebar p-4">
                 <?php include PATH_BASE . 'modules/members/views/sidebar.php' ?>
             </div>
         </div>
-        <div class="page-side">
-            <div class="page-title mb-3 fs-5 fw-medium"><?php echo FSText::_('Thông tin tài khoản') ?></div>
-            <form class="page-content page-dashboard p-4 bg-white page-border-radius d-flex" method="POST" enctype="multipart/form-data">
+        <div class="page-side bg-white">
+            <div class="page-title mb-3 fs-5 text-uppercase"><?php echo FSText::_('Thông tin tài khoản') ?></div>
+            <form class="page-content page-dashboard p-4 page-border-radius d-flex" method="POST" enctype="multipart/form-data">
                 <div class="col-12 pe-4">
-                    <div class="mb-3 fs-6 text-body-tertiary "><?php echo FSText::_('Thông tin cá nhân') ?></div>
+                    <div class="mb-3 fs-6 text-body-tertiary text-uppercase "><?php echo FSText::_('Thông tin cá nhân') ?></div>
                     <div class="d-flex align-items-center mb-3 flex-wrap">
                         <label for="name" class="col-3"><?php echo FSText::_('Họ và tên') ?></label>
                         <div class="col-9">
-                            <input type="text"  class="form-control" placeholder="<?php echo FSText::_('Họ và tên') ?>" name="name" id="name" value="<?php echo $user->userInfo->full_name ?>">
+                            <input type="text" class="form-control" placeholder="<?php echo FSText::_('Họ và tên') ?>" name="name" id="name" value="<?php echo $user->userInfo->full_name ?>">
                         </div>
                     </div>
 
@@ -98,9 +98,9 @@ $tmpl->addScript('default', 'modules/members/assets/js');
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex align-items-center mb-3 flex-wrap">
-                        <div class="col-6 pe-3">
-                            <div class="mb-3 mt-5 fs-6 text-body-tertiary"><?php echo FSText::_('Thông tin nhận hoa hồng') ?></div>
+                    <div class="form-bottom mt-5 d-flex align-items-center mb-3 flex-wrap">
+                        <div class="col-6 pe-5">
+                            <div class="mb-3 fs-6 text-body-tertiary text-uppercase"><?php echo FSText::_('Thông tin nhận hoa hồng') ?></div>
                             <div class="d-flex align-items-center mb-3 flex-wrap">
                                 <label for="bank" class="col-3"><?php echo FSText::_('Ngân hàng') ?></label>
                                 <div class="col-9">
@@ -131,8 +131,8 @@ $tmpl->addScript('default', 'modules/members/assets/js');
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6 ps-3">
-                            <div class="mb-3 mt-5 fs-6 text-body-tertiary "><?php echo FSText::_('Thông tin đăng nhập') ?></div>
+                        <div class="col-6 ps-5">
+                            <div class="mb-3 fs-6 text-body-tertiary text-uppercase "><?php echo FSText::_('Thông tin đăng nhập') ?></div>
                             <div class="d-flex align-items-center  mb-3 flex-wrap custom">
                                 <label for="stk_telephone" class="col-3"><?php echo FSText::_('Số điện thoại') ?></label>
                                 <span class="col-9"><?php echo $user->userInfo->telephone ?></span>

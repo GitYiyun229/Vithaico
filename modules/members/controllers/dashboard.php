@@ -15,13 +15,13 @@ class MembersControllersDashboard extends MembersControllersMembers
         $userInfo=$user->userInfo;
         $where_province= $userInfo->city_id ? $userInfo->city_id : '';
         $province = $this->model->get_records($where_province, 'fs_provinces', 'code, name, code_name', 'code_name ASC');
-        $where_bank = $userInfo->bank_code ? $userInfo->bank_code : '';
+        @$where_bank = $userInfo->bank_code ? $userInfo->bank_code : '';
         $banks = $this->model->get_records("", 'fs_banks', 'id, bank_name, bank_code', 'id ASC');
 
         $where_district = $userInfo->district_id ? $userInfo->district_id : '';
         $district = $this->model->get_records("province_code = '$where_province'", 'fs_districts', 'code, name, code_name, province_code');
 
-        $where_ward = $userInfo->ward_id ? $userInfo->ward_id : '';
+        @$where_ward = $userInfo->ward_id ? $userInfo->ward_id : '';
         $ward = $this->model->get_records("district_code = '$where_district'", 'fs_wards', 'code, name, code_name, district_code');
         // print_r($ward);
 
