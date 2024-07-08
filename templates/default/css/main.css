@@ -572,6 +572,79 @@ footer .footer-bot .copyright {
   display: inline-block;
 }
 
+.side-left_btn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 10;
+}
+.side-left_btn .circle-tel {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 100%;
+  background: #9a0000;
+  border: 6px solid rgba(154, 0, 0, 0.72);
+}
+.side-left_btn .circle-tel::before {
+  content: "";
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(190, 32, 47, 0.56);
+  border-radius: 100%;
+  animation: shake-bottom-detail 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite both;
+}
+@media (max-width: 1025px) {
+  .side-left_btn .circle-tel {
+    left: 10px;
+    bottom: 10px;
+  }
+  .side-left_btn .circle-tel::before {
+    width: 50px;
+    height: 50px;
+  }
+  .side-left_btn .circle-tel svg {
+    width: 26px;
+    height: auto;
+  }
+}
+.side-left_btn .circle-tel .examm {
+  display: none;
+  position: absolute;
+  left: 40px;
+  background-color: rgba(190, 32, 47, 0.56);
+  padding: 5px 5px 5px 20px;
+  border-radius: 5px;
+  color: #fff;
+  white-space: nowrap;
+}
+.side-left_btn .circle-tel:hover .examm {
+  display: block;
+}
+.side-left_btn .shake-bottom {
+  animation: shake-bottom 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite both;
+}
+@keyframes shake-bottom {
+  0%, 100% {
+    transform: rotate(-45deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+}
+@keyframes shake-bottom-detail {
+  0%, 100% {
+    box-shadow: 0 0 0px 6px rgba(154, 0, 0, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0px 2px rgba(154, 0, 0, 0.5);
+  }
+}
+
 .password-rule {
   color: #a3a3a3;
   display: none;
@@ -596,6 +669,16 @@ footer .footer-bot .copyright {
 }
 .password-rule.error svg:nth-child(2) {
   display: inline-block;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 1rem;
+  top: 0%;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media all and (max-width: 1000px) {

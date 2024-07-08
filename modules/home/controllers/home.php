@@ -10,6 +10,9 @@ class HomeControllersHome extends FSControllers
         $model = $this->model;
         global $tmpl, $config, $user;
 
+        $content = $model->getContents();
+
+
         $categories = $model->getProductCategories();
         foreach ($categories as $item) {
             $item->products = $this->model->get_records("category_id_wrapper LIKE '%,$item->id,%' AND published = 1", "fs_products", "id, alias, name, image, category_id_wrapper, quantity, price, price_old, sold_out, is_gift, freeship, promotion_end_time, promotion_start_time", "ordering ASC", 30);
