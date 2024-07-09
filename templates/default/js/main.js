@@ -62,56 +62,58 @@ $(".toggle-password").click(function (e) {
 
 // Bắt sự kiện khi người dùng click vào nút upload ảnh
 $(".btn-upload-image").click(function (e) {
-    e.preventDefault();
-    // Kích hoạt sự kiện click trên input ẩn để chọn file
-    $(this).prev(".input-upload-image").click();
+  e.preventDefault();
+  // Kích hoạt sự kiện click trên input ẩn để chọn file
+  $(this).prev(".input-upload-image").click();
 });
 
 // Bắt sự kiện khi người dùng thay đổi file ảnh trong input
 $(document).on("change", ".input-upload-image", function () {
-    // Gọi hàm readURL để xử lý việc hiển thị ảnh và đẩy dữ liệu vào input trong form
-    readURL(this);
+  // Gọi hàm readURL để xử lý việc hiển thị ảnh và đẩy dữ liệu vào input trong form
+  readURL(this);
 });
 
 function readURL(input) {
-    let element = input;
-    for (let i = 0; i < 3; i++) {
-        if (element && element.nextElementSibling) {
-            element = element.nextElementSibling;
-        } else {
-            element = null;
-            break;
-        }
+  let element = input;
+  for (let i = 0; i < 3; i++) {
+    if (element && element.nextElementSibling) {
+      element = element.nextElementSibling;
+    } else {
+      element = null;
+      break;
     }
-    if (element) {
-        element.remove();
+  }
+  if (element) {
+    element.remove();
+  }
+
+  if (input.files && input.files[0]) {
+    // Giới hạn file <= 1Mb
+    if (input.files[0].size > 1048576) {
+      invalid(input.id, "Vui lòng nhập ảnh kích thước không quá 1 MB");
+      return false;
     }
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      // Cập nhật ảnh cho cả hai input
+      let imgElements = document.getElementsByClassName(
+        input.getAttribute("data-img")
+      );
+      Array.from(imgElements).forEach(function (imgElement) {
+        imgElement.src = e.target.result;
+      });
 
-    if (input.files && input.files[0]) {
-        // Giới hạn file <= 1Mb
-        if (input.files[0].size > 1048576) {
-            invalid(input.id, "Vui lòng nhập ảnh kích thước không quá 1 MB");
-            return false;
-        }
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            // Cập nhật ảnh cho cả hai input
-            let imgElements = document.getElementsByClassName(input.getAttribute("data-img"));
-            Array.from(imgElements).forEach(function (imgElement) {
-                imgElement.src = e.target.result;
-            });
+      // Đẩy dữ liệu ảnh vào input trong form
+      const mainFormImageInput = document.getElementById("image");
+      if (mainFormImageInput) {
+        mainFormImageInput.files = input.files;
+      }
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
 
-            // Đẩy dữ liệu ảnh vào input trong form
-            const mainFormImageInput = document.getElementById('image');
-            if (mainFormImageInput) {
-                mainFormImageInput.files = input.files;
-            }
-        };
-        reader.readAsDataURL(input.files[0]);
-    }
-
-    // Tạm thời bỏ dòng này để không gọi submit form tự động
- $(".page-dashboard-image").submit();
+  // Tạm thời bỏ dòng này để không gọi submit form tự động
+  $(".page-dashboard-image").submit();
 }
 
 let isCartHoverVisible = false;
@@ -133,5 +135,17 @@ $(".cart_header > svg").click(function () {
     console.log(2);
     $(".cart-hover").css("display", "block");
     isCartHoverVisible = true;
+  }
+});
+
+// JavaScript để xử lý sự kiện cuộn trang
+var goTopButton = document.getElementById("go-top");
+
+// Hiển thị nút Go Top khi cuộn xuống
+window.addEventListener("scroll", function () {
+  if (window.pageYOffset > 100) {
+    goTopButton.style.display = "flex";
+  } else {
+    goTopButton.style.display = "none";
   }
 });

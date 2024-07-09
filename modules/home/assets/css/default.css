@@ -34,11 +34,107 @@
 .section-description .col-6 .content {
   font-size: 16px;
 }
-.section-description .col-6 .show-more .all {
+
+.show-more .all {
   color: #fff;
   padding: 19px 41px;
   border-radius: 100px;
   background: #ea212d;
+}
+
+.section-feedback .list-feedback .slider-for {
+  padding: 0 100px;
+}
+.section-feedback .list-feedback .slider-for .item {
+  font-size: 16px;
+  text-align: center;
+}
+.section-feedback .list-feedback .slider-for .slick-arrow {
+  position: absolute;
+  z-index: 10;
+  bottom: 24px;
+  cursor: pointer;
+}
+.section-feedback .list-feedback .slider-for .slick-prev {
+  left: 0;
+}
+.section-feedback .list-feedback .slider-for .slick-next {
+  right: 0;
+}
+.section-feedback .list-feedback .slider-nav {
+  padding: 0 175px;
+  margin: 30px 0 0;
+}
+.section-feedback .list-feedback .slider-nav .item {
+  cursor: pointer;
+  opacity: 0.5;
+}
+.section-feedback .list-feedback .slider-nav .item .feedback-img {
+  border-radius: 100px;
+  overflow: hidden;
+  width: 56px;
+  height: 56px;
+}
+.section-feedback .list-feedback .slider-nav .item .feedback-info .title {
+  font-size: 14px;
+}
+.section-feedback .list-feedback .slider-nav .item .feedback-info .summary {
+  font-size: 13px;
+}
+.section-feedback .list-feedback .slider-nav .slick-current .item {
+  opacity: 1;
+}
+
+.section-register img {
+  width: 720px;
+  height: 809px;
+  border-radius: 24px;
+  overflow: hidden;
+}
+.section-register .sec-content {
+  border-radius: 24px;
+  border: solid rgb(250, 183, 49);
+  border-width: 0 4px 4px 0;
+  background: #fff;
+  padding: 48px;
+  display: grid;
+  gap: 18px;
+}
+.section-register .sec-content p {
+  padding: 0;
+}
+.section-register .sec-content .cat-title {
+  font-size: 18px;
+  color: #ea212d;
+}
+.section-register .sec-content .title {
+  font-size: 32px;
+  font-weight: 700;
+}
+.section-register .sec-content .summary {
+  font-size: 16px;
+  color: #757575;
+}
+.section-register .sec-content .content {
+  line-height: 30px;
+  color: #ea212d;
+  font-size: 16px;
+}
+.section-register .sec-content .content ul li {
+  position: relative;
+  padding-left: 32px;
+  margin-bottom: 10px;
+}
+.section-register .sec-content .content ul li::before {
+  content: url(../images/icon-li.svg);
+  position: absolute;
+  left: 0;
+}
+.section-register .sec-content .show-more {
+  font-size: 14px;
+}
+.section-register .sec-content .show-more .all {
+  line-height: 24px;
 }
 
 .section-news .slider-hot-news {
