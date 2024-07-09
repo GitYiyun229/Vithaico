@@ -1,7 +1,7 @@
 <?php
 global $tmpl, $config;
 $tmpl->addStylesheet('register', 'modules/members/assets/css');
-$ref_code = FSInput::get('ref');
+$ref_code = FSInput::get('affpiliate');
 
 ?>
 <div class="container py-4">
@@ -66,7 +66,7 @@ $ref_code = FSInput::get('ref');
                         <div class="checkbox__body">Tôi đã đọc và đồng ý các điều khoản thành viên </div>
                     </label>
                 </div>
-                    <input type="hidden" name="ref_code" id="ref_code" value="<?= $ref_code ? $ref_code : ''  ?>">
+                <input type="hidden" name="affpiliate" id="affpiliate" value="<?= $ref_code ? $ref_code : ''  ?>">
                 <div class="submit-register mt-3 mb-3">
                     <a href="javascript:void(0)" id="btn-submit-register" class="form-submit text-uppercase d-flex align-items-center justify-content-center fw-medium">
                         <?php echo FSText::_('Đăng ký') ?>
