@@ -95,7 +95,6 @@ class ProductsControllersCart extends FSControllers
         $price = FSInput::get('price');
         $price_old = FSInput::get('price_old', 0);
         $price_origin = FSInput::get('price_origin', 0);
-        // $image = FSInput::get('image');
         $image = $_POST['image'];
 
         $product = $this->model->get_record("id = $id AND published = 1", 'fs_products', 'id, name, quantity, alias, price, price_old, code, nhanh_id');
@@ -142,10 +141,7 @@ class ProductsControllersCart extends FSControllers
             'quantity' => $quantity,
             'price' => $price,
             'price_origin' => $price_origin,
-            // 'price_old' => $price_old && $price_old > $price ? $price_old : 0,
             'image' => $image,
-            // 'code' => $id_sub ? $sub->code : $product->code,
-            // 'url' => FSRoute::_("index.php?module=products&view=product&code=$product->alias&id=$id")
         ];
 
         $exist = 0;
@@ -319,21 +315,21 @@ class ProductsControllersCart extends FSControllers
             $rowDetail[$i]['nhanh_id'] = $cart[$i]['nhanh_id'];
         }
 
-        $ssc = ApiControllersSsc::createOrder($rowOrder, $rowDetail);
-        $this->model->_update(["ssc_id" => $ssc->success ? $ssc->data[0]->tracking_id : 0], "fs_order", "id = $orderId");
+        // $ssc = ApiControllersSsc::createOrder($rowOrder, $rowDetail);
+        // $this->model->_update(["ssc_id" => $ssc->success ? $ssc->data[0]->tracking_id : 0], "fs_order", "id = $orderId");
 
-        if (!$ssc->data[0]->tracking_id) {
-            $_SESSION['have_redirect'] = 1;
-            $_SESSION["msg_error"] = [];
-            foreach ($ssc->errors[0]->errors as $item) {
-                $_SESSION["msg_error"][] = $item;
-            }
-            $this->model->_remove("id = $orderId", "fs_order");
-            $this->model->_remove("order_id = $orderId", "fs_order_items");
-            setRedirect(FSRoute::_("index.php?module=products&view=cart"));
-        }
+        // if (!$ssc->data[0]->tracking_id) {
+        //     $_SESSION['have_redirect'] = 1;
+        //     $_SESSION["msg_error"] = [];
+        //     foreach ($ssc->errors[0]->errors as $item) {
+        //         $_SESSION["msg_error"][] = $item;
+        //     }
+        //     $this->model->_remove("id = $orderId", "fs_order");
+        //     $this->model->_remove("order_id = $orderId", "fs_order_items");
+        //     setRedirect(FSRoute::_("index.php?module=products&view=cart"));
+        // }
 
-        $nhanh = ApiControllersNhanh::addOrder($rowOrder, $rowDetail, $ssc->data[0]->tracking_id);
+        // $nhanh = ApiControllersNhanh::addOrder($rowOrder, $rowDetail, $ssc->data[0]->tracking_id);
         $this->model->_update(["nhanh_id" => $nhanh->code ? $nhanh->data->orderId : 0], "fs_order", "id = $orderId");
 
         $_SESSION['cartCalculated'] = $cart;

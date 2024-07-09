@@ -40,7 +40,8 @@ $this->dt_form_begin(1, 2, FSText::_('Giá'), 'fa-usd', 1, 'col-md-4 fl-left');
 TemplateHelper::dt_edit_text(FSText::_('Tồn'), 'quantity', @$data->quantity, '', 20, 1, 0, '', '', 'col-md-4 left', 'col-md-8');
 // TemplateHelper::dt_edit_text(FSText::_('Giá thị trường'), 'price_old', @$data->price_old, '', 20, 1, 0, '', '', 'col-md-4 left', 'col-md-8');
 TemplateHelper::dt_edit_text(FSText::_('Giá bán lẻ'), 'price', @$data->price, '', 20, 1, 0, '', '', 'col-md-4 left', 'col-md-8');
-TemplateHelper::dt_edit_text(FSText::_('Giá chiết khấu'), 'price_discount', @$data->price_discount, '', 20, 1, 0, '', '', 'col-md-4 left', 'col-md-8');
+TemplateHelper::dt_edit_text(FSText::_('Giá chiết khấu (Thành viên)'), 'price_discount', @$data->price_discount, '', 20, 1, 0, '', '', 'col-md-4 left', 'col-md-8');
+TemplateHelper::dt_edit_text(FSText::_('Hoa hồng nhận được'), 'coin', @$data->coin, '', 20, 1, 0, '', '', 'col-md-4 left', 'col-md-8');
 ?>
 <div class="form-group">
     <label class="col-md-4 left col-xs-12 control-label">Tiết kiệm</label>
