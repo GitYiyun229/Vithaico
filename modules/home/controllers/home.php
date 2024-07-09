@@ -19,6 +19,8 @@ class HomeControllersHome extends FSControllers
             $item->products = $this->nomalizeProducts($item->products);
         }
 
+        $contents_feedbacks = $model->getListContent(8);
+        $content_register = $model->getContents(9);
         $list_hot_news = $this->model->get_list_hot();
 
         $query = $model->setQuery();

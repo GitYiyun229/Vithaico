@@ -572,14 +572,18 @@ footer .footer-bot .copyright {
   display: inline-block;
 }
 
-.side-left_btn {
+.side-left_btn,
+.side-right_btn {
   position: fixed;
-  bottom: 20px;
-  left: 20px;
   display: flex;
   flex-direction: column;
   gap: 15px;
   z-index: 10;
+}
+
+.side-left_btn {
+  left: 20px;
+  bottom: 20px;
 }
 .side-left_btn .circle-tel {
   position: relative;
@@ -643,6 +647,18 @@ footer .footer-bot .copyright {
   50% {
     box-shadow: 0 0 0px 2px rgba(154, 0, 0, 0.5);
   }
+}
+
+.side-right_btn {
+  right: 10px;
+  bottom: 10px;
+}
+.side-right_btn #zalo:hover svg rect,
+.side-right_btn #messenger:hover svg rect {
+  fill: #0866dc;
+}
+.side-right_btn #go-top:hover svg rect {
+  fill: #a61720;
 }
 
 .password-rule {
