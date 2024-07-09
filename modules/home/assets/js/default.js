@@ -101,20 +101,42 @@ const debounce = (mainFunction, delay) => {
 //     },
 //   });
 // }
-// $(document).ready(function () {
-//   $(".slider-flashsale").slick({
-//     slidesToShow: 6,
-//     rows: 2,
-//     slidesToScroll: 6,
-//     arrows: true,
-//     infinite: true,
-//     speed: 300,
-//     prevArrow:
-//       '<button class="slick-prev"><svg width="12" height="22" viewBox="0 0 12 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 21L1 11L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>',
-//     nextArrow:
-//       '<button class="slick-next"><svg width="12" height="22" viewBox="0 0 12 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 21L11 11L1 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>',
-//   });
-// });
+$(document).ready(function () {
+  var $carousel = $(".slider-for");
+
+  $carousel.slick({
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: true,
+    fade: true,
+    asNavFor: ".slider-nav",
+    prevArrow:
+      '<svg width="40" height="40" class="slick-prev" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_1540_10364)"><rect width="40" height="40" rx="20" transform="matrix(-1 0 0 1 40 0)" fill="#F4F8FA"/><path d="M22 24L18 20L22 16" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g><defs><clipPath id="clip0_1540_10364"><rect width="40" height="40" rx="20" transform="matrix(-1 0 0 1 40 0)" fill="white"/></clipPath></defs></svg>',
+    nextArrow:
+      '<svg width="40" height="40" class="slick-next" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_1540_10368)"><rect width="40" height="40" rx="20" fill="#F4F8FA"/><path d="M18 24L22 20L18 16" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g><defs><clipPath id="clip0_1540_10368"><rect width="40" height="40" rx="20" fill="white"/></clipPath></defs></svg>',
+  });
+  $(".slider-nav").slick({
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    asNavFor: ".slider-for",
+    dots: false,
+    holizontal: true,
+    focusOnSelect: true,
+    arrows: false,
+  });
+  // $(".slider-flashsale").slick({
+  //   slidesToShow: 6,
+  //   rows: 2,
+  //   slidesToScroll: 6,
+  //   arrows: true,
+  //   infinite: true,
+  //   speed: 300,
+  //   prevArrow:
+  //     '<button class="slick-prev"><svg width="12" height="22" viewBox="0 0 12 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 21L1 11L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>',
+  //   nextArrow:
+  //     '<button class="slick-next"><svg width="12" height="22" viewBox="0 0 12 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 21L11 11L1 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>',
+  // });
+});
 
 // const coutDown = (day, hour, minute, second) => {
 //   setInterval(() => {

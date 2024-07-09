@@ -600,15 +600,24 @@ footer {
     }
   }
 }
-
-.side-left_btn {
+.side-left_btn,
+.side-right_btn {
   position: fixed;
-  bottom: 20px;
-  left: 20px;
   display: flex;
   flex-direction: column;
   gap: 15px;
   z-index: 10;
+}
+.side-left_btn {
+  // position: fixed;
+  // bottom: 20px;
+  // left: 20px;
+  // display: flex;
+  // flex-direction: column;
+  // gap: 15px;
+  // z-index: 10;
+  left: 20px;
+  bottom: 20px;
   .circle-tel {
     position: relative;
     // bottom: 20px;
@@ -685,63 +694,21 @@ footer {
     }
   }
 }
-
-// .header-top {
-//   border-bottom: 1px solid #f4f4f4;
-//   color: #757575;
-//   .container {
-//     height: 32px;
-//   }
-//   span {
-//     width: 1px;
-//     height: 12px;
-//     background: #dedede;
-//   }
-//   .user-menu-header {
-//     display: none;
-//     position: absolute;
-//     top: 100%;
-//     right: 0;
-//     border: 1px solid #fff;
-//     box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.16);
-//     border-radius: 0 0 4px 4px;
-//     padding: 8px 0;
-//     min-width: 140px;
-//     background: #fff;
-//     z-index: 3;
-//     a {
-//       display: block;
-//       padding: 8px 16px;
-//       background: #fff;
-//       line-height: normal;
-//       &:hover {
-//         color: #dd2033;
-//         background: #f4f4f4;
-//       }
-//     }
-//   }
-//   .user-btn {
-//     img {
-//       border-radius: 100%;
-//       width: 20px;
-//       height: 20px;
-//       border: 1px solid #fff;
-//       object-fit: cover;
-//     }
-//   }
-//   .user:hover {
-//     .user-menu-header {
-//       display: block;
-//     }
-//     .user-btn img {
-//       border-color: #dd2033;
-//     }
-//   }
-// }
-// .scroll-auto {
-//   scroll-behavior: auto;
-// }
-
+.side-right_btn {
+  right: 10px;
+  bottom: 10px;
+  #zalo,
+  #messenger {
+    &:hover svg rect {
+      fill: #0866dc;
+    }
+  }
+  #go-top {
+    &:hover svg rect {
+      fill: #a61720;
+    }
+  }
+}
 .password-rule {
   color: #a3a3a3;
   display: none;
@@ -774,6 +741,7 @@ footer {
   justify-content: center;
   align-items: center;
 }
+
 @media all and (max-width: 1000px) {
   .offcanvas-top {
     height: 90vh;
