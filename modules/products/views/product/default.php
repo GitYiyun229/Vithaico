@@ -79,7 +79,8 @@ $tmpl->addScript('product', 'modules/products/assets/js');
                         <div class="p-title"><?php echo FSText::_('Giá thành viên:') ?></div>
                         <?php if ($user->userID) { ?>
                         <div class="price fs-5 fw-bold" id="price_discount">
-                            <?php echo format_money($data->price_discount, '₫') ?></div>
+                            <?php echo format_money($data->price_discount, '₫') ?>
+                        </div>
                         <?php } else { ?>
                         <a href="" class="title_see_price"><?= FSText::_('Đăng nhập để xem giá') ?></a>
                         <?php } ?>
