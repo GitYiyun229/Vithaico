@@ -1,0 +1,34 @@
+.item .info-banner {
+  color: #fff;
+  top: 183px;
+  left: 160px;
+  width: 720px;
+}
+.item .info-banner .name-banner {
+  font-size: 24px;
+}
+.item .info-banner .summary-banner {
+  font-size: 40px;
+  font-weight: 700;
+}
+.item .info-banner .content-banner {
+  font-size: 18px;
+}
+.item .info-banner .btn-banner {
+  margin-top: 48px;
+}
+.item .info-banner .btn-banner a {
+  color: #fff;
+  background: #ea212d;
+  padding: 20px 40px;
+  border-radius: 100px;
+}
+.item::after .img-banner {
+  content: "";
+  position: absolute;
+  background: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}/*# sourceMappingURL=slide.css.map */
