@@ -154,7 +154,7 @@ class MembersControllersRegister extends FSControllers
         $DataEmail = FSInput::get('email');
         $DataPass = FSInput::get('password');
         $DataConfirmPass = FSInput::get('repassword');
-        $ref_code = FSInput::get('ref_code');
+        $affpiliate = FSInput::get('affpiliate');
 
         $response = [
             'error' => false,
@@ -193,12 +193,11 @@ class MembersControllersRegister extends FSControllers
             'full_name' => $DataName,
             'email' => $DataEmail,
             'telephone' => $DataPhone,
-            'ref_code' => $ref_code,
+            'ref_code' => $affpiliate,
             'password' => md5($DataPass),
             'created_time' => date('Y-m-d H:i:s'),
             'published' => 1,
         ];
-
         $id = $this->model->_add($row, 'fs_members');
 
         if (!$id) {
@@ -209,7 +208,7 @@ class MembersControllersRegister extends FSControllers
         } else {
             unset($_SESSION['register']);
         }
-        
+
         exitFunc:
         echo json_encode($response);
         exit;

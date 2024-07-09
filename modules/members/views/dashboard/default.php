@@ -7,7 +7,11 @@ $tmpl->addScript('select2.min');
 $tmpl->addScript('default', 'modules/members/assets/js');
 ?>
 <div class="container">
+    <div>
+        <?php echo $tmpl->load_direct_blocks('members', array('style' => 'default')); ?>
+    </div>
     <div class="page-member">
+
         <div class="page-side">
             <div class="page-sidebar p-4 pb-2">
                 <?php include PATH_BASE . 'modules/members/views/sidebar.php' ?>
@@ -96,7 +100,7 @@ $tmpl->addScript('default', 'modules/members/assets/js');
                         <label for="link_aff" class="col-3"><?php echo FSText::_('Link giới thiệu') ?></label>
                         <div class="col-9">
                             <div class="col ref_code copy position-relative">
-                                <input type="text" value="<?php echo FSRoute::_('index.php?module=members&view=user&task=register') . '?code=86' . $user->userInfo->id ?>" class="form-control link_aff_copy" id="link_aff" name="link_aff">
+                                <input type="text" value="<?php echo FSRoute::_('index.php?module=members&view=user&task=register') . '?affpiliate=86' . $user->userInfo->id ?>" class="form-control link_aff_copy" id="link_aff" name="link_aff">
                                 <div onclick="myFunction()" class="position-absolute top-50 end-0 translate-middle-y px-4">
                                     <img src="/modules/members/assets/images/icon-copy.svg" alt="img-copy">
                                 </div>

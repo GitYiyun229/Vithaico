@@ -609,6 +609,17 @@ class FSModels
 		";
 		return $db->getObjectList($sql, USE_MEMCACHE);
 	}
+	public function getCountMember($RefCode)
+	{
+		global $db;
+		$idSql = "SELECT id
+              FROM fs_members
+              WHERE published = 1 AND ref_code = $RefCode ";
+			//   print_r($idSql);
+		$member = $db->getObjectList($idSql, USE_MEMCACHE);
+
+		return $member;
+	}
 
 	function _remove($where = '', $table_name = '')
 	{

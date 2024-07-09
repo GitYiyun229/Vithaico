@@ -127,6 +127,9 @@ main {
       background: #d53c00;
       color: #fff;
       padding-left: 16px;
+         svg path {
+        stroke: #fff;
+      }
     }
   }
 }
