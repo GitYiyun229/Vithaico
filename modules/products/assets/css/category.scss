@@ -16,7 +16,6 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      width: 300px;
       .select {
         width: 160px;
         border: 1px solid #dedede;
@@ -26,11 +25,11 @@
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
+        // -webkit-box-align: center;
+        // -ms-flex-align: center;
         align-items: center;
-        -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
+        // -webkit-box-pack: justify;
+        // -ms-flex-pack: justify;
         justify-content: space-between;
         color: #111;
         font-weight: 400;
@@ -53,7 +52,7 @@
   -o-transition: 0.4s linear 0.2s;
   transition: 0.4s linear 0.2s;
   height: 0;
-
+  z-index: 10;
   .filter-div {
     padding: 15px 0 0 0;
   }
@@ -74,7 +73,7 @@
 
 .option:hover,
 .option.selected {
-  color: #00a8ff;
+  color: #EA212D;
 }
 
 .options-list::-webkit-scrollbar {
@@ -83,13 +82,13 @@
 }
 
 .options-list::-webkit-scrollbar-thumb {
-  background-color: #00a8ff;
+  background-color: #EA212D;
 }
 
 .options-list.active {
   height: 160px;
   .filter-div a.active {
-    color: #dd2033;
+    color: #EA212D;
   }
 }
 .section-item {

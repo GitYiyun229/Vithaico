@@ -1,0 +1,43 @@
+.item {
+  text-align: center;
+  .img-banner {
+  }
+  .info-banner {
+    top: 20%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    text-align: left;
+    .name-banner,
+    .summary-banner {
+      text-transform: uppercase;
+    }
+    .name-banner {
+      font-size: 40px;
+      font-weight: 700;
+      span {
+        &:last-child {
+          color: #ea212d;
+        }
+      }
+    }
+    .summary-banner {
+      font-size: 40px;
+      font-weight: 700;
+    }
+    .content-banner {
+      font-size: 16px;
+    }
+    .btn-banner {
+      margin-top: 48px;
+      a {
+        color: #fff;
+        background: #ea212d;
+        padding: 20px 25px;
+        border-radius: 100px;
+      }
+    }
+  }
+}

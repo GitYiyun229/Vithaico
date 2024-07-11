@@ -422,14 +422,23 @@ class ProductsModelsProducts extends FSModels
         $price_old = FSInput::get('price_old');
         $row['price_old'] = $price_old = $this->standart_money($price_old, 0);
 
-        if ($price > 0 && $price_old == 0) {
-            $row['price_old'] = $price;
+        // if ($price > 0 && $price_old == 0) {
+        //     $row['price_old'] = $price;
+        //     $row['discount'] = 0;
+        // } elseif ($price == 0 && $price_old > 0) {
+        //     $row['price'] = $price_old;
+        //     $row['discount'] = 0;
+        // } else {
+        //     $row['discount'] = $row['price_old'] - $row['price'];
+        // }
+        if ($price > 0 && $price_discount == 0) {
+            $row['price_discount'] = $price;
             $row['discount'] = 0;
-        } elseif ($price == 0 && $price_old > 0) {
-            $row['price'] = $price_old;
+        } elseif ($price == 0 && $price_discount > 0) {
+            $row['price'] = $price_discount;
             $row['discount'] = 0;
         } else {
-            $row['discount'] = $row['price_old'] - $row['price'];
+            $row['discount'] = $row['price'] - $row['price_discount'];
         }
 
         //        //price mua kèm

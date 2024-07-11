@@ -23,7 +23,7 @@ TemplateHelper::dt_edit_text(FSText::_('Alias'), 'alias', @$data->alias, '', 255
 // TemplateHelper::dt_edit_text(FSText::_('Diễn giải phụ'), 'subtitle', @$data->subtitle, '', 255, 1, 0, '', '', 'col-md-3 left', 'col-md-9', '', '', 1, '');
 // TemplateHelper::dt_edit_text(FSText::_('Tên phiên bản'), 'nick_name', @$data->nick_name, '', 255, 1, 0, '', '', 'col-md-3 left', 'col-md-9', '', '', '1', '');
 TemplateHelper::dt_edit_text(FSText::_('Mã sản phẩm'), 'code', @$data->code, '', 255, 1, 0, '', '', 'col-md-3 left', 'col-md-9');
-TemplateHelper::dt_edit_text(FSText::_('Thương hiệu'), 'trademark', @$data->trademark, '', 255, 1, 0, '', '', 'col-md-3 left', 'col-md-9');
+TemplateHelper::dt_edit_text(FSText::_('Thương hiệu'), 'trademark', @$data->trademark, 'Vithaico', 255, 1, 0, '', '', 'col-md-3 left', 'col-md-9');
 TemplateHelper::dt_edit_selectbox(FSText::_('Danh mục'), 'category_id', $category_id, 0, $relate_categories, $field_value = 'id', $field_label = 'treename', $size = 1, 0, 0, '', '', '', 'col-md-3 left', 'col-md-9', '', '1', 'Danh mục chính của sản phẩm');
 TemplateHelper::dt_edit_image(FSText::_('Ảnh đại diện'), 'image', URL_ROOT . @$data->image, '', '', '', 'col-md-3 left', 'col-md-9', 1);
 
