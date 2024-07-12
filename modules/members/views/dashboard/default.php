@@ -100,7 +100,7 @@ $tmpl->addScript('default', 'modules/members/assets/js');
                         <label for="link_aff" class="col-3"><?php echo FSText::_('Link giới thiệu') ?></label>
                         <div class="col-9">
                             <div class="col ref_code copy position-relative">
-                                <input type="text" value="<?php echo FSRoute::_('index.php?module=members&view=user&task=register') . '?affpiliate=' . $user->userInfo->ref_code ?>" class="form-control link_aff_copy" id="link_aff" name="link_aff">
+                                <input type="text" value="<?php echo FSRoute::_('index.php?module=members&view=user&task=register') . '?affiliate=' . $user->userInfo->ref_code ?>" class="form-control link_aff_copy" id="link_aff" name="link_aff">
                                 <div onclick="myFunction()" class="position-absolute top-50 end-0 translate-middle-y px-4">
                                     <img src="/modules/members/assets/images/icon-copy.svg" alt="img-copy">
                                 </div>

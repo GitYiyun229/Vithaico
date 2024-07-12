@@ -73,7 +73,7 @@
 
 .option:hover,
 .option.selected {
-  color: #EA212D;
+  color: #ea212d;
 }
 
 .options-list::-webkit-scrollbar {
@@ -82,13 +82,13 @@
 }
 
 .options-list::-webkit-scrollbar-thumb {
-  background-color: #EA212D;
+  background-color: #ea212d;
 }
 
 .options-list.active {
   height: 160px;
   .filter-div a.active {
-    color: #EA212D;
+    color: #ea212d;
   }
 }
 .section-item {
@@ -220,7 +220,14 @@
   }
 }
 
-@media (max-width: 960px) {
+@media all and (max-width: 1000px) {
+  .section-menu {
+    .container {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
   .page-products-category {
     flex-direction: column;
     .section-filter {
@@ -268,7 +275,7 @@
   }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 500px) {
   .section-products {
     gap: 5px;
     .layout-product-item {

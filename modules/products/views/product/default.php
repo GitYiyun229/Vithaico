@@ -2,7 +2,7 @@
 global $config, $tmpl, $module, $user;
 $tmpl->addStylesheet('slick', 'libraries/slick-js');
 $tmpl->addStylesheet('product', 'modules/products/assets/css');
-$tmpl->addScript('slick', 'libraries/slick-js');
+$tmpl->addScript('slick.min', 'libraries/slick-js');
 $tmpl->addScript('product', 'modules/products/assets/js');
 // unset($_SESSION['cart'])
 
@@ -14,23 +14,26 @@ $tmpl->addScript('product', 'modules/products/assets/js');
         <?php echo $tmpl->load_direct_blocks('breadcrumbs', array('style' => 'simple')); ?>
     </div>
 </div>
-<div class="container d-grid gap-5">
-    <div class="section-product-detail d-grid gap-5">
-        <div class="section-image">
-            <div class="box-left_image">
+<div class="container">
+    <div class="section-product-detail d-flex mb-5">
+        <div class="section-image d-flex justify-content-between">
+            <div class="box-nav">
                 <div class="slider-nav">
                     <?php foreach (@$dataImage as $item) { ?>
-                        <div class="item">
-                            <img src="<?php echo image_replace_webp(URL_ROOT . $item->image, 'larges') ?>" onerror="this.src='/images/not_picture.png'" alt="<?php echo $data->name ?>" class="img-fluid">
+                        <div>
+                            <img src="<?php echo image_replace_webp(URL_ROOT . $item->image, 'tiny') ?>" onerror="this.src='/images/not_picture.png'" alt="<?php echo $data->name ?>" class="img-fluid">
                         </div>
                     <?php } ?>
                 </div>
+            </div>
+            <div class="box-for">
                 <div class="slider-for" id="animated-thumbnails">
                     <?php foreach ($dataImage as $item) { ?>
-                        <a href="<?php echo $image ?>" class="item">
-                            <img src="<?php echo image_replace_webp(URL_ROOT . $item->image, 'larges') ?>" onerror="this.src='/images/not_picture.png'" alt="<?php echo $data->name ?>" class="img-fluid">
-                        </a>
+                        <div>
+                            <img src="<?php echo image_replace_webp(URL_ROOT . $item->image, 'larges') ?>" onerror="this.src='/images/not_picture.png'" alt="<?php echo $data->name ?>" class="img-fluid image">
+                        </div>
                     <?php } ?>
+
                 </div>
             </div>
         </div>
@@ -59,16 +62,16 @@ $tmpl->addScript('product', 'modules/products/assets/js');
                 <div class="p-price">
                     <div class="p-price_retail">
                         <div class="p-title"><?php echo FSText::_('Giá bán lẻ:') ?></div>
-                  
-                            <div class="price fs-5 fw-bold" id="price" data-price="<?= $user->userID ? $data->price_discount : $data->price ?>" data-coin="<?= $data->coin ?>">
-                                <?= format_money($data->price, '₫') ?>
-                            </div>
+
+                        <div class="price fs-5 fw-bold" id="price" data-price="<?= $user->userID ? $data->price_discount : $data->price ?>" data-coin="<?= $data->coin ?>">
+                            <?= format_money($data->price, '₫') ?>
+                        </div>
                     </div>
                     <div class="p-price_discount">
                         <div class="p-title"><?php echo FSText::_('Giá thành viên:') ?></div>
                         <?php if ($user->userID) { ?>
                             <div class="price fs-5 fw-bold" id="price_discount">
-                                <?php echo format_money($data->price_discount, '₫') ?>/ <span><?= $data->coin ?>VTCoin</span>
+                                <?php echo format_money($data->price_discount, '₫') ?> / <span><?= $data->coin ?></span> <span>VTCoin</span>
                             </div>
                         <?php } else { ?>
                             <a href="" class="title_see_price"><?= FSText::_('Đăng nhập để xem giá') ?></a>
@@ -102,7 +105,7 @@ $tmpl->addScript('product', 'modules/products/assets/js');
                         </div>
                     <?php } ?>
 
-                    <div class="p-submit d-flex align-items-center  gap-3 mt-4">
+                    <div class="p-submit d-flex align-items-center flex-wrap gap-3 mt-4">
                         <?php if ($data->quantity) { ?>
                             <a href="<?php echo FSRoute::_('index.php?module=products&view=cart') ?>" class="btn-submit buy-now">
                                 <?php echo FSText::_('Mua ngay') ?>
