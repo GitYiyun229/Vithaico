@@ -430,11 +430,12 @@ footer {
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 12px;
   .item_new {
+    overflow: hidden;
     padding: 8px;
     background-color: #f5f5f5;
     border-radius: 16px;
     transition: all 0.3s;
-
+    max-height: 305px;
     .img-box {
       transition: all 0.3s;
       width: 100%;
@@ -484,8 +485,9 @@ footer {
         -webkit-line-clamp: 1;
         display: -webkit-box;
         -webkit-box-orient: vertical;
-        margin-bottom: 16px;
-        transition: all 0.3s;
+        margin-bottom: 10px;
+        transition: all 0.7s;
+        transform: translateY(0px);
       }
       .summary_new {
         overflow: hidden;
@@ -501,14 +503,19 @@ footer {
     }
     &:hover {
       .img-box {
+        max-height: 145px;
         img {
-          transform: rotate(-5deg) scale(1.1);
+          transform: rotate(-10deg) scale(1.2);
         }
       }
       .info-box {
+        .created_cat {
+          padding-bottom: 15px;
+          margin-bottom: 0;
+        }
         .title_new {
           transform: translateY(-10px);
-          -webkit-line-clamp: unset;
+          -webkit-line-clamp: 2;
         }
       }
     }
