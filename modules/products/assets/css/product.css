@@ -110,6 +110,12 @@
   justify-content: space-between;
   font-size: 16px;
 }
+.container .section-product-detail .section-main .main_content .p-price span {
+  color: #ea212d;
+}
+.container .section-product-detail .section-main .main_content .p-price span:last-child {
+  font-size: 14px;
+}
 .container .section-product-detail .section-main .main_content .p-summary .p-title ul {
   list-style: inside;
   padding-left: 8px;

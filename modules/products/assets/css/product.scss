@@ -111,6 +111,14 @@
             justify-content: space-between;
             font-size: 16px;
           }
+
+          span {
+            color: #ea212d;
+            &:last-child {
+              font-size: 14px;
+            }
+          }
+          
         }
         .p-summary {
           .p-title {
