@@ -5,9 +5,9 @@
 class ProductsControllersCart extends FSControllers
 {
     public $userLevel = [
-        'Đồng', 
-        'Bạc', 
-        'Vàng', 
+        'Đồng',
+        'Bạc',
+        'Vàng',
         'Bạch kim'
     ];
 
@@ -17,25 +17,25 @@ class ProductsControllersCart extends FSControllers
 
         global $tmpl, $user;
         $tmpl->addTitle('Giỏ hàng');
-        
+
         $cart = $this->calculateCartPrice();
 
         $cartPrice = 0;
         $shipPrice = 30000;
         $promotionDiscountPrice = 0;
-      
+
         foreach ($cart as $item) {
+
             $cartPrice += $item['quantity'] * $item['price'];
-            $promotionDiscountPrice += $item['promotion_discount'];
         }
 
         $totalPayment = $cartPrice + $shipPrice - $promotionDiscountPrice;
 
+        //địa chỉ
         $province = $this->model->get_records('', 'fs_provinces', 'code, name, code_name', 'code_name ASC');
-
         if ($user->userID) {
             $address = $this->model->get_records("member_id = $user->userID", 'fs_members_address', '*', '`default` DESC');
-            
+
             if (!empty($address)) {
                 foreach ($address as $itemAddress) {
                     $arrProvince[] = $itemAddress->province_id;
@@ -46,7 +46,7 @@ class ProductsControllersCart extends FSControllers
 
                 $arrProvince = implode(',', $arrProvince);
                 $district = $this->model->get_records("province_code IN ($arrProvince)", 'fs_districts', 'code, name, code_name, province_code', 'code_name ASC');
-    
+
                 foreach ($district as $itemDistrict) {
                     $arrDistrict[] = $itemDistrict->code;
                 }
@@ -75,7 +75,7 @@ class ProductsControllersCart extends FSControllers
                 }
             }
         }
-         
+
         include 'modules/' . $this->module . '/views/' . $this->view . '/default.php';
     }
 
@@ -84,7 +84,7 @@ class ProductsControllersCart extends FSControllers
         if (($_SERVER['REQUEST_METHOD'] != 'POST') || !csrf::authenticationToken()) {
             echo json_encode([
                 'error' => true,
-                'message' => "Lỗi", 
+                'message' => "Lỗi",
             ]);
             exit();
         }
@@ -94,19 +94,19 @@ class ProductsControllersCart extends FSControllers
         $quantity = FSInput::get('quantity', 1);
         $price = FSInput::get('price');
         $price_old = FSInput::get('price_old', 0);
+        $coin = FSInput::get('coin', 0);
         $price_origin = FSInput::get('price_origin', 0);
         $image = $_POST['image'];
 
-        $product = $this->model->get_record("id = $id AND published = 1", 'fs_products', 'id, name, quantity, alias, price, price_old, code, nhanh_id');
+        $product = $this->model->get_record("id = $id AND published = 1", 'fs_products', 'id,coin, name, quantity, alias, price, price_old, code, nhanh_id');
 
-        $quantity = $quantity > 0 ? $quantity : 1 ;
+        $quantity = $quantity > 0 ? $quantity : 1;
 
         if (!$product) {
             $response = [
                 'message' => FSText::_('Sản phẩm không tồn tại!'),
                 'error' => true,
             ];
-
             goto exitFunc;
         }
 
@@ -115,32 +115,27 @@ class ProductsControllersCart extends FSControllers
                 'message' => FSText::_('Sản phẩm đã hết hàng!'),
                 'error' => true,
             ];
-
             goto exitFunc;
         }
 
         if ($id_sub) {
             $sub = $this->model->get_record("id = $id_sub AND published = 1", 'fs_products_sub', 'id, name, price, quantity, price_old, code, nhanh_id');
-            
+
             if (!$sub->quantity) {
                 $response = [
                     'message' => FSText::_('Sản phẩm đã hết hàng!'),
                     'error' => true,
                 ];
-    
                 goto exitFunc;
             }
         }
 
         $itemNew = [
-            // 'nhanh_id' => $id_sub ? $sub->nhanh_id : $product->nhanh_id,
             'product_id' => $id,
             'product_name' => $product->name,
-            'sub_id' => $id_sub,
-            'sub_name' => $id_sub ? $sub->name : '',
             'quantity' => $quantity,
-            'price' => $price,
-            'price_origin' => $price_origin,
+            'price' => $price_old,
+            'coin' => $coin,
             'image' => $image,
         ];
 
@@ -158,13 +153,23 @@ class ProductsControllersCart extends FSControllers
         if (!$exist) {
             $session[] = $itemNew;
         }
-       
+
         $_SESSION['cart'] = $session;
+        $total_money_cart = 0;
+        $cart = new FSControllers();
+        $cartList = $cart->calculateCartPrice();
+
+        $cartPrice = 0;
+
+        foreach ($cartList as $item) {
+            $cartPrice += $item['quantity'] * $item['price'];
+        }
 
         $response = [
             'message' => FSText::_('Sản phẩm đã được thêm vào giỏ hàng!'),
             'error' => false,
             'total' => count($session),
+            'total_order' => $cartPrice,
             'newItem' => !$exist ? $itemNew : null,
             'image' => $image
         ];
@@ -186,7 +191,7 @@ class ProductsControllersCart extends FSControllers
 
         if ($remove) {
             unset($session[$index]);
-        }       
+        }
 
         $_SESSION['cart'] = array_values($session);
 
@@ -224,13 +229,13 @@ class ProductsControllersCart extends FSControllers
         $product_sub_id = [];
         $total_before = 0;
         $promotion_discount_price = 0;
+        $member_coin = 0;
 
         foreach ($cart as $item) {
             $product_id[] = $item['product_id'];
             $product_count += $item['quantity'];
-            $product_sub_id[] = $item['sub_id'];
+            $member_coin  += $item['coin'] * $item['quantity'];
             $total_before += $item['quantity'] * $item['price'];
-            $promotion_discount_price += $item['promotion_discount'];
         }
 
         global $user;
@@ -243,7 +248,7 @@ class ProductsControllersCart extends FSControllers
             'username' => $user->userID ? $user->userInfo->full_name : FSInput::get('name'),
             'user_id' => $user->userID ?: 0,
             'email' =>  $user->userID ? $user->userInfo->email : FSInput::get('email'),
-          
+
             'recipients_name' => FSInput::get('name'),
             'recipients_email' => FSInput::get('email'),
             'recipients_telephone' => FSInput::get('telephone'),
@@ -254,27 +259,27 @@ class ProductsControllersCart extends FSControllers
             'recipients_comments' => FSInput::get('note'),
 
             'products_id' => implode(',', $product_id),
-            'products_id_sub' => implode(',', $product_sub_id),
             'products_count' => $product_count,
 
-            'member_level' => 0,
-            'member_discount_price' => $member_discount_price,
+            // 'member_level' => 0,
+            // 'member_discount_price' => $member_discount_price,
+            'member_coin' => $member_coin,
 
             'ship_price' => $ship_price,
             'ship_method' => 0,
-            
+
             'code_discount' => FSInput::get('discount'),
             'code_discount_price' => $code_discount_price,
 
             'promotion_discount_price' => $promotion_discount_price,
 
             'total_before' => $total_before,
-            'total_end' => $total_before + $ship_price - $member_discount_price - $code_discount_price - $promotion_discount_price,
-           
+            'total_end' => $total_before + $ship_price  - $code_discount_price - $promotion_discount_price,
+
             'payment_method' => 0,
             'payment_status' => 0,
 
-            'status' => 0, 
+            'status' => 0,
             'created_time' => date('Y-m-d H:i:s'),
             'edited_time' => date('Y-m-d H:i:s'),
         ];
@@ -285,18 +290,17 @@ class ProductsControllersCart extends FSControllers
             setRedirect(FSRoute::_("index.php?module=products&view=cart"), FSText::_('Có lỗi xảy ra. Vui lòng thử lại sau!'), 'error');
         }
 
+
+
         $rowDetail = [];
         foreach ($cart as $item) {
             $rowDetail[] = [
                 'order_id' => $orderId,
                 'product_id' => $item['product_id'],
-                'id_sub' => $item['sub_id'],
                 'price_old' => $item['price_old'],
                 'price' => $item['price'],
                 'count' => $item['quantity'],
-                'total' => $item['price'] * $item['quantity'] - $item['promotion_discount'],
-                'promotion_discount_id' => $item['promotion_discount_id'],
-                'promotion_discount_quantity' => $item['promotion_discount_quantity'],
+                'total' => $item['price'] * $item['quantity'],
             ];
         }
 
@@ -305,41 +309,50 @@ class ProductsControllersCart extends FSControllers
         $rowOrder['orderID'] = $orderId;
         $_SESSION['orderInfo'] = $rowOrder;
 
-        $rowOrder['province_name'] = $this->model->get_record("code = '".$rowOrder['recipients_province']."'" , 'fs_provinces', 'code, name')->name;
-        $rowOrder['district_name'] = $this->model->get_record("code = '".$rowOrder["recipients_district"]."'", 'fs_districts', 'code, name, full_name')->full_name;
-        $rowOrder['ward_name'] = $this->model->get_record("code = '".$rowOrder['recipients_ward']."'", 'fs_wards', 'code, name, full_name')->full_name;
-
-        foreach ($rowDetail as $i => $item) {
-            $rowDetail[$i]['product_name'] = $cart[$i]['product_name']; 
-            $rowDetail[$i]['code'] = $cart[$i]['code'];
-            $rowDetail[$i]['nhanh_id'] = $cart[$i]['nhanh_id'];
-        }
-
-        // $ssc = ApiControllersSsc::createOrder($rowOrder, $rowDetail);
-        // $this->model->_update(["ssc_id" => $ssc->success ? $ssc->data[0]->tracking_id : 0], "fs_order", "id = $orderId");
-
-        // if (!$ssc->data[0]->tracking_id) {
-        //     $_SESSION['have_redirect'] = 1;
-        //     $_SESSION["msg_error"] = [];
-        //     foreach ($ssc->errors[0]->errors as $item) {
-        //         $_SESSION["msg_error"][] = $item;
-        //     }
-        //     $this->model->_remove("id = $orderId", "fs_order");
-        //     $this->model->_remove("order_id = $orderId", "fs_order_items");
-        //     setRedirect(FSRoute::_("index.php?module=products&view=cart"));
-        // }
-
-        // $nhanh = ApiControllersNhanh::addOrder($rowOrder, $rowDetail, $ssc->data[0]->tracking_id);
-        $this->model->_update(["nhanh_id" => $nhanh->code ? $nhanh->data->orderId : 0], "fs_order", "id = $orderId");
+        $rowOrder['province_name'] = $this->model->get_record("code = '" . $rowOrder['recipients_province'] . "'", 'fs_provinces', 'code, name')->name;
+        $rowOrder['district_name'] = $this->model->get_record("code = '" . $rowOrder["recipients_district"] . "'", 'fs_districts', 'code, name, full_name')->full_name;
+        $rowOrder['ward_name'] = $this->model->get_record("code = '" . $rowOrder['recipients_ward'] . "'", 'fs_wards', 'code, name, full_name')->full_name;
 
         $_SESSION['cartCalculated'] = $cart;
 
-        foreach ($cart as $item) {
-            if ($item['promotion_discount_id']) {
-                $sold = $item['promotion_discount_quantity'];
-                $this->model->_update(['sold' => "sold + $sold"], 'fs_promotion_discount_detail', "promotion_id = " . $item["promotion_discount_id"] . " AND product_id = " . $item['product_id']);
+        if ($user->userID && $orderId) {
+            if ($user->userInfo->level >= 1) {
+                $this->calculateMemberRankDaiLy();
+            }
+            $member_ref = $this->model->get_record("ref_code = '" . $user->userInfo->ref_by . "'", 'fs_members', 'id,level,full_name,vt_coin,hoa_hong'); // thành viên giới thiệu (F0)
+            $percent = 0;
+            //cách tính số coin nhận được nếu trên 300coin nhận thêm 10% hoa hồng cho f0
+            if ($member_coin > 300) {
+                $percent = 10;
+            }
+
+            $coin_add_affilat =  ($member_coin * ($member_ref->hoa_hong + $percent)) / 100;
+            if ($coin_add_affilat) {
+                $total_coin = $coin_add_affilat + $member_ref->vt_coin;
+                $calculateMemberCoin = $this->calculateMemberCoin($member_ref->id, $total_coin);
+                // print_r($calculateMemberCoin);die;
+                if ($calculateMemberCoin) {
+                    $RowCoin = [
+                        'order_id' => $orderId,
+                        'total_coin' => $member_coin, //số coin của đơn hàng 
+                        'percent_add' => $$member_ref->hoa_hong, //số % thêm khi đơn hàng trên 300vt-coin
+                        'percent' => $member_ref->hoa_hong, //số % mà f0 có thể nhận được , dựa trên mức rank của họ
+                        'before_coin' => $member_ref->vt_coin, //số coin của member lúc ban đầu
+                        'after_coin' => $coin_add_affilat, //số coin của member sau khi cộng dựa theo % hoa hồng 
+                        'total_coin_after' => $total_coin, //số coin của member sau khi cộng dựa theo % hoa hồng 
+                        'user_name' =>  $member_ref->full_name, // tổng số coin sau khi được cộng vào 
+                        'user_id' => $member_ref->id, //user_id nhận tiền 
+                    ];
+
+                    $LogCoinId = $this->model->_add($RowCoin, 'fs_coin_log');
+                    $check_rank_member = $this->calculateMemberRank($user->userInfo->id); // check rank cho thành viên mua hàng
+                    if ($check_rank_member && $member_ref->level > 3) { // check rank cho f0 , xem f0 có lên rank không
+                        $check_rank_member_affilate = $this->calculateMemberRank($member_ref->id);
+                    }
+                }
             }
         }
+        $_SESSION['CoinInfo'] = $RowCoin;
 
         setRedirect(FSRoute::_("index.php?module=products&view=cart&task=orderSuccess"));
     }
@@ -364,7 +377,8 @@ class ProductsControllersCart extends FSControllers
         exit();
     }
 
-    public function orderSuccess(){
+    public function orderSuccess()
+    {
         $cart = $_SESSION['cart'] ?: [];
 
         if (empty($cart)) {
@@ -374,20 +388,23 @@ class ProductsControllersCart extends FSControllers
         $cart = $_SESSION['cartCalculated'];
         $order = $_SESSION['orderInfo'];
         $orderID = $order['orderID'];
+        $coin_log = $_SESSION['CoinInfo'];
+        global $user;
 
-        $promotionDiscountPrice = 0;
-      
-        foreach ($cart as $item) {
-            $promotionDiscountPrice += $item['promotion_discount'];
-        }
+        // echo "<pre >";
+        // print_r($coin_log);
+        // print_r($user->userInfo);
+        $province = $this->model->get_record("code = '" . $order['recipients_province'] . "'", 'fs_provinces', 'code, name');
+        $district = $this->model->get_record("code = '" . $order["recipients_district"] . "'", 'fs_districts', 'code, name');
+        $ward = $this->model->get_record("code = '" . $order['recipients_ward'] . "'", 'fs_wards', 'code, name');
 
-        $province = $this->model->get_record("code = '".$order['recipients_province']."'" , 'fs_provinces', 'code, name');
-        $district = $this->model->get_record("code = '".$order["recipients_district"]."'", 'fs_districts', 'code, name');
-        $ward = $this->model->get_record("code = '".$order['recipients_ward']."'", 'fs_wards', 'code, name');
 
         unset($_SESSION['cart']);
         unset($_SESSION['cartCalculated']);
         unset($_SESSION['orderInfo']);
+        unset($_SESSION['CoinInfo']);
+        // $total_price_orrder = $this->calculateMemberRankDaiLy();
+        // $total_price_orrder_MONTH = $this->calculateMemberRank($user->userInfo->id);
 
         global $tmpl;
         $tmpl->addTitle('Đặt hàng thành công');

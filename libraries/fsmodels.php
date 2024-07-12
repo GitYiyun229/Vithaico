@@ -30,6 +30,7 @@ class FSModels
 			$where = ' WHERE ' . $where;
 		$sql .= $where;
 
+		// print_r($sql);die;
 		if ($show) {
 			echo $sql;
 		}
@@ -346,7 +347,7 @@ class FSModels
 		if ($limit)
 			$query .= ' LIMIT ' . $limit;
 
-		//		echo $query;
+				// echo $query;
 		global $db;
 		$sql = $db->query($query);
 		if (!$field_key)

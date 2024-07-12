@@ -189,23 +189,36 @@ class MembersControllersRegister extends FSControllers
             goto exitFunc;
         }
 
+        $timestamp = time();
         $row = [
             'full_name' => $DataName,
             'email' => $DataEmail,
             'telephone' => $DataPhone,
-            'ref_code' => $affpiliate,
+            'ref_by' => $affpiliate,
+            'ref_code' => $timestamp,
             'password' => md5($DataPass),
             'created_time' => date('Y-m-d H:i:s'),
             'published' => 1,
+            'level' => 1,
         ];
         $id = $this->model->_add($row, 'fs_members');
-
         if (!$id) {
             $response = [
                 'error' => true,
                 'message' => FSText::_('Đăng ký không thành công. Vui lòng thử lại!'),
             ];
         } else {
+            $row_log = [
+                'user_id' => $id,
+                'user_name' => $DataName,
+                'telephone' => $DataPhone,
+                'email' => $DataEmail,
+                'level' => 1,
+                'ref_by' => $affpiliate,
+                'created_time' => date('Y-m-d H:i:s'),
+            ];
+
+            $id_log = $this->model->_add($row_log, 'fs_members_register_log');
             unset($_SESSION['register']);
         }
 
