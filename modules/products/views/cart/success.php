@@ -6,9 +6,10 @@ $tmpl->addStylesheet('success', 'modules/products/assets/css');
     <div class="container">
         <div class="section-item p-4 bg-white = mb-3 text-center section-header">
             <h1 class="text-uppercase fw-bold fs-4 mb-3"><?php echo FSText::_('Đặt hàng thành công') ?></h1>
-            <p class="mb-3 text-grey"><?php echo FSText::_('Trên thị trường có quá nhiều sự lựa chọn, cảm ơn bạn đã lựa chọn mua sắm tại') ?> <b>Vuabanlo</b>.</p>
-            <p class="mb-1 text-grey"><?php echo FSText::_('Đơn hàng của bạn CHẮC CHẮN đã được chuyển tới hệ thống xử lý đơn hàng của Vuabanlo.') ?></p>
-            <p class="mb-3 text-grey"><?php echo FSText::_('Trong quá trình xử lý Vuabanlo sẽ liên hệ lại nếu như cần thêm thông tin từ bạn. Ngoài ra Vuabanlo cũng sẽ có gửi xác nhận đơn hàng bằng Email và tin nhắn') ?></p>
+            <p class="mb-3 text-grey"><?php echo FSText::_('Trên thị trường có quá nhiều sự lựa chọn, cảm ơn bạn đã lựa chọn mua sắm tại') ?> <b>Vithaico</b>.</p>
+            <p class="mb-3 text-grey"> <?php echo FSText::_(' Đơn hàng của bạn CHẮC CHẮN đã được chuyển tới hệ thống xử lý đơn hàng của Vithaico. Trong quá trình xử lý Vithaico sẽ liên hệ lại nếu như cần thêm thông tin từ bạn.') ?></p>
+            <p class="mb-3 text-grey"> <?php echo FSText::_(' Ngoài ra Vithaico cũng sẽ có gửi xác nhận đơn hàng bằng Email và tin nhắn') ?></p>
+
 
             <a href="<?php echo URL_ROOT ?>" title="<?php echo FSText::_('Khám phá thêm các sản phẩm khác') ?>"><?php echo FSText::_('Khám phá thêm các sản phẩm khác') ?></a>
         </div>
@@ -53,25 +54,12 @@ $tmpl->addStylesheet('success', 'modules/products/assets/css');
                                     <?php echo format_money($item['price'] * $item['quantity']) ?>
                                 </td>
                             </tr>
-                        <?php } ?>    
+                        <?php } ?>
                         <tr>
                             <td colspan="3" class="text-grey"><?php echo FSText::_('Tạm tính') ?></td>
                             <td class="text-end fw-bold text-end"><?php echo format_money($order['total_before']) ?></td>
                         </tr>
-                        <?php if ($promotionDiscountPrice) { ?>
-                            <tr>
-                                <td colspan="3" class="text-grey"><?php echo FSText::_('Chiết khấu/ Flashsale') ?></td>
-                                <td class="text-end fw-bold text-end"><?php echo format_money($promotionDiscountPrice) ?></td>
-                            </tr>
-                        <?php } ?>    
-                        <tr>
-                            <td colspan="3" class="text-grey"><?php echo FSText::_('Mã giảm giá/ Thẻ quà tặng') ?></td>
-                            <td class="text-end fw-bold text-end">- <?php echo format_money($order['code_discount_price'], '', '₫0') ?></td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" class="text-grey"><?php echo FSText::_('Hạng thành viên') ?></td>
-                            <td class="text-end fw-bold text-end">- <?php echo format_money($order['member_discount_price'], '', '₫0') ?></td>
-                        </tr>
+
                         <tr>
                             <td colspan="3" class="text-grey"><?php echo FSText::_('Phí giao hàng') ?></td>
                             <td class="text-end fw-bold text-end"><?php echo format_money($order['ship_price'], '', FSText::_('Miễn phí')) ?></td>

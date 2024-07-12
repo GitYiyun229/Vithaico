@@ -37,7 +37,6 @@ $tmpl->addScript('product', 'modules/products/assets/js');
                 </div>
             </div>
         </div>
-
         <div class="section-main">
             <div class="main_content d-grid gap-4">
                 <div class="p-name"><?php echo $data->name ?></div>
@@ -46,7 +45,6 @@ $tmpl->addScript('product', 'modules/products/assets/js');
                         <span class="p-title"><?php echo FSText::_('Mã SP:') ?></span>
                         <b><?php echo $data->code ?></b>
                     </div>
-
                     <div class="<?php echo $data->status_prd == 4 ? 'p-status-out' : 'p-status-in' ?>">
                         <?php if ($data->status_prd == 4) { ?>
                             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -64,18 +62,16 @@ $tmpl->addScript('product', 'modules/products/assets/js');
                 <div class="p-price">
                     <div class="p-price_retail">
                         <div class="p-title"><?php echo FSText::_('Giá bán lẻ:') ?></div>
-                        <?php if ($user->userID) { ?>
-                            <div class="price fs-5 fw-bold" id="price" data-price="<?php echo $data->price ?>">
-                                <?php echo format_money($data->price, '₫') ?></div>
-                        <?php } else { ?>
-                            <a href="" class="title_see_price"><?= FSText::_('Đăng nhập để xem giá') ?></a>
-                        <?php } ?>
+
+                        <div class="price fs-5 fw-bold" id="price" data-price="<?= $user->userID ? $data->price_discount : $data->price ?>" data-coin="<?= $data->coin ?>">
+                            <?= format_money($data->price, '₫') ?>
+                        </div>
                     </div>
                     <div class="p-price_discount">
                         <div class="p-title"><?php echo FSText::_('Giá thành viên:') ?></div>
                         <?php if ($user->userID) { ?>
                             <div class="price fs-5 fw-bold" id="price_discount">
-                                <?php echo format_money($data->price_discount, '₫') ?>
+                                <?php echo format_money($data->price_discount, '₫') ?>/ <span><?= $data->coin ?>VTCoin</span>
                             </div>
                         <?php } else { ?>
                             <a href="" class="title_see_price"><?= FSText::_('Đăng nhập để xem giá') ?></a>

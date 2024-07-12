@@ -26,6 +26,51 @@ class FSControllers
 	}
 
 	/*
+	 * function lấy array F1 
+	 */
+	function GetArrayInfoF1($ref_code)
+	{
+		$members = $this->model->get_records('ref_by = ' . $ref_code, 'fs_members', 'id,level'); // lấy thông tin danh sách F1
+		$array_id = [
+			'array_ids' => [],
+			'string_ids' => '',
+			'count_ids' => '',
+			'count_total_daily' => '',
+			'total_price_order_F1' => '',
+		];
+
+		$total_daily = 0;
+
+		if (!empty($members)) {
+			$string_ids = [];
+			foreach ($members as $item) {
+				$array_id['array_ids'][] =  $item->id; // lấy danh sách id theo mảng
+				$string_ids[] = $item->id;
+				if ($item->level >= 2) //tính tổng F1 của member có bao nhiêu đại lý
+				{
+					$total_daily += 1;
+				}
+			}
+			$array_id['string_ids'] = implode(',', $string_ids);  // lấy danh sách id theo chuỗi
+			$array_id['count_ids'] = count($members);	// đếm số lượng f1
+			$array_id['count_total_daily'] = $total_daily;
+		}
+
+		if (!empty($array_id['string_ids'])) { // lấy tổng doanh số nhóm 
+			$total = $this->model->get_records("user_id IN (" . $array_id['string_ids'] . ")", 'fs_order', 'SUM(total_before) AS total_before_sum');
+			if (!empty($total) && isset($total[0]->total_before_sum)) {
+				$array_id['total_price_order_F1'] = $total[0]->total_before_sum;
+			} else {
+				$array_id['total_price_order_F1'] = 0;
+			}
+		}
+
+		return $array_id;
+	}
+
+
+
+	/*
 	 * function check Captcha
 	 */
 	function check_captcha()
@@ -332,7 +377,7 @@ class FSControllers
 		$src = URL_ROOT . str_replace(['/original/', '.jpg', '.png'], ['/resize/', '.webp', '.webp'], $item->image);
 
 ?>
-		<div class="layout-product-item"> <a href="<?php echo $url ?>" title="<?php echo $item->name ?>" class="layout-product-item " target="_blank">
+		<div class="layout-product-item position-relative"> <a href="<?php echo $url ?>" title="<?php echo $item->name ?>" class="layout-product-item position-relative" target="_blank">
 				<div class="box-img">
 					<img src="<?php echo $src ?>" alt="" class="img-fluid layout-img" onerror="this.src='/images/not_picture.png'">
 				</div>
@@ -404,133 +449,23 @@ class FSControllers
 			$productID = array_map(function ($item) {
 				return $item['product_id'];
 			}, $cart);
-
-			$subID = array_map(function ($item) {
-				return $item['sub_id'];
-			}, $cart);
-
-			$products = $this->model->get_records("id IN (" . implode(",", $productID) . ") AND published = 1", "fs_products", "id, alias, name, quantity, code, nhanh_id, image, price, price_old");
-			$subs = $this->model->get_records("id IN (" . implode(",", $subID) . ") AND published = 1", "fs_products_sub", "id, product_id, name, quantity, code, nhanh_id, price, price_old");
-			$subsImages = $this->model->get_records("sub_id IN (" . implode(",", $subID) . ") AND record_id != 0", "fs_products_images", "id, image, record_id, sub_id");
-
-			/**
-			 * Chỉ hiện các KM nếu đăng nhập
-			 */
-			if ($user->userID) {
-				$promotionDiscount = $this->model->getPromotionDiscountProducts(implode(',', $productID), date('Y-m-d H:i:s'));
-
-				/**
-				 * Tìm đơn hàng đã mua trong thời gian diễn ra discount/flash
-				 */
-				if (!empty($promotionDiscount)) {
-					$arrQuery = array_map(function ($item) {
-						return " (DATE(created_time) >= DATE('$item->date_start') AND DATE(created_time) <= DATE('$item->date_end')) ";
-					}, $promotionDiscount);
-
-					$order = $this->model->get_records("user_id = $user->userID AND ( " . implode(' OR ', $arrQuery) . ")", "fs_order");
-
-					if (!empty($order)) {
-						$orderID = array_map(function ($item) {
-							return $item->id;
-						}, $order);
-						$orderDetail = $this->model->get_records("order_id IN (" . implode(',', $orderID) . ") AND promotion_discount_id <> 0", "fs_order_items");
-					}
-				}
-			}
-
-			foreach ($subs as $sub) {
-				$sub->image = '';
-				foreach ($subsImages as $image) {
-					if ($sub->id == $image->sub_id) {
-						$sub->image = $image->image;
-					}
-				}
-			}
-
-			foreach ($products as $product) {
-				foreach ($subs as $sub) {
-					if ($product->id == $sub->product_id) {
-						$product->sub_code = $sub->code;
-						$product->sub_nhanh_id = $sub->nhanh_id;
-						$product->sub_name = $sub->name;
-						$product->sub_image = $sub->image;
-						$product->sub_price = $sub->price;
-						$product->sub_price_old = $sub->price_old;
-					}
-				}
-
-				if (!empty($promotionDiscount)) {
-					foreach ($promotionDiscount as $promo) {
-						if ($product->id == $promo->product_id) {
-							$product->promotionDiscount = $promo;
-							// break;
-						}
-					}
-				}
-			}
-
+			$products = $this->model->get_records("id IN (" . implode(",", $productID) . ") AND published = 1", "fs_products", "id, alias,coin, name, quantity, image,price_discount, price, price_old");
 			foreach ($cart as $i => $item) {
 				foreach ($products as $product) {
+
 					if ($item['product_id'] == $product->id) {
 						$cart[$i]['url'] = FSRoute::_("index.php?module=products&view=product&code=$product->alias&id=$product->id");
-						$cart[$i]['code'] = $product->code;
-						$cart[$i]['nhanh_id'] = $product->nhanh_id;
 						$cart[$i]['product_name'] = $product->name;
 						$cart[$i]['image'] = $product->image;
-						$cart[$i]['price'] = $product->price;
-						$cart[$i]['price_old'] = $product->price_old;
-						$cart[$i]['promotion_discount'] = 0;
-						$cart[$i]['promotion_discount_id'] = 0;
-						$cart[$i]['promotion_discount_quantity'] = 0;
 
-						if ($item['sub_id']) {
-							$cart[$i]['code'] = $product->sub_code;
-							$cart[$i]['nhanh_id'] = $product->sub_nhanh_id;
-							$cart[$i]['sub_name'] = $product->sub_name;
-							$cart[$i]['price'] = $product->sub_price;
-							$cart[$i]['price_old'] = $product->sub_price_old;
-							if ($product->sub_image) {
-								$cart[$i]['image'] = $product->sub_image;
-							}
-						}
-
-						if (isset($product->promotionDiscount)) {
-							$cart[$i]['promotion_discount_id'] = $product->promotionDiscount->promotion_id;
-							if ($product->promotionDiscount->quantity_user) {
-								if ($product->promotionDiscount->price && $product->promotionDiscount->price > 0) {
-									$price_discount = $cart[$i]['price'] - $product->promotionDiscount->price;
-								} else {
-									$price_discount = round($product->promotionDiscount->percent * $cart[$i]['price'] / 100, -3);
-								}
-
-								$quantity_discount = $product->promotionDiscount->quantity_user <= $cart[$i]['quantity'] ? $product->promotionDiscount->quantity_user : $cart[$i]['quantity'];
-
-								/**
-								 * Tính tổng sp có áp dụng discount/flash đã mua
-								 */
-								if (!empty($orderDetail)) {
-									$orderQuantity = 0;
-									foreach ($orderDetail as $orderDetailItem) {
-										if ($orderDetailItem->product_id == $item['product_id'] && $orderDetailItem->promotion_discount_id == $product->promotionDiscount->promotion_id) {
-											$orderQuantity += $orderDetailItem->promotion_discount_quantity;
-										}
-									}
-
-									if ($orderQuantity >= $product->promotionDiscount->quantity_user) {
-										$quantity_discount = 0;
-									} else {
-										$quantity_discount = $quantity_discount - $orderQuantity;
-									}
-								}
-								$cart[$i]['promotion_discount'] = $price_discount * $quantity_discount;
-								$cart[$i]['promotion_discount_quantity'] = $quantity_discount;
-							} else {
-								if ($product->promotionDiscount->price && $product->promotionDiscount->price > 0) {
-									$cart[$i]['price'] = $product->promotionDiscount->price;
-								} else {
-									$cart[$i]['price'] = round($cart[$i]['price'] - $product->promotionDiscount->percent * $cart[$i]['price'] / 100, -3);
-								}
-							}
+						if ($user->userID) {
+							$cart[$i]['price'] = $product->price_discount;  // giá khi đăng nhập là lấy giá triết khấu
+							$cart[$i]['price_old'] = $product->price; 	//giá cũ mua lẻ
+							$cart[$i]['coin'] = $product->coin;
+						} else {
+							$cart[$i]['price'] = $product->price; // giá khi không đăng nhập là lấy giá bán lẻ 
+							$cart[$i]['price_old'] =  0; //giá cũ mua lẻ
+							$cart[$i]['coin'] = 0;
 						}
 						break;
 					}
@@ -539,5 +474,161 @@ class FSControllers
 		}
 
 		return $cart;
+	}
+
+	public function calculateMemberCoin($id, $coin)
+	{
+
+		$row = [
+			'vt_coin' =>  $coin,
+		];
+
+		$update = $this->model->_update($row, 'fs_members', 'id =' . $id);
+
+		return $update;
+	}
+
+	/*
+	 * function lấy tích luỹ mua hàng của thành viên
+	 */
+	function GetCoinMember()
+	{
+		global $user;
+		$users = $user->userInfo;
+		$total_order = 0;
+		$order_info = $this->model->get_records("user_id = '" . $users->id . "' ", 'fs_order', 'member_coin');
+		foreach ($order_info as $item) {
+			$total_order += $item->member_coin;
+		}
+		return $total_order;
+	}
+	/*
+	 *  function tính hạng cho chính member
+	 */
+	public function calculateMemberRankDaiLy()
+	{
+		global $user;
+		$users = $user->userInfo;
+		$total_order = 0;
+		$order_info = $this->model->get_records("user_id = '" . $users->id . "'", 'fs_order', 'total_before');
+
+		foreach ($order_info as $item) {
+			$total_order += $item->total_before;
+		}
+		return $total_order;
+	}
+
+	/*
+ *  Hàm tính hạng cho thành viên chính
+ */
+	public function calculateMemberRank($id)
+	{
+		$total_member_coin = 0;
+		$orderInfo = $this->model->get_records("user_id = '" . $id . "'", 'fs_order', 'member_coin'); // thông tin đơn hàng của member đăng nhập hiện tại
+		if (!empty($orderInfo)) {
+			foreach ($orderInfo as $item) { // for để lấy tổng doanh số
+				$total_member_coin += $item->member_coin;
+			}
+			$member = $this->model->get_record('id=' . $id, 'fs_members', 'id,level,hoa_hong,ref_code,ref_by'); // lấy thông tin của id hiện tại
+			if (!empty($member)) {
+				$infoF1 = $this->getArrayInfoF1($member->ref_code);
+				$level = $member->level;
+				// Kiểm tra hạng thành viên dựa trên $total_member_coin và các điều kiện F1
+				switch (true) {
+					case $level < 6 && $total_member_coin > 300 && ($infoF1['count_total_daily'] >= 200 || $infoF1['total_price_order_F1'] >= 1000000000):
+						$level = 6;
+						break;
+					case $level < 5 && $total_member_coin > 300 && ($infoF1['count_total_daily'] >= 50 || $infoF1['total_price_order_F1'] >= 200000000):
+						$level = 5;
+						break;
+					case $level < 4 && $total_member_coin > 300 && ($infoF1['count_total_daily'] >= 10 || $infoF1['total_price_order_F1'] >= 50000000):
+						$level = 4;
+						break;
+					case $level < 3 && $total_member_coin > 300:
+						$level = 3;
+						break;
+					case $level < 2 && $total_member_coin >= 100 && $total_member_coin <= 300:
+						$level = 2;
+						break;
+					case $level < 1 && $total_member_coin > 1 && $total_member_coin <= 99:
+						$level = 1;
+						break;
+					case  $total_member_coin <= 1:
+						$level = 1;
+						break;
+				}
+
+				// Cập nhật hạng thành viên nếu có thay đổi
+				if ($member->level < $level) {
+					$this->updateMemberRank($level, $id);
+				}
+			}
+		}
+
+		// Xử lý bước kiểm tra điều kiện F0 ở đây
+		$member = $this->model->get_record('id=' . $id, 'fs_members', 'id,level,hoa_hong,ref_code,ref_by,vt_coin');
+
+		return $member;
+	}
+
+
+	/*
+	 *function tính update hạng cho thành viên khi đạt đủ điều kiện lên hạng
+	 */
+	public function UpdateMemberRank($level, $id)
+	{
+
+		$member = $this->model->get_record('id=' . $id, 'fs_members', 'id,level,hoa_hong,ref_code,ref_by,vt_coin');
+
+		$levelInfo = $this->model->get_record('level = ' . $level, 'fs_members_group', '*');
+		if (!empty($level) && $level >= $member->level) {
+			$row = [
+				'level' => $level,
+				'hoa_hong' => $levelInfo->member_benefits,
+			];
+			$update_level = $this->model->_update($row, 'fs_members', 'id =' . $member->id);
+			if ($update_level) {
+				$row_log = [
+					'level' => $level,
+					'user_id' => $member->id,
+					'created_time' => date('Y-m-d H:i:s'),
+				];
+				$log = $this->model->_add($row_log, 'fs_update_rank_log');
+			}
+		}
+		return $update_level;
+	}
+
+	/*
+	 *function tính phí Mỗi tháng phát sinh đơn hàng 2.800.000đ để duy trì hạng của mình.
+	 */
+	public function calculateMemberCheckToMonth()
+	{
+		global $user;
+		$users = $user->userInfo;
+		$total_month = 0;
+		$order_info_month = $this->model->get_records("user_id = '" . $users->id . "' AND created_time >= DATE_FORMAT(NOW() ,'%Y-%m-01') AND created_time < DATE_ADD(DATE_FORMAT(NOW() ,'%Y-%m-01'), INTERVAL 1 MONTH ) ", 'fs_order', 'total_before');
+
+		foreach ($order_info_month as $item) {
+			$total_month += $item->total_before;
+		}
+
+		return $total_month;
+	}
+	/*
+	* function tính theo tuần xem phát sinh đơn hàng bao nhiêu
+	*/
+	public function calculateMemberCheckToWeek()
+	{
+		global $user;
+		$users = $user->userInfo;
+		$total_week = 0;
+		$order_info_month = $this->model->get_records("user_id = '" . $users->id . "' AND created_time >= DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY) AND created_time < DATE_ADD(DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY), INTERVAL 7 DAY) ", 'fs_order', 'total_before');
+
+		foreach ($order_info_month as $item) {
+			$total_week += $item->total_before;
+		}
+
+		return $total_week;
 	}
 }

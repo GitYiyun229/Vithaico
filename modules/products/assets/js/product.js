@@ -90,36 +90,8 @@ $(document).ready(function () {
   // });
 });
 
-// const loadingHtml =
-//   '<div class="loadingio-spinner"><div class="ldio"><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div></div></div>';
 
-// const debounce = (mainFunction, delay) => {
-//   let timer;
-//   return function (...args) {
-//     clearTimeout(timer);
-//     timer = setTimeout(() => {
-//       mainFunction(...args);
-//     }, delay);
-//   };
-// };
 
-// $(window).on(
-//   "scroll",
-//   debounce(function () {
-//     let load = $(".loading-scroll");
-//     let page = parseInt(load.attr("page")) + 1;
-//     let totalCurrent = parseInt(load.attr("total-current"));
-//     let total = parseInt(load.attr("total"));
-//     let limit = parseInt(load.attr("limit"));
-
-//     if (isElementInViewport($(".loading-scroll")[0]) && totalCurrent < total) {
-//       load.fadeIn().append(loadingHtml);
-//       load.attr("page", page);
-//       load.attr("total-current", totalCurrent + limit);
-//       loadMoreContent(page, limit, load);
-//     }
-//   }, 300)
-// );
 
 function isElementInViewport(el) {
   var rect = el.getBoundingClientRect();
@@ -151,38 +123,6 @@ function loadMoreContent(page, limit, load) {
   });
 }
 
-// $(".slider-for").slick({
-//   slidesToShow: 1,
-//   slidesToScroll: 1,
-//   arrows: false,
-//   fade: false,
-//   asNavFor: ".slider-nav",
-// });
-
-// $(".slider-nav").slick({
-//   slidesToShow: 5,
-//   slidesToScroll: 1,
-//   asNavFor: ".slider-for",
-//   margin: 10,
-//   dots: false,
-//   arrows: true,
-//   centerMode: false,
-//   focusOnSelect: true,
-//   // infinite: true,
-//   prevArrow:
-//     '<button class="slick-prev"><svg width="24" height="48" viewBox="0 0 24 48" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_84_2901)"><path d="M0 0L2.09815e-06 48L16 48C20.4183 48 24 44.4183 24 40L24 8C24 3.58172 20.4183 -8.92511e-07 16 -6.99382e-07L0 0Z" fill="black" fill-opacity="0.24"/><path d="M9.5 29L14.5 24L9.5 19" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></g><defs><clipPath id="clip0_84_2901"><path d="M0 0L2.09815e-06 48L16 48C20.4183 48 24 44.4183 24 40L24 8C24 3.58172 20.4183 -8.92511e-07 16 -6.99382e-07L0 0Z" fill="white"/></clipPath></defs></svg></button>',
-//   nextArrow:
-//     '<button class="slick-next"><svg width="24" height="48" viewBox="0 0 24 48" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_84_2900)"><path d="M24 0L24 48L8 48C3.58172 48 -1.94158e-06 44.4183 -1.74846e-06 40L-3.49691e-07 8C-1.56562e-07 3.58172 3.58172 -8.92511e-07 8 -6.99382e-07L24 0Z" fill="black" fill-opacity="0.24"/><path d="M14.5 29L9.5 24L14.5 19" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></g><defs><clipPath id="clip0_84_2900"><path d="M24 0L24 48L8 48C3.58172 48 -1.94158e-06 44.4183 -1.74846e-06 40L-3.49691e-07 8C-1.56562e-07 3.58172 3.58172 -8.92511e-07 8 -6.99382e-07L24 0Z" fill="white"/></clipPath></defs></svg></button>',
-//   responsive: [
-//     {
-//       breakpoint: 500,
-//       settings: {
-//         vertical: false,
-//         verticalSwiping: false,
-//       },
-//     },
-//   ],
-// });
 
 $(".slider-related").slick({
   slidesToShow: 4,
@@ -307,18 +247,11 @@ $(".buy-now").click(async function (e) {
 async function addCart(url = null) {
   let image = $(".slider-for .slick-active img").attr("src");
   let product = parseInt($("#product").val());
-
-  // let price = parseInt($(".p-type.active").attr("price"));
   let price = parseInt($("#price").attr("data-price"));
-  // let sub = parseInt($(".p-type.active").attr("data-sub"));
-
   let quantity = $("#order-quantity").val();
+  let coin = parseInt($("#price").attr("data-coin"));
   let quantityMax = $("#order-quantity").attr("max");
-  console.log(image);
-  console.log(product);
-  console.log(price);
-  console.log(quantity);
-  console.log(quantityMax);
+
   if (!parseInt(quantity)) {
     flashMessage(true, "Vui lòng nhập số!");
     $("#order-quantity").focus();
@@ -346,6 +279,7 @@ async function addCart(url = null) {
       product,
       quantity,
       price,
+      coin,
       image,
       token,
     },
@@ -354,6 +288,7 @@ async function addCart(url = null) {
       console.log(result);
       flashMessage(result.error, result.message);
       $("header .cart-text-quantity").text(result.total);
+      $(".text_tamtinh .cart-text-quantity-2").text(result.total_order);
       if (result.newItem) {
         $(".cart-hover-body").append(`
                
@@ -364,16 +299,14 @@ async function addCart(url = null) {
             <div>
                 <a href="${result.newItem.url}">
                     <div class="mb-1">${result.newItem.product_name}</div>
-                    <div class="sub-name">${result.newItem.sub_name}</div>
+                    <p class="mb-1">x ${result.newItem.quantity}</p>
                     <div class="item-price d-flex flex-wrap align-items-center justify-content-between">
-                        <p>${result.newItem.price
+                        <p class="mb-1">${result.newItem.price
                           .toString()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
-                        <span class="span-price-origin">${result.newItem.price_origin
-                          .toString()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</span>
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}/
+                        <span>${result.newItem.coin}VT-Coin</span>
                         </p>
-                        <p>x ${result.newItem.quantity}</p>
+                    
                     </div>
                 </a>
             </div>

@@ -1,10 +1,6 @@
  <?php
     $tmpl->addStylesheet('slick', 'libraries/slick-js');
-    // $tmpl->addStylesheet('owl.carousel.min', 'libraries/OwlCarousel2-2.3.4/dist/assets');
-    // $tmpl->addStylesheet('owl.theme.default.min', 'libraries/OwlCarousel2-2.3.4/dist/assets');
     $tmpl->addStylesheet('default', 'modules/home/assets/css');
-
-    // $tmpl->addScript('owl.carousel.min', 'libraries/OwlCarousel2-2.3.4/dist');
     $tmpl->addScript('slick', 'libraries/slick-js');
     $tmpl->addScript('default', 'modules/home/assets/js');
     $words = explode(" ", $content->title);
