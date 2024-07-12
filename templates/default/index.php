@@ -113,7 +113,7 @@ $alert = array(
                                 <?php } ?>
                             </div>
                             <div class=" cart-hover-footer">
-                                <div class="text-tamtinh text-center"><span>Tạm tính</span><b class="cart-text-quantity-2 " ><?= format_money($total_money_cart) ?></b></div>
+                                <div class="text-tamtinh text-center"><span>Tạm tính</span><b class="cart-text-quantity-2 "><?= format_money($total_money_cart) ?></b></div>
                                 <p class="mt-3 mb-3 text-center">Mã vận chuyển, thuế và giảm giá được tính khi thanh toán.
                                 </p>
                                 <a class="text-center" href="<?php echo FSRoute::_('index.php?module=products&view=cart') ?>"><?php echo FSText::_('Thanh toán') ?></a>
@@ -435,3 +435,33 @@ $alert = array(
 
     </div>
 </div>
+<?php if (!$user->userID) { ?>
+    <div class="modal fade" id="memberModal" tabindex="-1" aria-labelledby="memberModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="d-grid">
+                        <div class="p-5 grid-content">
+                            <div class="layout-modal layout-register-success" style="display: none;">
+                                <div class="text-center mb-5">
+                                    <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M18.0837 28.0001L24.687 34.6034L37.917 21.3967M28.0003 51.3334C40.8337 51.3334 51.3337 40.8334 51.3337 28.0001C51.3337 15.1667 40.8337 4.66675 28.0003 4.66675C15.167 4.66675 4.66699 15.1667 4.66699 28.0001C4.66699 40.8334 15.167 51.3334 28.0003 51.3334Z" stroke="#3BA500" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                                <div class="fs-4 register-success-message mb-5 text-center"></div>
+                                <div class="mb-4 text-center">
+                                    Bạn đã tạo thành công tài khoản với email <br>
+                                    <b class="register-success-telephone register-success-email"></b>
+                                </div>
+                                <div class="mb-4 text-center">
+                                    Bạn sẽ được chuyển hướng đến ShopUSA trong <p class="re-send-count-down-callback"></p> giây.
+                                </div>
+                                <a href="<?php echo URL_ROOT ?>" class="form-submit text-uppercase d-flex align-items-center justify-content-center fw-medium"><?php echo FSText::_('Quay lại trang chủ') ?></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>

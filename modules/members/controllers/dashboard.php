@@ -7,7 +7,9 @@ class MembersControllersDashboard extends MembersControllersMembers
     public function display()
     {
         global $tmpl, $user, $config;
-     
+
+      $total_price_orrder_MONTH = $this->calculateMemberRank($user->userInfo->id);
+    //   print_r($total_price_orrder_MONTH);die;
         // $breadcrumbs = array(array(0 => FSText::_('Trang cá nhân'), 1 => ''));
         // $tmpl->assign('breadcrumbs', $breadcrumbs);
         $tmpl->addTitle(FSText::_('Trang cá nhân'));
