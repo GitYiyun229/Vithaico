@@ -33,20 +33,30 @@ class ContentsModelsContent extends FSModels
 		return $result;
 	}
 
-	function getCategory()
+	function getCategory($id)
 	{
 		$fs_table = FSFactory::getClass('fstable');
 
-		$query = " SELECT id,name, icon, alias,parent_id as parent_id,seo_title,seo_keyword,seo_description,list_parents
+		$query = " SELECT id,name, icon, alias,parent_id as parent_id,seo_title,seo_keyword,seo_description,list_parents, cat_same
 						FROM " . $fs_table->getTable('fs_contents_categories', 1) . " 
-						WHERE published = 1 order by ordering asc";
+						WHERE id = $id and published = 1 order by ordering asc";
 		global $db;
 		$sql = $db->query($query);
-		$result = $db->getObjectList();
+		$result = $db->getObject();
 		return $result;
 	}
 
-
+	public function getCatSame($id)
+	{
+		global $db;
+		$fs_table = FSFactory::getClass('fstable');
+		$sql = "SELECT id,name, icon, alias,parent_id as parent_id,seo_title,seo_keyword,seo_description,list_parents, cat_same
+					FROM " . $fs_table->getTable('fs_contents_categories', 1) . "
+					WHERE id IN (0" . $id . "0) AND published = 1 order by  ordering asc
+			";
+		// print_r($sql);
+		return $db->getObjectList($sql, USE_MEMCACHE);
+	}
 	function getList($id)
 	{
 		$query = ' select id, content, category_alias, category_name, title, image, alias, published 

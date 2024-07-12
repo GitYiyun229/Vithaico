@@ -26,9 +26,7 @@
         font-size: 40px;
         font-weight: 700;
         span {
-          &:last-child {
-            color: #ea212d;
-          }
+          color: #ea212d;
         }
       }
     }
@@ -226,8 +224,8 @@
     }
   }
   .show-all {
-    margin: 12px 0;
-    text-align: center;
+    margin: 12px auto;
+    width: fit-content;
     .all {
       color: #ea212d;
       padding: 19px 52px;
@@ -242,7 +240,7 @@
 }
 
 .section-news,
-.section-feezzback {
+.section-feedback {
   background: #f8f8f8;
 }
 .section-top {
@@ -329,8 +327,8 @@
       .owl-dot {
         span {
           background: rgba(0, 0, 0, 0.24);
-          width: 8px;
-          height: 8px;
+          width: 32px;
+          height: 4px;
           margin: 0 0.25rem;
         }
         &.active {

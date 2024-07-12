@@ -10,7 +10,7 @@ class ProductsModelsCat extends FSModels
     public function __construct()
     {
         parent::__construct();
-        $this->limit = FSInput::get('limit', 50);
+        $this->limit = FSInput::get('limit', 6);
     }
 
     public function getCat()
@@ -91,6 +91,14 @@ class ProductsModelsCat extends FSModels
         $db->query_limit($sql, $this->limit, $this->page);
         return $db->getObjectList('', USE_MEMCACHE);
     }
+
+    function getPagination($total)
+	{
+		FSFactory::include_class('Pagination');
+		$pagination = new Pagination($this->limit, $total, $this->page);
+		return $pagination;
+	}
+
 
     public function getCategoriesWrap($str)
     {

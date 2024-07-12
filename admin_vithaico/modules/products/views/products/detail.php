@@ -48,7 +48,7 @@ define('MIN_CONTENT',900);
     <ul>
         <li><a href="#fragment-1"><span><?php echo FSText::_("Trường cơ bản"); ?></span></a></li>
         <!-- <li><a href="#fragment-3"><span>--><?php //echo FSText::_("SEO"); ?><!--</span></a></li>-->
-        <li><a href="#fragment-7"><span><?php echo FSText::_("Phân loại"); ?></span></a></li>
+        <!-- <li><a href="#fragment-7"><span><?php echo FSText::_("Phân loại"); ?></span></a></li> -->
         <li><a href="#fragment-5"><span><?php echo FSText::_("Ảnh sản phẩm"); ?></span></a></li>
         <li><a href="#fragment-2"><span><?php echo FSText::_("Sản phẩm liên quan "); ?></span></a></li>
         <!-- <li><a href="#fragment-4"><span><?php //echo FSText::_("Phụ kiện mua kèm "); ?></span></a></li> -->
@@ -67,9 +67,9 @@ define('MIN_CONTENT',900);
         <?php include_once 'detail_base.php'; ?>
     </div>
 
-    <div id="fragment-7">
-        <?php include_once 'detail_color.php'; ?>
-    </div>
+    <!-- <div id="fragment-7">
+        </?php include_once 'detail_color.php'; ?>
+    </div> -->
 
     <div id="fragment-2">
         <?php include_once 'detail_related.php'; ?>

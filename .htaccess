@@ -48,6 +48,9 @@ RewriteRule ^news/([^/]*)-dne([0-9]*)$ index.php?module=news&view=news&code=$1&i
 
 #product
 RewriteRule ^([^/]*)-pc([0-9]*).html(.*) index.php?module=products&view=cat&code=$1&id=$2&Itemid=2&lang=vi&%{QUERY_STRING} [L]
+RewriteRule ^([^/]*)-pc([0-9]*)/(page-([0-9])).html(.*) index.php?module=products&view=cat&code=$1&id=$2&Itemid=2&page=$2&lang=vi&%{QUERY_STRING} [L]
+
+
 RewriteRule ^([^/]*)-p([0-9]*).html(.*) index.php?module=products&view=product&code=$1&id=$2&Itemid=3&lang=vi&%{QUERY_STRING} [L]
 RewriteRule ^tim-kiem(.*) index.php?module=products&view=search&Itemid=3&lang=vi&%{QUERY_STRING} [L]
 RewriteRule ^gia-tot-hom-nay$ index.php?module=products&view=promotion&Itemid=4&lang=vi&%{QUERY_STRING} [L]
@@ -79,6 +82,8 @@ RewriteRule ^fb-oauth-callback(.*) index.php?module=members&view=facebook&task=c
 
 #contents
 RewriteRule ^([^/]*)-n([0-9]*).html(.*) index.php?module=contents&view=content&code=$1&id=$2&Itemid=5&lang=vi&%{QUERY_STRING} [L]
+RewriteRule ^([^/]*).html(.*) index.php?module=contents&view=cat&ccode=$1&id=$2&Itemid=3&lang=vi [L]
+
 
 Options +FollowSymLinks
 RewriteEngine On

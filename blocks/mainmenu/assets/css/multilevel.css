@@ -21,6 +21,19 @@ ul {
   color: #000000;
   font-size: 16px;
   text-transform: uppercase;
+  transition: all 0.3s;
+}
+.parent-ul .li_header a svg {
+  margin-left: 5px;
+}
+.parent-ul .li_header a:hover {
+  color: #ea212d;
+}
+.parent-ul .li_header a:hover svg {
+  transform: rotate(-180deg);
+}
+.parent-ul .li_header a:hover svg path {
+  stroke: #ea212d;
 }
 .parent-ul .li_header .dropdown-menu {
   border-radius: 5px;
@@ -38,6 +51,15 @@ ul {
 }
 .parent-ul .li_header:hover .dropdown-menu {
   display: block;
+}
+.parent-ul .activated a {
+  color: #ea212d;
+}
+.parent-ul .activated a svg {
+  transform: rotate(-180deg);
+}
+.parent-ul .activated a svg path {
+  stroke: #ea212d;
 }
 
 @media all and (max-width: 1000px) {
