@@ -96,13 +96,10 @@ $alert = array(
                                             <a href="<?php echo $item['url'] ?>" class=""><img src="<?php echo $item['image'] ?>" alt="<?php echo $item['product_name'] ?>" class="img-fluid"></a>
                                             <div>
                                                 <a href="<?php echo $item['url'] ?>">
-                                                    <div class="mb-1"><?php echo $item['product_name'] ?></div>
-                                                    <div class="sub-name"><?php echo @$item['sub_name'] ?></div>
+                                                    <div class="mb-2"><?php echo $item['product_name'] ?></div>
+                                                    <p class="mb-2"><?php echo 'x ' . ($item['quantity']) ?></p>
                                                     <div class="item-price d-flex flex-wrap align-items-center justify-content-between">
-                                                        <p><?php echo format_money($item['price']) ?>
-                                                            <span class="span-price-origin"><?php echo format_money($item['price_old']) ?></span>
-                                                        </p>
-                                                        <p><?php echo 'x ' . ($item['quantity']) ?></p>
+                                                        <p class="mb-0"><?php echo format_money($item['price']) ?>/<span><?= $item['coin'] ?>VT-Coin</span></p>
                                                     </div>
                                                 </a>
                                             </div>
@@ -116,7 +113,7 @@ $alert = array(
                                 <?php } ?>
                             </div>
                             <div class=" cart-hover-footer">
-                                <div class="text-tamtinh text-center"><span>Tạm tính</span><b class="cart-text-quantity"><?= format_money($total_money_cart) ?></b></div>
+                                <div class="text-tamtinh text-center"><span>Tạm tính</span><b class="cart-text-quantity-2 " ><?= format_money($total_money_cart) ?></b></div>
                                 <p class="mt-3 mb-3 text-center">Mã vận chuyển, thuế và giảm giá được tính khi thanh toán.
                                 </p>
                                 <a class="text-center" href="<?php echo FSRoute::_('index.php?module=products&view=cart') ?>"><?php echo FSText::_('Thanh toán') ?></a>

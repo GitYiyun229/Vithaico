@@ -69,6 +69,9 @@ RewriteRule ^dang-nhap$ index.php?module=members&view=user&task=login&Itemid=201
 RewriteRule ^don-hang-cua-toi(.*) index.php?module=members&view=orders&Itemid=201&lang=vi&%{QUERY_STRING} [L]
 RewriteRule ^chi-tiet-don-hang-([0-9]*)$ index.php?module=members&view=orders&task=detail&id=$1&Itemid=201&lang=vi [L]
 
+#RewriteRule ^lich-su-giao-dich-([0-9]*)$ index.php?module=members&view=orders&task=&id=$1&Itemid=201&lang=vi [L]
+#RewriteRule ^thong-ke-don-hang-f1-([0-9]*)$ index.php?module=members&view=orders&task=detail&id=$1&Itemid=201&lang=vi [L]
+
 RewriteRule ^danh-sach-thanh-vien-gioi-thieu(.*) index.php?module=members&view=introduce&Itemid=201&lang=vi&%{QUERY_STRING} [L]
 RewriteRule ^danh-sach-thanh-vien-gioi-thieu([0-9]*)$ index.php?module=members&view=introduce&task=detail&id=$1&Itemid=201&lang=vi [L]
 

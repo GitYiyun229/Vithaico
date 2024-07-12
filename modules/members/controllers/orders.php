@@ -73,7 +73,6 @@ class MembersControllersOrders extends MembersControllersMembers
         $province = $this->model->get_record("code = $order->recipients_province", 'fs_provinces', 'code, name')->name;
         $district = $this->model->get_record("code = $order->recipients_district", 'fs_districts', 'code, name')->name;
         $ward = $this->model->get_record("code = $order->recipients_ward", 'fs_wards', 'code, name')->name;
-
         $tmpl->addTitle(FSText::_('Chi tiết đơn hàng'));
 
         require PATH_BASE . "modules/$this->module/views/$this->view/detail.php";
