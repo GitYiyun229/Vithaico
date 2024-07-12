@@ -64,6 +64,23 @@ class ContentsModelsCategories extends ModelsCategories
             Errors::_('Alias của bạn đã bị trùng tên', 'alert');
             $row['alias'] = $this->genarate_alias_news($row['alias'], $id);
         }
+
+        //lưu cate cùng loại chọn nhiều
+        $arr_cat_id = FSInput::get('cat_same', array(), 'array');
+        if (@$arr_cat_id && !empty($arr_cat_id)) {
+
+            $str_cat_id = implode(',', $arr_cat_id);
+            $row['cat_same'] = ',' . $str_cat_id . ',';
+            $row1 = array();
+            $row1['cat_same'] = ',' . $id . ',';
+            foreach ($arr_cat_id as $key => $value) {
+                $sam = $this->_update($row1, 'fs_contents_categories', 'id = ' . $value);
+            }
+        } else {
+            $row['cat_same'] = '';
+        }
+
+
         $rid = parent::save($row);
         $this->save_redirect($rid, $row['alias']);
 

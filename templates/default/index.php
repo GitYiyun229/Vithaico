@@ -256,7 +256,9 @@ $alert = array(
             <?php echo $main_content ?>
         </main>
 
-        <footer>
+        <footer class="position-relative">
+            <img src="/images/footer-left.svg" alt="" class="position-absolute top-0 start-0">
+
             <div class="container">
                 <div class="grid_footer grid_footer-top">
                     <div class="grid_footer-col">
@@ -352,6 +354,7 @@ $alert = array(
                     </div>
                 </div>
             </div>
+            <img src="/images/footer-right.svg" alt="" class="position-absolute bottom-0 end-0">
         </footer>
 
         <div class="side-left_btn">
