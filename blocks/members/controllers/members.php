@@ -11,6 +11,14 @@ class MembersBControllersMembers
     $model = new MembersBModelsMembers();
     global $tmpl, $user, $config;
     $user_member = $user->userInfo;
+    if (!$user_member) {
+      setRedirect(URL_ROOT, 'Đăng nhập để sử dụng tính năng này', 'error');
+    }
+    $level = $user_member->level;
+
+    $table_level = $model->get_record('level=' . $level, 'fs_members_group', '*');
+    print_r($table_level);
+
     // $time_add_point = date('d-m-Y', strtotime($user_member->time_add_point));
     // $group = $model->get_record('id = ' . $user_member->group_id . '', FSTable::_('fs_members_group'));
     // $groups = $model->get_records('published = 1', FSTable::_('fs_members_group'),'*','level ASC');

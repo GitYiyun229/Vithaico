@@ -426,11 +426,11 @@ $cartList = $cart->calculateCartPrice();
                                 </div>
                                 <div class="fs-4 register-success-message mb-5 text-center"></div>
                                 <div class="mb-4 text-center">
-                                    Bạn đã tạo thành công tài khoản ShopUSA với số <br>
+                                    Bạn đã tạo thành công tài khoản với số <br>
                                     <b class="register-success-telephone"></b>
                                 </div>
                                 <div class="mb-4 text-center">
-                                    Bạn sẽ được chuyển hướng đến ShopUSA trong 10 giây.
+                                    Bạn sẽ được chuyển hướng đến trong 10 giây.
                                 </div>
                                 <a href="<?php echo URL_ROOT ?>" class="form-submit text-uppercase d-flex align-items-center justify-content-center fw-medium"><?php echo FSText::_('Quay lại trang chủ') ?></a>
                             </div>
