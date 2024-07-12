@@ -1,13 +1,14 @@
 .list_product_categories {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   .box_item {
     .item {
       display: grid;
       justify-items: center;
       gap: 20px;
-      padding: 16px 156px 0;
+      padding: 16px 0 0;
       transition: 0.3s ease-in-out;
+      text-align: center;
       .img-icon {
       }
       .item_name {
@@ -26,5 +27,49 @@
   .active {
     color: #d51e29;
     background-color: #fff;
+  }
+}
+@media all and (max-width: 1000px) {
+  .list_product_categories {
+   
+    .box_item {
+      .item {
+        .img-icon {
+        }
+        .item_name {
+          font-size: 16px;
+        }
+      }
+      &:hover {
+        .item {
+        }
+        .img-icon {
+        }
+      }
+    }
+    .active {
+    }
+  }
+}
+@media all and (max-width: 500px) {
+  .list_product_categories {
+   
+    .box_item {
+      .item {
+        .img-icon {
+        }
+        .item_name {
+          font-size: 12px;
+        }
+      }
+      &:hover {
+        .item {
+        }
+        .img-icon {
+        }
+      }
+    }
+    .active {
+    }
   }
 }

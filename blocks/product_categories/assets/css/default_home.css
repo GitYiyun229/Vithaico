@@ -1,7 +1,7 @@
 .list_product_categories {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 48px;
 }
 .list_product_categories .box_item .item {
   display: grid;
@@ -28,4 +28,18 @@
 }
 .list_product_categories .box_item:hover .item .img-icon {
   transform: scale(1.1);
+}
+
+@media all and (max-width: 1000px) {
+  .list_product_categories {
+    gap: 32px;
+  }
+  .list_product_categories .box_item .item .item_name {
+    font-size: 18px;
+  }
+}
+@media all and (max-width: 500px) {
+  .list_product_categories {
+    grid-template-columns: unset;
+  }
 }/*# sourceMappingURL=default_home.css.map */

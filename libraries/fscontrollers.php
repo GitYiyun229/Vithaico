@@ -332,31 +332,28 @@ class FSControllers
 		$src = URL_ROOT . str_replace(['/original/', '.jpg', '.png'], ['/resize/', '.webp', '.webp'], $item->image);
 
 ?>
-<div class="layout-product-item position-relative"> <a href="<?php echo $url ?>" title="<?php echo $item->name ?>"
-        class="layout-product-item position-relative" target="_blank">
-        <div class="box-img">
-            <img src="<?php echo $src ?>" alt="" class="img-fluid layout-img"
-                onerror="this.src='/images/not_picture.png'">
-        </div>
+		<div class="layout-product-item"> <a href="<?php echo $url ?>" title="<?php echo $item->name ?>" class="layout-product-item " target="_blank">
+				<div class="box-img">
+					<img src="<?php echo $src ?>" alt="" class="img-fluid layout-img" onerror="this.src='/images/not_picture.png'">
+				</div>
 
-        <div class="layout-content">
-            <div class="layout-name">
-                <?php echo $item->name ?>
-            </div>
-            <div class="layout-public-price">
-                <?php if ($user->userID) { ?>
-                <div class="price">
-                    <?php echo format_money($item->price, '₫') ?>
-                </div>
-                <?php } else { ?>
-                <a href="<?php echo FSRoute::_('index.php?module=members&view=user&task=login') ?>"
-                    class="title_see_price"><?= FSText::_('Đăng nhập để xem giá') ?></a>
-                <?php } ?>
-            </div>
-        </div>
-    </a>
-</div>
-<?php
+				<div class="layout-content">
+					<div class="layout-name">
+						<?php echo $item->name ?>
+					</div>
+					<div class="layout-public-price">
+						<?php if ($user->userID) { ?>
+							<div class="price">
+								<?php echo format_money($item->price, '₫') ?>
+							</div>
+						<?php } else { ?>
+							<a href="<?php echo FSRoute::_('index.php?module=members&view=user&task=login') ?>" class="title_see_price"><?= FSText::_('Đăng nhập để xem giá') ?></a>
+						<?php } ?>
+					</div>
+				</div>
+			</a>
+		</div>
+	<?php
 	}
 	public function layoutProductItemFlashSale($item)
 	{
@@ -364,39 +361,38 @@ class FSControllers
 		$src = URL_ROOT . str_replace(['/original/', '.jpg', '.png'], ['/larges/', '.webp', '.webp'], $item->image);
 
 	?>
-<div class="layout-product-item position-relative">
-    <div class="box-img">
-        <img src="<?php echo $src ?>" alt="" class="img-fluid layout-img" onerror="this.src='/images/not_picture.png'">
-    </div>
-    <div class="layout-addcart position-absolute">
-        <p class="btn-submit add-cart text-center fw-bold">
-            <?php echo FSText::_('Thêm vào giỏ') ?>
-        </p>
-    </div>
-    <a href="<?php echo $url ?>" title="<?php echo $item->name ?>" class="layout-product-item position-relative"
-        target="_blank">
-        <div class="layout-content">
-            <div class="layout-name">
-                <?php echo $item->name ?>
-            </div>
-            <div class="layout-public-price">
-                <div class="price">
+		<div class="layout-product-item position-relative">
+			<div class="box-img">
+				<img src="<?php echo $src ?>" alt="" class="img-fluid layout-img" onerror="this.src='/images/not_picture.png'">
+			</div>
+			<div class="layout-addcart position-absolute">
+				<p class="btn-submit add-cart text-center fw-bold">
+					<?php echo FSText::_('Thêm vào giỏ') ?>
+				</p>
+			</div>
+			<a href="<?php echo $url ?>" title="<?php echo $item->name ?>" class="layout-product-item position-relative" target="_blank">
+				<div class="layout-content">
+					<div class="layout-name">
+						<?php echo $item->name ?>
+					</div>
+					<div class="layout-public-price">
+						<div class="price">
 
-                    <?= format_money($item->price_public, '₫') ?>
-                </div>
+							<?= format_money($item->price_public, '₫') ?>
+						</div>
 
-                <div class="layout-origin-price">
-                    <?= format_money($item->price, '₫') ?>
-                </div>
-                <div class="layout-info">
+						<div class="layout-origin-price">
+							<?= format_money($item->price, '₫') ?>
+						</div>
+						<div class="layout-info">
 
-                    <!-- <div class="item-info item-flash">Flashsale</div> -->
-                    <div class="item-info item-percent">- <?php echo $item->percent ?>%</div>
-                </div>
-            </div>
-        </div>
-    </a>
-</div>
+							<!-- <div class="item-info item-flash">Flashsale</div> -->
+							<div class="item-info item-percent">- <?php echo $item->percent ?>%</div>
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
 <?php
 	}
 

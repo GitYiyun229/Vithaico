@@ -110,7 +110,7 @@
                  <div class="content">
                      <?= $content_register->content ?>
                  </div>
-                 <div class="show-more mt-4">
+                 <div class="show-more">
                      <a class="all" href="<?= FSRoute::_('index.php?module=members&view=user&task=register') ?>">
                          Đăng ký thành viên
                          <span class="ms-1">
