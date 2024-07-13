@@ -6,16 +6,17 @@
   text-align: center;
 }
 .title-2 {
-  font-size: 40px;
+  // font-size: 40px;
   text-transform: uppercase;
-  font-weight: bold;
+  // font-weight: bold;
+  color: #000;
   text-align: center;
 }
 .section-description {
   gap: 100px;
-
+  margin: auto;
   .col-6 {
-    width: calc(100% / 2 - 60px);
+    width: calc(100% / 2 - 50px);
     padding: 0;
     img {
       width: 100%;
@@ -28,8 +29,10 @@
       .title-second {
         font-size: 40px;
         font-weight: 700;
+        color: #000;
         span {
           color: #ea212d;
+          font-family: "PlusJakartaBold" !important;
         }
       }
     }
@@ -41,9 +44,14 @@
 .show-more {
   .all {
     color: #fff;
-    padding: 19px 41px;
+    padding: 16px 40px;
     border-radius: 100px;
     background: #ea212d;
+    transition: all 0.3s;
+    &:hover {
+      padding: 12px 20px;
+      margin: 0 20px;
+    }
   }
 }
 .section-mid {
@@ -70,6 +78,7 @@
         font-size: 20px;
         font-weight: 700;
         margin-bottom: 24px;
+        color: #000;
       }
       .commit-content {
         font-size: 16px;
@@ -163,6 +172,7 @@
     .title {
       font-size: 32px;
       font-weight: 700;
+      color: #000;
     }
     .summary {
       font-size: 16px;

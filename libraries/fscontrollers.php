@@ -377,7 +377,8 @@ class FSControllers
 		$src = URL_ROOT . str_replace(['/original/', '.jpg', '.png'], ['/resize/', '.webp', '.webp'], $item->image);
 
 ?>
-		<div class="layout-product-item position-relative"> <a href="<?php echo $url ?>" title="<?php echo $item->name ?>" class="layout-product-item position-relative" target="_blank">
+		<div class="layout-product-item position-relative">
+			<a href="<?php echo $url ?>" title="<?php echo $item->name ?>" class="" target="_blank">
 				<div class="box-img">
 					<img src="<?php echo $src ?>" alt="" class="img-fluid layout-img" onerror="this.src='/images/not_picture.png'">
 				</div>
@@ -389,7 +390,16 @@ class FSControllers
 					<div class="layout-public-price">
 						<?php if ($user->userID) { ?>
 							<div class="price">
-								<?php echo format_money($item->price, '₫') ?>
+								<div class="title">Giá bán lẻ</div>
+								<div class="value">
+									<?php echo format_money($item->price, '₫') ?>
+								</div>
+							</div>
+							<div class="price_discount">
+								<div class="title">Giá thành viên</div>
+								<div class="value">
+									<?php echo format_money($item->price_discount, '₫') ?> / <span><?= $item->coin ?></span> <span>VTCoin</span>
+								</div>
 							</div>
 						<?php } else { ?>
 							<a href="<?php echo FSRoute::_('index.php?module=members&view=user&task=login') ?>" class="title_see_price"><?= FSText::_('Đăng nhập để xem giá') ?></a>
@@ -534,7 +544,7 @@ class FSControllers
 				$infoF1 = $this->getArrayInfoF1($member->ref_code);
 				$level = $member->level;
 				// Kiểm tra hạng thành viên dựa trên $total_member_coin và các điều kiện F1
-				$table_level= $this->model->get_record('','fs_members_group');
+				$table_level = $this->model->get_record('', 'fs_members_group');
 				$levels = [
 					6 => [300, 200, 1000000000],
 					5 => [300, 50, 200000000],
@@ -543,7 +553,7 @@ class FSControllers
 					2 => [100, 0, 0],
 					1 => [1, 0, 0]
 				];
-				
+
 				foreach ($levels as $key => $values) {
 					if ($total_member_coin >= $values[0] && $infoF1['total_member_coin'] >= $values[1] && $infoF1['total_order'] >= $values[2]) {
 						$level = $key;

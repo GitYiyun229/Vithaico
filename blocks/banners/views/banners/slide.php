@@ -17,7 +17,7 @@ $tmpl->addScript('banner', 'blocks/banners/assets/js');
             <!-- </a> -->
             <div class="container">
                 <div class=" info-banner position-absolute">
-                    <div class="name-banner"><?php echo $item->name ?></div>
+                    <h2 class="name-banner"><?php echo $item->name ?></h2>
                     <div class="summary-banner"><?php echo $item->summary ?></div>
                     <div class="content-banner"><?php echo $item->content ?></div>
                     <div class="btn-banner">

@@ -13,8 +13,10 @@
   text-transform: uppercase;
 }
 .item .info-banner .name-banner {
-  font-size: 40px;
-  font-weight: 700;
+  color: #000;
+}
+.item .info-banner .name-banner span {
+  font-family: "PlusJakartaBold" !important;
 }
 .item .info-banner .name-banner span:last-child {
   color: #ea212d;
@@ -32,8 +34,13 @@
 .item .info-banner .btn-banner a {
   color: #fff;
   background: #ea212d;
-  padding: 20px 25px;
+  padding: 16px 40px;
   border-radius: 100px;
+  transition: all 0.3s;
+}
+.item .info-banner .btn-banner a:hover {
+  padding: 12px 20px;
+  margin: 0 20px;
 }
 
 @media all and (max-width: 1000px) {

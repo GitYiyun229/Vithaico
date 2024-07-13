@@ -11,11 +11,11 @@ $tmpl->addStylesheet('default', 'blocks/banners/assets/css');
     <div class="item ">
         <img class="img-fluid position-relative img-banner" alt="<?php echo $item->name; ?>" src="<?php echo $src ?>">
       <div class="container">  <div class="info-banner position-absolute">
-            <div class="name-banner">
+            <h3 class="name-banner">
                 <?php foreach ($str as $s) { ?>
                     <span><?= $s ?></span>
                 <?php } ?>
-            </div>
+            </h3>
             <div class="content-banner">
                 <?= $item->content ?>
             </div>

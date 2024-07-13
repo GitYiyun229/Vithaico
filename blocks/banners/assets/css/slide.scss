@@ -16,6 +16,7 @@
       }
       .name-banner {
         font-size: 24px;
+        color: #fff;
       }
       .summary-banner {
         font-size: 40px;
@@ -29,8 +30,12 @@
         a {
           color: #fff;
           background: #ea212d;
-          padding: 20px 40px;
+          padding: 16px 40px;
           border-radius: 100px;
+          &:hover {
+            padding: 10px 20px;
+            margin: 20px;
+          }
         }
       }
     }

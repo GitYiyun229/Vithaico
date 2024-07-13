@@ -24,9 +24,9 @@
                      <div class="title-first">
                          Giới thiệu
                      </div>
-                     <div class="title-second">
+                     <h3 class="title-second fw-bold">
                          về <span>Vithaico</span>
-                     </div>
+                     </h3>
                  </div>
                  <div class="content"> <?php echo $content->summary ?></div>
                  <div class="show-more">
@@ -74,7 +74,7 @@
      <div class="section-product-categories sec-mar">
          <div class="container">
              <p class="title-1"> <?= FSText::_('Sản phẩm') ?></p>
-             <h4 class="title-2 mb-3 mt-3"><?= FSText::_('Danh mục sản phẩm') ?></h4>
+             <h3 class="title-2 mb-3 mt-3"><?= FSText::_('Danh mục sản phẩm') ?></h3>
              <?php echo $tmpl->load_direct_blocks('product_categories', ['style' => 'menu_home']); ?>
          </div>
 
@@ -83,7 +83,7 @@
      <div class="section-feedback sec-mar">
          <div class="container">
              <p class="title-1"> <?= FSText::_('Cảm nhận') ?></p>
-             <h4 class="title-2 mb-3 mt-3"><?= FSText::_('Hội viên nói về Vithaico') ?></h4>
+             <h3 class="title-2 mb-3 mt-3"><?= FSText::_('Hội viên nói về Vithaico') ?></h3>
              <div class="icon_feedback text-center mb-4">
                  <img src="/images/icon-feedback.svg" alt="">
              </div>
@@ -151,7 +151,7 @@
      <div class="section-news sec-mar">
          <div class="container">
              <p class="title-1"> <?= FSText::_('Tin tức') ?></p>
-             <h4 class="title-2 mb-3 mt-3"><?= FSText::_('Tin tức & Sự kiện') ?></h4>
+             <h3 class="title-2 mb-3 mt-3"><?= FSText::_('Tin tức & Sự kiện') ?></h3>
              <?php if (!empty($list_hot_news)) { ?>
                  <div class="mb-4 list_grid_news <?php echo count($list_hot_news) > 4 ? 'slider-hot-news ' : '' ?>">
                      <?php foreach ($list_hot_news as $i => $item) {

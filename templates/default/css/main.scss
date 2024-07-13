@@ -1,8 +1,10 @@
 @font-face {
-  font-family: "PlusJakarta";
-  font-style: normal;
-  font-weight: 400;
+  font-family: "PlusJakartaSans";
   src: url("../fonts/PlusJakartaSans/PlusJakartaSans-Regular.ttf");
+}
+@font-face {
+  font-family: "PlusJakartaBold";
+  src: url("../fonts/PlusJakartaSans/PlusJakartaSans-Bold.ttf");
 }
 @import "main_tiep.scss";
 
@@ -16,10 +18,30 @@ main {
   background-color: #ffffff;
   padding-bottom: 48px;
 }
+h2,
+h3 {
+  font-family: "PlusJakartaBold";
+}
+h3 {
+  font-size: 40px;
+  font-weight: 800;
+}
+p,
+span {
+  font-family: "PlusJakartaSans";
+}
+
+header {
+  li a {
+    font-family: "PlusJakartaBold";
+    font-weight: 700;
+  }
+}
+
 body {
-  font-family: "PlusJakartaSans", sans-serif;
-  font-style: normal;
-  font-weight: 400;
+  font-family: "PlusJakartaSans";
+  // font-style: normal;
+  // font-weight: 400;
   position: relative;
   -webkit-font-smoothing: antialiased;
   font-size: 0.875rem;
@@ -33,7 +55,7 @@ body {
     transition: 0.5s ease-in-out;
     &:hover {
       text-decoration: none;
-      color: #dd2033;
+      // color: #dd2033;
     }
   }
   .fw-600 {
@@ -295,6 +317,10 @@ footer {
           font-weight: 400;
           color: #a3a3a3;
           margin-bottom: 20px;
+          &:hover {
+            color: #fff;
+            text-decoration: underline;
+          }
         }
       }
       .htlk-box {
@@ -352,7 +378,8 @@ footer {
   padding-bottom: 40px;
 }
 .title_see_price {
-  color: #2476ff;
+  color: #757575;
+  flex: auto;
   &:hover {
     color: #dd2033;
   }
@@ -389,32 +416,46 @@ footer {
   .layout-name {
     overflow: hidden;
     text-overflow: ellipsis;
-    line-height: 17px;
+    line-height: 32px;
     -webkit-line-clamp: 2;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     margin-bottom: 12px;
-    color: #2e2e2e;
-    font-weight: 500;
+    color: #000;
+    font-weight: 400;
     overflow: hidden;
     text-overflow: ellipsis;
     -webkit-line-clamp: 1;
-    height: 16px;
     font-size: 16px;
   }
 
   .layout-public-price {
     line-height: normal;
-    .price {
-      color: #dd2033;
-      font-size: 14px;
-      font-weight: 700;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .price, .price_discount {
+      .title {
+        color: rgba(117, 117, 117, 1);
+      }
+      .value {
+        font-size: 16px;
+        font-weight: 700; 
+      }
+    }
+    .price_discount {
+      span {color: rgba(234, 33, 45, 1);
+        &:last-child {
+          font-size: 12px;
+        }
+
+      }
     }
   }
   &:hover {
     .layout-content {
       .layout-name {
-        color: #dd2033;
+     
       }
     }
     .layout-img {
@@ -523,7 +564,7 @@ footer {
     grid-area: 1/1/3/3;
     height: 622px;
     .img-box {
-      max-height: 373px ;
+      max-height: 373px;
     }
     .info-box {
       .created_cat {
