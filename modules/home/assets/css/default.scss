@@ -46,6 +46,42 @@
     background: #ea212d;
   }
 }
+.section-mid {
+  min-height: 832px;
+  .banner {
+  }
+  .list-commit {
+    width: 100%;
+    max-width: 1200px;
+    top: 75%;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 48px;
+    .commit-box {
+      border-radius: 24px;
+      padding: 40px;
+      background: #fff;
+      text-align: center;
+      box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.12);
+
+      .commit-img {
+        margin-bottom: 40px;
+      }
+      .commit-title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 24px;
+      }
+      .commit-content {
+        font-size: 16px;
+        font-weight: 400px;
+      }
+      &:hover {
+        box-shadow: 0px 0px 8px 8px rgba(0, 0, 0, 0.12);
+      }
+    }
+  }
+}
+
 .section-feedback {
   .list-feedback {
     .slider-for {
@@ -336,6 +372,18 @@
       padding: 12px 22px;
     }
   }
+  .section-mid {
+    .banner {
+    }
+    .list-commit {
+      position: unset !important;
+      margin-top: 48px;
+      gap: 32px;
+      .commit-box {
+        padding: 32px;
+      }
+    }
+  }
   .section-feedback {
     .list-feedback {
       .slider-for {
@@ -491,6 +539,15 @@
     .all {
     }
   }
+  .section-mid {
+    .banner {
+    }
+    .list-commit {
+      grid-template-columns: unset;
+      .commit-box {
+      }
+    }
+  }
   .section-feedback {
     .list-feedback {
       .slider-for {
@@ -512,7 +569,7 @@
           text-align: center;
           justify-content: center;
           align-items: center;
-      
+
           .feedback-img {
           }
           .feedback-info {

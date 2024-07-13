@@ -4,10 +4,8 @@
   }
   .info-banner {
     top: 20%;
-    left: 0;
-    right: 0;
     width: 100%;
-    max-width: 1200px;
+    max-width: 640px;
     margin: auto;
     text-align: left;
     .name-banner,
@@ -46,13 +44,7 @@
     .img-banner {
     }
     .info-banner {
-      top: 10%;
-      left: 0;
-      right: 0;
-      width: 100%;
-      max-width: 720px;
-      margin: auto;
-      text-align: left;
+      top: 3%;
       .name-banner,
       .summary-banner {
       }

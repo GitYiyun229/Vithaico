@@ -3,10 +3,8 @@
 }
 .item .info-banner {
   top: 20%;
-  left: 0;
-  right: 0;
   width: 100%;
-  max-width: 1200px;
+  max-width: 640px;
   margin: auto;
   text-align: left;
 }
@@ -40,13 +38,7 @@
 
 @media all and (max-width: 1000px) {
   .item .info-banner {
-    top: 10%;
-    left: 0;
-    right: 0;
-    width: 100%;
-    max-width: 720px;
-    margin: auto;
-    text-align: left;
+    top: 3%;
   }
   .item .info-banner .name-banner {
     font-size: 28px;

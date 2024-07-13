@@ -45,6 +45,39 @@
   background: #ea212d;
 }
 
+.section-mid {
+  min-height: 832px;
+}
+.section-mid .list-commit {
+  width: 100%;
+  max-width: 1200px;
+  top: 75%;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 48px;
+}
+.section-mid .list-commit .commit-box {
+  border-radius: 24px;
+  padding: 40px;
+  background: #fff;
+  text-align: center;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.12);
+}
+.section-mid .list-commit .commit-box .commit-img {
+  margin-bottom: 40px;
+}
+.section-mid .list-commit .commit-box .commit-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+.section-mid .list-commit .commit-box .commit-content {
+  font-size: 16px;
+  font-weight: 400px;
+}
+.section-mid .list-commit .commit-box:hover {
+  box-shadow: 0px 0px 8px 8px rgba(0, 0, 0, 0.12);
+}
+
 .section-feedback .list-feedback .slider-for {
   padding: 0 100px;
 }
@@ -301,6 +334,14 @@
   .show-more .all {
     padding: 12px 22px;
   }
+  .section-mid .list-commit {
+    position: unset !important;
+    margin-top: 48px;
+    gap: 32px;
+  }
+  .section-mid .list-commit .commit-box {
+    padding: 32px;
+  }
   .section-feedback .list-feedback .slider-nav {
     padding: 0 100px;
     margin: 15px 0;
@@ -349,6 +390,9 @@
   }
   .section-description .col-6 {
     width: 100%;
+  }
+  .section-mid .list-commit {
+    grid-template-columns: unset;
   }
   .section-feedback .list-feedback .slider-for {
     padding: 0 30px;
