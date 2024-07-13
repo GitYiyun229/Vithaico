@@ -39,7 +39,7 @@ $view = FSInput::get('view');
 
         Thống kê danh sách F1
     </a>
-    <a href="<?php echo FSRoute::_('index.php?module=members&view=favorite') ?>" class="<?php echo $view == 'favorite'  ? 'active' : '' ?>">
+    <a href="<?php echo FSRoute::_('index.php?module=members&view=orders') ?>" class="<?php echo $view == 'orders'  ? 'active' : '' ?>">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M15.0436 8.74362C14.8121 10.9185 13.5797 12.9566 11.5406 14.1339C8.15267 16.0899 3.82057 14.9292 1.86456 11.5413L1.65623 11.1804M0.954324 7.25553C1.18583 5.08062 2.41815 3.04252 4.45731 1.86521C7.84521 -0.0908 12.1773 1.06998 14.1333 4.45789L14.3417 4.81873M0.910156 13.0545L1.5202 10.7778L3.79691 11.3879M12.201 4.61124L14.4777 5.22128L15.0878 2.94458M7.99897 4.24956V7.99956L10.0823 9.24956" stroke="#757575" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>

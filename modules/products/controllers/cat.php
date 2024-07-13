@@ -26,8 +26,7 @@ class ProductsControllersCat extends FSControllers
         $getSort = $this->getSort;
 
         $arrSort = [
-            0 => FSText::_('Gợi ý'),
-            1 => FSText::_('Phổ biến'),
+            1 => FSText::_('Gợi ý'),
             2 => FSText::_('Hàng mới'),
             3 => FSText::_('Giá từ thấp đến cao'),
             4 => FSText::_('Giá từ cao đến thấp'),
@@ -45,6 +44,7 @@ class ProductsControllersCat extends FSControllers
         $products = $this->nomalizeProducts($products);
 
         $total = $model->getTotal($query);
+		$pagination = $model->getPagination($total);
 
         $categoriesWrap = $model->getCategoriesWrap($cat->list_parents);
         $breadcrumbs = [];

@@ -13,6 +13,7 @@ $tmpl->addStylesheet('default', 'blocks/members/assets/css');
                 <span>
                     <?php echo $user_member->full_name ?>
                 </span>
+               <img src="<?= URL_ROOT . ($table_level->image) ?>" alt="image rank member">
             </h3>
             <div class="bottom_text">
                 <img src="<?php echo URL_ROOT . $group->image ?>" alt="">
@@ -21,9 +22,7 @@ $tmpl->addStylesheet('default', 'blocks/members/assets/css');
                         <span>
                             <?php echo FSText::_('Bạn cần phát sinh giao dịch để duy trì hạng của mình. Hạng của bạn còn duy trì trong') . ' ' ?>
                         </span>
-                        <span class="bold_text">
-                            <?php echo $interval->days ?>
-                        </span>
+
                         <span>
                             <?php echo ' ' . FSText::_('ngày') ?>
                         </span>
@@ -31,5 +30,6 @@ $tmpl->addStylesheet('default', 'blocks/members/assets/css');
                 <?php } ?>
             </div>
         </div>
+        
     </div>
 </div>

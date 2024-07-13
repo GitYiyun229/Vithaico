@@ -21,6 +21,20 @@ $(".slider-hot-news").slick({
     '<button class="slick-prev"><svg width="12" height="22" viewBox="0 0 12 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 21L1 11L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>',
   nextArrow:
     '<button class="slick-next"><svg width="12" height="22" viewBox="0 0 12 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 21L11 11L1 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>',
+    responsive: [
+      {
+        breakpoint: 1000,
+        settings: {
+          slidesToShow: 3
+        }
+      },
+      {
+        breakpoint: 500,
+        settings: {
+          slidesToShow: 2
+        }
+      }
+    ]
 });
 // $(".owl-flashsale").owlCarousel({
 //   center: true,
@@ -123,6 +137,22 @@ $(document).ready(function () {
     holizontal: true,
     focusOnSelect: true,
     arrows: false,
+    responsive: [
+      {
+        breakpoint: 1000,
+        settings: {
+          slidesToShow: 2
+        }
+      },
+      {
+        breakpoint: 500,
+        settings: {
+          slidesToShow: 1
+        }
+      }
+     
+    ]
+
   });
   // $(".slider-flashsale").slick({
   //   slidesToShow: 6,

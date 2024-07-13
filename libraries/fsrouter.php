@@ -258,7 +258,7 @@ class FSRoute
                 switch ($view) {
                     case 'cat':
                         $ccode = isset($array_params['ccode']) ? $array_params['ccode'] : '';
-                        return $url_first . 'danh-muc/' . $ccode . '.html';
+                        return $url_first  . $ccode . '.html';
                     case 'content':
                         $code = isset($array_params['code']) ? $array_params['code'] : '';
                         $id = isset($array_params['id']) ? $array_params['id'] : '';

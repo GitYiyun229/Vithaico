@@ -1,13 +1,14 @@
 .list_product_categories {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 .list_product_categories .box_item .item {
   display: grid;
   justify-items: center;
   gap: 20px;
-  padding: 16px 156px 0;
+  padding: 16px 0 0;
   transition: 0.3s ease-in-out;
+  text-align: center;
 }
 .list_product_categories .box_item .item .item_name {
   font-size: 16px;
@@ -19,4 +20,15 @@
 .list_product_categories .active {
   color: #d51e29;
   background-color: #fff;
+}
+
+@media all and (max-width: 1000px) {
+  .list_product_categories .box_item .item .item_name {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 500px) {
+  .list_product_categories .box_item .item .item_name {
+    font-size: 12px;
+  }
 }/*# sourceMappingURL=default.css.map */

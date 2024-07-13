@@ -175,8 +175,7 @@ function checkRegister() {
     success: function (result) {
       if (result.error == false) {
         _this.html(`Đăng ký`).css("pointer-events", "auto");
-        $(".register-success-telephone").html(email);
-        $(".layout-modal").hide();
+        $(".register-success-telephone").html(phone);
         $("#memberModal").modal("show");
         $(".layout-register-success").show();
         let endTime = new Date().getTime() + 11 * 1000;

@@ -13,7 +13,6 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  width: 300px;
 }
 .section-main .section-filter .select-menu .select {
   width: 160px;
@@ -39,6 +38,7 @@
   overflow-y: auto;
   transition: 0.4s linear 0.2s;
   height: 0;
+  z-index: 10;
 }
 .options-list .filter-div {
   padding: 15px 0 0 0;
@@ -57,7 +57,7 @@
 
 .option:hover,
 .option.selected {
-  color: #00a8ff;
+  color: #ea212d;
 }
 
 .options-list::-webkit-scrollbar {
@@ -66,14 +66,14 @@
 }
 
 .options-list::-webkit-scrollbar-thumb {
-  background-color: #00a8ff;
+  background-color: #ea212d;
 }
 
 .options-list.active {
   height: 160px;
 }
 .options-list.active .filter-div a.active {
-  color: #dd2033;
+  color: #ea212d;
 }
 
 .section-item {
@@ -194,7 +194,11 @@
   height: 240px;
 }
 
-@media (max-width: 960px) {
+@media all and (max-width: 1000px) {
+  .section-menu .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
   .page-products-category {
     flex-direction: column;
   }
@@ -239,7 +243,7 @@
     margin-bottom: 0;
   }
 }
-@media (max-width: 450px) {
+@media (max-width: 500px) {
   .section-products {
     gap: 5px;
   }
