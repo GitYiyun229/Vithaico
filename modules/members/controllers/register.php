@@ -198,7 +198,9 @@ class MembersControllersRegister extends FSControllers
             'created_time' => date('Y-m-d H:i:s'),
             'published' => 1,
         ];
+        // print_r($row);die;
         $id = $this->model->_add($row, 'fs_members');
+        // print_r($id);die;
 
         if (!$id) {
             $response = [

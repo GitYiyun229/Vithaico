@@ -14,6 +14,12 @@ main {
 .page-member .text-red {
   color: #d53c00;
 }
+@media (max-width: 767px) {
+  .page-member .text-red {
+    width: 100% !important;
+    font-size: 12px !important;
+  }
+}
 .page-member .text-grey {
   color: #757575;
 }
@@ -81,6 +87,11 @@ main {
   margin-bottom: 8px;
   transition: 0.15s ease-in-out;
 }
+@media (max-width: 767px) {
+  .user-menu-sidebar a {
+    font-size: 12px !important;
+  }
+}
 .user-menu-sidebar a path {
   transition: 0.1s ease-in-out;
 }
@@ -142,4 +153,79 @@ main {
 .page-sidebar {
   background: #ffffff;
   border-radius: 16px;
+  padding: 0 24px;
+}
+
+@media (max-width: 767px) {
+  .page-sidebar {
+    border-radius: 0 !important;
+  }
+  .position-absolute.top-50.end-0.translate-middle-y.px-4 {
+    padding: 0 !important;
+  }
+  .form-control {
+    font-size: 12px !important;
+  }
+  .select2-selection__rendered {
+    font-size: 12px !important;
+  }
+  .page-content .address {
+    display: unset !important;
+  }
+  .page-content .address .layout-address {
+    display: unset !important;
+  }
+  .page-content .d-flex {
+    margin: 10px 0;
+  }
+  .page-content .col-9 {
+    width: 100% !important;
+  }
+  .page-content label {
+    padding: 12px 0;
+  }
+  .page-content .form-check {
+    margin: 10px 0;
+  }
+  .page-content .form-check .form-check-label {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .page-content .col-4 {
+    width: 100% !important;
+    margin: 10px 0;
+  }
+  label {
+    margin: 7px 0;
+    font-size: 12px !important;
+  }
+  label.col-3 {
+    padding: 0 !important;
+  }
+  .ref_code {
+    margin-bottom: 12px;
+  }
+  .form-bottom {
+    margin-top: 10px !important;
+  }
+  .form-bottom .col-6 {
+    width: 100% !important;
+    padding: 0 !important;
+    border: 0 !important;
+  }
+  .form-bottom .custom {
+    padding: 0 !important;
+    height: unset !important;
+    grid-template-columns: 2fr 3fr 1fr !important;
+  }
+  .form-bottom .custom span {
+    font-size: 12px !important;
+  }
+  .form-bottom label {
+    width: 100% !important;
+    font-size: 12px !important;
+  }
+  .form-bottom .text-body-tertiary {
+    margin: 14px 0 !important;
+  }
 }/*# sourceMappingURL=members.css.map */

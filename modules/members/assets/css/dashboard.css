@@ -69,6 +69,11 @@
 .page-dashboard .btn-submit:hover {
   background: #c23700;
 }
+@media (max-width: 767px) {
+  .page-dashboard .btn-submit {
+    font-size: 12px !important;
+  }
+}
 
 .modal-change .modal-dialog {
   max-width: 500px;

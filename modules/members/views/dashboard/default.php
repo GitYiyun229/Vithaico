@@ -29,9 +29,9 @@ $tmpl->addScript('default', 'modules/members/assets/js');
                         </div>
                     </div>
 
-                    <div class="d-flex align-items-center mb-3 ">
+                    <div class="address d-flex align-items-center mb-3 ">
                         <label for="address" class="col-3"><?php echo FSText::_('Địa chỉ') ?></label>
-                        <div class="col-9 d-flex align-items-center mb-3 gap-2 address-dashboard">
+                        <div class="layout-address col-9 d-flex align-items-center mb-3 gap-2 address-dashboard">
                             <div class="col-4">
                                 <select name="province" class="form-control form-select2 form-province">
                                     <option value="0"><?php echo FSText::_('Tỉnh/TP') ?></option>
@@ -67,7 +67,6 @@ $tmpl->addScript('default', 'modules/members/assets/js');
                                 </select>
                             </div>
                         </div>
-
                     </div>
                     <div class="d-flex align-items-center mb-3 flex-wrap">
                         <label for="address" class="col-3"><?php echo FSText::_('') ?></label>
@@ -79,7 +78,7 @@ $tmpl->addScript('default', 'modules/members/assets/js');
                     </div>
                     <div class="d-flex align-items-center mb-3 flex-wrap">
                         <label for="sex" class="col-3"><?php echo FSText::_('Giới tính') ?></label>
-                        <div class="col-9 d-flex align-items-center gap-4">
+                        <div class="sex col-9 d-flex align-items-center gap-4">
                             <?php foreach ($sex as $i => $item) { ?>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="sex" id="sex<?php echo $i ?>" value="<?php echo $i ?>" <?php echo $i == $user->userInfo->sex ? 'checked' : '' ?>>
@@ -114,7 +113,6 @@ $tmpl->addScript('default', 'modules/members/assets/js');
                                 <label for="bank" class="col-3"><?php echo FSText::_('Ngân hàng') ?></label>
                                 <div class="col-9">
                                     <select name="bank" class="form-control form-select2 form-bank">
-
                                         <?php if (empty($where_province)) { ?>
                                             <option value="0"><?php echo FSText::_('Chọn ngân hàng ') ?></option>
                                         <?php } else { ?>
