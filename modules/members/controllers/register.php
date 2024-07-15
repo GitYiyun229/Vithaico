@@ -198,8 +198,8 @@ class MembersControllersRegister extends FSControllers
             'ref_code' => $timestamp,
             'password' => md5($DataPass),
             'created_time' => date('Y-m-d H:i:s'),
-
             'end_time' => date('Y-m-d H:i:s', strtotime("+14 days")),
+            'due_time_month' => date('Y-m-d H:i:s', strtotime("+30 days")),
             'published' => 1,
             'level' => 1,
         ];
