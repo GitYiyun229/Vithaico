@@ -76,6 +76,10 @@
           margin-top: 24px;
           a {
             padding: 10px 20px;
+            // &:hover {
+            //   padding: 8px 16px;
+            //   // margin: 10px;
+            // }
           }
         }
       }
@@ -106,12 +110,12 @@
         .content-banner {
           font-size: 14px;
         }
-        .btn-banner {
-          margin-top: 24px;
-          a {
-            padding: 10px 20px;
-          }
-        }
+        // .btn-banner {
+        //   margin-top: 24px;
+        //   a {
+        //     padding: 10px 20px;
+        //   }
+        // }
       }
     }
   }

@@ -40,7 +40,6 @@
          <div class="position-relative">
              <div class="banner">
                  <?php echo $tmpl->load_direct_blocks('banners', ['category_id' => '2', 'style' => 'default3']); ?>
-
              </div>
              <div class="container">
                  <div class="list-commit position-absolute d-grid">

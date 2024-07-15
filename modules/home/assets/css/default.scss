@@ -356,6 +356,17 @@
   .title-2 {
     font-size: 34px;
   }
+  .section-top {
+    .banner-carousel {
+      .owl-nav {
+        .owl-prev,
+        .owl-next {
+          width: 42px;
+          height: 42px;
+        }
+      }
+    }
+  }
   .section-description {
     gap: 48px;
     padding-left: 10px;
@@ -529,6 +540,26 @@
   }
   .title-2 {
     font-size: 30px;
+  }
+  .section-top {
+    .banner-carousel {
+      .owl-nav {
+        .owl-prev,
+        .owl-next {
+          width: 34px;
+          height: 34px;
+        }
+      }
+      .owl-dots {
+        bottom: 0.25rem;
+        .owl-dot {
+          span {
+            width: 24px;
+            height: 2px;
+          }
+        }
+      }
+    }
   }
   .section-description {
     gap: 32px;

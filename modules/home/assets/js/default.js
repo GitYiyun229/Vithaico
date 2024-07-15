@@ -132,6 +132,8 @@ $(document).ready(function () {
   $(".slider-nav").slick({
     slidesToShow: 3,
     slidesToScroll: 1,
+    centerMode: true,
+    centerPadding: '0',
     asNavFor: ".slider-for",
     dots: false,
     holizontal: true,
