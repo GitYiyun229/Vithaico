@@ -116,6 +116,10 @@
 .container .section-product-detail .section-main .main_content .p-price span:last-child {
   font-size: 14px;
 }
+.container .section-product-detail .section-main .main_content .p-price .title_see_price {
+  color: #2476ff;
+  flex: unset;
+}
 .container .section-product-detail .section-main .main_content .p-summary .p-title ul {
   list-style: inside;
   padding-left: 8px;
@@ -200,6 +204,19 @@
 .container .section-product-detail .section-main .main_content .p-form .p-submit .buy-now:hover {
   color: #fff;
   background-color: #dd2033;
+}
+.container .section-product-detail .section-main .main_content .login-to-buy {
+  gap: 8px;
+  padding: 16px 40px;
+  border-radius: 16px;
+  text-align: center;
+  background: #ea212d;
+  color: #fff;
+  transition: all 0.3s;
+}
+.container .section-product-detail .section-main .main_content .login-to-buy:hover {
+  padding: 12px 20px;
+  margin: 0 20px;
 }
 .container .section-description {
   background: #f5f5f5;

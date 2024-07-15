@@ -7,17 +7,17 @@
 }
 
 .title-2 {
-  font-size: 40px;
   text-transform: uppercase;
-  font-weight: bold;
+  color: #000;
   text-align: center;
 }
 
 .section-description {
   gap: 100px;
+  margin: auto;
 }
 .section-description .col-6 {
-  width: calc(50% - 60px);
+  width: calc(50% - 50px);
   padding: 0;
 }
 .section-description .col-6 img {
@@ -30,9 +30,11 @@
 .section-description .col-6 .title .title-second {
   font-size: 40px;
   font-weight: 700;
+  color: #000;
 }
 .section-description .col-6 .title .title-second span {
   color: #ea212d;
+  font-family: "PlusJakartaBold" !important;
 }
 .section-description .col-6 .content {
   font-size: 16px;
@@ -40,9 +42,48 @@
 
 .show-more .all {
   color: #fff;
-  padding: 19px 41px;
+  padding: 16px 40px;
   border-radius: 100px;
   background: #ea212d;
+  transition: all 0.3s;
+}
+.show-more .all:hover {
+  padding: 12px 20px;
+  margin: 0 20px;
+}
+
+.section-mid {
+  min-height: 832px;
+}
+.section-mid .list-commit {
+  width: 100%;
+  max-width: 1200px;
+  top: 75%;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 48px;
+}
+.section-mid .list-commit .commit-box {
+  border-radius: 24px;
+  padding: 40px;
+  background: #fff;
+  text-align: center;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.12);
+}
+.section-mid .list-commit .commit-box .commit-img {
+  margin-bottom: 40px;
+}
+.section-mid .list-commit .commit-box .commit-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #000;
+}
+.section-mid .list-commit .commit-box .commit-content {
+  font-size: 16px;
+  font-weight: 400px;
+}
+.section-mid .list-commit .commit-box:hover {
+  box-shadow: 0px 0px 8px 8px rgba(0, 0, 0, 0.12);
 }
 
 .section-feedback .list-feedback .slider-for {
@@ -115,6 +156,7 @@
 .section-register .sec-content .title {
   font-size: 32px;
   font-weight: 700;
+  color: #000;
 }
 .section-register .sec-content .summary {
   font-size: 16px;
@@ -301,6 +343,14 @@
   .show-more .all {
     padding: 12px 22px;
   }
+  .section-mid .list-commit {
+    position: unset !important;
+    margin-top: 48px;
+    gap: 32px;
+  }
+  .section-mid .list-commit .commit-box {
+    padding: 32px;
+  }
   .section-feedback .list-feedback .slider-nav {
     padding: 0 100px;
     margin: 15px 0;
@@ -349,6 +399,9 @@
   }
   .section-description .col-6 {
     width: 100%;
+  }
+  .section-mid .list-commit {
+    grid-template-columns: unset;
   }
   .section-feedback .list-feedback .slider-for {
     padding: 0 30px;

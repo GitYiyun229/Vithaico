@@ -48,7 +48,7 @@ $alert = array(
                     </svg>
                 </button>
                 <a href="<?php echo URL_ROOT ?>" title="<?php echo $config['site_name'] ?>">
-                    <img src="<?php echo URL_ROOT . $config['logo'] ?>" width="100" height="48.5" alt="<?php echo $config['site_name'] ?>" class="img-fluid img-logo">
+                    <img src="<?php echo URL_ROOT . $config['logo'] ?>" alt="<?php echo $config['site_name'] ?>" class="img-fluid img-logo">
                 </a>
                 <div class="menu-header">
                     <?php echo $tmpl->load_direct_blocks('mainmenu', array('style' => 'home', 'group' => 1)) ?>
@@ -454,9 +454,9 @@ $alert = array(
                                     <b class="register-success-telephone register-success-email"></b>
                                 </div>
                                 <div class="mb-4 text-center">
-                                    Bạn sẽ được chuyển hướng đến ShopUSA trong <p class="re-send-count-down-callback"></p> giây.
+                                    Bạn sẽ được chuyển hướng đến trang đăng nhập trong <p class="re-send-count-down-callback"></p> giây.
                                 </div>
-                                <a href="<?php echo URL_ROOT ?>" class="form-submit text-uppercase d-flex align-items-center justify-content-center fw-medium"><?php echo FSText::_('Quay lại trang chủ') ?></a>
+                                <a href="<?php echo FSRoute::_('index.php?module=members&view=user&task=login') ?>" class="form-submit text-uppercase d-flex align-items-center justify-content-center fw-medium"><?php echo FSText::_('Đăng nhập') ?></a>
                             </div>
                         </div>
                     </div>

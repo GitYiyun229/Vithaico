@@ -24,9 +24,9 @@
                      <div class="title-first">
                          Giới thiệu
                      </div>
-                     <div class="title-second">
+                     <h3 class="title-second fw-bold">
                          về <span>Vithaico</span>
-                     </div>
+                     </h3>
                  </div>
                  <div class="content"> <?php echo $content->summary ?></div>
                  <div class="show-more">
@@ -38,17 +38,43 @@
      </div>
      <div class="section-mid sec-mar">
          <div class="position-relative">
-             <?php echo $tmpl->load_direct_blocks('banners', ['category_id' => '2', 'style' => 'default3']); ?>
-             <div class="container list-commit position-absolute">
-                
+             <div class="banner">
+                 <?php echo $tmpl->load_direct_blocks('banners', ['category_id' => '2', 'style' => 'default3']); ?>
+
              </div>
+             <div class="container">
+                 <div class="list-commit position-absolute d-grid">
+                     <div class="commit-box ">
+                         <div class="commit-img">
+                             <img src="/images/home-commit1.svg" alt="">
+                         </div>
+                         <div class="commit-title"><?= FSText::_('CAM KẾT CHẤT LƯỢNG') ?></div>
+                         <div class="commit-content"><?= FSText::_('Chúng tôi cam kết mang đến cho quý khách những sản phẩm chất lượng tốt nhất, đáp ứng đầy đủ các tiêu chuẩn về an toàn của sản phẩm.') ?></div>
+                     </div>
+                     <div class="commit-box">
+                         <div class="commit-img">
+                             <img src="/images/home-commit2.svg" alt="">
+                         </div>
+                         <div class="commit-title"><?= FSText::_('KHÔNG NGỪNG ĐỔI MỚI') ?></div>
+                         <div class="commit-content"><?= FSText::_('Chúng tôi không ngừng đầu tư nâng cấp dây chuyền sản xuất, chất lượng sản phẩm để bắt kịp xu hướng sản phẩm và khẩu vị khách hàng.') ?></div>
+                     </div>
+                     <div class="commit-box">
+                         <div class="commit-img">
+                             <img src="/images/home-commit3.svg" alt="">
+                         </div>
+                         <div class="commit-title"><?= FSText::_('HÌNH ẢNH THƯƠNG HIỆU') ?></div>
+                         <div class="commit-content"><?= FSText::_('Chúng tôi xây dựng hình ảnh công ty với chất lượng sản phẩm và uy tín đặt lên hàng đầu. Những điều này là thước đo để đánh giá thành công và vị trí của công ty trên thị trường.') ?></div>
+                     </div>
+                 </div>
+             </div>
+
          </div>
      </div>
 
      <div class="section-product-categories sec-mar">
          <div class="container">
              <p class="title-1"> <?= FSText::_('Sản phẩm') ?></p>
-             <h4 class="title-2 mb-3 mt-3"><?= FSText::_('Danh mục sản phẩm') ?></h4>
+             <h3 class="title-2 mb-3 mt-3"><?= FSText::_('Danh mục sản phẩm') ?></h3>
              <?php echo $tmpl->load_direct_blocks('product_categories', ['style' => 'menu_home']); ?>
          </div>
 
@@ -57,7 +83,7 @@
      <div class="section-feedback sec-mar">
          <div class="container">
              <p class="title-1"> <?= FSText::_('Cảm nhận') ?></p>
-             <h4 class="title-2 mb-3 mt-3"><?= FSText::_('Hội viên nói về Vithaico') ?></h4>
+             <h3 class="title-2 mb-3 mt-3"><?= FSText::_('Hội viên nói về Vithaico') ?></h3>
              <div class="icon_feedback text-center mb-4">
                  <img src="/images/icon-feedback.svg" alt="">
              </div>
@@ -125,7 +151,7 @@
      <div class="section-news sec-mar">
          <div class="container">
              <p class="title-1"> <?= FSText::_('Tin tức') ?></p>
-             <h4 class="title-2 mb-3 mt-3"><?= FSText::_('Tin tức & Sự kiện') ?></h4>
+             <h3 class="title-2 mb-3 mt-3"><?= FSText::_('Tin tức & Sự kiện') ?></h3>
              <?php if (!empty($list_hot_news)) { ?>
                  <div class="mb-4 list_grid_news <?php echo count($list_hot_news) > 4 ? 'slider-hot-news ' : '' ?>">
                      <?php foreach ($list_hot_news as $i => $item) {

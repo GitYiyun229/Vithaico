@@ -4,10 +4,8 @@
   }
   .info-banner {
     top: 20%;
-    left: 0;
-    right: 0;
     width: 100%;
-    max-width: 1200px;
+    max-width: 640px;
     margin: auto;
     text-align: left;
     .name-banner,
@@ -15,9 +13,9 @@
       text-transform: uppercase;
     }
     .name-banner {
-      font-size: 40px;
-      font-weight: 700;
+      color: #000;
       span {
+        font-family: "PlusJakartaBold" !important;
         &:last-child {
           color: #ea212d;
         }
@@ -35,8 +33,13 @@
       a {
         color: #fff;
         background: #ea212d;
-        padding: 20px 25px;
+        padding: 16px 40px;
         border-radius: 100px;
+        transition: all 0.3s;
+        &:hover {
+          padding: 12px 20px;
+          margin: 0 20px;
+        }
       }
     }
   }
@@ -46,13 +49,7 @@
     .img-banner {
     }
     .info-banner {
-      top: 10%;
-      left: 0;
-      right: 0;
-      width: 100%;
-      max-width: 720px;
-      margin: auto;
-      text-align: left;
+      top: 3%;
       .name-banner,
       .summary-banner {
       }

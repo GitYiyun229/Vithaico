@@ -85,7 +85,7 @@ class ProductsModelsCat extends FSModels
     public function getProducts($query)
     {
         global $db;
-        $sql = "SELECT id, alias, name, image, quantity, price, price_old, sold_out, is_gift, freeship, promotion_end_time, promotion_start_time, data_extends
+        $sql = "SELECT id, alias, name, image, coin, quantity, price, price_old, sold_out, is_gift, freeship, promotion_end_time, promotion_start_time, data_extends
                 $query
         ";
         $db->query_limit($sql, $this->limit, $this->page);
