@@ -17,7 +17,7 @@
       align-items: center;
       gap: 12px;
       .select {
-        width: 160px;
+        width: 250px;
         border: 1px solid #dedede;
         padding: 10px;
         color: #fff;
@@ -48,9 +48,10 @@
   padding: 0px 20px;
   max-height: 180px;
   overflow-y: auto;
-  -webkit-transition: 0.4s linear 0.2s;
-  -o-transition: 0.4s linear 0.2s;
-  transition: 0.4s linear 0.2s;
+  // -webkit-transition: 0.4s linear 0.2s;
+  // -o-transition: 0.4s linear 0.2s;
+  // transition: 0.4s linear 0.2s;
+  top: 43px;
   height: 0;
   z-index: 10;
   .filter-div {
