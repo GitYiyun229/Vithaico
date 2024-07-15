@@ -19,6 +19,7 @@ class MembersControllersUser extends FSControllers
 
         include "modules/$this->module/views/$this->view/login.php";
     }
+    
     public function register()
     {
         global $user;
