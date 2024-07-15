@@ -6,16 +6,17 @@
   text-align: center;
 }
 .title-2 {
-  font-size: 40px;
+  // font-size: 40px;
   text-transform: uppercase;
-  font-weight: bold;
+  // font-weight: bold;
+  color: #000;
   text-align: center;
 }
 .section-description {
   gap: 100px;
-
+  margin: auto;
   .col-6 {
-    width: calc(100% / 2 - 60px);
+    width: calc(100% / 2 - 50px);
     padding: 0;
     img {
       width: 100%;
@@ -28,8 +29,10 @@
       .title-second {
         font-size: 40px;
         font-weight: 700;
+        color: #000;
         span {
           color: #ea212d;
+          font-family: "PlusJakartaBold" !important;
         }
       }
     }
@@ -41,11 +44,53 @@
 .show-more {
   .all {
     color: #fff;
-    padding: 19px 41px;
+    padding: 16px 40px;
     border-radius: 100px;
     background: #ea212d;
+    transition: all 0.3s;
+    &:hover {
+      padding: 12px 20px;
+      margin: 0 20px;
+    }
   }
 }
+.section-mid {
+  min-height: 832px;
+  .banner {
+  }
+  .list-commit {
+    width: 100%;
+    max-width: 1200px;
+    top: 75%;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 48px;
+    .commit-box {
+      border-radius: 24px;
+      padding: 40px;
+      background: #fff;
+      text-align: center;
+      box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.12);
+
+      .commit-img {
+        margin-bottom: 40px;
+      }
+      .commit-title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 24px;
+        color: #000;
+      }
+      .commit-content {
+        font-size: 16px;
+        font-weight: 400px;
+      }
+      &:hover {
+        box-shadow: 0px 0px 8px 8px rgba(0, 0, 0, 0.12);
+      }
+    }
+  }
+}
+
 .section-feedback {
   .list-feedback {
     .slider-for {
@@ -127,6 +172,7 @@
     .title {
       font-size: 32px;
       font-weight: 700;
+      color: #000;
     }
     .summary {
       font-size: 16px;
@@ -336,6 +382,18 @@
       padding: 12px 22px;
     }
   }
+  .section-mid {
+    .banner {
+    }
+    .list-commit {
+      position: unset !important;
+      margin-top: 48px;
+      gap: 32px;
+      .commit-box {
+        padding: 32px;
+      }
+    }
+  }
   .section-feedback {
     .list-feedback {
       .slider-for {
@@ -491,6 +549,15 @@
     .all {
     }
   }
+  .section-mid {
+    .banner {
+    }
+    .list-commit {
+      grid-template-columns: unset;
+      .commit-box {
+      }
+    }
+  }
   .section-feedback {
     .list-feedback {
       .slider-for {
@@ -512,7 +579,7 @@
           text-align: center;
           justify-content: center;
           align-items: center;
-      
+
           .feedback-img {
           }
           .feedback-info {

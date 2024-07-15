@@ -34,7 +34,7 @@ $cat_id = $cat->id;
 
                     <?php foreach ($dataSame as $item_same) { ?>
                     <div class="cat-group mb-3 mt-4">
-                        <h2 class="h2_c" id="h2_c"><?php echo $item_same->name ?></h2>
+                        <h3 class="h2_c" id="h2_c"><?php echo $item_same->name ?></h3>
                         <ul class="list ul-grid">
                             <?php foreach ($item_same->list_item as $item) { ?>
                             <!-- </?php foreach ($list_item as $item) { ?> -->

@@ -118,7 +118,10 @@
               font-size: 14px;
             }
           }
-          
+          .title_see_price {
+            color: #2476ff;
+            flex: unset;
+          }
         }
         .p-summary {
           .p-title {
@@ -221,6 +224,19 @@
                 background-color: #dd2033;
               }
             }
+          }
+        }
+        .login-to-buy {
+          gap: 8px;
+          padding: 16px 40px;
+          border-radius: 16px;
+          text-align: center;
+          background: #ea212d;
+          color: #fff;
+          transition: all 0.3s;
+          &:hover {
+            padding: 12px 20px;
+            margin: 0 20px;
           }
         }
       }
