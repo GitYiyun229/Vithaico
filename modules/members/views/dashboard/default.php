@@ -7,8 +7,8 @@ $tmpl->addScript('select2.min');
 $tmpl->addScript('default', 'modules/members/assets/js');
 ?>
 <div class="container">
-    <div>
-        <?php echo $tmpl->load_direct_blocks('members', array('style' => 'default')); ?>
+    <div class="mb-3">
+        <?php include PATH_BASE . 'modules/members/views/level.php' ?>
     </div>
     <div class="page-member">
 

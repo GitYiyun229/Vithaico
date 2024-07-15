@@ -159,8 +159,7 @@ function checkRegister() {
   let phone = $("input[name=phoneregister]").val();
   let password = $("input[name=passregister]").val();
   let repassword = $("input[name=repassregister]").val();
-  let affpiliate = $("input[name=affpiliate]").val();
-  // console.log(affpiliate);
+  let affiliate = $("input[name=affiliate]").val();
   let _this = $(this);
   _this
     .html(
@@ -170,7 +169,7 @@ function checkRegister() {
   $.ajax({
     url: "index.php?module=members&view=register&task=register&raw=1",
     type: "POST",
-    data: { token, name, email, password, repassword, phone, affpiliate },
+    data: { token, name, email, password, repassword, phone, affiliate },
     dataType: "JSON",
     success: function (result) {
       if (result.error == false) {

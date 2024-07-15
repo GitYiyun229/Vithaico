@@ -115,6 +115,7 @@ function loadDistrict(code, idModal, element){
 }
 
 function loadWard(code, idModal, element){
+    console.log(idModal);
 	$.ajax({
         url: "index.php?module=products&view=cart&task=loadWard&raw=1",
         type: 'POST',
