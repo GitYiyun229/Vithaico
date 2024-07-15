@@ -6,6 +6,9 @@ $tmpl->addScript('default', 'modules/members/assets/js');
 
 <div class="container">
     <div class="page-member">
+        <div class="mb-3">
+            <?php include PATH_BASE . 'modules/members/views/level.php' ?>
+        </div>
         <div class="page-side">
             <div class="page-sidebar">
                 <?php require_once('sidebar.php'); ?>
@@ -86,7 +89,7 @@ $tmpl->addScript('default', 'modules/members/assets/js');
         <div class="modal-content">
             <div class="modal-body p-5">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                
+
                 <h4 class="fs-4 mb-3"><?php echo FSText::_('Đổi số điện thoại') ?></h4>
                 <div class="mb-5"><?php echo FSText::_('Để đảm bảo tính bảo mật, vui lòng làm theo các bước sau để đổi số điện thoại.') ?></div>
                 <form action="" method="POST" id="form-register">

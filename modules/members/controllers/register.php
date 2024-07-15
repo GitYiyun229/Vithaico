@@ -154,7 +154,7 @@ class MembersControllersRegister extends FSControllers
         $DataEmail = FSInput::get('email');
         $DataPass = FSInput::get('password');
         $DataConfirmPass = FSInput::get('repassword');
-        $affpiliate = FSInput::get('affpiliate');
+        $affiliate = FSInput::get('affiliate');
 
         $response = [
             'error' => false,
@@ -194,10 +194,12 @@ class MembersControllersRegister extends FSControllers
             'full_name' => $DataName,
             'email' => $DataEmail,
             'telephone' => $DataPhone,
-            'ref_by' => $affpiliate,
+            'ref_by' => $affiliate,
             'ref_code' => $timestamp,
             'password' => md5($DataPass),
             'created_time' => date('Y-m-d H:i:s'),
+
+            'end_time' => date('Y-m-d H:i:s', strtotime("+14 days")),
             'published' => 1,
             'level' => 1,
         ];
@@ -214,8 +216,9 @@ class MembersControllersRegister extends FSControllers
                 'telephone' => $DataPhone,
                 'email' => $DataEmail,
                 'level' => 1,
-                'ref_by' => $affpiliate,
+                'ref_by' => $affiliate,
                 'created_time' => date('Y-m-d H:i:s'),
+                'end_time' => date('Y-m-d H:i:s', strtotime("+14 days")),
             ];
 
             $id_log = $this->model->_add($row_log, 'fs_members_register_log');

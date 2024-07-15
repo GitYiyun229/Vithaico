@@ -28,7 +28,7 @@ class FSControllers
 	/*
 	 * function lấy array F1 
 	 */
-	function GetArrayInfoF1($ref_code)
+	public function GetArrayInfoF1($ref_code)
 	{
 		$members = $this->model->get_records('ref_by = ' . $ref_code, 'fs_members', 'id,level'); // lấy thông tin danh sách F1
 		$array_id = [
@@ -539,37 +539,49 @@ class FSControllers
 			foreach ($orderInfo as $item) { // for để lấy tổng doanh số
 				$total_member_coin += $item->member_coin;
 			}
-			$member = $this->model->get_record('id=' . $id, 'fs_members', 'id,level,hoa_hong,ref_code,ref_by'); // lấy thông tin của id hiện tại
+			$member = $this->model->get_record('id=' . $id, 'fs_members', 'id,level,hoa_hong,ref_code,ref_by,end_time'); // lấy thông tin của id hiện tại
 			if (!empty($member)) {
+				
 				$infoF1 = $this->getArrayInfoF1($member->ref_code);
 				$level = $member->level;
 				// Kiểm tra hạng thành viên dựa trên $total_member_coin và các điều kiện F1
-				$table_level = $this->model->get_record('', 'fs_members_group');
-				$levels = [
-					6 => [300, 200, 1000000000],
-					5 => [300, 50, 200000000],
-					4 => [300, 10, 50000000],
-					3 => [300, 0, 0],
-					2 => [100, 0, 0],
-					1 => [1, 0, 0]
-				];
+				$table_level = $this->model->get_records('level >=' . $level, 'fs_members_group', '*', ' id DESC');
 
-				foreach ($levels as $key => $values) {
-					if ($total_member_coin >= $values[0] && $infoF1['total_member_coin'] >= $values[1] && $infoF1['total_order'] >= $values[2]) {
-						$level = $key;
+				$level_member = 1;
+				switch (true) {
+					case $level < 6 && $total_member_coin > 300 && ($infoF1['count_total_daily'] >= 200 || $infoF1['total_price_order_F1'] >= 1000000000):
+						$level_member = 6;
 						break;
-					}
+					case $level < 5 && $total_member_coin > 300 && ($infoF1['count_total_daily'] >= 50 || $infoF1['total_price_order_F1'] >= 200000000):
+						$level_member = 5;
+						break;
+					case $level < 4 && $total_member_coin > 300 && ($infoF1['count_total_daily'] >= 10 || $infoF1['total_price_order_F1'] >= 50000000):
+						$level_member = 4;
+						break;
+					case $level < 3 && $total_member_coin > 300:
+						$level_member = 3;
+						break;
+					case $level < 2 && $total_member_coin >= 100 && $total_member_coin <= 300:
+						$level_member = 2;
+						break;
+					case $level < 1 && $total_member_coin > 1 && $total_member_coin <= 99:
+						$level_member = 1;
+						break;
+					case  $total_member_coin <= 1:
+						$level_member = 1;
+						break;
 				}
+				// print_r($level_member);
 				// Cập nhật hạng thành viên nếu có thay đổi
-				if ($member->level < $level) {
-					$this->updateMemberRank($level, $id);
+				if ($member->level < $level_member) {
+					$this->updateMemberRank($level_member, $id);
 				}
 			}
 		}
 		// Xử lý bước kiểm tra điều kiện F0 ở đây
-		$member = $this->model->get_record('id=' . $id, 'fs_members', 'id,level,hoa_hong,ref_code,ref_by,vt_coin');
+		$member = $this->model->get_record('id =' . $id, 'fs_members', 'id,level,hoa_hong,ref_code,ref_by,vt_coin');
 
-		return $member;
+		return true;
 	}
 
 
@@ -580,7 +592,6 @@ class FSControllers
 	{
 
 		$member = $this->model->get_record('id=' . $id, 'fs_members', 'id,level,hoa_hong,ref_code,ref_by,vt_coin');
-
 		$levelInfo = $this->model->get_record('level = ' . $level, 'fs_members_group', '*');
 		if (!empty($level) && $level >= $member->level) {
 			$row = [
@@ -597,7 +608,7 @@ class FSControllers
 				$log = $this->model->_add($row_log, 'fs_update_rank_log');
 			}
 		}
-		return $update_level;
+		return true;
 	}
 
 	/*
