@@ -153,9 +153,9 @@ $tmpl->addScript('product', 'modules/products/assets/js');
 </div>
 <div class="section-product-related container ">
     <p class="section-title"><?php echo FSText::_('Sản phẩm liên quan') ?></p>
-    <?php if (!empty($dataRelated)) { ?>
+    <?php if (!empty($dataSame)) { ?>
         <div class="<?php echo (count($dataRelated) > 4) ? 'slider-related' : 'list-related d-grid' ?>">
-            <?php foreach ($dataRelated as $item) {
+            <?php foreach ($dataSame as $item) {
                 echo $this->layoutProductItem($item);
             } ?>
         </div>

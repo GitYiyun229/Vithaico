@@ -46,8 +46,7 @@ TemplateHelper::dt_edit_text(FSText::_('Hoa hồng nhận được'), 'coin', @$
 <div class="form-group">
     <label class="col-md-4 left col-xs-12 control-label">Tiết kiệm</label>
     <div class="col-md-8 col-xs-12">
-        <input type="text" disabled class="form-control" name="discount" id="discount"
-            value="<?= format_money_0(@$data->discount, 'đ', '0₫') ?>" size="60" maxlength="20">
+        <input type="text" disabled class="form-control" name="discount" id="discount" value="<?= format_money_0(@$data->discount, 'đ', '0₫') ?>" size="60" maxlength="20">
     </div>
 </div>
 <?php
@@ -79,19 +78,15 @@ $this->dt_form_begin(1, 2, FSText::_('SEO'), 'fa-seo', 1, 'col-md-4', '', 1, '')
     <div class="form-group">
         <label class="col-xs-12 control-label">Từ khóa SEO</label>
         <div class="col-xs-12">
-            <input type="text" class="form-control" name="seo_main_key" id="seo_main_key"
-                value="<?= $data->seo_main_key ?>" size="60" maxlength="100" v-model="keyword"
-                @input="countLengthKeyword">
+            <input type="text" class="form-control" name="seo_main_key" id="seo_main_key" value="<?= @$data->seo_main_key ?>" size="60" maxlength="100" v-model="keyword" @input="countLengthKeyword">
         </div>
     </div>
     <div class="form-group">
         <label class="col-xs-12 control-label">SEO title</label>
         <div class="col-xs-12">
-            <input type="text" class="form-control mb-3" name="seo_title" id="seo_title" value="<?= $data->seo_title ?>"
-                size="60" v-model="title">
+            <input type="text" class="form-control mb-3" name="seo_title" id="seo_title" value="<?= @$data->seo_title ?>" size="60" v-model="title">
             <div class="progress">
-                <div class="progress-bar" :class="classTile" role="progressbar" aria-valuemin="0"
-                    aria-valuemax="<?php echo MAX_TITLE; ?>" :style="{'width': `${parseInt(width)}%`}">
+                <div class="progress-bar" :class="classTile" role="progressbar" aria-valuemin="0" aria-valuemax="<?php echo MAX_TITLE; ?>" :style="{'width': `${parseInt(width)}%`}">
                     {{ countLengthTitle }}%
                 </div>
             </div>
@@ -100,18 +95,15 @@ $this->dt_form_begin(1, 2, FSText::_('SEO'), 'fa-seo', 1, 'col-md-4', '', 1, '')
     <div class="form-group">
         <label class="col-xs-12 control-label">SEO meta keyword</label>
         <div class="col-xs-12">
-            <input type="text" class="form-control" name="seo_keyword" id="seo_keyword"
-                value="<?php echo @$data->seo_keyword; ?>" size="60" maxlength="100">
+            <input type="text" class="form-control" name="seo_keyword" id="seo_keyword" value="<?php echo @$data->seo_keyword; ?>" size="60" maxlength="100">
         </div>
     </div>
     <div class="form-group">
         <label class="col-xs-12 control-label">SEO meta description</label>
         <div class="col-xs-12">
-            <textarea class="form-control mb-3" rows="9" cols="60" name="seo_description" id="seo_description"
-                v-model="description"><?php echo @$data->seo_description ?></textarea>
+            <textarea class="form-control mb-3" rows="9" cols="60" name="seo_description" id="seo_description" v-model="description"><?php echo @$data->seo_description ?></textarea>
             <div class="progress">
-                <div class="progress-bar" :class="classDes" role="progressbar" aria-valuemin="0"
-                    aria-valuemax="<?php echo MAX_DES; ?>" :style="{'width': `${parseInt(widthDes)}%`}">
+                <div class="progress-bar" :class="classDes" role="progressbar" aria-valuemin="0" aria-valuemax="<?php echo MAX_DES; ?>" :style="{'width': `${parseInt(widthDes)}%`}">
                     {{ countLengthDescription }}%
                 </div>
             </div>
@@ -136,27 +128,21 @@ $this->dt_form_begin(1, 2, FSText::_('SEO'), 'fa-seo', 1, 'col-md-4', '', 1, '')
                 <li><i class="fa fa-circle mr-2" :class="{'text-success': checkKey, 'text-danger': !checkKey}"></i>Từ
                     khóa trong tiêu đề chính
                 </li>
-                <li><i class="fa fa-circle mr-2"
-                        :class="{'text-success': checkKeyDes, 'text-danger': !checkKeyDes}"></i>Từ khóa trong mô tả
+                <li><i class="fa fa-circle mr-2" :class="{'text-success': checkKeyDes, 'text-danger': !checkKeyDes}"></i>Từ khóa trong mô tả
                 </li>
-                <li><i class="fa fa-circle mr-2"
-                        :class="{'text-success': classWord, 'text-danger': !classWord}"></i><span>Số lượng từ:</span>Nội
+                <li><i class="fa fa-circle mr-2" :class="{'text-success': classWord, 'text-danger': !classWord}"></i><span>Số lượng từ:</span>Nội
                     dung có {{ countWord }} từ (Nên có ít nhất <?php echo MIN_CONTENT; ?> từ)
                 </li>
-                <li><i class="fa fa-circle mr-2"
-                        :class="{'text-success': classInternal, 'text-danger': !classInternal}"></i><span>Internal
+                <li><i class="fa fa-circle mr-2" :class="{'text-success': classInternal, 'text-danger': !classInternal}"></i><span>Internal
                         Link:</span>Nội dung có {{ countInternalLink }} link nội bộ
                 </li>
-                <li><i class="fa fa-circle mr-2"
-                        :class="{'text-success': classExternal, 'text-danger': !classExternal}"></i><span>External
+                <li><i class="fa fa-circle mr-2" :class="{'text-success': classExternal, 'text-danger': !classExternal}"></i><span>External
                         Link:</span>Nội dung có {{ countExternalLink }} link bên ngoài
                 </li>
-                <li><i class="fa fa-circle mr-2"
-                        :class="{'text-success': classKeyContent, 'text-danger': !classKeyContent}"></i><span>Từ khóa
+                <li><i class="fa fa-circle mr-2" :class="{'text-success': classKeyContent, 'text-danger': !classKeyContent}"></i><span>Từ khóa
                         trong nội dung:</span>Nội dung đã có {{ countKeyContent }} từ khóa
                 </li>
-                <li><i class="fa fa-circle mr-2"
-                        :class="{'text-success': classKeyHeading, 'text-danger': !classKeyHeading}"></i><span>Tiêu đề
+                <li><i class="fa fa-circle mr-2" :class="{'text-success': classKeyHeading, 'text-danger': !classKeyHeading}"></i><span>Tiêu đề
                         phụ:</span>Tiêu đề phụ có {{ countKeyHeading }} từ khóa
                 </li>
             </ul>
@@ -192,17 +178,17 @@ $this->dt_form_end_col();
 // $this->dt_form_end_col();
 ?>
 <script>
-// $('.btn-image').click(function () {
-//     var name = $(this).attr('data-name');
-//     selectFileWithCKFinder(name);
-// });
-$(function() {
-    $('.hot_deal_area').hide();
-    $('#is_hotdeal_0').click(function() {
-        $('.hot_deal_area').slideUp();
+    // $('.btn-image').click(function () {
+    //     var name = $(this).attr('data-name');
+    //     selectFileWithCKFinder(name);
+    // });
+    $(function() {
+        $('.hot_deal_area').hide();
+        $('#is_hotdeal_0').click(function() {
+            $('.hot_deal_area').slideUp();
+        });
+        $('#is_hotdeal_1').click(function() {
+            $('.hot_deal_area').slideDown();
+        });
     });
-    $('#is_hotdeal_1').click(function() {
-        $('.hot_deal_area').slideDown();
-    });
-});
 </script>

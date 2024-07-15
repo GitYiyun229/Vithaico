@@ -19,7 +19,7 @@ class ProductsModelsProduct extends FSModels
         $id = FSInput::get('id', 0);
         $code = FSInput::get('code', '');
         global $db;
-        $sql = "SELECT id, name, image, alias, code, quantity, summary, text_buy,coin, category_id_wrapper, tablename,category_name, price, price_discount, coin, price_old, seo_title, seo_keyword, seo_description, `description`, status_prd, promotion_id, promotion_end_time, promotion_start_time, subtitle, sold_out, trademark, sale_brief, products_same, nick_name, products_related, comments_total
+        $sql = "SELECT id, name, image, category_id, alias, code, quantity, summary, text_buy,coin, category_id_wrapper, tablename,category_name, price, price_discount, coin, price_old, seo_title, seo_keyword, seo_description, `description`, status_prd, promotion_id, promotion_end_time, promotion_start_time, subtitle, sold_out, trademark, sale_brief, products_same, nick_name, products_related, comments_total
                 FROM $this->table
                 WHERE published = 1 AND id = $id AND alias = '$code'
         ";
@@ -61,14 +61,25 @@ class ProductsModelsProduct extends FSModels
         return $db->getObjectList($sql, USE_MEMCACHE);
     }
 
-    public function getDataSame($id)
+    // public function getDataSame($id)
+    // {
+    //     global $db;
+    //     $sql = "SELECT id, name, alias, nick_name, quantity
+    //             FROM $this->table
+    //             WHERE id IN (0" . $id . "0) AND published = 1
+    //             ORDER BY price ASC
+    //     ";
+    //     return $db->getObjectList($sql, USE_MEMCACHE);
+    // }
+    public function getDataSame($id, $product_id)
     {
         global $db;
-        $sql = "SELECT id, name, alias, nick_name, quantity
+        $sql = "SELECT id, name, image, coin, quantity, alias, price, price_old, promotion_id, promotion_end_time, promotion_start_time, sold_out, is_gift, freeship
                 FROM $this->table
-                WHERE id IN (0" . $id . "0) AND published = 1
-                ORDER BY price ASC
+                WHERE category_id_wrapper LIKE '%,$id,%' AND published = 1 AND id <> $product_id
+                
         ";
+        // print_r($sql);
         return $db->getObjectList($sql, USE_MEMCACHE);
     }
 

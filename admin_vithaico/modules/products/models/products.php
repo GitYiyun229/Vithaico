@@ -42,29 +42,29 @@ class ProductsModelsProducts extends FSModels
             array('large', 276, 276, 'resize_image_fix_height_webp'),
             array('tiny', 120, 120, 'resize_image_fix_height_webp'),
             array('small', 112, 112, 'resize_image_fix_height_webp'),
-			array('tiny', 64, 64, 'resize_image')
+            array('tiny', 64, 64, 'resize_image')
         );
 
         // 192.200.240.112,616,120,88,231
 
         $this->arr_img_paths_other = array(
-            array('larges', 616, 616, 'resize_image_fix_height_webp'),
+            array('larges', 596, 596, 'resize_image_fix_height_webp'),
             array('resize', 368, 368, 'resize_image_fix_height_webp'),
             array('resized', 200, 200, 'resize_image_fix_height_webp'),
             array('large', 276, 276, 'resize_image_fix_height_webp'),
             array('tiny', 120, 120, 'resize_image_fix_height_webp'),
             array('small', 112, 112, 'resize_image_fix_height_webp'),
-			array('tiny', 64, 64, 'resize_image')
+            array('tiny', 64, 64, 'resize_image')
 
         );
         $this->arr_img_paths = array(
-            array('larges', 616, 616, 'resize_image_fix_height_webp'),
+            array('larges', 596, 596, 'resize_image_fix_height_webp'),
             array('resize', 368, 368, 'resize_image_fix_height_webp'),
             array('resized', 200, 200, 'resize_image_fix_height_webp'),
             array('large', 276, 276, 'resize_image_fix_height_webp'),
             array('tiny', 120, 120, 'resize_image_fix_height_webp'),
             array('small', 112, 112, 'resize_image_fix_height_webp'),
-			array('tiny', 64, 64, 'resize_image')
+            array('tiny', 64, 64, 'resize_image')
 
         );
         // $this->arr_img_paths_landing = array(
@@ -1087,9 +1087,9 @@ class ProductsModelsProducts extends FSModels
                     $update = 1;
                     //	        	          $row[$field_item] = htmlspecialchars_decode($field_value_new);
                     $row[$field_item] = htmlspecialchars_decode($field_value_new);
-                    //                    if ($field_item != 'seo_title' && $field_item != 'seo_keyword' && $field_item && 'seo_description') {
-                    $row1[$field_item] = htmlspecialchars_decode($field_value_new);
-                    //                    }
+                    // if ($field_item != 'seo_title' && $field_item != 'seo_keyword' && $field_item && 'seo_description') {
+                        $row1[$field_item] = htmlspecialchars_decode($field_value_new);
+                    // }
                     //	        	          $str_update[] = "`".$field_item."` = '".$field_value_new."'";
                 }
             }
@@ -2026,6 +2026,7 @@ class ProductsModelsProducts extends FSModels
 
         $row['name'] = $val;
         $row['seo_title'] = $val;
+        $row['seo_main_key'] = $val;
         $row['seo_keyword'] = $val;
         $row['seo_description'] = $val;
         $row['group_id'] = $foreign_id;
