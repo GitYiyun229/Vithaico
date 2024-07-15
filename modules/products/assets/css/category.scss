@@ -50,7 +50,7 @@
   overflow-y: auto;
   // -webkit-transition: 0.4s linear 0.2s;
   // -o-transition: 0.4s linear 0.2s;
-  // transition: 0.4s linear 0.2s;
+  transition: all 0.2s;
   top: 43px;
   height: 0;
   z-index: 10;
@@ -70,6 +70,8 @@
   -webkit-transition: 0.3s ease-in-out;
   -o-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out;
+      width: 100%;
+    display: block;
 }
 
 .option:hover,
@@ -79,7 +81,7 @@
 
 .options-list::-webkit-scrollbar {
   width: 4px;
-  background-color: #eee;
+  background-color: #ea212d;
 }
 
 .options-list::-webkit-scrollbar-thumb {

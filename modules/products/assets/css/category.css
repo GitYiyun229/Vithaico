@@ -36,6 +36,7 @@
   padding: 0px 20px;
   max-height: 180px;
   overflow-y: auto;
+  transition: all 0.2s;
   top: 43px;
   height: 0;
   z-index: 10;
@@ -53,6 +54,8 @@
   font-size: 14px;
   width: 100%;
   transition: 0.3s ease-in-out;
+  width: 100%;
+  display: block;
 }
 
 .option:hover,
@@ -62,7 +65,7 @@
 
 .options-list::-webkit-scrollbar {
   width: 4px;
-  background-color: #eee;
+  background-color: #ea212d;
 }
 
 .options-list::-webkit-scrollbar-thumb {
