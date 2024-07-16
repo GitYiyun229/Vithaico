@@ -8,7 +8,7 @@ $clas='img-2';
     <?php echo $tmpl->load_direct_blocks('banners', ['category_id' => '4', 'style' => 'default']); ?>
 </div>
 <div class="section-cat-news">
-    <div class="container list_cat_news d-flex justify-content-center">
+    <div class="container list_cat_news">
         <a href="<?php echo FSRoute::_('index.php?module=news&view=home') ?>" class="item_cat_new active_cat">
             <img src="/images/cat-news0.svg" alt="" class="img-icon" width="32px" height="32px">
             <div class="item-name">
