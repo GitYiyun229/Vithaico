@@ -878,10 +878,11 @@ class Templates
         }
         return $hash;
     }
-    function newItem($i, $item)
+    function newItem($i, $item,$class=null)
     {
         ?>
         <?php
+        print_r($class);
         $image = str_replace(['.jpg', '.png'], ['.webp', '.webp'], $item->image);
         if ($i == 0) {
             $image = str_replace('original/', 'large/', $image);
@@ -890,7 +891,7 @@ class Templates
         }
         ?>
         <a href="<?php echo FSRoute::_('index.php?module=news&view=news&code=' . $item->alias . '&id=' . $item->id . '') ?>" class="item_new<?php echo $i != 0 ? '' : ' item_big' ?>">
-            <div class="img-box">
+            <div class="img-box <?= $class?>">
                 <img src="<?php echo URL_ROOT . $image ?>" alt="">
             </div>
             <div class="info-box">
