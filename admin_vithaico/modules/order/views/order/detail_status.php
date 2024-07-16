@@ -23,8 +23,8 @@
 
         <?php if ($order->user_id && $buyer) { ?>
             <tr>
-                <td><b>Điểm tích lũy</b></td>
-                <td><?php echo floor($order->total_before / 1000) ?></td>
+                <td><b>VT-Coin</b></td>
+                <td><?php echo formatNumber($order->member_coin) ?></td>
             </tr>
         <?php } ?>
         <tr>

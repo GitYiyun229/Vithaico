@@ -65,7 +65,7 @@ class MembersControllersDashboard extends MembersControllersMembers
 
         $row = compact('full_name', 'birthday', 'sex', 'city_id', 'district_id', 'ward_id', 'address', 'bank_code', 'bank_name', 'bank_stk');
 
-        $id = $this->model->_update($row, $this->table, "id = $id");
+        $id = $this->model->_update($row, $this->table, "id = " . $id);
 
         if ($id) {
             $member_id = $id;

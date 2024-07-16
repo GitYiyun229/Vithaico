@@ -55,10 +55,12 @@ $tmpl->addScript('cart', 'modules/products/assets/js');
                                             <?php if ($item['price_old']) { ?>
                                                 <div class="price-origin"><?php echo format_money($item['price_old']) ?></div>
                                             <?php } ?>
-                                            <div class="price-public fw-semibold"><?php echo format_money($item['price']) ?>
-                                                <?php if ($item['coin']) { ?>
-                                                    / <?= $item['coin'] ?>VT-Coin
-                                                <?php } ?>
+                                            <div class="price-public fw-semibold"><?php echo format_money($item['price']) ?> /
+                                                <span>
+                                                    <?php if ($item['coin']) { ?>
+                                                        <?= $item['coin'] ?>VT-Coin
+                                                    <?php } ?>
+                                                </span>
                                             </div>
 
                                         </div>
@@ -102,7 +104,7 @@ $tmpl->addScript('cart', 'modules/products/assets/js');
                                 <input type="email" class="form-control" name="email" id="email" placeholder="<?php echo FSText::_('Email') ?>" value="<?php echo @$user->userInfo->email ?>">
                             </div>
                             <div class="col-12">
-                                <input type="text" class="form-control" name="address" id="address" placeholder="<?php echo FSText::_('Địa chỉ (Ví dụ: Số 23, ngõ 66, hồ tùng mậu)') ?>" value="<?php echo @$addressDefault->address ?>">
+                                <input type="text" class="form-control" name="address" id="address" placeholder="<?php echo FSText::_('Địa chỉ (Ví dụ: Số 23, Ngõ 66, Hồ Tùng Mậu)') ?>" value="<?php echo @$addressDefault->address ?>">
                             </div>
                             <div class="col-4">
                                 <select name="province" id="province" class="form-control form-select2 form-province">

@@ -26,7 +26,26 @@
     border-radius: 4px;
     border: 1px solid #3B3B3B;
 }
-
+.created-time_status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    p {
+      font-size: 14px;
+      line-height: 18px;
+      font-weight: 400;
+    }
+    .created-time, .coin {
+      color: rgba(117, 117, 117, 1);
+      border-right: 1px solid rgba(222, 222, 222, 1);
+      padding-right: 16px;
+      margin-right: 16px;
+    }
+    .coin {}
+    .status {
+      color: rgba(36, 118, 255, 1);
+    }
+  }
 .table-order{
     border: 1px solid #EBEBEB;
     border-radius: 4px;
