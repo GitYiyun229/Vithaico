@@ -1,0 +1,1 @@
+  <?php echo $tmpl->load_direct_blocks('members', array('style' => 'default')); ?>

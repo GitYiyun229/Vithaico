@@ -52,7 +52,7 @@ class ProductsModelsProduct extends FSModels
     public function getDataType($id)
     {
         global $db;
-        $sql = "SELECT id, name, code, price, price_old, product_id, quantity,price_discount
+        $sql = "SELECT id, name, code, price, price_old, product_id, quantity, price_discount
                 FROM $this->tableType
                 WHERE product_id = $id AND published = 1
                 ORDER BY price ASC
@@ -74,7 +74,7 @@ class ProductsModelsProduct extends FSModels
     public function getDataSame($id, $product_id)
     {
         global $db;
-        $sql = "SELECT id, name, image, coin, quantity, alias, price, price_old, promotion_id, promotion_end_time, promotion_start_time, sold_out, is_gift, freeship
+        $sql = "SELECT id, name, image, coin, quantity, alias, price, price_discount, price_old, promotion_id, promotion_end_time, promotion_start_time, sold_out, is_gift, freeship
                 FROM $this->table
                 WHERE category_id_wrapper LIKE '%,$id,%' AND published = 1 AND id <> $product_id
                 

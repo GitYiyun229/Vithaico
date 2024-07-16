@@ -11,24 +11,24 @@
 //    TemplateHelper::dt_edit_text(FSText :: _('Title'),'title',@$data -> title);
 //    TemplateHelper::dt_edit_text(FSText :: _('Người gửi'),'fullname',@$data -> fullname);
 ?>
-    <div class="form-group">
+    <!-- <div class="form-group">
         <label class="col-md-2 col-xs-12 control-label"><?php echo FSText::_('Tiêu đề')?></label>
         <div class="col-md-10 col-xs-12">
             <input disabled="disabled" type="text" class="form-control" name="title" id="title" value="<?php echo $data->title ?>" size="60">
         </div>
-    </div>
+    </div> -->
     <div class="form-group">
         <label class="col-md-2 col-xs-12 control-label"><?php echo FSText::_('Người gửi')?></label>
         <div class="col-md-10 col-xs-12">
             <input disabled="disabled" type="text" class="form-control" name="fullname" id="fullname" value="<?php echo $data->fullname ?>" size="60">
         </div>
     </div>
-    <div class="form-group">
+    <!-- <div class="form-group">
         <label class="col-md-2 col-xs-12 control-label"><?php echo FSText::_('Nhóm đối tượng khách hàng')?></label>
         <div class="col-md-10 col-xs-12">
             <input disabled="disabled" type="text" class="form-control" name="type_id" id="type_id" value="<?php echo $data->type_id ?>" size="60">
         </div>
-    </div>
+    </div> -->
     <div class="form-group">
         <label class="col-md-2 col-xs-12 control-label"><?php echo FSText::_('Email')?></label>
         <div class="col-md-10 col-xs-12">
@@ -41,12 +41,18 @@
             <input disabled="disabled" type="text" class="form-control" name="address" id="address" value="<?php echo $data->address ?>" size="60">
         </div>
     </div>
+    <div class="form-group">
+        <label class="col-md-2 col-xs-12 control-label"><?php echo FSText::_('Thời gian tạo')?></label>
+        <div class="col-md-10 col-xs-12">
+            <input disabled="disabled" type="text" class="form-control" name="created_time" id="created_time" value="<?php echo $data->created_time ?>" size="60">
+        </div>
+    </div>
 <?php
 //    TemplateHelper::dt_edit_text(FSText :: _('Email'),'email',@$data -> email);
 //    TemplateHelper::dt_edit_text(FSText :: _('Telephone'),'telephone',@$data -> telephone);
 //    TemplateHelper::dt_edit_text(FSText :: _('Address'),'address',@$data -> address);
 ?>
-    <div class="form-group">
+    <!-- <div class="form-group">
         <label class="col-md-2 col-xs-12 control-label"><?php echo FSText::_('Bộ phận liên hệ')?></label>
         <div class="col-md-10 col-xs-12">
             <?php foreach($parts as $item){?>
@@ -55,7 +61,7 @@
                 <?php }else{}?>
             <?php }?>
         </div>
-    </div>
+    </div> -->
     <div class="form-group">
         <label class="col-md-2 col-xs-12 control-label"><?php echo FSText::_('Nội dung')?></label>
         <div class="col-md-10 col-xs-12">
