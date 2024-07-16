@@ -379,15 +379,7 @@ class ProductsModelsProducts extends FSModels
         $row['category_published'] = $cat->published;
         $row['tablename'] = $cat->tablename;
 
-        //$row ['specs'] = ''; // khi sửa ta xóa specs đi để còn update đc
-        //        $manufactory_id = FSInput::get('manufactory');
-        //        if ($manufactory_id) {
-        //            $manufactory = $this->get_record_by_id($manufactory_id, 'fs_manufactories');
-        //            $row ['manufactory'] = $manufactory_id;
-        //            $row ['manufactory_alias'] = $manufactory->alias;
-        //            $row ['manufactory_name'] = $manufactory->name;
-        //            $row ['manufactory_image'] = $manufactory->image;
-        //        }
+        
 
         //lưu danh mục phụ
         $multi_categories = FSInput::get('multi_categories', array(), 'array');
@@ -396,11 +388,6 @@ class ProductsModelsProducts extends FSModels
             $str_multi_categories = ',' . $str_multi_categories . ',';
         }
         $row['multi_categories'] = $str_multi_categories;
-
-        //lưu cửa hàng chọn nhiều
-        //        $arr_store_id = FSInput::get('stores', array(), 'array');
-        //        $str_store_id = implode(',', $arr_store_id);
-        //        $row ['stores'] = ',' . $str_store_id . ',';
 
         //lưu sp cùng loại chọn nhiều
         $arr_prd_id = FSInput::get('products_same', array(), 'array');
@@ -427,15 +414,7 @@ class ProductsModelsProducts extends FSModels
         $price_old = FSInput::get('price_old');
         $row['price_old'] = $price_old = $this->standart_money($price_old, 0);
 
-        // if ($price > 0 && $price_old == 0) {
-        //     $row['price_old'] = $price;
-        //     $row['discount'] = 0;
-        // } elseif ($price == 0 && $price_old > 0) {
-        //     $row['price'] = $price_old;
-        //     $row['discount'] = 0;
-        // } else {
-        //     $row['discount'] = $row['price_old'] - $row['price'];
-        // }
+       
         if ($price > 0 && $price_discount == 0) {
             $row['price_discount'] = $price;
             $row['discount'] = 0;
@@ -462,59 +441,7 @@ class ProductsModelsProducts extends FSModels
         $price_autumn_4 = FSInput::get('price_autumn_4');
         $row['price_autumn_4'] = $price_autumn_4 = $this->standart_money($price_autumn_4, 0);
 
-        // image thông số kỹ thuật
-        //        $image_name = $_FILES["image_spec"]["name"];
-        //        if ($image_name) {
-        //            $image = $this->upload_image('image_spec', '_' . time(), 2000000, $this->arr_img_paths_spec);
-        //            if ($image) {
-        //                $row['image_spec'] = $image;
-        //            }
-        //        }
-        // $type_image = FSInput::get('type_image_spec', 0, 'int');
-        // if ($type_image == 0) {
-        //     $image_spec = $_FILES["image_spec"]["name"];
-        // } else {
-        //     $image_spec = FSInput::get('image_spec');
-        // }
-        // if ($image_spec) {
-        //     $image = $this->upload_image('image_spec', '_' . time(), 2000000, $this->arr_img_paths_spec, '', $type_image, $image_spec);
-        //     if ($image) {
-        //         $row['image_spec'] = $image;
-        //     }
-        // }
-        // $type_image_unbox = FSInput::get('type_image_unbox', 0, 'int');
-        // if ($type_image_unbox == 0) {
-        //     $image_unbox = $_FILES["image_unbox"]["name"];
-        // } else {
-        //     $image_unbox = FSInput::get('image_unbox');
-        // }
-        // if ($image_unbox) {
-        //     $image = $this->upload_image('image_unbox', '_' . time(), 2000000, $this->arr_img_paths_unbox, '', $type_image_unbox, $image_unbox);
-        //     if ($image) {
-        //         $row['image_unbox'] = $image;
-        //     }
-        // }
-        // $type_image_land = FSInput::get('type_image_land', 0, 'int');
-        // if ($type_image_land == 0) {
-        //     $image_land = $_FILES["image_land"]["name"];
-        // } else {
-        //     $image_land = FSInput::get('image_land');
-        // }
-        // if ($image_land) {
-        //     $image = $this->upload_image('image_land', '_' . time(), 2000000, $this->arr_img_paths_landing, '', $type_image_land, $image_land);
-        //     if ($image) {
-        //         $row['image_land'] = $image;
-        //     }
-        // }
-
-
-        //        $image_og = $_FILES["image_og"]["name"];
-        //        if ($image_og) {
-        //            $image = $this->upload_image('image', '_' . time(), 4000000, $this->arr_img_paths_og);
-        //            if ($image) {
-        //                $row['image_og'] = $image;
-        //            }
-        //        }
+       
 
         $user_id = isset($_SESSION['ad_userid']) ? $_SESSION['ad_userid'] : '';
         if (!$user_id)
@@ -522,19 +449,11 @@ class ProductsModelsProducts extends FSModels
         $user = $this->get_record_by_id($user_id, 'fs_users', 'username');
 
         if ($id) {
-            // $row['action_id'] = $user_id;
-            // $row['action_name'] = $username;
-            // $row['editor_id'] = $user_id;
-            // $row['editor_name'] = $username;
-            // $row['user_full_name'] = $username;
             $row['author_last'] = $user->username;
             $row['author_last_id'] = $user_id;
         } else {
             $row['author'] = $user->username;
             $row['author_id'] = $user_id;
-            // $row['editor_id'] = $user_id;
-            // $row['editor_name'] = $username;
-            // $row['user_full_name'] = $username;
         }
 
         $products_related = $color = FSInput::get('products_record_related', array(), 'array');
@@ -560,15 +479,7 @@ class ProductsModelsProducts extends FSModels
         }
         $row['news_related'] = $str_news_related;
 
-        //lấy alias
-        //        $fsstring = FSFactory::getClass('FSString', '', '../');
-        //        $alias = $fsstring->stringStandart($name);
-        //        $row['alias'] = FSInput::get('alias') ? FSInput::get('alias') : $alias;
-        //        $check_alias = $this->check_exist_alias_redirect($id, $alias);
-        //        if ($check_alias) {
-        //            Errors::_('Alias của bạn đã bị trùng tên', 'alert');
-        //            $row['alias'] = $this->genarate_alias_news($row['alias'], $id);
-        //        }
+       
         $id = parent::save($row, 1);
         //        die;
         $this->save_redirect($id);
@@ -578,7 +489,6 @@ class ProductsModelsProducts extends FSModels
             return false;
         } else {
             $this->save_extension($row['tablename'], $id);
-            // $this->save_extension_new($category_id, $id);
             $this->save_extension_new2($cat->tablename, $id);
         }
         $rs = $this->save_edit($id);

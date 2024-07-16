@@ -1633,7 +1633,7 @@ class FSModels
 
 	function upload_image($image_tag_name = 'image', $suffix = '', $max_size = 2000000, $arr_img_paths = array(), $img_folder = '', $type = '', $path_image = '')
 	{
-		// print_r($arr_img_paths );
+		// print_r($arr_img_paths );die;
 		if (!$img_folder) {
 			$img_folder = $this->img_folder;
 		}
