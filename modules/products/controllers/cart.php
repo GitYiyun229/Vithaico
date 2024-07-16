@@ -366,15 +366,14 @@ class ProductsControllersCart extends FSControllers
             if ($user->userInfo->level >= 1) {
                 $this->calculateMemberRankDaiLy();
             }
-            $member_ref = $this->model->get_record("ref_code = '" . $user->userInfo->ref_by . "'", 'fs_members', 'id,level,full_name,vt_coin,hoa_hong'); // thành viên giới thiệu (F0)
+            $member_ref = $this->model->get_record("ref_code = '" . $user->userInfo->ref_by . "'", 'fs_members', 'id,level,full_name,vt_coin,hoa_hong,active_account,due_time_month'); // thành viên giới thiệu (F0)
             $percent = $member_coin > 300 ? 10 : 0; //cách tính số coin nhận được nếu trên 300coin nhận thêm 10% hoa hồng cho f0
             $hoa_hong = $member_ref->hoa_hong ?? $this->model->get_record('level =' . $member_ref->level, 'fs_members_group')->member_benefits;
-
             $coin_add_affilat =  ($member_coin * ($hoa_hong + $percent)) / 100;
-
             if ($coin_add_affilat) {
+                $dieu_kien_nhan = $member_ref->active_account == 1 ? 1 : 0;
                 $total_coin = $coin_add_affilat + $member_ref->vt_coin;
-                if ($this->calculateMemberCoin($member_ref->id, $total_coin)) {
+                if ($this->calculateMemberCoin($member_ref->id, $total_coin, $dieu_kien_nhan)) {
                     $RowCoin = [
                         'order_id' => $orderId,
                         'total_coin' => $member_coin, //số coin của đơn hàng 
@@ -385,10 +384,13 @@ class ProductsControllersCart extends FSControllers
                         'total_coin_after' => $total_coin, //số coin của member sau khi cộng dựa theo % hoa hồng 
                         'user_name' =>  $member_ref->full_name, // tổng số coin sau khi được cộng vào 
                         'user_id' => $member_ref->id, //user_id nhận tiền 
+                        'dieu_kien_nhan' => $dieu_kien_nhan,
                         'created_time' => date('Y-m-d H:i:s'), //ngày tạo
                     ];
 
-                    if ($this->model->_add($RowCoin, 'fs_coin_log')) {
+                    if ($id_fs_coin_log = $this->model->_add($RowCoin, 'fs_coin_log')) {
+                        $status = ['status' => 1];
+                        $this->model->_update($status, 'fs_coin_log', 'id =' . $id_fs_coin_log);
                         $this->calculateMemberRank($user->userInfo->id); // check rank cho thành viên mua hàng
                         if ($member_ref->level >= 1)
                             $this->calculateMemberRank($member_ref->id);
