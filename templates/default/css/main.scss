@@ -84,6 +84,9 @@ header {
   .btn-menu_mobile {
     display: none;
   }
+  .search_header {
+    position: relative;
+  }
   .members_header {
     position: relative;
     cursor: pointer;
@@ -435,28 +438,28 @@ footer {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    .price, .price_discount {
+    .price,
+    .price_discount {
       .title {
         color: rgba(117, 117, 117, 1);
       }
       .value {
         font-size: 16px;
-        font-weight: 700; 
+        font-weight: 700;
       }
     }
     .price_discount {
-      span {color: rgba(234, 33, 45, 1);
+      span {
+        color: rgba(234, 33, 45, 1);
         &:last-child {
           font-size: 12px;
         }
-
       }
     }
   }
   &:hover {
     .layout-content {
       .layout-name {
-     
       }
     }
     .layout-img {
@@ -1007,14 +1010,11 @@ footer {
       .info-box {
         .created_cat {
           span {
-          
             &:last-child {
-           
             }
           }
         }
         .title_new {
-   
         }
         .summary_new {
         }
@@ -1026,27 +1026,21 @@ footer {
         }
         .info-box {
           .title_new {
-         
           }
         }
       }
     }
     .item_big {
-    
       .img-box {
-      
       }
       .info-box {
         .created_cat {
           span {
-          
           }
         }
         .title_new {
-          
         }
         .summary_new {
-         
         }
       }
     }

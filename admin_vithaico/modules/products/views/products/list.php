@@ -113,9 +113,9 @@ $list_config[] = array('title' => 'Xem', 'type' => 'preview', 'link' => 'index.p
 // $list_config[] = array('title' => 'Update giá', 'icon' => 'fa fa-cloud-download', 'type' => 'link_edit', 'link' => '/index.php?module=api&view=product&task=api_update_price_by_product&id=record_id','not_rewrite'=>1);
 
 $list_config[] = array('title' => 'Edited time', 'field' => 'edited_time', 'ordering' => 1, 'type' => 'datetime');
-$list_config[] = array('title' => 'SEO title', 'field' => 'seo_title', 'ordering' => 1, 'type' => 'edit_text', 'col_width' => '25%', 'arr_params' => array('size' => 100));
-$list_config[] = array('title' => 'SEO keyword', 'field' => 'seo_keyword', 'ordering' => 1, 'type' => 'edit_text', 'col_width' => '25%', 'arr_params' => array('size' => 100));
-$list_config[] = array('title' => 'SEO description', 'field' => 'seo_description', 'ordering' => 1, 'type' => 'edit_text', 'col_width' => '25%', 'arr_params' => array('size' => 100, 'rows' => 4));
+// $list_config[] = array('title' => 'SEO title', 'field' => 'seo_title', 'ordering' => 1, 'type' => 'edit_text', 'col_width' => '25%', 'arr_params' => array('size' => 100));
+// $list_config[] = array('title' => 'SEO keyword', 'field' => 'seo_keyword', 'ordering' => 1, 'type' => 'edit_text', 'col_width' => '25%', 'arr_params' => array('size' => 100));
+// $list_config[] = array('title' => 'SEO description', 'field' => 'seo_description', 'ordering' => 1, 'type' => 'edit_text', 'col_width' => '25%', 'arr_params' => array('size' => 100, 'rows' => 4));
 
 $list_config[] = array('title' => 'Id', 'field' => 'id', 'ordering' => 1, 'type' => 'text');
 

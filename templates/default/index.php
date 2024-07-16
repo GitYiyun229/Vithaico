@@ -56,11 +56,14 @@ $alert = array(
                 <div class="block-members_cart_lang d-flex align-items-center gap-3 position-relative">
                     <div class="search_header">
                         <a href="" class="btn-guest btn-search">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M21 21L17.5001 17.5M20 11.5C20 16.1944 16.1944 20 11.5 20C6.80558 20 3 16.1944 3 11.5C3 6.80558 6.80558 3 11.5 3C16.1944 3 20 6.80558 20 11.5Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
+                            <div>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M21 21L17.5001 17.5M20 11.5C20 16.1944 16.1944 20 11.5 20C6.80558 20 3 16.1944 3 11.5C3 6.80558 6.80558 3 11.5 3C16.1944 3 20 6.80558 20 11.5Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
                         </a>
                     </div>
+
                     <div class="cart_header d-flex align-items-center justify-content-end">
                         <a href="<?php echo FSRoute::_('index.php?module=products&view=cart') ?>" title="<?php echo FSText::_('Giỏ hàng') ?>" class="header-cart position-relative">
                             <div class="cart-session d-grid position-relative">
@@ -89,7 +92,7 @@ $alert = array(
 
                             <div class="cart-hover-body">
                                 <?php if (!empty($cartList)) { ?>
-                                    <?php foreach ($cartList as $item) {
+                                    <?php foreach ($cartList as $i => $item) {
                                         $total_money_cart +=  $total_money_cart + ($item['price'] * $item['quantity']);
                                     ?>
                                         <div class="cart-hover-item position-relative">
@@ -103,20 +106,29 @@ $alert = array(
                                                     </div>
                                                 </a>
                                             </div>
-                                            <a href="" class="delete-cart position-absolute top-0 end-0" data-id="<?php echo $item['product_id'] ?>">
+                                            <a href="" class="delete-cart position-absolute top-0 end-0" data-id="<?php echo $i ?>">
                                                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M11.6201 2.38L2.38013 11.62M2.38013 2.38L11.6201 11.62" stroke="#757575" stroke-linecap="round" stroke-linejoin="round" />
                                                 </svg>
                                             </a>
                                         </div>
                                     <?php } ?>
+
+                                <?php } else { ?>
+                                    <div class="text-center w-100">
+                                        <img src="<?php echo URL_ROOT . 'images/no-cart.svg' ?>" alt="<?php echo FSText::_('Chưa có sản phẩm nào trong giỏ hàng!') ?>" class="img-fluid opacity-25">
+                                        <div class="fw-medium mt-4 mb-4"><?php echo FSText::_('Chưa có sản phẩm nào?') ?></div>
+                                        <a href="<?php echo URL_ROOT ?>" class="btn-no-cart"><?php echo FSText::_('Tiếp tục mua sắm để khám phá thêm.') ?></a>
+                                    </div>
                                 <?php } ?>
                             </div>
                             <div class=" cart-hover-footer">
-                                <div class="text-tamtinh text-center"><span>Tạm tính</span><b class="cart-text-quantity-2 "><?= format_money($total_money_cart) ?></b></div>
-                                <p class="mt-3 mb-3 text-center">Mã vận chuyển, thuế và giảm giá được tính khi thanh toán.
-                                </p>
-                                <a class="text-center" href="<?php echo FSRoute::_('index.php?module=products&view=cart') ?>"><?php echo FSText::_('Thanh toán') ?></a>
+                                <?php if (!empty($cartList)) { ?>
+                                    <div class="text-tamtinh text-center mb-3"><span>Tạm tính</span><b class="cart-text-quantity-2 "><?= format_money($total_money_cart) ?></b></div>
+                                    <!-- <p class="mt-3 mb-3 text-center">Mã vận chuyển, thuế và giảm giá được tính khi thanh toán.
+                                    </p> -->
+                                    <a class="text-center" href="<?php echo FSRoute::_('index.php?module=products&view=cart') ?>"><?php echo FSText::_('Thanh toán') ?></a>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
