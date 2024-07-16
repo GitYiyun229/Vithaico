@@ -16,6 +16,7 @@
 			$sort_direct = $this -> sort_direct;
 			
 			$list = $this -> model->get_data('');
+			// print_r($list);
 			$pagination = $this -> model->getPagination('');
 			include 'modules/'.$this->module.'/views/'.$this->view.'/list.php';
 		}

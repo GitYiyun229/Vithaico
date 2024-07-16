@@ -181,6 +181,7 @@ class ProductsControllersCart extends FSControllers
 
     public function updateCart()
     {
+
         $index = FSInput::get('index');
         $quantity = FSInput::get('quantity', 1);
         $remove = FSInput::get('remove', 0);

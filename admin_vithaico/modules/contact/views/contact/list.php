@@ -13,9 +13,10 @@
 	$list_config = array();
 	$list_config[] = array('title'=>'Họ tên','field'=>'fullname','ordering'=> 1, 'type'=>'text');
 	$list_config[] = array('title'=>'Email','field'=>'email','ordering'=> 1, 'type'=>'text');
-//	$list_config[] = array('title'=>'Điện thoại','field'=>'telephone','ordering'=> 1, 'type'=>'text');
+	$list_config[] = array('title'=>'Điện thoại','field'=>'telephone','ordering'=> 1, 'type'=>'text');
+	$list_config[] = array('title'=>'Địa chỉ','field'=>'address','ordering'=> 1, 'type'=>'text');
 	// $list_config[] = array('title'=>'Chủ đề','field'=>'subject','ordering'=> 1, 'type'=>'text');
-	$list_config[] = array('title'=>'Tiêu đề','field'=>'title','ordering'=> 1,'type'=>'text');
+	// $list_config[] = array('title'=>'Tiêu đề','field'=>'title','ordering'=> 1,'type'=>'text');
     //$list_config[] = array('title'=>'Ordering','field'=>'ordering','ordering'=> 1, 'type'=>'edit_text','arr_params'=>array('size'=>3));
 	//$list_config[] = array('title'=>'Published','field'=>'published','ordering'=> 1, 'type'=>'published');
 	$list_config[] = array('title'=>'Xem','type'=>'edit');

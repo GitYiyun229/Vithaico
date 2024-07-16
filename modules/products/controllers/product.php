@@ -31,13 +31,13 @@ class ProductsControllersProduct extends FSControllers
         $dataImage = $model->getDataImage($data->id);
         // sản phẩm cùng loại
         $dataSame = $model->getDataSame($data->category_id, $data->id);
-        $dataRelated = $this->nomalizeProducts($dataSame);
+        // $dataRelated = $this->nomalizeProducts($dataSame);
 
 
 
         // sản phẩm liên quan
         $dataRelated = $model->getDataRelated($data->products_related, $data->id);
-        $dataRelated = $this->nomalizeProducts($dataRelated);
+        // $dataRelated = $this->nomalizeProducts($dataRelated);
 
 
         $canonical = FSRoute::_("index.php?module=products&view=product&code=$data->alias&id=$data->id");

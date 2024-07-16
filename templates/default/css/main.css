@@ -79,6 +79,9 @@ header .header-container {
 header .btn-menu_mobile {
   display: none;
 }
+header .search_header {
+  position: relative;
+}
 header .members_header {
   position: relative;
   cursor: pointer;
@@ -412,10 +415,12 @@ footer .footer-bot .copyright {
   flex-wrap: wrap;
   justify-content: space-between;
 }
-.layout-product-item .layout-public-price .price .title, .layout-product-item .layout-public-price .price_discount .title {
+.layout-product-item .layout-public-price .price .title,
+.layout-product-item .layout-public-price .price_discount .title {
   color: rgb(117, 117, 117);
 }
-.layout-product-item .layout-public-price .price .value, .layout-product-item .layout-public-price .price_discount .value {
+.layout-product-item .layout-public-price .price .value,
+.layout-product-item .layout-public-price .price_discount .value {
   font-size: 16px;
   font-weight: 700;
 }
