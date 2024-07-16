@@ -2,6 +2,7 @@
 $tmpl->addStylesheet('category', 'modules/products/assets/css');
 $tmpl->addScript('category', 'modules/products/assets/js');
 $tmpl->addStylesheet('default', 'blocks/product_categories/assets/css');
+print_r($getSort);
 ?>
 <div class="section-banner">
     <?php echo $tmpl->load_direct_blocks('banners', ['category_id' => '3', 'style' => 'default']); ?>
@@ -13,23 +14,25 @@ $tmpl->addStylesheet('default', 'blocks/product_categories/assets/css');
     </div>
 </div>
 <div class="container">
-    <!-- <form action="<?php echo $canonical ?>" method="GET" class="page-products-category d-flex flex-wrap"> -->
     <form action="<?php echo $canonical ?>" method="GET" class="page-products-category">
         <div class="section-main">
             <div class="section-filter d-flex flex-wrap align-items-center justify-content-between mb-4">
                 <div class="title_cat">
                     <p><?= $cat->name ?></p>
                 </div>
-                <div class="select-menu">
-                    <?php echo FSText::_('Sắp xếp theo') ?>
+                <div class="select-menu position-relative">
                     <div class="select">
-                        <div><?php foreach ($arrSort as $i => $item) { ?>
+                        <div>
+                            <span>
+                                <?php  $getSort ? FSText::_('Sắp xếp theo') : '' ?>
+                            </span>
+                            <?php foreach ($arrSort as $i => $item) { ?>
                                 <span><?= $active = $i == $getSort ? $item : ''; ?></span>
                             <?php } ?>
                         </div>
                         <i class="fas fa-angle-down"></i>
                     </div>
-                    <div class="options-list">
+                    <div class="options-list position-absolute">
                         <?php foreach ($arrSort as $i => $item) {
                             $active = $i == $getSort ? 'active' : '';
                         ?>

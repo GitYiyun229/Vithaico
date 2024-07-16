@@ -1,6 +1,15 @@
+.box-fff {
+  background-color: #fff;
+}
+.box-grid {
+  p {
+    margin-bottom: 5px;
+    margin-top: 5px;
+  }
+}
 .grid_box {
   display: grid;
-  grid-template-columns: auto 176px;
+  grid-template-columns: auto 220px;
   grid-gap: 40px;
   .level_box {
     h3 {
@@ -119,7 +128,7 @@
         top: 4px;
         left: 0;
         height: 4px;
-        background-color: rgba(0, 103, 152, 1);
+        background-color:#FAB731;
         z-index: 2;
       }
       .list_item_progress {
@@ -147,16 +156,16 @@
       }
     }
   }
-  .golfplus_box {
-    background-color: rgba(230, 239, 244, 1);
+  .interval {
+    background-image: url("/images/background-end-time.svg");
     border-radius: 12px;
-    padding: 12px;
+    padding: 9px 12px;
     height: fit-content;
     .top_gp {
       display: flex;
       align-items: baseline;
       justify-content: space-between;
-      margin-bottom: 12px;
+      margin-bottom: 5px;
       p {
         font-size: 12px;
         line-height: 17px;
@@ -168,17 +177,16 @@
     .box-mid_gp {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-gap: 16px;
       border-radius: 8px;
       background-color: #fff;
-      padding: 8px;
+      padding: 5px 10px;
       p {
         color: rgba(163, 163, 163, 1);
         font-size: 10px;
         line-height: 13px;
         font-weight: 700;
         &:last-child {
-          margin-top: 5px;
+          margin-top: 0px;
           font-size: 12px;
           line-height: 16px;
           color: #000;
@@ -198,7 +206,7 @@
       height: 40px;
     }
     .alert_expiration {
-      margin-top: 10px;
+      // margin-top: 10px;
       display: flex;
       align-items: center;
       gap: 5px;
@@ -207,6 +215,19 @@
       font-weight: 700;
       color: rgba(28, 175, 71, 1);
     }
+    .alert_expiration-2 {
+      margin-top: 5px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 14px;
+      line-height: 19px;
+      font-weight: 700;
+      color: #ea212d;
+    }
+  }
+  .interval.active_interval {
+    background-image: url("/images/background-endtime-hethan.svg");
   }
 }
 

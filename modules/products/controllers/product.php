@@ -30,7 +30,10 @@ class ProductsControllersProduct extends FSControllers
         // ảnh sp, sp con
         $dataImage = $model->getDataImage($data->id);
         // sản phẩm cùng loại
-        $dataSame = $model->getDataSame($data->products_same);
+        $dataSame = $model->getDataSame($data->category_id, $data->id);
+        $dataRelated = $this->nomalizeProducts($dataSame);
+
+
 
         // sản phẩm liên quan
         $dataRelated = $model->getDataRelated($data->products_related, $data->id);

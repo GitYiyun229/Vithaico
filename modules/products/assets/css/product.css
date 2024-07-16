@@ -116,6 +116,10 @@
 .container .section-product-detail .section-main .main_content .p-price span:last-child {
   font-size: 14px;
 }
+.container .section-product-detail .section-main .main_content .p-price .title_see_price {
+  color: #2476ff;
+  flex: unset;
+}
 .container .section-product-detail .section-main .main_content .p-summary .p-title ul {
   list-style: inside;
   padding-left: 8px;
@@ -201,6 +205,19 @@
   color: #fff;
   background-color: #dd2033;
 }
+.container .section-product-detail .section-main .main_content .login-to-buy {
+  gap: 8px;
+  padding: 16px 40px;
+  border-radius: 16px;
+  text-align: center;
+  background: #ea212d;
+  color: #fff;
+  transition: all 0.3s;
+}
+.container .section-product-detail .section-main .main_content .login-to-buy:hover {
+  padding: 12px 20px;
+  margin: 0 20px;
+}
 .container .section-description {
   background: #f5f5f5;
   padding: 24px;
@@ -227,6 +244,33 @@
 .container .section-description .section-body ul li {
   line-height: 24px;
 }
+.container .section-description .section-body table {
+  border: 2px solid #b9b9b9;
+}
+.container .section-description .section-body table tr {
+  border: 2px solid #b9b9b9;
+  padding: 5px;
+}
+.container .section-description .section-body table tr th {
+  background: #e0dfdf;
+}
+.container .section-description .section-body table tr td {
+  padding: 5px;
+  border: 2px solid #b9b9b9;
+}
+.container .section-description .section-body table tr td:first-child {
+  width: 25%;
+}
+.container .section-description .section-body table tr td:first-child p,
+.container .section-description .section-body table tr td:first-child strong {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 19px;
+  color: #000;
+}
+.container .section-description .section-body table tr td:last-child {
+  width: 70%;
+}
 
 .section-product-related {
   margin-top: 48px;
@@ -239,6 +283,7 @@
   background: #fff;
   width: 100%;
   max-width: 276px;
+  max-height: 276px;
 }
 .section-product-related .layout-product-item .box-img .layout-img {
   padding: 24px;

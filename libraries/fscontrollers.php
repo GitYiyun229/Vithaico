@@ -28,40 +28,35 @@ class FSControllers
 	/*
 	 * function lấy array F1 
 	 */
-	function GetArrayInfoF1($ref_code)
+	public function GetArrayInfoF1($ref_code)
 	{
-		$members = $this->model->get_records('ref_by = ' . $ref_code, 'fs_members', 'id,level'); // lấy thông tin danh sách F1
+		$model = $this->model;
 		$array_id = [
 			'array_ids' => [],
 			'string_ids' => '',
-			'count_ids' => '',
-			'count_total_daily' => '',
-			'total_price_order_F1' => '',
+			'count_ids' => 0,
+			'count_total_daily' => 0,
+			'total_price_order_F1' => 0,
 		];
 
-		$total_daily = 0;
-
-		if (!empty($members)) {
-			$string_ids = [];
-			foreach ($members as $item) {
-				$array_id['array_ids'][] =  $item->id; // lấy danh sách id theo mảng
-				$string_ids[] = $item->id;
-				if ($item->level >= 2) //tính tổng F1 của member có bao nhiêu đại lý
-				{
-					$total_daily += 1;
+		if (!empty($ref_code)) {
+			$members = $this->model->get_records('ref_by = ' . $ref_code, 'fs_members', 'id,level');
+			if (!empty($members)) {
+				$string_ids = [];
+				foreach ($members as $item) {
+					$array_id['array_ids'][] =  $item->id;
+					$string_ids[] = $item->id;
+					if ($item->level >= 2) {
+						$array_id['count_total_daily'] += 1;
+					}
 				}
-			}
-			$array_id['string_ids'] = implode(',', $string_ids);  // lấy danh sách id theo chuỗi
-			$array_id['count_ids'] = count($members);	// đếm số lượng f1
-			$array_id['count_total_daily'] = $total_daily;
-		}
+				$array_id['string_ids'] = implode(',', $string_ids);
+				$array_id['count_ids'] = count($members);
 
-		if (!empty($array_id['string_ids'])) { // lấy tổng doanh số nhóm 
-			$total = $this->model->get_records("user_id IN (" . $array_id['string_ids'] . ")", 'fs_order', 'SUM(total_before) AS total_before_sum');
-			if (!empty($total) && isset($total[0]->total_before_sum)) {
-				$array_id['total_price_order_F1'] = $total[0]->total_before_sum;
-			} else {
-				$array_id['total_price_order_F1'] = 0;
+				$total = $this->model->get_records("user_id IN (" . $array_id['string_ids'] . ")", 'fs_order', 'SUM(total_before) AS total_before_sum');
+				if (!empty($total) && isset($total[0]->total_before_sum)) {
+					$array_id['total_price_order_F1'] = $total[0]->total_before_sum;
+				}
 			}
 		}
 
@@ -377,7 +372,8 @@ class FSControllers
 		$src = URL_ROOT . str_replace(['/original/', '.jpg', '.png'], ['/resize/', '.webp', '.webp'], $item->image);
 
 ?>
-		<div class="layout-product-item position-relative"> <a href="<?php echo $url ?>" title="<?php echo $item->name ?>" class="layout-product-item position-relative" target="_blank">
+		<div class="layout-product-item">
+			<a href="<?php echo $url ?>" title="<?php echo $item->name ?>" class="" target="_blank">
 				<div class="box-img">
 					<img src="<?php echo $src ?>" alt="" class="img-fluid layout-img" onerror="this.src='/images/not_picture.png'">
 				</div>
@@ -389,7 +385,16 @@ class FSControllers
 					<div class="layout-public-price">
 						<?php if ($user->userID) { ?>
 							<div class="price">
-								<?php echo format_money($item->price, '₫') ?>
+								<div class="title">Giá bán lẻ</div>
+								<div class="value">
+									<?php echo format_money($item->price, '₫') ?>
+								</div>
+							</div>
+							<div class="price_discount">
+								<div class="title">Giá thành viên</div>
+								<div class="value">
+									<?php echo format_money($item->price_discount, '₫') ?> / <span><?= $item->coin ?></span> <span>VTCoin</span>
+								</div>
 							</div>
 						<?php } else { ?>
 							<a href="<?php echo FSRoute::_('index.php?module=members&view=user&task=login') ?>" class="title_see_price"><?= FSText::_('Đăng nhập để xem giá') ?></a>
@@ -476,14 +481,18 @@ class FSControllers
 		return $cart;
 	}
 
-	public function calculateMemberCoin($id, $coin)
+	public function calculateMemberCoin($id, $coin, $dieu_kien_nhan)
 	{
-
-		$row = [
-			'vt_coin' =>  $coin,
-		];
-
-		$update = $this->model->_update($row, 'fs_members', 'id =' . $id);
+		if (empty($id) || empty($coin) || empty($dieu_kien_nhan)) {
+			return false;
+		}
+		$update = 1;
+		if ($dieu_kien_nhan == 1) {
+			$row = [
+				'vt_coin' =>  $coin,
+			];
+			$update = $this->model->_update($row, 'fs_members', 'id =' . $id);
+		}
 
 		return $update;
 	}
@@ -529,54 +538,70 @@ class FSControllers
 			foreach ($orderInfo as $item) { // for để lấy tổng doanh số
 				$total_member_coin += $item->member_coin;
 			}
-			$member = $this->model->get_record('id=' . $id, 'fs_members', 'id,level,hoa_hong,ref_code,ref_by'); // lấy thông tin của id hiện tại
+			$member = $this->model->get_record('id=' . $id, 'fs_members', 'id,level,hoa_hong,ref_code,ref_by,end_time,due_time_month'); // lấy thông tin của id hiện tại
 			if (!empty($member)) {
+
 				$infoF1 = $this->getArrayInfoF1($member->ref_code);
 				$level = $member->level;
 				// Kiểm tra hạng thành viên dựa trên $total_member_coin và các điều kiện F1
-				$table_level= $this->model->get_record('','fs_members_group');
-				$levels = [
-					6 => [300, 200, 1000000000],
-					5 => [300, 50, 200000000],
-					4 => [300, 10, 50000000],
-					3 => [300, 0, 0],
-					2 => [100, 0, 0],
-					1 => [1, 0, 0]
-				];
-				
-				foreach ($levels as $key => $values) {
-					if ($total_member_coin >= $values[0] && $infoF1['total_member_coin'] >= $values[1] && $infoF1['total_order'] >= $values[2]) {
-						$level = $key;
+				$table_level = $this->model->get_records('level >=' . $level, 'fs_members_group', '*', ' id DESC');
+
+				$level_member = 1;
+				switch (true) {
+					case $level < 6 && $total_member_coin > 300 && ($infoF1['count_total_daily'] >= 200 || $infoF1['total_price_order_F1'] >= 1000000000):
+						$level_member = 6;
 						break;
-					}
+					case $level < 5 && $total_member_coin > 300 && ($infoF1['count_total_daily'] >= 50 || $infoF1['total_price_order_F1'] >= 200000000):
+						$level_member = 5;
+						break;
+					case $level < 4 && $total_member_coin > 300 && ($infoF1['count_total_daily'] >= 10 || $infoF1['total_price_order_F1'] >= 50000000):
+						$level_member = 4;
+						break;
+					case $level < 3 && $total_member_coin > 300:
+						$level_member = 3;
+						break;
+					case $level < 2 && $total_member_coin >= 100 && $total_member_coin <= 300:
+						$level_member = 2;
+						break;
+					case $level < 1 && $total_member_coin > 1 && $total_member_coin <= 99:
+						$level_member = 1;
+						break;
+					case  $total_member_coin <= 1:
+						$level_member = 1;
+						break;
 				}
+				// print_r($level_member);
 				// Cập nhật hạng thành viên nếu có thay đổi
-				if ($member->level < $level) {
-					$this->updateMemberRank($level, $id);
+				if ($member->level < $level_member) {
+					$this->updateMemberRank($level_member, $id, $total_member_coin);
 				}
 			}
 		}
 		// Xử lý bước kiểm tra điều kiện F0 ở đây
-		$member = $this->model->get_record('id=' . $id, 'fs_members', 'id,level,hoa_hong,ref_code,ref_by,vt_coin');
+		$member = $this->model->get_record('id =' . $id, 'fs_members', 'id,level,hoa_hong,ref_code,ref_by,vt_coin');
 
-		return $member;
+		return true;
 	}
 
 
 	/*
 	 *function tính update hạng cho thành viên khi đạt đủ điều kiện lên hạng
 	 */
-	public function UpdateMemberRank($level, $id)
+	public function UpdateMemberRank($level, $id, $total_member_coin)
 	{
 
-		$member = $this->model->get_record('id=' . $id, 'fs_members', 'id,level,hoa_hong,ref_code,ref_by,vt_coin');
-
+		$member = $this->model->get_record('id=' . $id, 'fs_members', 'id,level,hoa_hong,ref_code,ref_by,vt_coin,created_time,end_time');
 		$levelInfo = $this->model->get_record('level = ' . $level, 'fs_members_group', '*');
 		if (!empty($level) && $level >= $member->level) {
 			$row = [
 				'level' => $level,
 				'hoa_hong' => $levelInfo->member_benefits,
 			];
+			if ($total_member_coin > 100) {
+				$row['end_time'] = date('Y-m-d H:i:s', strtotime($member->end_time . ' + 20 year'));
+			} elseif ($total_member_coin < 100 && $total_member_coin > 0.1) {
+				$row['end_time'] = date('Y-m-d H:i:s', strtotime($member->created_time . ' + 1 year'));
+			}
 			$update_level = $this->model->_update($row, 'fs_members', 'id =' . $member->id);
 			if ($update_level) {
 				$row_log = [
@@ -587,7 +612,7 @@ class FSControllers
 				$log = $this->model->_add($row_log, 'fs_update_rank_log');
 			}
 		}
-		return $update_level;
+		return true;
 	}
 
 	/*
@@ -598,7 +623,7 @@ class FSControllers
 		global $user;
 		$users = $user->userInfo;
 		$total_month = 0;
-		$order_info_month = $this->model->get_records("user_id = '" . $users->id . "' AND created_time >= DATE_FORMAT(NOW() ,'%Y-%m-01') AND created_time < DATE_ADD(DATE_FORMAT(NOW() ,'%Y-%m-01'), INTERVAL 1 MONTH ) ", 'fs_order', 'total_before');
+		$order_info_month = $this->model->get_records("user_id = '" . $users->id . "' AND due_time_month >= DATE_FORMAT(NOW() ,'%Y-%m-01') AND due_time_month < DATE_ADD(DATE_FORMAT(NOW() ,'%Y-%m-01'), INTERVAL 1 MONTH ) ", 'fs_order', 'total_before');
 
 		foreach ($order_info_month as $item) {
 			$total_month += $item->total_before;

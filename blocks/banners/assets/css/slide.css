@@ -4,8 +4,6 @@
 .banner-slide .item .info-banner {
   color: #fff;
   top: 20%;
-  left: 0;
-  right: 0;
   width: 100%;
   max-width: 720px !important;
   margin: auto;
@@ -17,6 +15,7 @@
 }
 .banner-slide .item .info-banner .name-banner {
   font-size: 24px;
+  color: #fff;
 }
 .banner-slide .item .info-banner .summary-banner {
   font-size: 40px;
@@ -31,8 +30,12 @@
 .banner-slide .item .info-banner .btn-banner a {
   color: #fff;
   background: #ea212d;
-  padding: 20px 40px;
+  padding: 16px 40px;
   border-radius: 100px;
+}
+.banner-slide .item .info-banner .btn-banner a:hover {
+  padding: 10px 20px;
+  margin: 20px;
 }
 .banner-slide .item::after {
   content: "";
@@ -87,11 +90,5 @@
   }
   .banner-slide .item .info-banner .content-banner {
     font-size: 14px;
-  }
-  .banner-slide .item .info-banner .btn-banner {
-    margin-top: 24px;
-  }
-  .banner-slide .item .info-banner .btn-banner a {
-    padding: 10px 20px;
   }
 }/*# sourceMappingURL=slide.css.map */

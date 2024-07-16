@@ -118,7 +118,10 @@
               font-size: 14px;
             }
           }
-          
+          .title_see_price {
+            color: #2476ff;
+            flex: unset;
+          }
         }
         .p-summary {
           .p-title {
@@ -223,6 +226,19 @@
             }
           }
         }
+        .login-to-buy {
+          gap: 8px;
+          padding: 16px 40px;
+          border-radius: 16px;
+          text-align: center;
+          background: #ea212d;
+          color: #fff;
+          transition: all 0.3s;
+          &:hover {
+            padding: 12px 20px;
+            margin: 0 20px;
+          }
+        }
       }
     }
   }
@@ -253,6 +269,35 @@
           line-height: 24px;
         }
       }
+      table {
+        border: 2px solid #b9b9b9;
+        tr {
+          border: 2px solid #b9b9b9;
+          padding: 5px;
+          th {
+            background: #e0dfdf;
+          }
+          td {
+            padding: 5px;
+            border: 2px solid #b9b9b9;
+          }
+
+          td:first-child {
+            width: 25%;
+            p,
+            strong {
+              font-weight: 700;
+              font-size: 14px;
+              line-height: 19px;
+              color: #000;
+            }
+          }
+
+          td:last-child {
+            width: 70%;
+          }
+        }
+      }
     }
   }
 }
@@ -267,6 +312,7 @@
       background: #fff;
       width: 100%;
       max-width: 276px;
+      max-height: 276px;
       .layout-img {
         padding: 24px;
       }

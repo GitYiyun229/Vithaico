@@ -6,8 +6,6 @@
     .info-banner {
       color: #fff;
       top: 20%;
-      left: 0;
-      right: 0;
       width: 100%;
       max-width: 720px !important;
       margin: auto;
@@ -18,6 +16,7 @@
       }
       .name-banner {
         font-size: 24px;
+        color: #fff;
       }
       .summary-banner {
         font-size: 40px;
@@ -31,8 +30,12 @@
         a {
           color: #fff;
           background: #ea212d;
-          padding: 20px 40px;
+          padding: 16px 40px;
           border-radius: 100px;
+          &:hover {
+            padding: 10px 20px;
+            margin: 20px;
+          }
         }
       }
     }
@@ -73,6 +76,10 @@
           margin-top: 24px;
           a {
             padding: 10px 20px;
+            // &:hover {
+            //   padding: 8px 16px;
+            //   // margin: 10px;
+            // }
           }
         }
       }
@@ -103,12 +110,12 @@
         .content-banner {
           font-size: 14px;
         }
-        .btn-banner {
-          margin-top: 24px;
-          a {
-            padding: 10px 20px;
-          }
-        }
+        // .btn-banner {
+        //   margin-top: 24px;
+        //   a {
+        //     padding: 10px 20px;
+        //   }
+        // }
       }
     }
   }
