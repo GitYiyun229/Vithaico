@@ -2,7 +2,7 @@
 global $tmpl;
 $tmpl->addStylesheet('home', 'modules/news/assets/css');
 $tmpl->addScript('default', 'modules/news/assets/js');
-$cat_id
+$class='img-2';
 ?>
 
 <div class="section-banner">
@@ -29,7 +29,7 @@ $cat_id
 <div class="container news_home_main">
     <div class="list_grid_news grid_hot_news">
         <?php foreach ($list_hot_news as $i => $item) {
-            echo $tmpl->newItem($i, $item);
+            echo $tmpl->newItem($i, $item,$class);
         } ?>
     </div>
     <div class="top_h3_cat">
@@ -40,7 +40,7 @@ $cat_id
     </div>
     <div class="list_grid_news">
         <?php foreach ($list_news as $i => $item) { ?>
-            <?php echo $tmpl->newItem($i + 1, $item) ?>
+            <?php echo $tmpl->newItem($i + 1, $item,$class) ?>
         <?php } ?>
     </div>
 </div>
