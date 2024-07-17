@@ -1,7 +1,7 @@
 <?php
 global $tmpl;
 $tmpl->addStylesheet('home', 'modules/news/assets/css');
-$clas='img-2';
+$class='img-2';
 ?>
 
 <div class="section-banner">

@@ -882,7 +882,6 @@ class Templates
     {
         ?>
         <?php
-        print_r($class);
         $image = str_replace(['.jpg', '.png'], ['.webp', '.webp'], $item->image);
         if ($i == 0) {
             $image = str_replace('original/', 'large/', $image);

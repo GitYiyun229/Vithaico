@@ -360,6 +360,8 @@ class ProductsModelsProducts extends FSModels
         $id = FSInput::get('id', 0, 'int');
         if (!$id) {
             $row['quantity'] = FSInput::get2('count', 0, 'int');
+        } else {
+            $row['quantity'] = FSInput::get2('quantity', 0, 'int');
         }
 
         // category and category_id_wrapper
@@ -377,9 +379,9 @@ class ProductsModelsProducts extends FSModels
         $row['category_name'] = $cat->name;
         $row['category_alias'] = $cat->alias;
         $row['category_published'] = $cat->published;
-        $row['tablename'] = $cat->tablename;
+        // $row['tablename'] = $cat->tablename;
 
-        
+
 
         //lưu danh mục phụ
         $multi_categories = FSInput::get('multi_categories', array(), 'array');
@@ -411,10 +413,6 @@ class ProductsModelsProducts extends FSModels
         $price_discount = FSInput::get('price_discount');
         $row['price_discount'] = $price_discount = $this->standart_money($price_discount, 0);
 
-        $price_old = FSInput::get('price_old');
-        $row['price_old'] = $price_old = $this->standart_money($price_old, 0);
-
-       
         if ($price > 0 && $price_discount == 0) {
             $row['price_discount'] = $price;
             $row['discount'] = 0;
@@ -424,24 +422,6 @@ class ProductsModelsProducts extends FSModels
         } else {
             $row['discount'] = $row['price'] - $row['price_discount'];
         }
-
-        //        //price mua kèm
-        $price_compare = FSInput::get('price_compare');
-        $row['price_compare'] = $price_compare = $this->standart_money($price_compare, 0);
-        //        //price thu loại 1
-        $price_autumn = FSInput::get('price_autumn');
-        $row['price_autumn'] = $price_autumn = $this->standart_money($price_autumn, 0);
-        //        //price thu loại 2
-        $price_autumn_2 = FSInput::get('price_autumn_2');
-        $row['price_autumn_2'] = $price_autumn_2 = $this->standart_money($price_autumn_2, 0);
-        //        //price thu loại 3
-        $price_autumn_3 = FSInput::get('price_autumn_3');
-        $row['price_autumn_3'] = $price_autumn_3 = $this->standart_money($price_autumn_3, 0);
-        //        //price thu loại 4
-        $price_autumn_4 = FSInput::get('price_autumn_4');
-        $row['price_autumn_4'] = $price_autumn_4 = $this->standart_money($price_autumn_4, 0);
-
-       
 
         $user_id = isset($_SESSION['ad_userid']) ? $_SESSION['ad_userid'] : '';
         if (!$user_id)
@@ -479,50 +459,10 @@ class ProductsModelsProducts extends FSModels
         }
         $row['news_related'] = $str_news_related;
 
-       
+
         $id = parent::save($row, 1);
         //        die;
         $this->save_redirect($id);
-
-        if (!$id) {
-            Errors::setError('Not save');
-            return false;
-        } else {
-            $this->save_extension($row['tablename'], $id);
-            $this->save_extension_new2($cat->tablename, $id);
-        }
-        $rs = $this->save_edit($id);
-        $product_sub = $this->get_records('published = 1 AND product_id=' . $id, 'fs_products_sub', 'name, id, price, price_old, store, stocking, quantity');
-        if (@$product_sub) {
-            $price_min = 0;
-            $quantityTotal = 0;
-            foreach ($product_sub as $item) {
-                if ($price_min == 0) {
-                    $price_min = $item->price;
-                } elseif ($item->price < $price_min) {
-                    $price_min = $item->price;
-                }
-                $quantityTotal += $item->quantity;
-            }
-            $prd_active = $this->get_records('published = 1 AND product_id=' . $id . ' AND price =' . $price_min . ' ORDER BY price_old DESC LIMIT 1', 'fs_products_sub', 'name, id, price, price_old,discount, store, stocking');
-            $row_up = array();
-            $row_up['quantity'] = $quantityTotal;
-            $row_up['price'] = $prd_active[0]->price;
-            $row_up['price_old'] = $prd_active[0]->price_old;
-            $row_up['discount'] = $prd_active[0]->discount;
-            $this->_update($row_up, 'fs_products', 'id=' . $id);
-            //            die;
-        }
-        // remove color
-        if (!$this->remove_images_plus($id)) {
-        }
-        // edit color
-        if (!$this->save_exist_images_plus($id)) {
-            //				return false;
-        }
-        // save color
-        if (!$this->save_new_images_plus($id)) {
-        }
         $this->save_products_images($id);
         //save tinh trang
         if (!empty($id)) {
@@ -998,7 +938,7 @@ class ProductsModelsProducts extends FSModels
                     //	        	          $row[$field_item] = htmlspecialchars_decode($field_value_new);
                     $row[$field_item] = htmlspecialchars_decode($field_value_new);
                     // if ($field_item != 'seo_title' && $field_item != 'seo_keyword' && $field_item && 'seo_description') {
-                        $row1[$field_item] = htmlspecialchars_decode($field_value_new);
+                    $row1[$field_item] = htmlspecialchars_decode($field_value_new);
                     // }
                     //	        	          $str_update[] = "`".$field_item."` = '".$field_value_new."'";
                 }
