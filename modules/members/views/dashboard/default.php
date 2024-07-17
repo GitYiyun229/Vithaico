@@ -73,7 +73,7 @@ $tmpl->addScript('default', 'modules/members/assets/js');
                         <label for="address" class="col-3"><?php echo FSText::_('') ?></label>
                         <div class="col-9">
                             <div class="col">
-                                <input type="text" class="form-control" name="address" placeholder="Địa chỉ (Ví dụ: Số 23, ngõ 66, hồ tùng mậu)">
+                                <input type="text" class="form-control" name="address" placeholder="Địa chỉ (Ví dụ: Số 23, ngõ 66, hồ tùng mậu)" value="<?= $user->userInfo->address?>">
                             </div>
                         </div>
                     </div>
@@ -130,13 +130,13 @@ $tmpl->addScript('default', 'modules/members/assets/js');
                             <div class="d-flex align-items-center mb-3 flex-wrap">
                                 <label for="stk" class="col-3"><?php echo FSText::_('Số tài khoản') ?></label>
                                 <div class="col-9">
-                                    <input type="text" class="form-control" placeholder="<?php echo FSText::_('Số tài khoản') ?>" name="stk" id="stk" value="">
+                                    <input type="text" class="form-control" placeholder="<?php echo FSText::_('Số tài khoản') ?>" name="stk" id="stk" value="<?= $user->userInfo->bank_stk?>">
                                 </div>
                             </div>
                             <div class="d-flex align-items-center mb-3 flex-wrap">
-                                <label for="chutk" class="col-3"><?php echo FSText::_('Chủ tài khoản') ?></label>
+                                <label for="chustk" class="col-3"><?php echo FSText::_('Chủ tài khoản') ?></label>
                                 <div class="col-9">
-                                    <input type="text" class="form-control" placeholder="<?php echo FSText::_('Họ và tên STK') ?>" name="chutk" id="chutk" value="">
+                                    <input type="text" class="form-control" placeholder="<?php echo FSText::_('Họ và tên STK') ?>" name="chustk" id="chustk" value="<?= $user->userInfo->bank_name?>">
                                 </div>
                             </div>
                         </div>
