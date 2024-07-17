@@ -79,13 +79,12 @@ $tmpl->addScript('product', 'modules/products/assets/js');
                         <?php } else { ?>
                             <a href="<?php echo FSRoute::_('index.php?module=members&view=user&task=login') ?>" class="title_see_price"><?= FSText::_('Đăng nhập để xem giá') ?></a>
                         <?php } ?>
-
                     </div>
                 </div>
                 <div class="p-summary">
                     <div class="p-title"><?= $data->summary ?></div>
                 </div>
-                <?php if ($user->userID) { ?>
+                <?php if($user->userID) { ?>
                     <div class="p-form border-top pt-4">
                         <?php if ($data->quantity) { ?>
                             <div class="p-line d-flex align-items-center gap-2">
@@ -127,7 +126,7 @@ $tmpl->addScript('product', 'modules/products/assets/js');
                             <?php } ?>
                         </div>
                     </div>
-                <? } else { ?>
+                <?php  } else { ?>
                     <a href="<?php echo FSRoute::_('index.php?module=members&view=user&task=login') ?>" class="">
                         <div class="login-to-buy d-flex align-items-center justify-content-center">
                             <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
