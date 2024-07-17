@@ -51,9 +51,9 @@ class MembersControllersDashboard extends MembersControllersMembers
         $ward_id = FSInput::get('ward');
         $address = FSInput::get('address');
 
-        $bank_code = FSInput::get('bank');
-        $bank_stk = FSInput::get('stk');
-        $bank_name = FSInput::get('chustk');
+        $bank_code = FSInput::get('bank') ? FSInput::get('bank') : '' ;
+        $bank_stk = FSInput::get('stk') ? FSInput::get('stk') : '';
+        $bank_name = FSInput::get('chustk') ? FSInput::get('chustk') : '';
 
         $return = FSRoute::_('index.php?module=members&view=dashboard');
 
@@ -64,6 +64,7 @@ class MembersControllersDashboard extends MembersControllersMembers
         }
 
         $row = compact('full_name', 'birthday', 'sex', 'city_id', 'district_id', 'ward_id', 'address', 'bank_code', 'bank_name', 'bank_stk');
+        $id_update = $this->model->_update($row, $this->table, "id = $id");
 
         $id = $this->model->_update($row, $this->table, "id = " . $id);
 

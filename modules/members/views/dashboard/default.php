@@ -73,7 +73,7 @@ $tmpl->addScript('default', 'modules/members/assets/js');
                         <label for="address" class="col-3"><?php echo FSText::_('') ?></label>
                         <div class="col-9">
                             <div class="col">
-                                <input type="text" class="form-control" name="address" placeholder="Địa chỉ (Ví dụ: Số 23, ngõ 66, hồ tùng mậu)">
+                                <input type="text" class="form-control" name="address" placeholder="Địa chỉ (Ví dụ: Số 23, ngõ 66, hồ tùng mậu)" value="<?= $user->userInfo->address?>">
                             </div>
                         </div>
                     </div>

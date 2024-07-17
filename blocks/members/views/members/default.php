@@ -3,6 +3,8 @@ global $tmpl;
 $tmpl->addStylesheet('default', 'blocks/members/assets/css');
 if ($interval <= 0) {
     $active_interval = 'active_interval';
+}else{
+     $active_interval ='';
 }
 ?>
 <div class="box-fff p-3">
@@ -44,7 +46,7 @@ if ($interval <= 0) {
                     </div>
                 </div>
             </div>
-            
+
         </div>
         <div class="box_coin d-flex flex-column align-items-end justify-content-end flex-wrap align-content-end">
 
@@ -73,7 +75,7 @@ if ($interval <= 0) {
             </div>
         </div>
         <div class="interval <?= $active_interval ?>">
-            <?php if ($user_member->active_account != 1 ||  $active_interval  <= 0) { ?>
+            <?php if ($user_member->active_account == 0 ||  $interval  <= 0) { ?>
                 <div class="top_gp">
                     <p class="mb-0">
                         <?php echo FSText::_('Tài khoản') ?>
@@ -93,7 +95,7 @@ if ($interval <= 0) {
                     <p>
                         <?php echo FSText::_('Ngày tạo') ?>
                     </p>
-                    <p>
+                    <p class="m-0">
                         <?php echo date('d/m/Y', strtotime($user_member->created_time)) ?>
                     </p>
                 </div>
@@ -101,18 +103,21 @@ if ($interval <= 0) {
                     <p>
                         <?php echo FSText::_('Hết hạn') ?>
                     </p>
-                    <p>
+                    <p class="m-0">
                         <?php echo date('d/m/Y', strtotime($start_time)) ?>
                     </p>
                 </div>
             </div>
             <div class="justify-content-center alert_expiration">
-                <?php if ($active_interval  > 0) { ?>
-                    <?php echo FSText::_('Hết hạn sau')  ?>
-                    <span>
-                        <?php echo  $interval ?>
-                    </span>
-                    ngày
+                <?php if ($interval  > 0) { ?>
+                    <div class="date_due pt-1">
+                        <?php echo FSText::_('Hết hạn sau ')  ?>
+                        <span>
+                            <?php echo  $interval ?>
+                        </span>
+                        <?php echo FSText::_(' ngày ')  ?> 
+                    </div>
+
                 <?php } else { ?>
                     <a href="<?php echo FSRoute::_('index.php?module=home&view=home') ?>" class="alert_expiration-2">
                         <?php echo FSText::_('Gia hạn tài khoản ') ?>
@@ -122,7 +127,6 @@ if ($interval <= 0) {
                     </a>
                 <?php } ?>
             </div>
-
         </div>
     </div>
 </div>
