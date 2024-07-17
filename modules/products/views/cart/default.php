@@ -9,7 +9,7 @@ $tmpl->addScript('cart', 'modules/products/assets/js');
     <?php if (!empty($cart)) { ?>
         <form id="form-cart" action="<?php echo FSRoute::_('index.php?module=products&view=cart&task=saveCart') ?>" method="POST">
             <?php echo csrf::displayToken(); ?>
-            <div class="container d-flex gap-3">
+            <div class="container d-flex gap-3 flex-wrap">
                 <div class="col-6 d-flex flex-column gap-3">
                     <div class="section-item bg-white">
                         <div class="section-header d-flex align-items-center justify-content-between p-3">
@@ -45,7 +45,7 @@ $tmpl->addScript('cart', 'modules/products/assets/js');
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="position-relative d-flex align-items-end justify-content-end">
+                                    <div class="price-item position-relative d-flex align-items-end justify-content-end">
                                         <div>
                                             <a href="" class="delete-cart position-absolute top-0 end-0" data-id="<?php echo $i ?>">
                                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

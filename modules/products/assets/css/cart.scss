@@ -1,6 +1,11 @@
 .red-500 {
   color: #d53c00;
 }
+.container {
+  .col-6 {
+    width: calc(50% - 0.5rem);
+  }
+}
 
 .section-item {
   border-radius: 4px;
@@ -445,6 +450,28 @@
     .btn-show-form {
       opacity: 1;
       visibility: visible;
+    }
+  }
+}
+@media all and (max-width: 1000px) {
+  .container {
+    .col-6 {
+      width: 100%;
+    }
+  }
+}
+@media all and (max-width: 500px) {
+  .section-body {
+    .cart-item {
+      grid-template-columns: 88px 2.5fr;
+      .price-item {
+        grid-area: 2 / 1 / 2 / 3;
+        justify-content: unset !important;
+      }
+    }
+    .col-4 {
+      width: 100%;
+      
     }
   }
 }
