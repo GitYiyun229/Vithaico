@@ -272,6 +272,12 @@ header {
         }
         .delete-cart {
           right: -15px !important;
+          transition: all 0.3s;
+          &:hover {
+            svg path {
+              stroke: #c91d2e;
+            }
+          }
         }
         .item-price {
           // text-align: right;
@@ -405,6 +411,9 @@ footer {
     border-radius: 24px;
     max-width: 368px;
     max-height: 368px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     .layout-img {
       border-radius: 24px;
       width: 100%;
