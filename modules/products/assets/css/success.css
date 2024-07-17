@@ -25,6 +25,26 @@
   border: 1px solid #3B3B3B;
 }
 
+.created-time_status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.created-time_status p {
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 400;
+}
+.created-time_status .created-time, .created-time_status .coin {
+  color: rgb(117, 117, 117);
+  border-right: 1px solid rgb(222, 222, 222);
+  padding-right: 16px;
+  margin-right: 16px;
+}
+.created-time_status .status {
+  color: rgb(36, 118, 255);
+}
+
 .table-order {
   border: 1px solid #EBEBEB;
   border-radius: 4px;

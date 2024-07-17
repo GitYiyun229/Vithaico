@@ -9,7 +9,7 @@ $tmpl->addScript('cart', 'modules/products/assets/js');
     <?php if (!empty($cart)) { ?>
         <form id="form-cart" action="<?php echo FSRoute::_('index.php?module=products&view=cart&task=saveCart') ?>" method="POST">
             <?php echo csrf::displayToken(); ?>
-            <div class="container d-flex gap-3">
+            <div class="container d-flex gap-3 flex-wrap">
                 <div class="col-6 d-flex flex-column gap-3">
                     <div class="section-item bg-white">
                         <div class="section-header d-flex align-items-center justify-content-between p-3">
@@ -45,7 +45,7 @@ $tmpl->addScript('cart', 'modules/products/assets/js');
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="position-relative d-flex align-items-end justify-content-end">
+                                    <div class="price-item position-relative d-flex align-items-end justify-content-end">
                                         <div>
                                             <a href="" class="delete-cart position-absolute top-0 end-0" data-id="<?php echo $i ?>">
                                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -55,10 +55,12 @@ $tmpl->addScript('cart', 'modules/products/assets/js');
                                             <?php if ($item['price_old']) { ?>
                                                 <div class="price-origin"><?php echo format_money($item['price_old']) ?></div>
                                             <?php } ?>
-                                            <div class="price-public fw-semibold"><?php echo format_money($item['price']) ?>
-                                                <?php if ($item['coin']) { ?>
-                                                    / <?= $item['coin'] ?>VT-Coin
-                                                <?php } ?>
+                                            <div class="price-public fw-semibold"><?php echo format_money($item['price']) ?> /
+                                                <span>
+                                                    <?php if ($item['coin']) { ?>
+                                                        <?= $item['coin'] ?>VT-Coin
+                                                    <?php } ?>
+                                                </span>
                                             </div>
 
                                         </div>
@@ -102,7 +104,7 @@ $tmpl->addScript('cart', 'modules/products/assets/js');
                                 <input type="email" class="form-control" name="email" id="email" placeholder="<?php echo FSText::_('Email') ?>" value="<?php echo @$user->userInfo->email ?>">
                             </div>
                             <div class="col-12">
-                                <input type="text" class="form-control" name="address" id="address" placeholder="<?php echo FSText::_('Địa chỉ (Ví dụ: Số 23, ngõ 66, hồ tùng mậu)') ?>" value="<?php echo @$addressDefault->address ?>">
+                                <input type="text" class="form-control" name="address" id="address" placeholder="<?php echo FSText::_('Địa chỉ (Ví dụ: Số 23, Ngõ 66, Hồ Tùng Mậu)') ?>" value="<?php echo @$addressDefault->address ?>">
                             </div>
                             <div class="col-4">
                                 <select name="province" id="province" class="form-control form-select2 form-province">

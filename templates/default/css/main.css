@@ -260,6 +260,10 @@ header .cart_header .cart-hover .cart-hover-item .sub-name p span.span-price-ori
 }
 header .cart_header .cart-hover .cart-hover-item .delete-cart {
   right: -15px !important;
+  transition: all 0.3s;
+}
+header .cart_header .cart-hover .cart-hover-item .delete-cart:hover svg path {
+  stroke: #c91d2e;
 }
 header .cart_header .cart-hover .cart-hover-item .item-price {
   font-weight: lighter;
@@ -381,6 +385,9 @@ footer .footer-bot .copyright {
   border-radius: 24px;
   max-width: 368px;
   max-height: 368px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .layout-product-item .box-img .layout-img {
   border-radius: 24px;
