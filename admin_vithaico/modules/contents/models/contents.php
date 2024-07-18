@@ -14,7 +14,8 @@ class ContentsModelsContents extends FSModels
         $this->table_category_name = FSTable_ad::_('fs_contents_categories');
         $this->arr_img_paths = array(
             array('resized', 467, 547, 'resize_image'),
-//                                            array('small',282,170,'cut_image')
+            // array('small', 282, 170, 'cut_image')
+            array('small', 56, 56, 'cut_image')
         );
         $this->table_name = FSTable_ad::_('fs_contents');
 
@@ -105,9 +106,9 @@ class ContentsModelsContents extends FSModels
 
         $row['content'] = htmlspecialchars_decode(FSInput::get('content'));
         //if(isset($show_in_homepage ) && $show_in_homepage != 0)
-//			{
-//					$rs = $this -> _update_column('fs_contents', 'show_in_homepage','0');
-//			}
+        //			{
+        //					$rs = $this -> _update_column('fs_contents', 'show_in_homepage','0');
+        //			}
         //lấy alias
         $fsstring = FSFactory::getClass('FSString', '', '../');
         $alias = $fsstring->stringStandart($title);
@@ -118,7 +119,7 @@ class ContentsModelsContents extends FSModels
             Errors::_('Alias của bạn đã bị trùng tên', 'alert');
             $row['alias'] = $this->genarate_alias_news($row['alias'], $id);
         }
-//			return parent::save($row);
+        //			return parent::save($row);
         $id = parent::save($row, 1);
 
         $this->save_redirect($id, $row['alias']);
@@ -157,7 +158,7 @@ class ContentsModelsContents extends FSModels
         $total_field_change = count($field_change_arr);
         $record_change_success = 0;
         for ($i = 0; $i < $total; $i++) {
-//	        	$str_update = '';
+            //	        	$str_update = '';
             $row = array();
             $update = 0;
             foreach ($field_change_arr as $field_item) {
@@ -206,8 +207,6 @@ class ContentsModelsContents extends FSModels
             }
         }
         return $record_change_success;
-
-
     }
 
     function save_redirect($id, $alias)
@@ -247,5 +246,3 @@ class ContentsModelsContents extends FSModels
         return $db->getObject();
     }
 }
-
-?>

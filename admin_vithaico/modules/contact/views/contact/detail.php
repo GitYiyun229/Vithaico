@@ -23,12 +23,12 @@
             <input disabled="disabled" type="text" class="form-control" name="fullname" id="fullname" value="<?php echo $data->fullname ?>" size="60">
         </div>
     </div>
-    <!-- <div class="form-group">
-        <label class="col-md-2 col-xs-12 control-label"><?php echo FSText::_('Nhóm đối tượng khách hàng')?></label>
+    <div class="form-group">
+        <label class="col-md-2 col-xs-12 control-label"><?php echo FSText::_('Số điện thoại')?></label>
         <div class="col-md-10 col-xs-12">
-            <input disabled="disabled" type="text" class="form-control" name="type_id" id="type_id" value="<?php echo $data->type_id ?>" size="60">
+            <input disabled="disabled" type="text" class="form-control" name="telephone" id="telephone" value="<?php echo $data->telephone ?>" size="60">
         </div>
-    </div> -->
+    </div>
     <div class="form-group">
         <label class="col-md-2 col-xs-12 control-label"><?php echo FSText::_('Email')?></label>
         <div class="col-md-10 col-xs-12">

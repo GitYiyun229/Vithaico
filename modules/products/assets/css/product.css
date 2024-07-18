@@ -184,7 +184,8 @@
 }
 .container .section-product-detail .section-main .main_content .p-form .p-submit .btn-submit.out-of-stock {
   color: #fff;
-  width: calc(400px + 1rem);
+  width: 100%;
+  background: #dd2033;
 }
 .container .section-product-detail .section-main .main_content .p-form .p-submit .btn-submit.out-of-stock svg path {
   fill: rgb(221, 32, 51);
