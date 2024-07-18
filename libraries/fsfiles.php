@@ -119,7 +119,7 @@ class FSFiles
                     $source = imagecreatefromjpeg($_FILES[$input_tag_name]["tmp_name"]);
                     imagepalettetotruecolor($source);
                     $file_new1 = str_replace(['.jpg', '.jpeg'], '.webp', $file_new);
-                    $result = imagewebp($source, $path . $file_new1, 80);
+                    $result = imagewebp($source, $path . $file_new1, 100);
                     //                    var_dump($result);die;
                 }
                 imagedestroy($source);
@@ -236,7 +236,7 @@ class FSFiles
                     $source = imagecreatefromjpeg($_FILES[$input_tag_name]["tmp_name"][$i]);
                     imagepalettetotruecolor($source);
                     $file_new1 = str_replace(['.jpg', '.jpeg'], '.webp', $file_new);
-                    $result = imagewebp($source, $path . $file_new1, 80); 
+                    $result = imagewebp($source, $path . $file_new1, 100); 
                 }
 
                 imagedestroy($source);
@@ -524,11 +524,11 @@ class FSFiles
         if ($file_ext == "png") {
             $result  =  imagepng($final, $img_destination, 7);
             $img_destination = str_replace('.png', '.webp', $img_destination);
-            $result1 = imagewebp($final, $img_destination, 90);
+            $result1 = imagewebp($final, $img_destination, 100);
         } elseif ($file_ext == "jpg" || $file_ext == "jpeg") {
-            $result  =  imagejpeg($final, $img_destination, 90);
+            $result  =  imagejpeg($final, $img_destination, 100);
             $img_destination = str_replace(['.jpg', '.jpeg'], '.webp', $img_destination);
-            $result1 = imagewebp($final, $img_destination, 90);
+            $result1 = imagewebp($final, $img_destination, 100);
         } elseif ($file_ext == "gif") {
             $result  =  imagegif($final, $img_destination, 0);
         }
