@@ -61,6 +61,9 @@ main .grid_detail_new .detail_new-left .content_box ul {
   list-style: inherit;
   padding-left: 2rem;
 }
+main .grid_detail_new .detail_new-left .content_box img {
+  max-width: 100%;
+}
 main .grid_detail_new .block_right .h3_title_block {
   font-size: 20px;
   line-height: 28px;

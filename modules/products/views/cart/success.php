@@ -16,7 +16,7 @@ $tmpl->addStylesheet('success', 'modules/products/assets/css');
 
         <div class="section-item p-4 bg-white mb-3 section-body">
             <h2 class="fw-medium fs-4 mb-3 text-center"><?php echo FSText::_('Thông tin đơn hàng') ?></h2>
-            <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="info-order d-flex align-items-center justify-content-between flex-wrap mb-3">
                 <div class="order-id text-uppercase fw-semibold"><?php echo FSText::_('Đơn hàng') . ' #' . $orderID ?></div>
                 <div class="created-time_status">
                     <p class="created-time">

@@ -202,7 +202,8 @@
               gap: 10px;
               &.out-of-stock {
                 color: #fff;
-                width: calc(400px + 1rem);
+                width: 100%;
+                background: #dd2033;
                 svg path {
                   fill: rgb(221, 32, 51);
                 }

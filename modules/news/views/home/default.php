@@ -1,7 +1,7 @@
 <?php
 global $tmpl;
 $tmpl->addStylesheet('home', 'modules/news/assets/css');
-$class='img-2';
+$class = 'item-new2';
 ?>
 
 <div class="section-banner">
@@ -16,12 +16,10 @@ $class='img-2';
             </div>
         </a>
         <?php foreach ($list_cat as $item) { ?>
-        <a href="<?php echo FSRoute::_('index.php?module=news&view=cat&ccode=' . $item->alias . '&id=' . $item->id . ' ') ?>"
-            class="item_cat_new">
-            <img src="<?php echo URL_ROOT . image_replace_webp($item->image, 'original')  ?>"
-                alt="<?php echo $item->name ?>" class="img-fluid img-icon">
-            <div class="item-name"><?php echo $item->name ?></div>
-        </a>
+            <a href="<?php echo FSRoute::_('index.php?module=news&view=cat&ccode=' . $item->alias . '&id=' . $item->id . ' ') ?>" class="item_cat_new">
+                <img src="<?php echo URL_ROOT . image_replace_webp($item->image, 'original')  ?>" alt="<?php echo $item->name ?>" class="img-fluid img-icon">
+                <div class="item-name"><?php echo $item->name ?></div>
+            </a>
         <?php } ?>
     </div>
 
@@ -30,7 +28,7 @@ $class='img-2';
 <div class="container news_home_main">
     <div class="list_grid_news grid_hot_news">
         <?php foreach ($list_hot_news as $i => $item) {
-            echo $tmpl->newItem($i, $item,$class);
+            echo $tmpl->newItem($i, $item, $class);
         } ?>
     </div>
     <div class="top_h3_cat">
@@ -43,7 +41,7 @@ $class='img-2';
     </div>
     <div class="list_grid_news">
         <?php foreach ($list_news as $i => $item) { ?>
-        <?php echo $tmpl->newItem($i + 1, $item,$class) ?>
+            <?php echo $tmpl->newItem($i + 1, $item) ?>
         <?php } ?>
     </div>
 </div>
