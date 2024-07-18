@@ -24,7 +24,7 @@ print_r($getSort);
                     <div class="select">
                         <div>
                             <span>
-                                <?php  $getSort ? FSText::_('Sắp xếp theo') : '' ?>
+                                <?php echo  $getSort ? FSText::_('Sắp xếp theo') : FSText::_('Sắp xếp theo') ?>
                             </span>
                             <?php foreach ($arrSort as $i => $item) { ?>
                                 <span><?= $active = $i == $getSort ? $item : ''; ?></span>
