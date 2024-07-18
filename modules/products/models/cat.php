@@ -54,23 +54,24 @@ class ProductsModelsCat extends FSModels
         $sql .= " ORDER BY ";
 
         switch ($sort) {
-            case 0:
+            case 1:
                 $sql .= "ordering ASC";
                 break;
-            case 1:
-                $sql .= "is_new DESC";
-                break;
             case 2:
-                $sql .= "price ASC";
+                $sql .= "is_new DESC, created_time DESC";
                 break;
             case 3:
+                $sql .= "price ASC";
+                break;
+            case 4:
                 $sql .= "price DESC";
                 break;
             default:
                 $sql .= "ordering ASC";
                 break;
         }
-
+        // print_r($sql);
+        // die;
         return $sql;
     }
 
