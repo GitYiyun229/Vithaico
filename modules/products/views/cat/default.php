@@ -26,7 +26,6 @@ $tmpl->addStylesheet('default', 'blocks/product_categories/assets/css');
                     </span>
                     <div class="select">
                         <div>
-
                             <?php foreach ($arrSort as $i => $item) { ?>
                                 <span><?= $active = $i == $getSort ? $item : ''; ?></span>
                             <?php } ?>
