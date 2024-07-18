@@ -1607,6 +1607,7 @@ class FSModels
 		if ($id)
 			$query .= ' AND id <> ' . $id . ' ';
 		global $db;
+		// print_r($query);die;
 		$result = $db->getResult($query);
 		return $result;
 	}
