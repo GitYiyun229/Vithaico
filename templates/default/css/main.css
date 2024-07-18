@@ -854,9 +854,8 @@ footer .footer-bot .copyright {
   .list_grid_news .item-new2 .box-img {
     max-height: 95px;
   }
-  .list-products_grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 24px;
+  .layout-product-item {
+    width: calc((100% - 30px) / 2);
   }
   .section-banner {
     text-align: center;

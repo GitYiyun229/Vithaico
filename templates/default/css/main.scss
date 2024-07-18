@@ -942,10 +942,12 @@ footer {
     }
   }
   .list-products_grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 24px;
+    // grid-template-columns: repeat(2, 1fr);
+    // grid-gap: 24px;
   }
   .layout-product-item {
+    width: calc((100% - 30px) / 2);
+
     .box-img {
       .layout-img {
       }
