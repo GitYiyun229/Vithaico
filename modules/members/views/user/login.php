@@ -54,7 +54,6 @@ $tmpl->addStylesheet('login', 'modules/members/assets/css');
                         <?php echo FSText::_('Đăng ký') ?>
                     </a>
                 </div>
-               
             </div>
         </div>
     </div>
