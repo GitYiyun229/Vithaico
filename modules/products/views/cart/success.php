@@ -16,10 +16,22 @@ $tmpl->addStylesheet('success', 'modules/products/assets/css');
 
         <div class="section-item p-4 bg-white mb-3 section-body">
             <h2 class="fw-medium fs-4 mb-3 text-center"><?php echo FSText::_('Thông tin đơn hàng') ?></h2>
-            <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="info-order d-flex align-items-center justify-content-between flex-wrap mb-3">
                 <div class="order-id text-uppercase fw-semibold"><?php echo FSText::_('Đơn hàng') . ' #' . $orderID ?></div>
-                <div class="text-grey"><?php echo date('H:i d/m/Y', strtotime($order['created_time'])) ?></div>
+                <div class="created-time_status">
+                    <p class="created-time">
+                        <?php echo date('d/m/Y H:i', strtotime($order['created_time'])) ?>
+                    </p>
+                    <p class="coin">
+                         + <?php echo $order['member_coin'] ?> <span>VT-Coin</span>
+                    </p>
+                    <p class="status">
+                        <?php echo FSText::_('Đang xử lý') ?>
+                    </p>
+                </div>
+              
             </div>
+
             <div class="mb-3 table-container">
                 <table class="table table-hover mb-0 table-order">
                     <thead>
@@ -78,42 +90,42 @@ $tmpl->addStylesheet('success', 'modules/products/assets/css');
             <h2 class="fw-medium fs-4 mb-3 text-center"><?php echo FSText::_('Thông tin nhận hàng') ?></h2>
             <div class="d-flex gap-3 flex-wrap">
                 <div class="d-flex w-100">
-                    <div class="col-3">
+                    <div class="col-3 text-grey">
                         <?php echo FSText::_('Tên người nhận') ?>
                     </div>
-                    <div class="col-9">
+                    <div class="col-9 text-dark">
                         <?php echo $order['recipients_name'] ?>
                     </div>
                 </div>
                 <div class="d-flex w-100">
-                    <div class="col-3">
+                    <div class="col-3 text-grey">
                         <?php echo FSText::_('Email') ?>
                     </div>
-                    <div class="col-9">
+                    <div class="col-9 text-dark">
                         <?php echo $order['recipients_email'] ?>
                     </div>
                 </div>
                 <div class="d-flex w-100">
-                    <div class="col-3">
+                    <div class="col-3 text-grey">
                         <?php echo FSText::_('Số điện thoại') ?>
                     </div>
-                    <div class="col-9">
+                    <div class="col-9 text-dark">
                         <?php echo $order['recipients_telephone'] ?>
                     </div>
                 </div>
                 <div class="d-flex w-100">
-                    <div class="col-3">
+                    <div class="col-3 text-grey">
                         <?php echo FSText::_('Hình thức thanh toán') ?>
                     </div>
-                    <div class="col-9">
+                    <div class="col-9 text-dark">
                         Thanh toán tiền mặt khi nhận hàng
                     </div>
                 </div>
                 <div class="d-flex w-100">
-                    <div class="col-3">
+                    <div class="col-3 text-grey">
                         <?php echo FSText::_('Địa chỉ nhận hàng') ?>
                     </div>
-                    <div class="col-9">
+                    <div class="col-9 text-dark">
                         <?php echo $order['recipients_address'] ? $order['recipients_address'] . ',' : '' ?> <?php echo $ward->name ?>, <?php echo $district->name ?>, <?php echo $province->name ?>
                     </div>
                 </div>

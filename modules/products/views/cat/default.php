@@ -2,7 +2,7 @@
 $tmpl->addStylesheet('category', 'modules/products/assets/css');
 $tmpl->addScript('category', 'modules/products/assets/js');
 $tmpl->addStylesheet('default', 'blocks/product_categories/assets/css');
-print_r($getSort);
+// print_r($getSort);
 ?>
 <div class="section-banner">
     <?php echo $tmpl->load_direct_blocks('banners', ['category_id' => '3', 'style' => 'default']); ?>
@@ -21,11 +21,11 @@ print_r($getSort);
                     <p><?= $cat->name ?></p>
                 </div>
                 <div class="select-menu position-relative">
+                    <span>
+                        <?= FSText::_('Sắp xếp theo') ?>
+                    </span>
                     <div class="select">
                         <div>
-                            <span>
-                                <?php  $getSort ? FSText::_('Sắp xếp theo') : '' ?>
-                            </span>
                             <?php foreach ($arrSort as $i => $item) { ?>
                                 <span><?= $active = $i == $getSort ? $item : ''; ?></span>
                             <?php } ?>

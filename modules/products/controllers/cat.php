@@ -41,7 +41,7 @@ class ProductsControllersCat extends FSControllers
         $query = $model->setQueryBody($cat->id, $getPrice, $getFilter, $getSort);
         $products = $model->getProducts($query);
 
-        $products = $this->nomalizeProducts($products);
+        // $products = $this->nomalizeProducts($products);
 
         $total = $model->getTotal($query);
 		$pagination = $model->getPagination($total);

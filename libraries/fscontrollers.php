@@ -387,6 +387,7 @@ class FSControllers
 							<div class="price">
 								<div class="title">Giá bán lẻ</div>
 								<div class="value">
+									
 									<?php echo format_money($item->price, '₫') ?>
 								</div>
 							</div>

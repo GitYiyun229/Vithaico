@@ -54,23 +54,24 @@ class ProductsModelsCat extends FSModels
         $sql .= " ORDER BY ";
 
         switch ($sort) {
-            case 0:
+            case 1:
                 $sql .= "ordering ASC";
                 break;
-            case 1:
-                $sql .= "is_new DESC";
-                break;
             case 2:
-                $sql .= "price ASC";
+                $sql .= "is_new DESC, created_time DESC";
                 break;
             case 3:
+                $sql .= "price ASC";
+                break;
+            case 4:
                 $sql .= "price DESC";
                 break;
             default:
                 $sql .= "ordering ASC";
                 break;
         }
-
+        // print_r($sql);
+        // die;
         return $sql;
     }
 
@@ -85,7 +86,7 @@ class ProductsModelsCat extends FSModels
     public function getProducts($query)
     {
         global $db;
-        $sql = "SELECT id, alias, name, image, coin, quantity, price, price_old, sold_out, is_gift, freeship, promotion_end_time, promotion_start_time, data_extends
+        $sql = "SELECT id, alias, name, image, coin, quantity, price, price_discount, price_old, sold_out, is_gift, freeship, promotion_end_time, promotion_start_time, data_extends
                 $query
         ";
         $db->query_limit($sql, $this->limit, $this->page);
@@ -93,11 +94,11 @@ class ProductsModelsCat extends FSModels
     }
 
     function getPagination($total)
-	{
-		FSFactory::include_class('Pagination');
-		$pagination = new Pagination($this->limit, $total, $this->page);
-		return $pagination;
-	}
+    {
+        FSFactory::include_class('Pagination');
+        $pagination = new Pagination($this->limit, $total, $this->page);
+        return $pagination;
+    }
 
 
     public function getCategoriesWrap($str)

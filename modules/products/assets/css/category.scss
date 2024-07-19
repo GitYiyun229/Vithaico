@@ -20,18 +20,13 @@
         width: 250px;
         border: 1px solid #dedede;
         padding: 10px;
-        color: #fff;
         border-radius: 6px;
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
-        // -webkit-box-align: center;
-        // -ms-flex-align: center;
         align-items: center;
-        // -webkit-box-pack: justify;
-        // -ms-flex-pack: justify;
         justify-content: space-between;
-        color: #111;
+        color: #000;
         font-weight: 400;
       }
     }
@@ -70,8 +65,8 @@
   -webkit-transition: 0.3s ease-in-out;
   -o-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out;
-      width: 100%;
-    display: block;
+  width: 100%;
+  display: block;
 }
 
 .option:hover,
@@ -276,6 +271,12 @@
   .cat-h1 {
     margin-bottom: 0;
   }
+  .section-main .section-filter .select-menu {
+    .options-list {
+      max-width: 250px;
+      right: 0;
+    }
+  }
 }
 
 @media (max-width: 500px) {
@@ -290,5 +291,14 @@
   }
   .section-filter-sort {
     gap: 10px !important;
+  }
+  .section-main .section-filter .select-menu {
+    .select {
+      width: 200px;
+    }
+    .options-list {
+      max-width: 200px;
+      right: 0;
+    }
   }
 }

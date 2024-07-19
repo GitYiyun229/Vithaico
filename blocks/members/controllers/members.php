@@ -57,7 +57,7 @@ class MembersBControllersMembers
 
     $now = new DateTime();
     $start_date = new DateTime($start_time);
-
+ 
     if ($start_date > $now) {
       // $start_date lớn hơn $now, trả về số ngày dương
       $interval = $now->diff($start_date)->days;
@@ -65,6 +65,7 @@ class MembersBControllersMembers
       // $start_date nhỏ hơn $now, trả về số ngày âm
       $interval = - ($start_date->diff($now)->days);
     }
+    return $interval;
   }
   function get_total_member_coin($user_id)
   {

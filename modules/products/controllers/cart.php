@@ -181,6 +181,7 @@ class ProductsControllersCart extends FSControllers
 
     public function updateCart()
     {
+
         $index = FSInput::get('index');
         $quantity = FSInput::get('quantity', 1);
         $remove = FSInput::get('remove', 0);
@@ -314,53 +315,6 @@ class ProductsControllersCart extends FSControllers
         $rowOrder['ward_name'] = $this->model->get_record("code = '" . $rowOrder['recipients_ward'] . "'", 'fs_wards', 'code, name, full_name')->full_name;
 
         $_SESSION['cartCalculated'] = $cart;
-
-        // if ($user->userID && $orderId) {
-        //     if ($user->userInfo->level >= 1) {
-        //         $this->calculateMemberRankDaiLy();
-        //     }
-        //     $member_ref = $this->model->get_record("ref_code = '" . $user->userInfo->ref_by . "'", 'fs_members', 'id,level,full_name,vt_coin,hoa_hong'); // thành viên giới thiệu (F0)
-        //     $percent = 0;
-        //     //cách tính số coin nhận được nếu trên 300coin nhận thêm 10% hoa hồng cho f0
-        //     if ($member_coin > 300) {
-        //         $percent = 10;
-        //     }
-        //     $hoa_hong = $member_ref->hoa_hong;
-
-        //     if (!isset($hoa_hong) || empty($hoa_hong)) {
-        //         $table_level = $this->model->get_record('level =' . $member_ref->level, 'fs_members_group');
-        //         $hoa_hong = $table_level->member_benefits;
-        //     }
-
-        //     $coin_add_affilat =  ($member_coin * ($hoa_hong + $percent)) / 100;
-
-        //     if ($coin_add_affilat) {
-        //         $total_coin = $coin_add_affilat + $member_ref->vt_coin;
-        //         $calculateMemberCoin = $this->calculateMemberCoin($member_ref->id, $total_coin);
-
-        //         if ($calculateMemberCoin) {
-        //             $RowCoin = [
-        //                 'order_id' => $orderId,
-        //                 'total_coin' => $member_coin, //số coin của đơn hàng 
-        //                 'percent_add' => $member_ref->hoa_hong, //số % thêm khi đơn hàng trên 300vt-coin
-        //                 'percent' => $member_ref->hoa_hong, //số % mà f0 có thể nhận được , dựa trên mức rank của họ
-        //                 'before_coin' => $member_ref->vt_coin, //số coin của member lúc ban đầu
-        //                 'after_coin' => $coin_add_affilat, //số coin của member sau khi cộng dựa theo % hoa hồng 
-        //                 'total_coin_after' => $total_coin, //số coin của member sau khi cộng dựa theo % hoa hồng 
-        //                 'user_name' =>  $member_ref->full_name, // tổng số coin sau khi được cộng vào 
-        //                 'user_id' => $member_ref->id, //user_id nhận tiền 
-        //                 'created_time' => date('Y-m-d H:i:s'), //ngày tạo
-        //             ];
-
-        //             $LogCoinId = $this->model->_add($RowCoin, 'fs_coin_log');
-        //             if ($LogCoinId) {
-        //                 $check_rank_member = $this->calculateMemberRank($user->userInfo->id); // check rank cho thành viên mua hàng
-        //                 if ($member_ref->level >= 1)
-        //                     $check_rank_member_affilate = $this->calculateMemberRank($member_ref->id);
-        //             }
-        //         }
-        //     }
-        // }
         if ($user->userID && $orderId) {
             if ($user->userInfo->level >= 1) {
                 $this->calculateMemberRankDaiLy();
@@ -372,6 +326,7 @@ class ProductsControllersCart extends FSControllers
             if ($coin_add_affilat) {
                 $dieu_kien_nhan = $member_ref->active_account == 1 ? 1 : 0;
                 $total_coin = $coin_add_affilat + $member_ref->vt_coin;
+                
                 if ($this->calculateMemberCoin($member_ref->id, $total_coin, $dieu_kien_nhan)) {
                     $RowCoin = [
                         'order_id' => $orderId,
@@ -397,7 +352,6 @@ class ProductsControllersCart extends FSControllers
                 }
             }
         }
-        // die;
         $_SESSION['CoinInfo'] = $RowCoin;
 
         setRedirect(FSRoute::_("index.php?module=products&view=cart&task=orderSuccess"));
@@ -449,8 +403,6 @@ class ProductsControllersCart extends FSControllers
         // unset($_SESSION['cartCalculated']);
         // unset($_SESSION['orderInfo']);
         // unset($_SESSION['CoinInfo']);
-        // $total_price_orrder = $this->calculateMemberRankDaiLy();
-        // $total_price_orrder_MONTH = $this->calculateMemberRank($user->userInfo->id);
 
         global $tmpl;
         $tmpl->addTitle('Đặt hàng thành công');

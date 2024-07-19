@@ -19,10 +19,6 @@ class ProductsModelsProducts extends FSModels
         $this->table_image = FSTable_ad::_('fs_' . $this->type . '_images');
         $this->table_types = FSTable_ad::_('fs_' . $this->type . '_types');
 
-        //synchronize
-        //			$this -> array_synchronize = array('fs_estores_products'=>array('id'=>'product_id','published'=>'record_published','alias'=>'product_alias','name'=>'product_name','category_name'=>'category_name','category_alias'=>'category_alias','category_alias_wrapper'=>'category_id_wrapper','category_id'=>'category_id','manufactory_country_id'=>'manufactory_country_id','manufactory_country_name'=>'manufactory_country_name','manufactory_country_flag'=>'manufactory_country_flag','manufactory_id'=>'manufactory_id','manufactory_alias'=>'manufactory_alias','manufactory_name'=>'manufactory_name'));
-        // calculate filters:
-        // $this->calculate_filters = 1;
         // config for save
         $cyear = date('Y');
         $cmonth = date('m');
@@ -31,21 +27,6 @@ class ProductsModelsProducts extends FSModels
         $this->check_alias = 1;
         $this->field_img = 'image';
         $this->field_reset_when_duplicate = array('comments_total');
-        $this->arr_img_paths_og = array('large', 800, 600, 'resize_image_fix_height_webp');
-        $this->arr_img_paths_spec = array(array('large', 800, 600, 'resize_image_fix_height_webp'), array('resized', 150, 112, 'resize_image_fix_height_webp'));
-        $this->arr_img_paths_unbox = array(array('large', 800, 600, 'resize_image_fix_height_webp'), array('resized', 150, 112, 'resize_image_fix_height_webp'));
-        //        $this->arr_img_paths_unbox = array('resized', 150, 112, 'resize_image_fix_height_webp');
-        $this->arr_img_paths_sub = array(
-            array('larges', 596, 596, 'resize_image_fix_height_webp'),
-            array('resize', 368, 368, 'resize_image_fix_height_webp'),
-            array('resized', 200, 200, 'resize_image_fix_height_webp'),
-            array('large', 276, 276, 'resize_image_fix_height_webp'),
-            array('tiny', 120, 120, 'resize_image_fix_height_webp'),
-            array('small', 112, 112, 'resize_image_fix_height_webp'),
-            array('tiny', 64, 64, 'resize_image')
-        );
-
-        // 192.200.240.112,616,120,88,231
 
         $this->arr_img_paths_other = array(
             array('larges', 596, 596, 'resize_image_fix_height_webp'),
@@ -59,7 +40,7 @@ class ProductsModelsProducts extends FSModels
         );
         $this->arr_img_paths = array(
             array('larges', 596, 596, 'resize_image_fix_height_webp'),
-            array('resize', 368, 368, 'resize_image_fix_height_webp'),
+            array('resize', 468, 596, 'resize_image_fix_height_webp'),
             array('resized', 200, 200, 'resize_image_fix_height_webp'),
             array('large', 276, 276, 'resize_image_fix_height_webp'),
             array('tiny', 120, 120, 'resize_image_fix_height_webp'),
@@ -67,74 +48,12 @@ class ProductsModelsProducts extends FSModels
             array('tiny', 64, 64, 'resize_image')
 
         );
-        // $this->arr_img_paths_landing = array(
-        //     array('resize', 590, 330, 'resize_image_fix_height_webp'),
-        //     array('small', 60, 60, 'resize_image_fix_height_webp')
-        // );
+
         parent::__construct();
         // $this->load_params();
     }
 
-    // function load_params()
-    // {
-    //     $module_params = $this->get_params($this->module, 'product');
-
-    //     if ($module_params) { // params from fs_config_modules
-    //         $this->module_params = $module_params;
-    //         $arr_img_paths = array();
-    //         //            $arr_img_paths_other = array();
-
-    //         FSFactory::include_class('parameters');
-    //         $current_parameters = new Parameters($module_params);
-    //         // large size
-    //         $image_large_size = $current_parameters->getParams('image_large_size');
-    //         $image_large_method = $current_parameters->getParams('image_large_method');
-    //         if (!$image_large_method)
-    //             $image_large_method = 'resize_image'; // giữ nguyên dạng ảnh, thêm khoảng trắng
-    //         $image_large_width = $this->get_dimension($image_large_size, 'width');
-    //         $image_large_height = $this->get_dimension($image_large_size, 'height');
-    //         if (!$image_large_width && !$image_large_height) {
-    //             $image_large_width = 374;
-    //             $image_large_height = 380;
-    //         }
-    //         $arr_img_paths[] = array('large', $image_large_width, $image_large_height, $image_large_method);
-    //         //            $arr_img_paths_other [] = array('large', $image_large_width, $image_large_height, $image_large_method);
-
-    //         // resized: ảnh đại diện trong trang danh sách
-    //         $image_resized_size = $current_parameters->getParams('image_resized_size');
-    //         $image_resized_method = $current_parameters->getParams('image_resized_method');
-    //         if (!$image_resized_method)
-    //             $image_resized_method = 'resize_image'; // giữ nguyên dạng ảnh, thêm khoảng trắng
-
-
-    //         $image_resized_width = $this->get_dimension($image_resized_size, 'width');
-    //         $image_resized_height = $this->get_dimension($image_resized_size, 'height');
-    //         if (!$image_resized_width && !$image_resized_height) {
-    //             $image_resized_width = 204;
-    //             $image_resized_height = 190;
-    //         }
-    //         $arr_img_paths[] = array('resized', $image_resized_width, $image_resized_height, $image_resized_method);
-
-    //         // small: ảnh nhỏ làm slideshow
-    //         $image_small_size = $current_parameters->getParams('image_small_size');
-    //         $image_small_method = $current_parameters->getParams('image_small_method');
-    //         if (!$image_small_method)
-    //             $image_small_method = 'resize_image'; // giữ nguyên dạng ảnh, thêm khoảng trắng
-    //         $image_small_width = $this->get_dimension($image_small_size, 'width');
-    //         $image_small_height = $this->get_dimension($image_small_size, 'height');
-    //         if ($image_small_width || $image_small_height) {
-    //             $arr_img_paths[] = array('small', $image_small_width, $image_small_height, $image_small_method);
-    //             //                $arr_img_paths_other [] = array('small', $image_small_width, $image_small_height, $image_small_method);
-    //         }
-    //         $this->arr_img_paths = $arr_img_paths;
-    //         //            $this->arr_img_paths_other = $arr_img_paths_other;
-
-    //     } else {
-    //         // default
-    //         $this->arr_img_paths = array(array('large', 374, 380, 'resize_image'), array('resized', 204, 190, 'resize_image'), array('small', 47, 35, 'resize_image'));
-    //         //            $this->arr_img_paths_other = array(array('large', 374, 380, 'resize_image'), array('resized', 204, 190, 'resize_image'), array('small', 47, 35, 'resize_image'));
-    //     }
-    // }
+    
 
 
     /*
@@ -360,6 +279,8 @@ class ProductsModelsProducts extends FSModels
         $id = FSInput::get('id', 0, 'int');
         if (!$id) {
             $row['quantity'] = FSInput::get2('count', 0, 'int');
+        } else {
+            $row['quantity'] = FSInput::get2('quantity', 0, 'int');
         }
 
         // category and category_id_wrapper
@@ -377,17 +298,9 @@ class ProductsModelsProducts extends FSModels
         $row['category_name'] = $cat->name;
         $row['category_alias'] = $cat->alias;
         $row['category_published'] = $cat->published;
-        $row['tablename'] = $cat->tablename;
+        // $row['tablename'] = $cat->tablename;
 
-        //$row ['specs'] = ''; // khi sửa ta xóa specs đi để còn update đc
-        //        $manufactory_id = FSInput::get('manufactory');
-        //        if ($manufactory_id) {
-        //            $manufactory = $this->get_record_by_id($manufactory_id, 'fs_manufactories');
-        //            $row ['manufactory'] = $manufactory_id;
-        //            $row ['manufactory_alias'] = $manufactory->alias;
-        //            $row ['manufactory_name'] = $manufactory->name;
-        //            $row ['manufactory_image'] = $manufactory->image;
-        //        }
+
 
         //lưu danh mục phụ
         $multi_categories = FSInput::get('multi_categories', array(), 'array');
@@ -396,11 +309,6 @@ class ProductsModelsProducts extends FSModels
             $str_multi_categories = ',' . $str_multi_categories . ',';
         }
         $row['multi_categories'] = $str_multi_categories;
-
-        //lưu cửa hàng chọn nhiều
-        //        $arr_store_id = FSInput::get('stores', array(), 'array');
-        //        $str_store_id = implode(',', $arr_store_id);
-        //        $row ['stores'] = ',' . $str_store_id . ',';
 
         //lưu sp cùng loại chọn nhiều
         $arr_prd_id = FSInput::get('products_same', array(), 'array');
@@ -424,18 +332,6 @@ class ProductsModelsProducts extends FSModels
         $price_discount = FSInput::get('price_discount');
         $row['price_discount'] = $price_discount = $this->standart_money($price_discount, 0);
 
-        $price_old = FSInput::get('price_old');
-        $row['price_old'] = $price_old = $this->standart_money($price_old, 0);
-
-        // if ($price > 0 && $price_old == 0) {
-        //     $row['price_old'] = $price;
-        //     $row['discount'] = 0;
-        // } elseif ($price == 0 && $price_old > 0) {
-        //     $row['price'] = $price_old;
-        //     $row['discount'] = 0;
-        // } else {
-        //     $row['discount'] = $row['price_old'] - $row['price'];
-        // }
         if ($price > 0 && $price_discount == 0) {
             $row['price_discount'] = $price;
             $row['discount'] = 0;
@@ -446,95 +342,17 @@ class ProductsModelsProducts extends FSModels
             $row['discount'] = $row['price'] - $row['price_discount'];
         }
 
-        //        //price mua kèm
-        $price_compare = FSInput::get('price_compare');
-        $row['price_compare'] = $price_compare = $this->standart_money($price_compare, 0);
-        //        //price thu loại 1
-        $price_autumn = FSInput::get('price_autumn');
-        $row['price_autumn'] = $price_autumn = $this->standart_money($price_autumn, 0);
-        //        //price thu loại 2
-        $price_autumn_2 = FSInput::get('price_autumn_2');
-        $row['price_autumn_2'] = $price_autumn_2 = $this->standart_money($price_autumn_2, 0);
-        //        //price thu loại 3
-        $price_autumn_3 = FSInput::get('price_autumn_3');
-        $row['price_autumn_3'] = $price_autumn_3 = $this->standart_money($price_autumn_3, 0);
-        //        //price thu loại 4
-        $price_autumn_4 = FSInput::get('price_autumn_4');
-        $row['price_autumn_4'] = $price_autumn_4 = $this->standart_money($price_autumn_4, 0);
-
-        // image thông số kỹ thuật
-        //        $image_name = $_FILES["image_spec"]["name"];
-        //        if ($image_name) {
-        //            $image = $this->upload_image('image_spec', '_' . time(), 2000000, $this->arr_img_paths_spec);
-        //            if ($image) {
-        //                $row['image_spec'] = $image;
-        //            }
-        //        }
-        // $type_image = FSInput::get('type_image_spec', 0, 'int');
-        // if ($type_image == 0) {
-        //     $image_spec = $_FILES["image_spec"]["name"];
-        // } else {
-        //     $image_spec = FSInput::get('image_spec');
-        // }
-        // if ($image_spec) {
-        //     $image = $this->upload_image('image_spec', '_' . time(), 2000000, $this->arr_img_paths_spec, '', $type_image, $image_spec);
-        //     if ($image) {
-        //         $row['image_spec'] = $image;
-        //     }
-        // }
-        // $type_image_unbox = FSInput::get('type_image_unbox', 0, 'int');
-        // if ($type_image_unbox == 0) {
-        //     $image_unbox = $_FILES["image_unbox"]["name"];
-        // } else {
-        //     $image_unbox = FSInput::get('image_unbox');
-        // }
-        // if ($image_unbox) {
-        //     $image = $this->upload_image('image_unbox', '_' . time(), 2000000, $this->arr_img_paths_unbox, '', $type_image_unbox, $image_unbox);
-        //     if ($image) {
-        //         $row['image_unbox'] = $image;
-        //     }
-        // }
-        // $type_image_land = FSInput::get('type_image_land', 0, 'int');
-        // if ($type_image_land == 0) {
-        //     $image_land = $_FILES["image_land"]["name"];
-        // } else {
-        //     $image_land = FSInput::get('image_land');
-        // }
-        // if ($image_land) {
-        //     $image = $this->upload_image('image_land', '_' . time(), 2000000, $this->arr_img_paths_landing, '', $type_image_land, $image_land);
-        //     if ($image) {
-        //         $row['image_land'] = $image;
-        //     }
-        // }
-
-
-        //        $image_og = $_FILES["image_og"]["name"];
-        //        if ($image_og) {
-        //            $image = $this->upload_image('image', '_' . time(), 4000000, $this->arr_img_paths_og);
-        //            if ($image) {
-        //                $row['image_og'] = $image;
-        //            }
-        //        }
-
         $user_id = isset($_SESSION['ad_userid']) ? $_SESSION['ad_userid'] : '';
         if (!$user_id)
             return false;
         $user = $this->get_record_by_id($user_id, 'fs_users', 'username');
 
         if ($id) {
-            // $row['action_id'] = $user_id;
-            // $row['action_name'] = $username;
-            // $row['editor_id'] = $user_id;
-            // $row['editor_name'] = $username;
-            // $row['user_full_name'] = $username;
             $row['author_last'] = $user->username;
             $row['author_last_id'] = $user_id;
         } else {
             $row['author'] = $user->username;
             $row['author_id'] = $user_id;
-            // $row['editor_id'] = $user_id;
-            // $row['editor_name'] = $username;
-            // $row['user_full_name'] = $username;
         }
 
         $products_related = $color = FSInput::get('products_record_related', array(), 'array');
@@ -560,59 +378,10 @@ class ProductsModelsProducts extends FSModels
         }
         $row['news_related'] = $str_news_related;
 
-        //lấy alias
-        //        $fsstring = FSFactory::getClass('FSString', '', '../');
-        //        $alias = $fsstring->stringStandart($name);
-        //        $row['alias'] = FSInput::get('alias') ? FSInput::get('alias') : $alias;
-        //        $check_alias = $this->check_exist_alias_redirect($id, $alias);
-        //        if ($check_alias) {
-        //            Errors::_('Alias của bạn đã bị trùng tên', 'alert');
-        //            $row['alias'] = $this->genarate_alias_news($row['alias'], $id);
-        //        }
+
         $id = parent::save($row, 1);
         //        die;
         $this->save_redirect($id);
-
-        if (!$id) {
-            Errors::setError('Not save');
-            return false;
-        } else {
-            $this->save_extension($row['tablename'], $id);
-            // $this->save_extension_new($category_id, $id);
-            $this->save_extension_new2($cat->tablename, $id);
-        }
-        $rs = $this->save_edit($id);
-        $product_sub = $this->get_records('published = 1 AND product_id=' . $id, 'fs_products_sub', 'name, id, price, price_old, store, stocking, quantity');
-        if (@$product_sub) {
-            $price_min = 0;
-            $quantityTotal = 0;
-            foreach ($product_sub as $item) {
-                if ($price_min == 0) {
-                    $price_min = $item->price;
-                } elseif ($item->price < $price_min) {
-                    $price_min = $item->price;
-                }
-                $quantityTotal += $item->quantity;
-            }
-            $prd_active = $this->get_records('published = 1 AND product_id=' . $id . ' AND price =' . $price_min . ' ORDER BY price_old DESC LIMIT 1', 'fs_products_sub', 'name, id, price, price_old,discount, store, stocking');
-            $row_up = array();
-            $row_up['quantity'] = $quantityTotal;
-            $row_up['price'] = $prd_active[0]->price;
-            $row_up['price_old'] = $prd_active[0]->price_old;
-            $row_up['discount'] = $prd_active[0]->discount;
-            $this->_update($row_up, 'fs_products', 'id=' . $id);
-            //            die;
-        }
-        // remove color
-        if (!$this->remove_images_plus($id)) {
-        }
-        // edit color
-        if (!$this->save_exist_images_plus($id)) {
-            //				return false;
-        }
-        // save color
-        if (!$this->save_new_images_plus($id)) {
-        }
         $this->save_products_images($id);
         //save tinh trang
         if (!empty($id)) {
@@ -1088,7 +857,7 @@ class ProductsModelsProducts extends FSModels
                     //	        	          $row[$field_item] = htmlspecialchars_decode($field_value_new);
                     $row[$field_item] = htmlspecialchars_decode($field_value_new);
                     // if ($field_item != 'seo_title' && $field_item != 'seo_keyword' && $field_item && 'seo_description') {
-                        $row1[$field_item] = htmlspecialchars_decode($field_value_new);
+                    $row1[$field_item] = htmlspecialchars_decode($field_value_new);
                     // }
                     //	        	          $str_update[] = "`".$field_item."` = '".$field_value_new."'";
                 }

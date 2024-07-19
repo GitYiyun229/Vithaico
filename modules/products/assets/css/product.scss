@@ -202,7 +202,8 @@
               gap: 10px;
               &.out-of-stock {
                 color: #fff;
-                width: calc(400px + 1rem);
+                width: 100%;
+                background: #dd2033;
                 svg path {
                   fill: rgb(221, 32, 51);
                 }
@@ -270,20 +271,22 @@
         }
       }
       table {
-        border: 2px solid #b9b9b9;
+        border: 1px solid #b9b9b9;
         tr {
-          border: 2px solid #b9b9b9;
+        
           padding: 5px;
           th {
             background: #e0dfdf;
           }
           td {
-            padding: 5px;
-            border: 2px solid #b9b9b9;
+            padding: 15px 10px;
+            border-bottom: 1px solid #b9b9b9;
+            border-right: 1px solid #b9b9b9;
           }
 
           td:first-child {
             width: 25%;
+            font-weight: 700;
             p,
             strong {
               font-weight: 700;
@@ -297,6 +300,10 @@
             width: 70%;
           }
         }
+        tr:nth-child(odd) {
+          background-color: white;
+        }
+
       }
     }
   }

@@ -555,7 +555,7 @@ class TemplateHelper
                                 if (!$row->{$item['field']})
                                     $html_body .= '-';
                                 else
-                                    $html_body .= date('d/m/Y', strtotime($row->{$item['field']}));
+                                    $html_body .= date('d/m/Y H:i:s', strtotime($row->{$item['field']}));
                                 break;
                             case 'date':
                                 $html_body .= date('d/m/Y', strtotime($row->{$item['field']}));
