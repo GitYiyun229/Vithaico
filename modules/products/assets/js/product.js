@@ -7,6 +7,7 @@ $(document).ready(function () {
     arrows: true,
     fade: true,
     asNavFor: ".slider-nav",
+    adaptiveHeight: true,
     prevArrow:
       '<svg width="40" height="40" class="slick-prev" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_1540_10364)"><rect width="40" height="40" rx="20" transform="matrix(-1 0 0 1 40 0)" fill="#F4F8FA"/><path d="M22 24L18 20L22 16" stroke="#575757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g><defs><clipPath id="clip0_1540_10364"><rect width="40" height="40" rx="20" transform="matrix(-1 0 0 1 40 0)" fill="white"/></clipPath></defs></svg>',
     nextArrow:
