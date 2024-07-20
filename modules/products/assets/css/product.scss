@@ -311,8 +311,8 @@
 .section-product-related {
   margin-top: 48px;
   .list-related {
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 32px;
+    display: flex;
+    gap: 32px;
   }
   .layout-product-item {
     .box-img {
@@ -321,7 +321,8 @@
       max-width: 276px;
       max-height: 276px;
       .layout-img {
-        padding: 24px;
+        // padding: 24px;
+        min-height: 276px;
       }
     }
     .layout-content {
