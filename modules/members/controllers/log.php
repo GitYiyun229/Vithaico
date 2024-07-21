@@ -66,6 +66,7 @@ class MembersControllersLog extends FSControllers
     public function logout()
     {
         global $user;
+        unset($_SESSION);
         $_SESSION['have_redirect'] = 1;
         $_SESSION["msg_success"] = [FSText::_('Đăng xuất tài khoản thành công!')];
         $user->logouts(URL_ROOT);

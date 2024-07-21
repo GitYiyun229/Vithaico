@@ -25,36 +25,21 @@ RewriteRule ^feeds$ rss.php [L]
 RewriteRule ^404.html$ index.php?module=home&view=home&task=display404&Itemid=11 [L]
 ErrorDocument 404 /404.html
 
-
 #--------------------contact --------------------------------index.php?module=contact&view=contact&code=----------------------
 RewriteRule ^lien-he$ index.php?module=contact&view=contact&Itemid=43&lang=vi [L]
-RewriteRule ^contact$ index.php?module=contact&view=contact&Itemid=43&lang=en [L]
-
 #-----------------------------tin tức---------------------------------------------------------------------------------------
 RewriteRule ^tin-tuc/([^/]*)-cn([0-9]*)/(page-([0-9]*)) index.php?module=news&view=cat&ccode=$1&id=$2&Itemid=3&page=$4&lang=vi [L]
 RewriteRule ^tin-tuc/([^/]*)-cn([0-9]*)$ index.php?module=news&view=cat&ccode=$1&id=$2&Itemid=3&lang=vi [L]
-RewriteRule ^news/([^/]*)-cne([0-9]*)/(page([0-9]*))$ index.php?module=news&view=cat&ccode=$1&id=$2&Itemid=3&page=$4&lang=en [L]
-RewriteRule ^news/([^/]*)-cne([0-9]*)$ index.php?module=news&view=cat&ccode=$1&id=$2&Itemid=3&lang=en [L]
-
-
 RewriteRule ^tin-tuc/page-([0-9]*)$ index.php?module=news&view=home&Itemid=2&page=$1&lang=vi [L]
 RewriteRule ^tin-tuc$ index.php?module=news&view=home&Itemid=2&lang=vi [L]
-RewriteRule ^news/(page-([0-9]*))$ index.php?module=news&view=home&ccode=$1&Itemid=2&page=$2&lang=en [L]
-RewriteRule ^news$ index.php?module=news&view=home&Itemid=2&lang=en [L]
-
-
 RewriteRule ^tin-tuc/([^/]*)-dn([0-9]*)$ index.php?module=news&view=news&code=$1&id=$2&Itemid=4&lang=vi [L]
-RewriteRule ^news/([^/]*)-dne([0-9]*)$ index.php?module=news&view=news&code=$1&id=$2&Itemid=4&lang=en [L]
-
 #product
 RewriteRule ^([^/]*)-pc([0-9]*).html(.*) index.php?module=products&view=cat&code=$1&id=$2&Itemid=2&lang=vi&%{QUERY_STRING} [L]
 RewriteRule ^([^/]*)-pc([0-9]*)/(page-([0-9])).html(.*) index.php?module=products&view=cat&code=$1&id=$2&Itemid=2&page=$2&lang=vi&%{QUERY_STRING} [L]
 
-
 RewriteRule ^([^/]*)-p([0-9]*).html(.*) index.php?module=products&view=product&code=$1&id=$2&Itemid=3&lang=vi&%{QUERY_STRING} [L]
 RewriteRule ^tim-kiem(.*) index.php?module=products&view=search&Itemid=3&lang=vi&%{QUERY_STRING} [L]
 RewriteRule ^gia-tot-hom-nay$ index.php?module=products&view=promotion&Itemid=4&lang=vi&%{QUERY_STRING} [L]
-
 #cart
 RewriteRule ^luu-gio-hang$ index.php?module=products&view=cart&task=saveCart&Itemid=200&lang=vi [L]
 RewriteRule ^gio-hang$ index.php?module=products&view=cart&Itemid=200&lang=vi [L]
@@ -62,18 +47,23 @@ RewriteRule ^dat-hang-thanh-cong$ index.php?module=products&view=cart&task=order
 
 #members
 RewriteRule ^tai-khoan-ca-nhan$ index.php?module=members&view=dashboard&Itemid=201&lang=vi [L]
-
 RewriteRule ^dang-ky-tai-khoan(.*) index.php?module=members&view=user&task=register&Itemid=201&lang=vi&%{QUERY_STRING} [L]
 RewriteRule ^dang-nhap$ index.php?module=members&view=user&task=login&Itemid=201&lang=vi [L]
 
 RewriteRule ^don-hang-cua-toi(.*) index.php?module=members&view=orders&Itemid=201&lang=vi&%{QUERY_STRING} [L]
 RewriteRule ^chi-tiet-don-hang-([0-9]*)$ index.php?module=members&view=orders&task=detail&id=$1&Itemid=201&lang=vi [L]
 
+RewriteRule ^danh-sach-don-hang-cua-f1/page-([0-9]*)$ index.php?module=members&view=ordersf1&Itemid=201&page=$1&lang=vi&%{QUERY_STRING} [L]
+RewriteRule ^danh-sach-don-hang-cua-f1(.*) index.php?module=members&view=ordersf1&Itemid=201&lang=vi&%{QUERY_STRING} [L]
+RewriteRule ^chi-tiet-don-hang-f1-([0-9]*)$ index.php?module=members&view=ordersf1&task=detail&id=$1&Itemid=201&lang=vi [L]
 #RewriteRule ^lich-su-giao-dich-([0-9]*)$ index.php?module=members&view=orders&task=&id=$1&Itemid=201&lang=vi [L]
 #RewriteRule ^thong-ke-don-hang-f1-([0-9]*)$ index.php?module=members&view=orders&task=detail&id=$1&Itemid=201&lang=vi [L]
 
-RewriteRule ^danh-sach-thanh-vien-gioi-thieu(.*) index.php?module=members&view=introduce&Itemid=201&lang=vi&%{QUERY_STRING} [L]
-RewriteRule ^danh-sach-thanh-vien-gioi-thieu([0-9]*)$ index.php?module=members&view=introduce&task=detail&id=$1&Itemid=201&lang=vi [L]
+RewriteRule ^thanh-vien-gioi-thieu/page-([0-9]*)$ index.php?module=members&view=introduce&Itemid=201&page=$1&lang=vi&%{QUERY_STRING} [L]
+RewriteRule ^thanh-vien-gioi-thieu(.*) index.php?module=members&view=introduce&Itemid=201&lang=vi&%{QUERY_STRING} [L]
+#-----Thống kê hoa hồng f1
+RewriteRule ^thong-ke0k-hoa-hong/page-([0-9]*)$ index.php?module=members&view=introduce&Itemid=201&page=$1&lang=vi&%{QUERY_STRING} [L]
+RewriteRule ^thong-ke0k-hoa-hong(.*) index.php?module=members&view=introduce&Itemid=201&lang=vi&%{QUERY_STRING} [L]
 
 RewriteRule ^hang-thanh-vien$ index.php?module=members&view=level&Itemid=201&lang=vi [L]
 RewriteRule ^so-dia-chi$ index.php?module=members&view=address&Itemid=201&lang=vi [L]

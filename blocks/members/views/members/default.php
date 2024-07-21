@@ -14,6 +14,7 @@ if ($interval <= 0) {
                 <span>
                     <?php echo FSText::_('Hi, ') ?>
                     <?php echo $user_member->full_name ?>
+                    <?php echo FSText::_(' hạng ') ?>
                 </span>
                 <img src="<?= URL_ROOT . ($rank_hientai->image) ?>" alt="image rank member">
                 <?php echo ($level == 1 && $total_member_coin == 0) ? 'tạm thời' : 'Hưởng <span class="hoa_hong">' . FSText::_($rank_hientai->member_benefits . '%/VT-Coin F1') . '</span> phát sinh'; ?>
@@ -67,7 +68,7 @@ if ($interval <= 0) {
                                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="6" cy="6" r="5" fill="#FAB731" stroke="white" stroke-width="2" />
                                 </svg>
-                                <img src="<?php echo $item->icon ?>" alt="">
+                                <img src="<?php echo URL_ROOT. $item->icon ?>" alt="">
                             </div>
                         <?php } ?>
                     </div>

@@ -7,15 +7,14 @@ class MembersModelsIntroduce extends FSModels
     {
         parent::__construct();
         global $module_config;
-        $this->limit = 8;
+        $this->limit = 2;
     }
     function set_query_body($id)
     {
         $query_ordering = '';
         $where = "";
-        $query = ' FROM fs_members
-						  WHERE ref_code = ' . $id . ' 
-						  	AND published = 1 
+        $query = ' FROM fs_members_register_log
+						  WHERE ref_by = ' . $id . ' 
                             ORDER BY created_time DESC, id DESC 
                             ';
         return $query;
@@ -26,7 +25,7 @@ class MembersModelsIntroduce extends FSModels
             return;
 
         global $db;
-        $query = " SELECT id ,full_name, created_time,telephone,email";
+        $query = " SELECT id ,user_name, created_time,telephone,email";
         $query .= $query_body;
         $sql = $db->query_limit($query, $this->limit, $this->page);
         return $db->getObjectList();

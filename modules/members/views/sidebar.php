@@ -6,7 +6,7 @@ $view = FSInput::get('view');
     <div class="d-flex align-items-center gap-2 mb-3 user-name-sidebar justify-content-center">
 
         <div class="item-image-user position-relative">
-            <img src="<?php echo URL_ROOT . $this->userImage ?>" alt="user" class="img-fluid img-image">
+            <img src="<?php echo URL_ROOT . $this->userImage ?>" onerror="this.src='/images/not_picture.png'" alt="user" class="img-fluid img-image">
             <input type="file" class="input-upload-image d-none" name="image" id="image" accept=".png, .jpg, .jpeg" data-img="img-image">
             <a href="" class="btn-upload-image position-absolute">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,7 +46,7 @@ $view = FSInput::get('view');
 
         Lịch sử giao dịch
     </a>
-    <a href="<?php echo FSRoute::_('index.php?module=members&view=favorite') ?>" class="<?php echo $view == 'favorite'  ? 'active' : '' ?>">
+    <a href="<?php echo FSRoute::_('index.php?module=members&view=ordersf1') ?>" class="<?php echo $view == 'ordersf1'  ? 'active' : '' ?>">
         <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12.5493 15.1587C15.1493 15.4087 16.5326 14.1921 17.2326 11.1837L18.0493 7.70041C18.866 4.21708 17.7993 2.49208 14.3076 1.67541L12.916 1.35041C10.1326 0.69208 8.47431 1.23375 7.49931 3.25041M12.5493 15.1587C12.1326 15.1254 11.6826 15.0504 11.1993 14.9337L9.79931 14.6004C6.32431 13.7754 5.24931 12.0587 6.06597 8.57541L6.88264 5.08375C7.04931 4.37541 7.24931 3.75875 7.49931 3.25041M12.5493 15.1587C12.0326 15.5087 11.3826 15.8004 10.591 16.0587L9.27431 16.4921C5.96597 17.5587 4.22431 16.6671 3.14931 13.3587L2.08264 10.0671C1.01597 6.75875 1.89931 5.00875 5.20764 3.94208L6.52431 3.50875C6.86597 3.40041 7.19097 3.30875 7.49931 3.25041M10.5326 6.10875L14.5743 7.13375M9.71597 9.33375L12.1326 9.95041" stroke="#757575" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
