@@ -39,7 +39,7 @@
   max-height: 220px;
   overflow-y: scroll;
 }
-.container .box-main-register .form-register-container .login-res .modal-member-tab {
+.container .box-main-register .form-register-container .login-res .text-red {
   color: #2476ff;
   font-size: 16px;
 }

@@ -203,6 +203,7 @@ class MembersControllersRegister extends FSControllers
             'published' => 1,
             'level' => 1,
         ];
+        // print_r($row);die;
         $id = $this->model->_add($row, 'fs_members');
         if (!$id) {
             $response = [

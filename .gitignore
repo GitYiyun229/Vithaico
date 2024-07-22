@@ -1,8 +1,0 @@
-/images
-/vendor
-/upload_images
-/cache
-/log_mysql
-/includes
-.gitignore
-/libraries/bitrix
