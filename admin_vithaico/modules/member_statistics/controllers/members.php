@@ -15,10 +15,36 @@ class Member_statisticsControllersMembers extends Controllers
 		$sort_direct = $this->sort_direct;
 
 		$model  = $this->model;
-		//$group = $model -> get_records('published = 1','fs_members_group','*','ordering DESC');
-		//$cities = $model-> get_cities_name();
 		$list = $model->get_data('');
 
+		// print_r($list);
+		foreach ($list as $key => $data) {
+			$data->hoa_hong = $data->hoa_hong ? $data->hoa_hong : 0;
+			$data->list_f1 = $this->model->get_records("ref_by = $data->ref_code", 'fs_members_register_log', '*', 'id DESC');
+			if (!empty($data->list_f1)) {
+				$data->orderIdF1 = array_map(function ($item) {
+					return $item->user_id;
+				}, $data->list_f1);
+
+				$data->orderIdF1 = implode(',', $data->orderIdF1);
+			}
+			$data->count_f1 = count($data->list_f1) ? count($data->list_f1) : 0;
+			// số lượng đơn hàng thành viên mua
+			$list_order = $this->model->get_records("user_id = $data->id", 'fs_order', 'id, user_id, created_time, member_coin,products_count,created_time,total_before, ship_price, member_discount_price, code_discount_price, total_end, status', 'id DESC');
+			$data->total_list_order = count($list_order);
+			// số lượng đơn hàng thành viên f1 mua
+			$list_order_f1 = $this->model->get_records("user_id IN ( $data->orderIdF1) ", 'fs_order', 'id, user_id, created_time, member_coin,products_count,created_time,total_before, ship_price, member_discount_price, code_discount_price, total_end, status', 'id DESC');
+			$data->total_list_orderf1 = count($list_order_f1);
+			// số lượng coin nhận
+			$list_coin = $this->model->get_records("user_id = ( $data->id) ", 'fs_coin_log', 'after_coin,total_coin,before_coin,after_coin,percent,percent_add,order_id', 'id DESC');
+			if (!empty($list_coin)) {
+				$total_coin = array_map(function ($item) {
+					return $item->after_coin;
+				}, $list_coin);
+				$total_coin += $total_coin;
+			}
+			$data->total_coin_member = $total_coin[0] ? $total_coin[0] : '0';
+		}
 		$pagination = $model->getPagination('');
 		include 'modules/' . $this->module . '/views/' . $this->view . '/list.php';
 	}
@@ -35,6 +61,7 @@ class Member_statisticsControllersMembers extends Controllers
 		$id = $ids[0];
 		$model  = $this->model;
 		$data = $model->get_record_by_id($id);
+		// print_r($data);
 		if (!$data)
 			die('Not found url');
 		// tổng số lượng đã giới thiệu
@@ -46,7 +73,6 @@ class Member_statisticsControllersMembers extends Controllers
 
 			$orderIdF1 = implode(',', $orderIdF1);
 		}
-		print_r($orderIdF1);
 		// số lượng đơn hàng thành viên mua
 		$list_order = $this->model->get_records("user_id = $data->id", 'fs_order', 'id, user_id, created_time, member_coin,products_count,created_time,total_before, ship_price, member_discount_price, code_discount_price, total_end, status', 'id DESC');
 		// số lượng đơn hàng thành viên f1 mua
@@ -60,7 +86,7 @@ class Member_statisticsControllersMembers extends Controllers
 
 			$total_coin += $total_coin;
 		}
-		print_r($total_coin);
+		$data_f0 = $this->model->get_record("ref_code = $data->ref_by", 'fs_members', '*', 'id DESC');
 		include 'modules/' . $this->module . '/views/' . $this->view . '/detail.php';
 	}
 

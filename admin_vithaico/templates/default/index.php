@@ -17,7 +17,6 @@
 
     <!-- Timeline CSS -->
     <link href="templates/default/dist/css/timeline.css" rel="stylesheet">
-    <link href="templates/default/dist/css/style_thongke.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="templates/default/dist/css/sb-admin-2.css" rel="stylesheet">

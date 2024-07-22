@@ -1,7 +1,6 @@
 <?php
 $tmpl->addStylesheet('members', 'modules/members/assets/css');
 $tmpl->addStylesheet('orders', 'modules/members/assets/css');
-
 $tmpl->addScript('orders', 'modules/members/assets/js');
 
 $titleRate = [
@@ -34,15 +33,17 @@ $titleRate = [
                     <?php } ?>
                 </div>
 
-                <?php foreach ($list as $item) { ?>
+                <?php foreach ($list as $item) {
+                ?>
                     <div class="item-order mb-3" status="<?php echo $item->status ?>">
                         <div class="item-header page-border-radius bg-white d-flex align-items-center justify-content-between">
-                            <div class="fw-medium fs-6">#<?php echo str_pad($item->id, 8, 0, STR_PAD_LEFT) ?></div>
+                            <div class="fw-medium fs-6 fw-bold">#<?php echo str_pad($item->id, 8, 0, STR_PAD_LEFT) ?></div>
+
                             <div class="d-flex align-items-center gap-3">
-                                <?php if ($item->status == 2) { ?>
-                                    <div><span class="text-grey">Điểm tích lũy:</span> <b><?php echo floor($item->total_before / 1000) ?></b></div>
-                                    <div class="text-grey">|</div>
-                                <?php } ?>
+                                <div><span>Mua hàng</span></div>
+                                <div class="text-grey">|</div>
+                                <div>+<b><?php echo floor($item->member_coin) ?></b><span class="text-grey"> VT-Coin:</span></div>
+                                <div class="text-grey">|</div>
                                 <div class="text-grey"><?php echo date('H:i d/m/Y', strtotime($item->created_time)) ?></div>
                                 <div class="text-grey">|</div>
                                 <div class="text-red text-uppercase fw-medium"><?php echo $this->status[$item->status] ?></div>
@@ -57,28 +58,20 @@ $titleRate = [
                                     <a href="<?php echo $link ?>">
                                         <img src="<?php echo $img ?>" alt="<?php echo $detail->productInfo->name ?>" class="img-fluid">
                                     </a>
-                                    <div>
+                                    <div class="d-flex align-items-center justify-content-between">
                                         <a href="<?php echo $link ?>">
                                             <?php echo $detail->productInfo->name ?>
                                         </a>
-                                        <div class="text-grey"><?php echo @$detail->subInfo->name ?></div>
-                                        <div class="text-grey">x<?php echo $detail->count ?></div>
+
+                                        <div class="text-grey">SL: x<?php echo $detail->count ?></div>
                                         <div>
-                                            <span class="fw-medium"><?php echo format_money($detail->price) ?></span>
-                                            <?php if ($detail->price_old > $detail->price) { ?>
-                                                <del class="text-grey ms-3"><?php echo format_money($detail->price_old) ?></del>
-                                            <?php } ?>
+                                            <span class="fw-medium"><?php echo format_money($detail->productInfo->price_discount) ?>/<?php echo $detail->count * $detail->productInfo->coin ?>VT-Coin</span>
+                                            <span class="ms-3"></span>
                                         </div>
-                                    </div>
-                                    <div>
-                                        <?php if ($item->status == 2) { ?>
-                                            <?php if ($detail->rate || (time() - strtotime($item->created_time) <= $this->dateAllowRate)) { ?>
-                                                <a href="" class="btn-detail-complete" data-bs-toggle="modal" data-bs-target="#modalRate<?php echo $detail->id ?>">
-                                                    <?php echo $detail->rate ? 'Đã đánh giá' : 'Đánh giá sản phẩm' ?>
-                                                </a>
-                                            <?php } ?>
-                                            <a href="" data-bs-toggle="modal" data-bs-target="#modalCheckCoverage<?php echo $detail->id ?>" class="btn-detail-complete">Kiểm tra bảo hành</a>
-                                        <?php } ?>
+                                        <div>
+                                            <span class="fw-medium"><?php echo format_money( $detail->count * $detail->productInfo->price_discount) ?></span>
+                                            
+                                        </div>
                                     </div>
                                 </div>
                             <?php } ?>
