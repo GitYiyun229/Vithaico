@@ -62,8 +62,8 @@ RewriteRule ^chi-tiet-don-hang-f1-([0-9]*)$ index.php?module=members&view=orders
 RewriteRule ^thanh-vien-gioi-thieu/page-([0-9]*)$ index.php?module=members&view=introduce&Itemid=201&page=$1&lang=vi&%{QUERY_STRING} [L]
 RewriteRule ^thanh-vien-gioi-thieu(.*) index.php?module=members&view=introduce&Itemid=201&lang=vi&%{QUERY_STRING} [L]
 #-----Thống kê hoa hồng f1
-RewriteRule ^thong-ke0k-hoa-hong/page-([0-9]*)$ index.php?module=members&view=introduce&Itemid=201&page=$1&lang=vi&%{QUERY_STRING} [L]
-RewriteRule ^thong-ke0k-hoa-hong(.*) index.php?module=members&view=introduce&Itemid=201&lang=vi&%{QUERY_STRING} [L]
+RewriteRule ^thong-ke-hoa-hong/page-([0-9]*)$ index.php?module=members&view=statistics&Itemid=201&page=$1&lang=vi&%{QUERY_STRING} [L]
+RewriteRule ^thong-ke-hoa-hong(.*) index.php?module=members&view=statistics&Itemid=201&lang=vi&%{QUERY_STRING} [L]
 
 RewriteRule ^hang-thanh-vien$ index.php?module=members&view=level&Itemid=201&lang=vi [L]
 RewriteRule ^so-dia-chi$ index.php?module=members&view=address&Itemid=201&lang=vi [L]

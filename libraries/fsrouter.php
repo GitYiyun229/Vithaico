@@ -159,6 +159,11 @@ class FSRoute
                             default:
                                 return $url_first . FSRoute::get_name_encode('danh-sach-don-hang-cua-f1', $lang);
                         }
+                    case 'statistics':
+                        switch ($task) {
+                            default:
+                                return $url_first . FSRoute::get_name_encode('thong-ke-hoa-hong', $lang);
+                        }
                     case 'user':
                         switch ($task) {
                             case 'login':

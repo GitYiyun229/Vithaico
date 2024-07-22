@@ -1,106 +1,86 @@
-﻿<link rel="stylesheet" href="/modules/products/assets/css/select2.min.css">
-<script src="/modules/products/assets/js/select2.min.js"></script>
+﻿<link type="text/css" rel="stylesheet" media="all" href="../libraries/jquery/jquery.ui/jquery-ui.css" />
+<link rel="stylesheet" href="/modules/products/assets/css/select2.min.css">
+<link type="text/css" rel="stylesheet" media="all" href="templates/default/css/products.css" />
+<script type="text/javascript" src="../libraries/jquery/jquery.ui/jquery-ui.js"></script>
+<script>
+	$(document).ready(function() {
+		$("#tabs").tabs();
+		$('.select2').select2();
+	});
+</script>
 <?php
 
 $title = @$data ? FSText::_('Edit') : FSText::_('Add');
 global $toolbar;
 $toolbar->setTitle($title);
-$toolbar->addButton('save_add', FSText::_('Save and new'), '', 'save_add.png');
-$toolbar->addButton('apply', FSText::_('Apply'), '', 'apply.png');
 $toolbar->addButton('save', FSText::_('Save'), '', 'save.png');
+$toolbar->addButton('apply', FSText::_('Apply'), '', 'apply.png');
 $toolbar->addButton('cancel', FSText::_('Cancel'), '', 'cancel.png');
-
-$this->dt_form_begin(1, 4, $title . ' ' . FSText::_('Thành viên'));
-
-if (@$data->avatar) {
-	$avatar = strpos(@$data->avatar, 'http') === false ? URL_ROOT . str_replace('/original/', '/original/', @$data->avatar) : @$data->avatar;
-} else {
-	$avatar = URL_ROOT . 'images/1473944223_unknown2.png';
-}
-// if(@$data->avatar && @$data->type){ 
-//      $link_avatar = @$data->avatar;
-//  }else { 
-//      $link_avatar = URL_ROOT.@$data->avatar;
-//  }
-
-TemplateHelper::dt_edit_text(FSText::_('Họ tên'), 'username', @$data->username);
-// TemplateHelper::dt_edit_text(FSText :: _('Alias'),'alias',@$data -> alias,'',60,1,0,FSText::_("Can auto generate"));
-// TemplateHelper::dt_edit_image(FSText :: _('Avatar'),'image',$avatar,'90');
-// TemplateHelper::dt_edit_text(FSText :: _('Họ và tên'),'name',@$data -> name);
-TemplateHelper::dt_edit_text(FSText::_('Email'), 'email', @$data->email);
-TemplateHelper::dt_edit_text(FSText::_('SĐT'), 'telephone', @$data->telephone);
-
-// TemplateHelper::dt_checkbox(FSText::_('Giới tính'),'sex',@$data -> sex,'',$array_value = array(1 => 'Nam', 0 => 'Nữ'));
-
-// TemplateHelper::dt_edit_text(FSText :: _('Địa chỉ'),'address',@$data -> content);
-TemplateHelper::dt_checkbox(FSText::_('Nhân viên DDTM'), 'is_admin', @$data->is_admin, 0);
+$this->dt_form_begin(1, 4, 'Thống kê');
 ?>
-<div class="form-group shop_area">
-	<label class="col-sm-3 col-xs-12 control-label"><?php echo FSText::_("Mã nhân viên") ?></label>
-	<div class="col-sm-9 col-xs-12">
-		<input value="<?php echo @$data->nv_code ?>" class="form-control" type="text" name="nv_code" id="nv_code" />
+<div id="tabs" class="row">
+	<div class="member-info">
+		<div class="member-info-title"><?php echo FSText::_('Thông tin thống kê'); ?></div>
+		<div class="member-info-content">
+			<div class="member-info-content-item">
+				<div class="member-info-content-item-title box-1">
+					<div class="inner">
+						<h3><?= count(@$list_f1) ?></h3>
+						<p><?php echo FSText::_('Số lượng giới thiệu'); ?></p>
+					</div>
+					<a href="#fragment-1" class="small-box-footer"><span><?php echo FSText::_("More info"); ?></span></a>
+				</div>
+				<div class="member-info-content-item-title box-2">
+					<div class="inner">
+						<h3><?= @$total_coin[0] . ' VT-Coin' ?></h3>
+						<p><?php echo FSText::_('Hoa hồng đã nhận'); ?></p>
+					</div>
+					<a href="#fragment-2" class="small-box-footer"><span><?php echo FSText::_("More info"); ?></span></a>
+				</div>
+				<div class="member-info-content-item-title box-3">
+					<div class="inner">
+						<h3><?= count(@$list_order) ?></h3>
+						<p><?php echo FSText::_('Tổng số đơn hàng'); ?></p>
+					</div>
+					<a href="#fragment-3" class="small-box-footer"><span><?php echo FSText::_("More info"); ?></span></a>
+				</div>
+				<div class="member-info-content-item-title box-4">
+					<div class="inner">
+						<h3><?= count(@$list_order_f1) ?></h3>
+						<p><?php echo FSText::_('Tổng số đơn hàng f1'); ?></p>
+					</div>
+					<a href="#fragment-4" class="small-box-footer"><span><?php echo FSText::_("More info"); ?></span></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<ul>
+		<li><a href="#fragment-1"><span><?php echo FSText::_("Thống kê giới thiệu"); ?></span></a></li>
+		<li><a href="#fragment-2"><span><?php echo FSText::_("Thống kê hoa hồng nhận"); ?></span></a></li>
+		<li><a href="#fragment-3"><span><?php echo FSText::_("Thống kê số lượng đơn hàng"); ?></span></a></li>
+		<li><a href="#fragment-4"><span><?php echo FSText::_("Thống kê số lượng đơn hàng F1"); ?></span></a></li>
+	</ul>
+	<div id="fragment-1" style="padding: 0">
+		<?php include_once 'detail_1.php'; ?>
+	</div>
+	<div id="fragment-2" style="padding: 0">
+		<?php include_once 'detail_2.php'; ?>
+	</div>
+	<div id="fragment-3" style="padding: 0">
+		<?php include_once 'detail_3.php'; ?>
+	</div>
+	<div id="fragment-4" style="padding: 0">
+		<?php include_once 'detail_4.php'; ?>
 	</div>
 </div>
-<div class="form-group shop_area">
-	<label class="col-sm-3 col-xs-12 control-label"><?php echo FSText::_("Kho nhân viên") ?></label>
-	<div class="col-sm-9 col-xs-12">
-		<select name="nv_store" id="nv_store" class="select2-box">
-			<option value="">--Chọn kho--</option>
-			<?php foreach($list_store as $item) {?>
-				<option <?php echo $item->code == @$data->nv_store ? 'selected' : '' ?> value="<?php echo $item->code ?>"><?php echo $item->code ?> - <?php echo $item->name ?> - <?php echo $item->area_name ?></option>
-			<?php } ?>	
-		</select>
-	</div>
-</div>
-<?php
-TemplateHelper::dt_checkbox(FSText::_('Khóa tài khoản'), 'block', @$data->block, 1);
-TemplateHelper::dt_checkbox(FSText::_('Published'), 'published', @$data->published, 1);
-TemplateHelper::dt_checkbox(FSText::_('Sửa password'), 'edit_pass', '', 0);
 
-?>
-<div class="form-group password_area">
-	<label class="col-sm-3 col-xs-12 control-label"><?php echo FSText::_("Password") ?></label>
-	<div class="col-sm-9 col-xs-12">
-		<input class="form-control" type="password" name="password1" id="password" />
-	</div>
-</div>
-<div class="form-group password_area">
-	<label class="col-sm-3 col-xs-12 control-label"><?php echo FSText::_("Re-Password") ?></label>
-	<div class="col-sm-9 col-xs-12">
-		<input class="form-control" type="password" name="re-password1" id="re-password" />
-	</div>
-</div>
-<?php
-// TemplateHelper::dt_edit_text(FSText :: _('Thông tin'),'other_info',@$data -> other_info,'',650,450,1);
-TemplateHelper::dt_edit_text(FSText::_('Ordering'), 'ordering', @$data->ordering, @$maxOrdering, '20');
 
+<?php
 $this->dt_form_end(@$data, 1, 0);
-
 ?>
 
 <script type="text/javascript" language="javascript">
-	$('.select2-box').select2();
 	$(function() {
-		//$("select#city_id").change(function(){
-		//	$.ajax({url: "index.php?module=members&task=district&raw=1",
-		//			data: {cid: $(this).val()},
-		//			dataType: "text",
-		//			
-		//			success: function(text) {
-		//				alert(text);
-		//				if(text == '')
-		//					return;
-		//				j = eval("(" + text + ")");
-		//				
-		//				var options = '';
-		//				for (var i = 0; i < j.length; i++) {
-		//					options += '<option value="' + j[i].id + '">' + j[i].name + '</option>';
-		//				}
-		//				$('#district_id').html(options);
-		//				elemnent_fisrt = $('#district_id option:first').val();
-		//			}
-		//		});
-		//	});
 		$('.password_area').hide();
 		$('#edit_pass_0').click(function() {
 			$('.password_area').hide();
@@ -117,6 +97,5 @@ $this->dt_form_end(@$data, 1, 0);
 		$('#is_admin_1').click(function() {
 			$('.shop_area').show();
 		});
-
 	})
 </script>
