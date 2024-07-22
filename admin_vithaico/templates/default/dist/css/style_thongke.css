@@ -27,12 +27,59 @@
   --breakpoint-xl: 1200px;
 }
 
-body, body .panel-info .panel-heading, body .navbar-default {
+body,
+body .panel-info .panel-heading,
+body .navbar-default {
   background-color: var(--dark) !important;
 }
 
 body .panel-body td a {
   color: unset;
+}
+
+#link_aff {
+  display: none;
+}
+
+#link_afff0 {
+  display: none;
+}
+
+.member-inffo {
+  display: flex;
+  gap: 20px;
+}
+
+.memmber-to {
+  width: calc((100% - 20px) / 2);
+  background-color: var(--dark);
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.125), 0 1px 3px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+  max-width: 800px;
+}
+.memmber-to h3 {
+  font-size: 20px;
+  color: var(--white);
+  text-align: center;
+  margin-bottom: 20px;
+}
+.memmber-to .info .inner p {
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+}
+.memmber-to .info .inner p span {
+  font-size: 16px;
+  font-weight: 300;
+}
+
+canvas#doughnut {
+  width: 500px !important;
+  height: 500px !important;
+  text-align: center;
+  margin: auto;
 }
 
 .member-info .member-info-title {
@@ -149,4 +196,8 @@ body .panel-body td a {
 }
 .table thead th {
   vertical-align: bottom;
+}
+
+.card-header-member {
+  background-color: var(--gray);
 }/*# sourceMappingURL=style_thongke.css.map */

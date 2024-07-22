@@ -26,30 +26,15 @@ class MembersControllersOrdersf1 extends MembersControllersMembers
     public function display()
     {
         global $tmpl, $user, $config;
+        
+        $Member_aff=$this->GetArrayInfoF1($user->userInfo->ref_code);
+        // print_r($Member_aff);
 
-        $tmpl->addTitle(FSText::_('Đơn hàng của tôi'));
+        $tmpl->addTitle(FSText::_('Đơn hàng của F1'));
   
-        $list = $this->model->get_records("user_id = $user->userID", 'fs_order', 'id, user_id, created_time, total_before, ship_price, member_discount_price, code_discount_price, total_end, status', 'id DESC');
+        $list = $this->model->get_records("user_id in(". $Member_aff['string_ids'].")", 'fs_order', 'id, user_id,recipients_name,recipients_telephone,email, created_time, total_before, ship_price, member_discount_price, code_discount_price, total_end, status,member_coin', 'id DESC');
 
-        if (!empty($list)) {
-            $orderId = array_map(function($item) {
-                return $item->id;
-            }, $list);
-
-            $orderId = implode(',', $orderId);
-            $orderDetail = $this->getOrderDetail($orderId, $user);
-
-            $rate = $this->model->get_records("user_id = $user->userID", "fs_products_comments");
-
-            foreach ($list as $item) {
-                foreach ($orderDetail as $detail) {
-                    if ($item->id == $detail->order_id) {
-                        $item->orderDetail[] = $detail;
-                    }
-                }
-            }
-        }
-
+       
         require PATH_BASE . "modules/$this->module/views/$this->view/default.php";
     }
 
@@ -65,9 +50,9 @@ class MembersControllersOrdersf1 extends MembersControllersMembers
 
         $order = $this->model->get_record("id = $id", 'fs_order');
 
-        if (!$order || $order->user_id != $user->userID) {
-            setRedirect($return, 'Đơn hàng không tồn tại!', 'error');
-        }
+        // if (!$order || $order->user_id != $user->userID) {
+        //     setRedirect($return, 'Đơn hàng không tồn tại!', 'error');
+        // }
        
         $detail = $this->getOrderDetail($order->id, $user);
         $province = $this->model->get_record("code = $order->recipients_province", 'fs_provinces', 'code, name')->name;
@@ -85,54 +70,14 @@ class MembersControllersOrdersf1 extends MembersControllersMembers
         foreach ($orderDetail as $detail) {
             $productId[] = $detail->product_id;
 
-            if ($detail->id_sub) {
-                $subId[] = $detail->id_sub;
-            }                
+                      
         }
       
         $productId = implode(',', $productId);
         $products = $this->model->get_records("id IN ($productId)", 'fs_products', 'id, name, alias, image');
 
-        if (!empty($subId)) {
-            $subId = implode(',', $subId);
-            $sub = $this->model->get_records("id IN ($subId)", 'fs_products_sub', 'id, name, product_id');
-            $subImage = $this->model->get_records("sub_id IN ($subId)", 'fs_products_images', 'id, image, sub_id');
 
-            foreach ($sub as $subItem) {
-                $subItem->image = '';
-                foreach ($subImage as $image) {
-                    if ($subItem->id == $image->sub_id) {
-                        $subItem->image = $image->image;
-                    }
-                }
-            }
-        }
-        
-        $orderRateId = array_column(array_filter($orderDetail, function ($item) {
-            return $item->rate;
-        }), 'id');
-
-        if (!empty($orderRateId)) {
-            $orderRateId = implode(',', $orderRateId);
-            $rate = $this->model->get_records("user_id = $user->userID AND order_item_id IN ($orderRateId)", 'fs_products_comments', 'id, product_id, comment, order_item_id');
-            
-            $rateId = array_map(function($item) {
-                return $item->id;
-            }, $rate);
-
-            $rateId = implode(',', $rateId);
-
-            $rateImage = $this->model->get_records("record_id IN ($rateId)", 'fs_products_comments_images', 'record_id, image');
-
-            foreach ($rate as $rateItem) {
-                $rateItem->image = [];
-                foreach ($rateImage as $image) {
-                    if ($image->record_id == $rateItem->id) {
-                        $rateItem->image[] = $image;
-                    }
-                }
-            }
-        }     
+       
 
         foreach ($orderDetail as $detail) {
             foreach ($products as $product) {
@@ -141,21 +86,7 @@ class MembersControllersOrdersf1 extends MembersControllersMembers
                 }
             }
 
-            if (!empty($sub)) {
-                foreach ($sub as $subItem) {
-                    if ($detail->id_sub == $subItem->id) {
-                        $detail->subInfo = $subItem;   
-                    }
-                }
-            }
-
-            if ($detail->rate) {
-                foreach ($rate as $rateItem) {
-                    if ($detail->id == $rateItem->order_item_id) {
-                        $detail->rateInfo = $rateItem;
-                    }
-                }
-            }
+           
         }
 
         return $orderDetail;

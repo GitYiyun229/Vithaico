@@ -1,6 +1,8 @@
 ﻿<link type="text/css" rel="stylesheet" media="all" href="../libraries/jquery/jquery.ui/jquery-ui.css" />
 <link rel="stylesheet" href="/modules/products/assets/css/select2.min.css">
 <link type="text/css" rel="stylesheet" media="all" href="templates/default/css/products.css" />
+<link href="templates/default/dist/css/style_thongke.css" rel="stylesheet">
+
 <script type="text/javascript" src="../libraries/jquery/jquery.ui/jquery-ui.js"></script>
 <script>
 	$(document).ready(function() {
@@ -9,7 +11,6 @@
 	});
 </script>
 <?php
-
 $title = @$data ? FSText::_('Edit') : FSText::_('Add');
 global $toolbar;
 $toolbar->setTitle($title);
@@ -20,8 +21,49 @@ $this->dt_form_begin(1, 4, 'Thống kê');
 ?>
 <div id="tabs" class="row">
 	<div class="member-info">
-		<div class="member-info-title"><?php echo FSText::_('Thông tin thống kê'); ?></div>
+		<div class="member-inffo">
+			<div class="memmber-to">
+				<div class="info">
+					<h3><?php echo FSText::_('Thông tin thành viên'); ?></h3>
+					<div class="inner">
+						<p class="info-p"><?php echo FSText::_('Họ và tên : '); ?> <span class="info-span"><?= @$data->full_name ?></span></p>
+						<p class="info-p"><?php echo FSText::_('Số điện thoại : '); ?> <span class="info-span"><?= @$data->telephone ?></span></p>
+						<p class="info-p"><?php echo FSText::_('Email : '); ?> <span class="info-span"><?= @$data->email ?></span></p>
+						<p class="info-p"><?php echo FSText::_('Mức hoa hồng đang nhận : '); ?> <span class="info-span"><?= @$data->hoa_hong ?>%</span></p>
+						<p class="info-p"><?php echo FSText::_('Link đăng ký : '); ?>
+							<span class="info-span"><?= FSRoute::_('index.php?module=members&view=user&task=register') ?><?= '?affiliate=' . $data->ref_code ?>
+							</span>
+							<input type="text" value="https://vithaico.phongcachso.com/dang-ky-tai-khoan?affiliate=1720862229" class="form-control link_aff_copy" id="link_aff" name="link_aff">
+							<a onclick="myFunction()" class="position-absolute top-50 end-0 translate-middle-y px-4">
+								<img src="/modules/members/assets/images/icon-copy.svg" alt="img-copy">
+							</a>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="memmber-to">
+				<div class="info">
+					<h3><?php echo FSText::_('Thông tin người giới thiệu'); ?></h3>
+					<div class="inner">
+						<p class="info-p"><?php echo FSText::_('Họ và tên : '); ?> <span class="info-span"><?= @$data_f0->full_name ?></span></p>
+						<p class="info-p"><?php echo FSText::_('Số điện thoại : '); ?> <span class="info-span"><?= @$data_f0->telephone ?></span></p>
+						<p class="info-p"><?php echo FSText::_('Email : '); ?> <span class="info-span"><?= @$data_f0->email ?></span></p>
+						<p class="info-p"><?php echo FSText::_('Mức hoa hồng đang nhận : '); ?> <span class="info-span"><?= @$data_f0->hoa_hong ?>%</span></p>
+						<p class="info-p"><?php echo FSText::_('Link đăng ký : '); ?>
+							<span class="info-span"><?= FSRoute::_('index.php?module=members&view=user&task=register') ?><?= '?affiliate=' . $data_f0->ref_code ?>
+							</span>
+							<input type="text" value="https://vithaico.phongcachso.com/dang-ky-tai-khoan?affiliate=1720862229" class="form-control link_aff_copy" id="link_afff0" name="link_afff0">
+							<a onclick="myFunction()" class="position-absolute top-50 end-0 translate-middle-y px-4">
+								<img src="/modules/members/assets/images/icon-copy.svg" alt="img-copy">
+							</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div class="member-info-content">
+
 			<div class="member-info-content-item">
 				<div class="member-info-content-item-title box-1">
 					<div class="inner">
@@ -32,7 +74,7 @@ $this->dt_form_begin(1, 4, 'Thống kê');
 				</div>
 				<div class="member-info-content-item-title box-2">
 					<div class="inner">
-						<h3><?= @$total_coin[0] . ' VT-Coin' ?></h3>
+						<h3><?= @$total_coin[0] ? @$total_coin[0] : '0' . ' VT-Coin' ?></h3>
 						<p><?php echo FSText::_('Hoa hồng đã nhận'); ?></p>
 					</div>
 					<a href="#fragment-2" class="small-box-footer"><span><?php echo FSText::_("More info"); ?></span></a>
@@ -98,4 +140,20 @@ $this->dt_form_end(@$data, 1, 0);
 			$('.shop_area').show();
 		});
 	})
+
+	function myFunction() {
+		var copyText = document.getElementById("link_aff");
+		copyText.select();
+		copyText.setSelectionRange(0, 99999);
+		navigator.clipboard.writeText(copyText.value);
+		alert('Copy link thành công !');
+	}
+
+	function myFunction() {
+		var copyText = document.getElementById("link_afff0");
+		copyText.select();
+		copyText.setSelectionRange(0, 99999);
+		navigator.clipboard.writeText(copyText.value);
+		alert('Copy link thành công !');
+	}
 </script>
