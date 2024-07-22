@@ -75,7 +75,7 @@ $ref_code = FSInput::get('affiliate');
                 <?php echo csrf::displayToken(); ?>
             </form>
             <div class="login-res text-center d-flex gap-2 align-items-center justify-content-center">
-                <p><?php echo FSText::_('Bạn đã có tài khoản?') ?></p> <a href="" class="fw-bold modal-member-tab text-red"><?php echo FSText::_('Đăng nhập') ?></a>
+                <p class="m-0"><?php echo FSText::_('Bạn đã có tài khoản?') ?></p> <a href="<?php echo FSRoute::_('index.php?module=members&view=user&task=login')?>" class="fw-bold text-red"><?php echo FSText::_('Đăng nhập') ?></a>
             </div>
         </div>
     </div>

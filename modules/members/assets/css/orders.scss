@@ -13,6 +13,12 @@
         }
     }
 }
+.page-content{
+    .page-top{
+        border-radius: 16px;
+        padding: 24px 24px 0 24px;
+    }
+}
 
 .item-order {
     .page-border-radius {
@@ -55,13 +61,13 @@
     }
     .btn-detail {
         padding: 10px 40px;
-        color: #a3a3a3;
+        color: #d53c00;
         border-radius: 4px;
-        border: 1px solid #a3a3a3;
+        border: 1px solid #d53c00;
         &:hover {
             background: #d53c00;
             border-color: #d53c00;
-            color: #fff;
+            color: #d53c00;
         }
     }
     .btn-detail-complete {
@@ -321,5 +327,11 @@
         .btn-detail{
             padding: 10px;
         }
+    }
+}
+@media(max-width:767px)
+{
+    .page-border-radius{
+        white-space: nowrap;
     }
 }
