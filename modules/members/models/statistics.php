@@ -1,6 +1,6 @@
 <?php
 
-class MembersModelsIntroduce extends FSModels
+class MembersModelsStatistics extends FSModels
 {
 
     function __construct()

@@ -104,6 +104,7 @@ $tmpl->addScript('orders', 'modules/members/assets/js');
                         <div class="text-grey">Tạm tính</div>
                         <div class="fw-medium"><?php echo format_money($order->total_before) ?></div>
                     </div>
+                   
                     <div class="d-flex align-items-center justify-content-between mb-4 border-bottom pb-4">
                         <div class="text-grey">Phí giao hàng</div>
                         <div class="fw-medium"><?php echo format_money($order->ship_price, '', 'Miễn phí') ?></div>

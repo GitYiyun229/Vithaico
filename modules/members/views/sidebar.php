@@ -6,7 +6,7 @@ $view = FSInput::get('view');
     <div class="d-flex align-items-center gap-2 mb-3 user-name-sidebar justify-content-center">
 
         <div class="item-image-user position-relative">
-            <img src="<?php echo URL_ROOT . $this->userImage ?>" alt="user" class="img-fluid img-image">
+            <img src="<?php echo URL_ROOT . $this->userImage ?>" onerror="this.src='/images/not_picture.png'" alt="user" class="img-fluid img-image">
             <input type="file" class="input-upload-image d-none" name="image" id="image" accept=".png, .jpg, .jpeg" data-img="img-image">
             <a href="" class="btn-upload-image position-absolute">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,7 +46,7 @@ $view = FSInput::get('view');
 
         Lịch sử giao dịch
     </a>
-    <a href="<?php echo FSRoute::_('index.php?module=members&view=favorite') ?>" class="<?php echo $view == 'favorite'  ? 'active' : '' ?>">
+    <a href="<?php echo FSRoute::_('index.php?module=members&view=ordersf1') ?>" class="<?php echo $view == 'ordersf1'  ? 'active' : '' ?>">
         <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12.5493 15.1587C15.1493 15.4087 16.5326 14.1921 17.2326 11.1837L18.0493 7.70041C18.866 4.21708 17.7993 2.49208 14.3076 1.67541L12.916 1.35041C10.1326 0.69208 8.47431 1.23375 7.49931 3.25041M12.5493 15.1587C12.1326 15.1254 11.6826 15.0504 11.1993 14.9337L9.79931 14.6004C6.32431 13.7754 5.24931 12.0587 6.06597 8.57541L6.88264 5.08375C7.04931 4.37541 7.24931 3.75875 7.49931 3.25041M12.5493 15.1587C12.0326 15.5087 11.3826 15.8004 10.591 16.0587L9.27431 16.4921C5.96597 17.5587 4.22431 16.6671 3.14931 13.3587L2.08264 10.0671C1.01597 6.75875 1.89931 5.00875 5.20764 3.94208L6.52431 3.50875C6.86597 3.40041 7.19097 3.30875 7.49931 3.25041M10.5326 6.10875L14.5743 7.13375M9.71597 9.33375L12.1326 9.95041" stroke="#757575" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
@@ -54,7 +54,7 @@ $view = FSInput::get('view');
 
         Thống kê đơn hàng F1
     </a>
-    <a href="<?php echo FSRoute::_('index.php?module=members&view=favorite') ?>" class="<?php echo $view == 'favorite'  ? 'active' : '' ?>">
+    <a href="<?php echo FSRoute::_('index.php?module=members&view=statistics') ?>" class="<?php echo $view == 'statistics'  ? 'active' : '' ?>">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8.95901 14.0506V15.7423C8.95901 17.1756 7.62567 18.334 5.984 18.334C4.34233 18.334 3.00065 17.1756 3.00065 15.7423V14.0506M8.95901 14.0506C8.95901 15.4756 7.62567 16.5006 5.984 16.5006M8.95901 14.0506V11.7586C8.95901 11.042 8.62569 10.392 8.09236 9.9253C7.55069 9.45864 6.809 9.16699 5.984 9.16699C4.334 9.16699 3.00065 10.3253 3.00065 11.7586V14.0506M8.95901 14.0506C8.95901 15.484 7.62567 16.5006 5.984 16.5006M3.00065 14.0506C3.00065 15.484 4.334 16.5006 5.984 16.5006M3.00065 14.0506C3.00065 15.4756 4.34233 16.5006 5.984 16.5006M17.4994 11.7086C17.966 11.692 18.3327 11.317 18.3327 10.8587V9.14197C18.3327 8.68363 17.966 8.30867 17.4994 8.292M17.4994 11.7086H15.866C14.966 11.7086 14.141 11.0503 14.066 10.1503C14.016 9.62532 14.216 9.13365 14.566 8.79198C14.8744 8.47532 15.2994 8.292 15.766 8.292H17.4994M17.4994 11.7086L17.4993 12.917C17.4993 15.417 15.8327 17.0837 13.3327 17.0837H11.2493M17.4994 8.292L17.4993 7.08366C17.4993 4.80033 16.1077 3.20865 13.9577 2.95865C13.7577 2.92532 13.5493 2.91699 13.3327 2.91699H5.83268C5.59935 2.91699 5.37435 2.93366 5.15768 2.96699C3.03268 3.23366 1.66602 4.81699 1.66602 7.08366V8.75033M8.95768 11.7586C8.95768 12.1753 8.84101 12.5586 8.64101 12.892C8.14935 13.7003 7.141 14.2086 5.97433 14.2086C4.80767 14.2086 3.79932 13.692 3.30766 12.892C3.10766 12.5586 2.99104 12.1753 2.99104 11.7586C2.99104 11.042 3.32435 10.4003 3.85769 9.93364C4.39935 9.45864 5.14099 9.17533 5.96599 9.17533C6.79099 9.17533 7.53268 9.46698 8.07435 9.93364C8.62435 10.392 8.95768 11.042 8.95768 11.7586Z" stroke="#757575" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
