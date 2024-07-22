@@ -917,4 +917,36 @@ footer .footer-bot .copyright {
   .section-banner .item-banner .name-banner {
     font-size: 24px;
   }
+}
+@media (max-width: 767px) {
+  .pagination .current {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 12px !important;
+  }
+  .pagination .other-page {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 12px !important;
+  }
+  .pagination .next-page {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 12px !important;
+  }
+  .pagination .last-page {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 12px !important;
+  }
+  .pagination .pre-page {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 12px !important;
+  }
+  .pagination .first-page {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 12px !important;
+  }
 }/*# sourceMappingURL=main.css.map */
