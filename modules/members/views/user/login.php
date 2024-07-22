@@ -46,18 +46,9 @@ $tmpl->addStylesheet('login', 'modules/members/assets/css');
                 <input type="hidden" name="task" value="login">
                 <input type="hidden" name="redirect" value="<?php echo $Itemid == 1 ? URL_ROOT : URL_ROOT . substr($_SERVER['REQUEST_URI'], strlen(URL_ROOT_REDUCE)) ?>" />
             </form>
-<<<<<<< HEAD
-
-            <div class="login-res d-flex align-items-center justify-content-center">
-                <div>
-                    <?php echo FSText::_('Bạn là thành viên mới?') ?>
-                    <a href="<?php echo FSRoute::_('index.php?module=members&view=user&task=register') ?>" class="fw-bold text-red" data="register-telephone">
-                        <?php echo FSText::_('Đăng ký') ?>
-=======
             <div class="login-res d-flex align-items-center justify-content-between">
                 <div><?php echo FSText::_('Bạn là thành viên mới?') ?>
                     <a href="<?php echo FSRoute::_('index.php?module=members&view=user&task=register') ?>" class="fw-bold modal-member-tab text-red ms-2" data="register-telephone"><?php echo FSText::_('Đăng ký') ?>
->>>>>>> 6e6d907c166724fc6585e211b2ed5a576c08aab0
                     </a>
                 </div>
             </div>
