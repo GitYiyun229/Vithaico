@@ -20,6 +20,7 @@ class MembersBControllersMembers
     $thong_ke_f1 = $this->GetArrayInfoF1($user_member->ref_code);
     $level = $user_member->level;
     $table_level = $model->get_records('', 'fs_members_group', '*', ' id asc');
+    
     $rank_hientai = $this->get_current_rank($table_level, $level);
     $dieukien_lenrank = $this->get_next_rank($table_level, $level);
     $timeline = $this->calculate_timeline($level, $total_member_coin, $thong_ke_f1);

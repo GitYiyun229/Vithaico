@@ -424,6 +424,7 @@ footer .footer-bot .copyright {
   line-height: normal;
   display: flex;
   flex-wrap: wrap;
+  gap: 10px;
   justify-content: space-between;
 }
 .layout-product-item .layout-public-price .price .title,

@@ -38,12 +38,12 @@ $tmpl->addStylesheet('introduce', 'modules/members/assets/css');
                         <?php endforeach; ?>
                     <?php else : ?>
                         <div class="user_f1_empty"><?= FSText::_('Chưa có ai đăng ký') ?></div>
-                    <?php endif; ?>   <?php if ($pagination) {
-                    echo $pagination->showPagination(6);
-                }
-                ?>
+                    <?php endif; ?> <?php if ($pagination) {
+                                        echo $pagination->showPagination(6);
+                                    }
+                                    ?>
                 </div>
-             
+
             </div>
         </div>
     </div>

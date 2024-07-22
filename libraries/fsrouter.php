@@ -151,6 +151,19 @@ class FSRoute
                             default:
                                 return $url_first . FSRoute::get_name_encode('don-hang-cua-toi', $lang);
                         }
+                    case 'ordersf1':
+                        switch ($task) {
+                            case 'detail':
+                                $id = isset($array_params['id']) ? $array_params['id'] : '';
+                                return $url_first . FSRoute::get_name_encode('chi-tiet-don-hang-f1', $lang) . '-' . $id;
+                            default:
+                                return $url_first . FSRoute::get_name_encode('danh-sach-don-hang-cua-f1', $lang);
+                        }
+                    case 'statistics':
+                        switch ($task) {
+                            default:
+                                return $url_first . FSRoute::get_name_encode('thong-ke-hoa-hong', $lang);
+                        }
                     case 'user':
                         switch ($task) {
                             case 'login':
@@ -167,7 +180,7 @@ class FSRoute
                     case 'favorite':
                         return URL_ROOT . FSRoute::get_name_encode('san-pham-yeu-thich', $lang);
                     case 'introduce':
-                        return URL_ROOT . FSRoute::get_name_encode('danh-sach-thanh-vien-gioi-thieu', $lang);
+                        return URL_ROOT . FSRoute::get_name_encode('thanh-vien-gioi-thieu', $lang);
                     case 'dashboard':
                         return URL_ROOT . FSRoute::get_name_encode('tai-khoan-ca-nhan', $lang);
                     default:
@@ -207,36 +220,7 @@ class FSRoute
                         return $url_first . $url;
                 }
                 break;
-                // case 'news':
-                //     switch ($view) {
-                //         case 'amp_news':
-                //             $code = isset($array_params['code']) ? $array_params['code'] : '';
-                //             $ccode = isset($array_params['ccode']) ? $array_params['ccode'] : '';
-                //             $id = isset($array_params['id']) ? $array_params['id'] : '';
-                //             return $url_first . $ccode . '/amp/' . $code . '-n' . $id;
-                //         case 'news':
-                //             $ccode = isset($array_params['ccode']) ? $array_params['ccode'] : '';
-                //             return $url_first . $ccode;
-                //         case 'tags':
-                //             $ccode = isset($array_params['ccode']) ? $array_params['ccode'] : '';
-                //             return $url_first . $ccode;
-                //         case 'cat':
-                //             $ccode = isset($array_params['ccode']) ? $array_params['ccode'] : '';
-                //             return $url_first . $ccode;
-                //         case 'home':
-                //             return $url_first . 'blogs/all';
-                //         case 'search':
-
-                //             $keyword = isset($array_params['keyword']) ? $array_params['keyword'] : '';
-                //             $url = URL_ROOT . 'tim-kiem-tin-tuc';
-                //             if ($keyword) {
-                //                 $url .= '-' . $keyword;
-                //             }
-                //             return $url;
-                //         default:
-                //             return $url_first . $url;
-                //     }
-                //     break;
+              
             case 'news':
                 switch ($view) {
                     case 'news':

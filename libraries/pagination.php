@@ -14,55 +14,16 @@ class Pagination
 		$this->limit = $limit;
 		$this->total = $total;
 		$this->page = $page;
-		// if(!IS_REWRITE){
 			if($url)
 				$this->url = $url;
 			else
 			{
 				$url = $_SERVER['REQUEST_URI'];
-				// $url =  trim(preg_replace('/&page=[0-9]+/i', '', $url));
 				$this->url = $url;
 			}
-		// } else {
-		// 	if(!$url)
-		// 		$url = $_SERVER['REQUEST_URI'];
-		// 	// if(strpos($url,'-page') !== false)
-		// 	$search = preg_match('#-page([0-9]*)#is',$url,$main);
-		// 	if()
-			
-		// 	$url = Route::deURL($url);
-		// 	$url =  trim(preg_replace('/&page=[0-9]+/i', '', $url));
-		// 	$this->url = $url;
-		// }
+	
 	}
 	
-	// function create_link_with_page($url,$page){
-	// 	if(!IS_REWRITE){
-	// 		$url =  trim(preg_replace('/&page=[0-9]+/i', '', $url));
-	// 		if(!$page || $page == 1){
-	// 			return $url;
-	// 		} else {
-	// 			return $url.'&page='.$page; 
-	// 		}
-	// 	} else {
-	// 		$url = rtrim($url,"/");
-	// 		if(!$page || $page == 1){
-	// 			$url = trim(preg_replace('/\?page=[0-9]/', '', $url));
-	// 			return $url;
-	// 		} else {
-	// 			$search = preg_match('/\?page=[0-9]/',$url,$main);
-	// 			if($search){
-                    
-    //                // echo $page;
-	// 				$url = preg_replace('/\?page=.*/','?page='.$page, $url);
-					
-	// 			} else {
-	// 				$url = $url.'?page='.$page;
-	// 			}
-	// 			return $url;
-	// 		}
-	// 	}
-	// }
 
 	function create_link_with_page($url, $page)
     {
