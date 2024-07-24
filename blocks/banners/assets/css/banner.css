@@ -1,12 +1,10 @@
 .block_default2 {
   margin-bottom: 10px;
 }
-
 .block_default2 a {
   display: block;
   position: relative;
 }
-
 .block_default2 a h3 {
   margin: 0;
   position: absolute;
@@ -18,5 +16,4 @@
   color: #fff;
   text-align: center;
   padding: 10px 0;
-}
-/*# sourceMappingURL=banner.css.map */
+}/*# sourceMappingURL=banner.css.map */

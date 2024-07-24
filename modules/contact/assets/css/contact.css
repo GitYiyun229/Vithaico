@@ -2,7 +2,6 @@
   margin-bottom: 70px;
   margin-top: 30px;
 }
-
 .box_map h1 {
   font-size: 18px;
   line-height: 24px;
@@ -12,35 +11,24 @@
   border-bottom: 1px solid #DDDDDD;
   margin-bottom: 10px;
 }
-
 .box_map .list_address {
   overflow: hidden;
 }
-
 .box_map .list_address .list_faq_content {
   height: 686px;
   overflow-y: auto;
 }
-
 .box_map .list_address .list_faq_content .item_ad {
   cursor: pointer;
   padding: 15px 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: start;
+  justify-content: flex-start;
+  align-items: start;
   border-bottom: 1px solid #EEEEEE;
 }
-
 .box_map .list_address .list_faq_content .item_ad .left_map {
   padding-left: 10px;
 }
-
 .box_map .list_address .list_faq_content .item_ad .left_map h3 {
   text-transform: uppercase;
   font-size: 16px;
@@ -48,26 +36,22 @@
   font-weight: bold;
   margin: 0 0 6px 0;
 }
-
 .box_map .list_address .list_faq_content .item_ad .left_map p {
   line-height: 24px;
   margin-bottom: 6px;
   padding-left: 20px;
   background: url("../images/map.svg") top 5px left 0 no-repeat;
 }
-
 .box_map .list_address .list_faq_content .item_ad .left_map a {
   display: block;
   line-height: 24px;
   padding-left: 20px;
   background: url("../images/phone.svg") top 5px left 0 no-repeat;
 }
-
 @media (max-width: 991px) {
   .box_map .list_address {
     margin-bottom: 30px;
-    -webkit-box-shadow: 0 3px 2px -2px gray;
-            box-shadow: 0 3px 2px -2px gray;
+    box-shadow: 0 3px 2px -2px gray;
   }
   .box_map .list_address .list_faq_content {
     height: 260px;
@@ -87,5 +71,4 @@
 #style-44::-webkit-scrollbar-thumb {
   background-color: #F9920F;
   border: 2px solid #F9920F;
-}
-/*# sourceMappingURL=contact.css.map */
+}/*# sourceMappingURL=contact.css.map */

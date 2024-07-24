@@ -296,10 +296,10 @@ class Templates
             return false;
         $style_amp = '';
         $style_amp .= $link_canonical ? '
-            <script async src="https://cdn.ampproject.org/v0.js"></script>
-            <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
-            <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
-            <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+            <script async src="http://cdn.ampproject.org/v0.js"></script>
+            <script async custom-element="amp-youtube" src="http://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
+            <script async custom-element="amp-iframe" src="http://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+            <script async custom-element="amp-bind" src="http://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
             <link rel="canonical" href="' . $link_canonical . '" hreflang="vi-vn" />
             ' : '';
 

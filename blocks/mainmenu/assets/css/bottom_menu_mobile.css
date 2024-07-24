@@ -7,7 +7,6 @@
     display: none;
   }
 }
-
 @media (max-width: 960px) {
   .danhmuc {
     width: 100%;
@@ -31,22 +30,12 @@
   .danhmuc .category .sub-menu .menubottom .show_par {
     width: 80px;
     height: 80px;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 5px;
-    -webkit-box-shadow: rgba(0, 0, 0, 0.15) 2px 2px 2px;
-            box-shadow: rgba(0, 0, 0, 0.15) 2px 2px 2px;
+    box-shadow: rgba(0, 0, 0, 0.15) 2px 2px 2px;
     text-decoration: none;
     background: #fbfbfb;
     margin-bottom: 0;
@@ -79,21 +68,17 @@
   }
   .danhmuc .category .sub-menu .menubottom.active .show_cat .me-float {
     border-radius: 10px;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
+    flex-wrap: wrap;
     width: 280px;
     position: relative;
-    -webkit-box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-            box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     z-index: 1;
     background: #fff;
     padding: 10px;
     display: inline-table;
   }
   .danhmuc .category .sub-menu .second.active .show_cat .me-float li:first-child {
-    -webkit-box-flex: 45% !important;
-        -ms-flex: 45% !important;
-            flex: 45% !important;
+    flex: 45% !important;
     padding: 5px 2px;
     border-radius: 8px;
     width: 45%;
@@ -104,9 +89,7 @@
   }
   .danhmuc .category .sub-menu .second .show_cat li {
     background: #fff;
-    -webkit-box-flex: 100% !important;
-        -ms-flex: 100% !important;
-            flex: 100% !important;
+    flex: 100% !important;
     display: block;
   }
   .danhmuc .category .sub-menu .second .show_cat li div {
@@ -125,20 +108,15 @@
     padding-left: 10px;
   }
   .danhmuc .category .sub-menu .second .show_cat .me-float {
-    -ms-flex-wrap: unset;
-        flex-wrap: unset;
+    flex-wrap: unset;
   }
   .danhmuc .category .sub-menu .second .show_cat .me-float li:not(:first-child) {
-    -webkit-box-flex: 45% !important;
-        -ms-flex: 45% !important;
-            flex: 45% !important;
+    flex: 45% !important;
     padding: 8px 2px;
   }
   .danhmuc .category nav {
-    display: -ms-grid;
     display: grid;
-    -ms-grid-columns: 80px auto;
-        grid-template-columns: 80px auto;
+    grid-template-columns: 80px auto;
     grid-gap: 10px;
     height: 100%;
   }
@@ -161,12 +139,8 @@
   }
   .danhmuc.active ul.me-float li {
     display: block;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    align-items: center;
+    justify-content: center;
     color: #444;
     font-size: 14px;
     line-height: 14px;
@@ -184,19 +158,12 @@
     font-weight: 600;
   }
   .danhmuc.active ul.me-float li .me-float2 {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
   .danhmuc.active ul.me-float li .me-float2 li {
-    -webkit-box-flex: 1;
-        -ms-flex-positive: 1;
-            flex-grow: 1;
+    flex-grow: 1;
     width: 45%;
     margin: 7px 4px;
   }
@@ -208,11 +175,8 @@
     border-radius: 10px;
   }
   .danhmuc.active .ul-child {
-    display: -webkit-box !important;
-    display: -ms-flexbox !important;
     display: flex !important;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
+    flex-wrap: wrap;
     grid-gap: 10px;
   }
   .danhmuc.active .ul-child a {
@@ -229,5 +193,4 @@
   .danhmuc.active .show_cat.active ul.me-float {
     display: block;
   }
-}
-/*# sourceMappingURL=bottom_menu_mobile.css.map */
+}/*# sourceMappingURL=bottom_menu_mobile.css.map */

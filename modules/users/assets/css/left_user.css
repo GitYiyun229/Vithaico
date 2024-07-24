@@ -3,12 +3,10 @@
   padding: 25px 15px;
   position: relative;
 }
-
 .name_user img {
   position: absolute;
   top: 25px;
 }
-
 .name_user p {
   margin: 0;
   color: #228E45;
@@ -18,7 +16,6 @@
   font-size: 13px;
   margin-left: 15px;
 }
-
 .name_user p span {
   display: block;
   font-weight: bold;
@@ -29,43 +26,32 @@
   background-color: #fff;
   padding: 0 15px;
 }
-
 @media (max-width: 768px) {
   .list_menu1 {
     margin-bottom: 15px;
   }
 }
-
 .list_menu1 a {
   padding: 20px 20px 20px 0;
   border-bottom: 1px solid #eee;
   font-size: 16px;
-  display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 30px 1fr;
-      grid-template-columns: 30px 1fr;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  grid-template-columns: 30px 1fr;
+  align-items: center;
 }
-
 .list_menu1 a img {
   max-width: 28px;
   height: auto;
 }
-
 .list_menu1 a span {
   padding-left: 30px;
 }
-
 .list_menu1 a:hover span {
   color: #228E45;
 }
-
 .list_menu1 .active span {
   color: #228E45;
 }
-
 .list_menu1 .order img {
   max-width: 21px;
   margin-left: 7px;
@@ -78,5 +64,4 @@
   .col-lg-9 {
     width: calc(100% - 370px);
   }
-}
-/*# sourceMappingURL=left_user.css.map */
+}/*# sourceMappingURL=left_user.css.map */
