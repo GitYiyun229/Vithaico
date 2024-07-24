@@ -24,7 +24,7 @@
 }
 .item-order .item-order-detail {
   display: grid;
-  grid-template-columns: 88px auto 150px;
+  grid-template-columns: 88px auto;
   grid-gap: 1rem;
   padding: 16px 0;
   border-bottom: 1px solid #ebebeb;
@@ -56,7 +56,7 @@
   border: 2px solid #fff;
 }
 .item-order .item-footer .title {
-  width: 88px;
+  width: 120px;
 }
 .item-order .btn-detail {
   padding: 10px 40px;

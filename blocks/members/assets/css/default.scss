@@ -9,7 +9,7 @@
 }
 .grid_box {
   display: grid;
-  grid-template-columns: auto 220px;
+  grid-template-columns: auto 260px;
   grid-gap: 40px;
   .level_box {
     h3 {
@@ -141,6 +141,12 @@
           flex-direction: column;
           gap: 12px;
           align-items: center;
+          p.time-rank{
+            font-size: 12px;
+            color: #ea212d;
+            top: -50%;
+            font-weight: 600;
+          }
           img {
             width: 24px;
             height: 24px;

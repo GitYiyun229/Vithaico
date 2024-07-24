@@ -51,12 +51,10 @@ class MembersControllersDashboard extends MembersControllersMembers
         $ward_id = FSInput::get('ward');
         $address = FSInput::get('address');
 
-        $bank_code = FSInput::get('bank') ? FSInput::get('bank') : '' ;
+        $bank_code = FSInput::get('bank') ? FSInput::get('bank') : '';
         $bank_stk = FSInput::get('stk') ? FSInput::get('stk') : '';
         $bank_name = FSInput::get('chustk') ? FSInput::get('chustk') : '';
-
         $return = FSRoute::_('index.php?module=members&view=dashboard');
-
         $member = $this->model->get_record("id = $id", $this->table);
 
         if (!$member) {
@@ -66,20 +64,18 @@ class MembersControllersDashboard extends MembersControllersMembers
         $row = compact('full_name', 'birthday', 'sex', 'city_id', 'district_id', 'ward_id', 'address', 'bank_code', 'bank_name', 'bank_stk');
         $id_update = $this->model->_update($row, $this->table, "id = $id");
 
-        $id = $this->model->_update($row, $this->table, "id = " . $id);
-
-        if ($id) {
-            $member_id = $id;
+        if ($id_update) {
+            $member_id = $member->id;
             $province_id = $city_id;
             $name = $full_name;
             $telephone = $member->telephone;
             $default = 1;
-            $id_address = $this->model->get_record("id = $id", 'fs_members_address');
+            $id_address = $this->model->get_record("member_id = $member->id", 'fs_members_address');
             $timestamp = date('Y-m-d H:i:s');
             $row_address = compact('name', 'telephone', 'address', 'province_id', 'district_id', 'ward_id', 'default', 'member_id');
             if ($id_address) {
                 $row_address['updated_time'] = $timestamp;
-                $rs = $this->model->_update($row_address, 'fs_members_address', "member_id = $member_id");
+                $rs = $this->model->_update($row_address, 'fs_members_address', "member_id = $member->id");
             } else {
                 $row_address['created_time'] = $timestamp;
                 $rs = $this->model->_add($row_address, 'fs_members_address');

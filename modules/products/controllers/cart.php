@@ -15,19 +15,21 @@ class ProductsControllersCart extends FSControllers
     {
         // unset($_SESSION['cart']);
 
-        global $tmpl, $user;
+        global $tmpl, $user, $config;
         $tmpl->addTitle('Giỏ hàng');
 
         $cart = $this->calculateCartPrice();
 
         $cartPrice = 0;
-        $shipPrice = 30000;
+
         $promotionDiscountPrice = 0;
 
         foreach ($cart as $item) {
 
             $cartPrice += $item['quantity'] * $item['price'];
         }
+
+        $shipPrice = ($cartPrice <= 1000000 && $config['fee']) ? $config['fee'] : 0;
 
         $totalPayment = $cartPrice + $shipPrice - $promotionDiscountPrice;
 
@@ -90,7 +92,6 @@ class ProductsControllersCart extends FSControllers
         }
 
         $id = FSInput::get('product');
-        $id_sub = FSInput::get('sub', 0);
         $quantity = FSInput::get('quantity', 1);
         $price = FSInput::get('price');
         $price_old = FSInput::get('price_old', 0);
@@ -118,17 +119,7 @@ class ProductsControllersCart extends FSControllers
             goto exitFunc;
         }
 
-        if ($id_sub) {
-            $sub = $this->model->get_record("id = $id_sub AND published = 1", 'fs_products_sub', 'id, name, price, quantity, price_old, code, nhanh_id');
 
-            if (!$sub->quantity) {
-                $response = [
-                    'message' => FSText::_('Sản phẩm đã hết hàng!'),
-                    'error' => true,
-                ];
-                goto exitFunc;
-            }
-        }
 
         $itemNew = [
             'product_id' => $id,
@@ -143,28 +134,24 @@ class ProductsControllersCart extends FSControllers
         $session = @$_SESSION['cart'] ?: [];
 
         foreach ($session as $i => $item) {
-            if ($item['product_id'] == $id && $item['sub_id'] == $id_sub) {
+            if ($item['product_id'] == $id) {
                 $session[$i]['quantity'] += $quantity;
                 $exist = 1;
                 break;
             }
         }
-
         if (!$exist) {
             $session[] = $itemNew;
         }
-
         $_SESSION['cart'] = $session;
         $total_money_cart = 0;
         $cart = new FSControllers();
         $cartList = $cart->calculateCartPrice();
-
         $cartPrice = 0;
-
         foreach ($cartList as $item) {
             $cartPrice += $item['quantity'] * $item['price'];
         }
-
+        // die;
         $response = [
             'message' => FSText::_('Sản phẩm đã được thêm vào giỏ hàng!'),
             'error' => false,
@@ -181,6 +168,7 @@ class ProductsControllersCart extends FSControllers
 
     public function updateCart()
     {
+        // die;
 
         $index = FSInput::get('index');
         $quantity = FSInput::get('quantity', 1);
@@ -239,10 +227,10 @@ class ProductsControllersCart extends FSControllers
             $total_before += $item['quantity'] * $item['price'];
         }
 
-        global $user;
+        global $user, $config;
 
         $member_discount_price = 0;
-        $ship_price = 30000;
+        $ship_price  = ($total_before <= 1000000 && $config['fee']) ? $config['fee'] : 0;
         $code_discount_price = 0;
 
         $rowOrder = [
@@ -261,9 +249,6 @@ class ProductsControllersCart extends FSControllers
 
             'products_id' => implode(',', $product_id),
             'products_count' => $product_count,
-
-            // 'member_level' => 0,
-            // 'member_discount_price' => $member_discount_price,
             'member_coin' => $member_coin,
 
             'ship_price' => $ship_price,
@@ -306,10 +291,8 @@ class ProductsControllersCart extends FSControllers
         }
 
         $this->model->_add_multiple($rowDetail, 'fs_order_items');
-
         $rowOrder['orderID'] = $orderId;
         $_SESSION['orderInfo'] = $rowOrder;
-
         $rowOrder['province_name'] = $this->model->get_record("code = '" . $rowOrder['recipients_province'] . "'", 'fs_provinces', 'code, name')->name;
         $rowOrder['district_name'] = $this->model->get_record("code = '" . $rowOrder["recipients_district"] . "'", 'fs_districts', 'code, name, full_name')->full_name;
         $rowOrder['ward_name'] = $this->model->get_record("code = '" . $rowOrder['recipients_ward'] . "'", 'fs_wards', 'code, name, full_name')->full_name;
@@ -319,29 +302,30 @@ class ProductsControllersCart extends FSControllers
             if ($user->userInfo->level >= 1) {
                 $this->calculateMemberRankDaiLy();
             }
-            $member_ref = $this->model->get_record("ref_code = '" . $user->userInfo->ref_by . "'", 'fs_members', 'id,level,full_name,vt_coin,hoa_hong,active_account,due_time_month'); // thành viên giới thiệu (F0)
+            $member_ref = $this->model->get_record("ref_code = '" . $user->userInfo->ref_by . "'", 'fs_members', 'id,level,full_name,vt_coin,hoa_hong,active_account,end_time,due_time_month'); // thành viên giới thiệu (F0)
             $percent = $member_coin > 300 ? 10 : 0; //cách tính số coin nhận được nếu trên 300coin nhận thêm 10% hoa hồng cho f0
             $hoa_hong = $member_ref->hoa_hong ?? $this->model->get_record('level =' . $member_ref->level, 'fs_members_group')->member_benefits;
             $coin_add_affilat =  ($member_coin * ($hoa_hong + $percent)) / 100;
             if ($coin_add_affilat) {
                 $dieu_kien_nhan = $member_ref->active_account == 1 ? 1 : 0;
+                if ($dieu_kien_nhan == 0) {
+                    $dieu_kien_nhan = $this->check_dieu_kien_nhan_coin($member_ref->id, $member_ref->level, $member_ref->due_time_month);
+                }
                 $total_coin = $coin_add_affilat + $member_ref->vt_coin;
-                
+                $RowCoin = [
+                    'order_id' => $orderId,
+                    'total_coin' => $member_coin, //số coin của đơn hàng 
+                    'percent_add' => $hoa_hong + $percent, //số % thêm khi đơn hàng trên 300vt-coin
+                    'percent' => $hoa_hong, //số % mà f0 có thể nhận được , dựa trên mức rank của họ
+                    'before_coin' => $member_ref->vt_coin, //số coin của member lúc ban đầu
+                    'after_coin' => $coin_add_affilat, //số coin của member sau khi cộng dựa theo % hoa hồng 
+                    'total_coin_after' => $total_coin, //số coin của member sau khi cộng dựa theo % hoa hồng 
+                    'user_name' =>  $member_ref->full_name, // tổng số coin sau khi được cộng vào 
+                    'user_id' => $member_ref->id, //user_id nhận tiền 
+                    'dieu_kien_nhan' => $dieu_kien_nhan,
+                    'created_time' => date('Y-m-d H:i:s'), //ngày tạo
+                ];
                 if ($this->calculateMemberCoin($member_ref->id, $total_coin, $dieu_kien_nhan)) {
-                    $RowCoin = [
-                        'order_id' => $orderId,
-                        'total_coin' => $member_coin, //số coin của đơn hàng 
-                        'percent_add' => $member_ref->hoa_hong, //số % thêm khi đơn hàng trên 300vt-coin
-                        'percent' => $member_ref->hoa_hong, //số % mà f0 có thể nhận được , dựa trên mức rank của họ
-                        'before_coin' => $member_ref->vt_coin, //số coin của member lúc ban đầu
-                        'after_coin' => $coin_add_affilat, //số coin của member sau khi cộng dựa theo % hoa hồng 
-                        'total_coin_after' => $total_coin, //số coin của member sau khi cộng dựa theo % hoa hồng 
-                        'user_name' =>  $member_ref->full_name, // tổng số coin sau khi được cộng vào 
-                        'user_id' => $member_ref->id, //user_id nhận tiền 
-                        'dieu_kien_nhan' => $dieu_kien_nhan,
-                        'created_time' => date('Y-m-d H:i:s'), //ngày tạo
-                    ];
-
                     if ($id_fs_coin_log = $this->model->_add($RowCoin, 'fs_coin_log')) {
                         $status = ['status' => 1];
                         $this->model->_update($status, 'fs_coin_log', 'id =' . $id_fs_coin_log);
@@ -349,6 +333,8 @@ class ProductsControllersCart extends FSControllers
                         if ($member_ref->level >= 1)
                             $this->calculateMemberRank($member_ref->id);
                     }
+                } else {
+                    $this->model->_add($RowCoin, 'fs_coin_log');
                 }
             }
         }
@@ -399,10 +385,10 @@ class ProductsControllersCart extends FSControllers
         $ward = $this->model->get_record("code = '" . $order['recipients_ward'] . "'", 'fs_wards', 'code, name');
 
 
-        // unset($_SESSION['cart']);
-        // unset($_SESSION['cartCalculated']);
-        // unset($_SESSION['orderInfo']);
-        // unset($_SESSION['CoinInfo']);
+        unset($_SESSION['cart']);
+        unset($_SESSION['cartCalculated']);
+        unset($_SESSION['orderInfo']);
+        unset($_SESSION['CoinInfo']);
 
         global $tmpl;
         $tmpl->addTitle('Đặt hàng thành công');

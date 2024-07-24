@@ -1,12 +1,8 @@
 <?php
 $tmpl->addStylesheet('members', 'modules/members/assets/css');
-$tmpl->addStylesheet('orders_f1', 'modules/members/assets/css');
-
-$tmpl->addScript('orders_f1', 'modules/members/assets/js');
-
-
+$tmpl->addStylesheet('order_f1', 'modules/members/assets/css');
+$tmpl->addScript('order_f1', 'modules/members/assets/js');
 ?>
-
 <div class="container">
     <div class="mb-3">
         <?php include PATH_BASE . 'modules/members/views/level.php' ?>

@@ -3,8 +3,8 @@ global $tmpl;
 $tmpl->addStylesheet('default', 'blocks/members/assets/css');
 if ($interval <= 0) {
     $active_interval = 'active_interval';
-}else{
-     $active_interval ='';
+} else {
+    $active_interval = '';
 }
 ?>
 <div class="box-fff p-3">
@@ -52,8 +52,9 @@ if ($interval <= 0) {
         <div class="box_coin d-flex flex-column align-items-end justify-content-end flex-wrap align-content-end">
 
             <p>Bạn đang có </p>
-            <p class="fw-bold"><img src="/images/vt-coin.svg" alt=""> <?= $user_member->vt_coin ?> <span class="fw-light">VT-Coin</span></p>
-            <p class="fw-bold"><span class="fw-light">Tổng :</span> <?= $thong_ke_f1['total_price_order_F1'] ?> <span class="fw-light">VT-Coin</span></p>
+            <p class="fw-bold">Coin hoa hồng : <img src="/images/vt-coin.svg" alt=""> <?= $user_member->vt_coin ?> <span class="fw-light">VT-Coin</span></p>
+            <p class="fw-bold"><span class="fw-light">Coin F1 : </span> <?= $thong_ke_f1['total_coin_order_F1'] ?> <span class="fw-light">VT-Coin</span></p>
+            <p class="fw-bold"><span class="fw-light">Coin của bạn : </span> <?= $thong_ke_f1['total_coin_order'] ?> <span class="fw-light">VT-Coin</span></p>
         </div>
     </div>
     <div class="progress_golfplus grid_box">
@@ -64,11 +65,15 @@ if ($interval <= 0) {
                     <div class="progress_timeline" style="width:<?php echo $timeline ?>% "></div>
                     <div class="list_item_progress">
                         <?php foreach ($table_level as $item) { ?>
-                            <div class="item_bar">
+                            <div class="item_bar ">
+                                <?php if ($item->time_update_rank) { ?>
+                                    <p class="time-rank m-0  position-absolute"><?= date('d/m/Y H:i', strtotime($item->time_update_rank)) ?></p>
+
+                                <?php } ?>
                                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="6" cy="6" r="5" fill="#FAB731" stroke="white" stroke-width="2" />
                                 </svg>
-                                <img src="<?php echo URL_ROOT. $item->icon ?>" alt="">
+                                <img src="<?php echo URL_ROOT . $item->icon ?>" alt="">
                             </div>
                         <?php } ?>
                     </div>
@@ -116,7 +121,7 @@ if ($interval <= 0) {
                         <span>
                             <?php echo  $interval ?>
                         </span>
-                        <?php echo FSText::_(' ngày ')  ?> 
+                        <?php echo FSText::_(' ngày ')  ?>
                     </div>
 
                 <?php } else { ?>

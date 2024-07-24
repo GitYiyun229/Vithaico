@@ -7,6 +7,7 @@
 		public static function _($string)
 		{
 			global $translate;
+			// print_r($translate);
 			if(isset($translate[$string]))
 				return $translate[$string];
 			return $string;

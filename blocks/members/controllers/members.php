@@ -19,8 +19,9 @@ class MembersBControllersMembers
     $total_member_coin = $this->get_total_member_coin($user_member->id);
     $thong_ke_f1 = $this->GetArrayInfoF1($user_member->ref_code);
     $level = $user_member->level;
-    $table_level = $model->get_records('', 'fs_members_group', '*', ' id asc');
-    
+    $table_level = $model->get_records('', 'fs_members_group', '*', 'id asc');
+    $this->time_rank($table_level);
+
     $rank_hientai = $this->get_current_rank($table_level, $level);
     $dieukien_lenrank = $this->get_next_rank($table_level, $level);
     $timeline = $this->calculate_timeline($level, $total_member_coin, $thong_ke_f1);
@@ -58,7 +59,7 @@ class MembersBControllersMembers
 
     $now = new DateTime();
     $start_date = new DateTime($start_time);
- 
+
     if ($start_date > $now) {
       // $start_date lớn hơn $now, trả về số ngày dương
       $interval = $now->diff($start_date)->days;
@@ -114,7 +115,6 @@ class MembersBControllersMembers
     $tinhtheoF1 = 0;
     $tinhtheodanhso = 0;
     $limits = [3 => [50000000, 10, 40], 4 => [200000000, 50, 60], 5 => [1000000000, 200, 80]];
-
     if ($level == 1) {
       $timeline = ($total_member_coin / 99) * 20;
     } elseif ($level == 2) {
@@ -129,21 +129,45 @@ class MembersBControllersMembers
     } elseif ($level == 6) {
       $timeline = 100;
     }
-
     return $timeline;
   }
+  private function time_rank($ranks)
+  {
+    global $tmpl, $user, $config;
+    $user_member = $user->userInfo;
+    $model = new MembersBModelsMembers();
+    foreach ($ranks as $item) {
+      $queryCondition = sprintf("user_id = %d and level = %d", $user_member->id, $item->level);
+      $rank_log = $model->get_record($queryCondition, 'fs_update_rank_log', '*', 'id desc');
+      $item->time_update_rank='';
+      if($rank_log){
+        $item->time_update_rank = $rank_log->created_time;
+      }
+      if ($item->level == 1) {
+        $item->time_update_rank = $user_member->created_time;
+      }
+    }
+  }
+  
   public function GetArrayInfoF1($ref_code)
   {
+    global $tmpl, $user, $config;
+    $user_member = $user->userInfo;
     $model = new MembersBModelsMembers();
-
     $array_id = [
       'array_ids' => [],
       'string_ids' => '',
       'count_ids' => 0,
       'count_total_daily' => 0,
       'total_price_order_F1' => 0,
+      'total_coin_order_F1' => 0,
+      'total_coin_order' => 0,
     ];
+    $total_member = $model->get_records("user_id = " . $user_member->id, 'fs_order', 'SUM(member_coin) AS total_coin');
 
+    if (!empty($total_member) && isset($total_member[0]->total_coin)) {
+      $array_id['total_coin_order'] = $total_member[0]->total_coin;
+    }
     if (!empty($ref_code)) {
       $members = $model->get_records('ref_by = ' . $ref_code, 'fs_members', 'id,level');
       if (!empty($members)) {
@@ -158,9 +182,10 @@ class MembersBControllersMembers
         $array_id['string_ids'] = implode(',', $string_ids);
         $array_id['count_ids'] = count($members);
 
-        $total = $model->get_records("user_id IN (" . $array_id['string_ids'] . ")", 'fs_order', 'SUM(total_before) AS total_before_sum');
-        if (!empty($total) && isset($total[0]->total_before_sum)) {
+        $total = $model->get_records("user_id IN (" . $array_id['string_ids'] . ")", 'fs_order', 'SUM(total_before) AS total_before_sum ,SUM(member_coin) AS total_coin');
+        if (!empty($total) && (isset($total[0]->total_before_sum) || isset($total[0]->total_coin))) {
           $array_id['total_price_order_F1'] = $total[0]->total_before_sum;
+          $array_id['total_coin_order_F1'] = $total[0]->total_coin;
         }
       }
     }

@@ -48,7 +48,8 @@ $tmpl->addStylesheet('login', 'modules/members/assets/css');
             </form>
             <div class="login-res d-flex align-items-center justify-content-between">
                 <div><?php echo FSText::_('Bạn là thành viên mới?') ?>
-                    <a href="<?php echo FSRoute::_('index.php?module=members&view=user&task=register') ?>" class="fw-bold modal-member-tab text-red ms-2" data="register-telephone"><?php echo FSText::_('Đăng ký') ?>
+                    <a href="<?php echo FSRoute::_('index.php?module=members&view=user&task=register') ?>" class="fw-bold text-red ms-2" data="register-telephone">
+                        <?php echo FSText::_('Đăng ký') ?>
                     </a>
                 </div>
             </div>
