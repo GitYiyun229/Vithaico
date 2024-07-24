@@ -466,7 +466,7 @@ $alert = array(
                                     <b class="register-success-telephone register-success-email"></b>
                                 </div>
                                 <div class="mb-4 text-center">
-                                    Bạn sẽ được chuyển hướng đến trang đăng nhập trong <span class="re-send-count-down-callback"></span> giây.
+                                    Sẽ chuyển hướng đến trang đăng nhập trong <span class="re-send-count-down-callback"></span> giây.
                                 </div>
                                 <a href="<?php echo FSRoute::_('index.php?module=members&view=user&task=login') ?>" class="form-submit text-uppercase d-flex align-items-center justify-content-center fw-medium"><?php echo FSText::_('Đăng nhập') ?></a>
                             </div>

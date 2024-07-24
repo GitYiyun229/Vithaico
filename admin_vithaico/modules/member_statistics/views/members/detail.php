@@ -1,6 +1,9 @@
-﻿<link type="text/css" rel="stylesheet" media="all" href="../libraries/jquery/jquery.ui/jquery-ui.css" />
-<link rel="stylesheet" href="/modules/products/assets/css/select2.min.css">
+﻿<link rel="stylesheet" href="/modules/products/assets/css/select2.min.css">
+<link type="text/css" rel="stylesheet" media="all" href="../libraries/jquery/jquery.ui/jquery-ui.css" />
 <link type="text/css" rel="stylesheet" media="all" href="templates/default/css/products.css" />
+
+<script src="/modules/products/assets/js/select2.min.js"></script>
+
 <link href="templates/default/dist/css/style_thongke.css" rel="stylesheet">
 
 <script type="text/javascript" src="../libraries/jquery/jquery.ui/jquery-ui.js"></script>
@@ -29,7 +32,10 @@ $this->dt_form_begin(1, 4, 'Thống kê');
 						<p class="info-p"><?php echo FSText::_('Họ và tên : '); ?> <span class="info-span"><?= @$data->full_name ?></span></p>
 						<p class="info-p"><?php echo FSText::_('Số điện thoại : '); ?> <span class="info-span"><?= @$data->telephone ?></span></p>
 						<p class="info-p"><?php echo FSText::_('Email : '); ?> <span class="info-span"><?= @$data->email ?></span></p>
-						<p class="info-p"><?php echo FSText::_('Mức hoa hồng đang nhận : '); ?> <span class="info-span"><?= @$data->hoa_hong ?>%</span></p>
+						<p class="info-p"><?php echo FSText::_('Mức hạng hiện tại : '); ?> <img src="<?= @$data->rank_image ?>" alt=""> </p>
+						<p class="info-p"><?php echo FSText::_('Mức hoa hồng đang nhận : '); ?><span class="info-span"><?= @$data->hoa_hong ?>%</span></p>
+						<p class="info-p"><?php echo FSText::_('Thời gian duy trì tài khoản : '); ?> <span class="info-span"><?= @$data->end_time ?>%</span></p>
+						<p class="info-p"><?php echo FSText::_('Thời gian gia hạn tài khoản theo tháng: '); ?> <span class="info-span"><?= @$data->due_time_month ?>%</span></p>
 						<p class="info-p"><?php echo FSText::_('Link đăng ký : '); ?>
 							<span class="info-span"><?= FSRoute::_('index.php?module=members&view=user&task=register') ?><?= '?affiliate=' . $data->ref_code ?>
 							</span>
@@ -49,6 +55,8 @@ $this->dt_form_begin(1, 4, 'Thống kê');
 						<p class="info-p"><?php echo FSText::_('Số điện thoại : '); ?> <span class="info-span"><?= @$data_f0->telephone ?></span></p>
 						<p class="info-p"><?php echo FSText::_('Email : '); ?> <span class="info-span"><?= @$data_f0->email ?></span></p>
 						<p class="info-p"><?php echo FSText::_('Mức hoa hồng đang nhận : '); ?> <span class="info-span"><?= @$data_f0->hoa_hong ?>%</span></p>
+						<p class="info-p"><?php echo FSText::_('Thời gian duy trì tài khoản : '); ?> <span class="info-span"><?= @$data->end_time ?></span></p>
+						<p class="info-p"><?php echo FSText::_('Thời gian gia hạn tài khoản theo tháng : '); ?> <span class="info-span"><?= @$data->due_time_month ?></span></p>
 						<p class="info-p"><?php echo FSText::_('Link đăng ký : '); ?>
 							<span class="info-span"><?= FSRoute::_('index.php?module=members&view=user&task=register') ?><?= '?affiliate=' . $data_f0->ref_code ?>
 							</span>
@@ -74,7 +82,7 @@ $this->dt_form_begin(1, 4, 'Thống kê');
 				</div>
 				<div class="member-info-content-item-title box-2">
 					<div class="inner">
-						<h3><?= @$total_coin[0] ? @$total_coin[0] : '0' . ' VT-Coin' ?></h3>
+						<h3><?= @$total_coin . ' VT-Coin' ?></h3>
 						<p><?php echo FSText::_('Hoa hồng đã nhận'); ?></p>
 					</div>
 					<a href="#fragment-2" class="small-box-footer"><span><?php echo FSText::_("More info"); ?></span></a>
@@ -156,4 +164,10 @@ $this->dt_form_end(@$data, 1, 0);
 		navigator.clipboard.writeText(copyText.value);
 		alert('Copy link thành công !');
 	}
+	$('a.small-box-footer').click(function(e) {
+		e.preventDefault(); // Prevent the default anchor behavior
+		var targetFragment = $(this).attr('href'); // Get the href attribute value
+		// Exclude the original clicked element when simulating the click
+		$('a[href="' + targetFragment + '"]').not(this).click();
+	});
 </script>

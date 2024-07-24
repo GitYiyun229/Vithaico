@@ -33,7 +33,6 @@ $tmpl->addScript('product', 'modules/products/assets/js');
                             <img src="<?php echo image_replace_webp(URL_ROOT . $item->image, 'larges') ?>" onerror="this.src='/images/not_picture.png'" alt="<?php echo $data->name ?>" class="img-fluid image">
                         </div>
                     <?php } ?>
-
                 </div>
             </div>
         </div>

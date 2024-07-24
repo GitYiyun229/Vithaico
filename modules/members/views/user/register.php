@@ -43,7 +43,7 @@ $ref_code = FSInput::get('affiliate');
                     </div>
                     <div class="mb-4 d-flex align-items-center justify-content-center  position-relative w-100">
                         <div class="w-100">
-                            <input type="text" class="form-control w-100" name="repassregister" id="repassregister" autocomplete placeholder="<?php echo FSText::_('Nhập lại mật khẩu') ?>">
+                            <input type="password" class="form-control w-100" name="repassregister" id="repassregister" autocomplete="off" placeholder="<?php echo FSText::_('Nhập lại mật khẩu'); ?>">
                             <a href="" class="toggle-password">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M9.68634 6.31337L6.31301 9.68671M9.68634 6.31337C9.25301 5.88004 8.65967 5.61337 7.99967 5.61337C6.67967 5.61337 5.61301 6.68004 5.61301 8.00004C5.61301 8.66004 5.87967 9.25337 6.31301 9.68671M9.68634 6.31337L14.6663 1.33337M6.31301 9.68671L1.33301 14.6667M11.8797 3.84671C10.713 2.96671 9.37967 2.48671 7.99967 2.48671C5.64634 2.48671 3.45301 3.87337 1.92634 6.27337C1.32634 7.21337 1.32634 8.79337 1.92634 9.73337C2.45301 10.56 3.06634 11.2734 3.73301 11.8467M5.61301 13.02C6.37301 13.34 7.17967 13.5134 7.99967 13.5134C10.353 13.5134 12.5463 12.1267 14.073 9.72671C14.673 8.78671 14.673 7.20671 14.073 6.26671C13.853 5.92004 13.613 5.59337 13.3663 5.28671M10.3397 8.46671C10.1663 9.40671 9.39967 10.1734 8.45967 10.3467" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
@@ -75,7 +75,7 @@ $ref_code = FSInput::get('affiliate');
                 <?php echo csrf::displayToken(); ?>
             </form>
             <div class="login-res text-center d-flex gap-2 align-items-center justify-content-center">
-                <p class="m-0"><?php echo FSText::_('Bạn đã có tài khoản?') ?></p> <a href="<?php echo FSRoute::_('index.php?module=members&view=user&task=login')?>" class="fw-bold text-red"><?php echo FSText::_('Đăng nhập') ?></a>
+                <p class="m-0"><?php echo FSText::_('Bạn đã có tài khoản?') ?></p> <a href="<?php echo FSRoute::_('index.php?module=members&view=user&task=login') ?>" class="fw-bold text-red"><?php echo FSText::_('Đăng nhập') ?></a>
             </div>
         </div>
     </div>

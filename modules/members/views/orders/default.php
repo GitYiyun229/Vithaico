@@ -62,23 +62,21 @@ $titleRate = [
                                         <a href="<?php echo $link ?>">
                                             <?php echo $detail->productInfo->name ?>
                                         </a>
-
                                         <div class="text-grey">SL: x<?php echo $detail->count ?></div>
                                         <div>
                                             <span class="fw-medium"><?php echo format_money($detail->productInfo->price_discount) ?>/<?php echo $detail->count * $detail->productInfo->coin ?>VT-Coin</span>
                                             <span class="ms-3"></span>
                                         </div>
                                         <div>
-                                            <span class="fw-medium"><?php echo format_money( $detail->count * $detail->productInfo->price_discount) ?></span>
-                                            
+                                            <span class="fw-medium"><?php echo format_money($detail->count * $detail->productInfo->price_discount) ?></span>
                                         </div>
                                     </div>
                                 </div>
                             <?php } ?>
                         </div>
-                        <div class="item-footer page-border-radius d-flex align-items-center justify-content-between gap-2">
+                        <div class="item-footer page-border-radius d-flex align-items-center justify-content-between gap-2 flex-row-reverse">
                             <div class="d-flex align-items-center gap-3">
-                                <div class="title">Thanh toán</div>
+                                <div class="title">Tổng thanh toán</div>
                                 <div class="fs-5 fw-bold"><?php echo format_money($item->total_end) ?></div>
                             </div>
                             <a class="btn-detail" href="<?php echo FSRoute::_("index.php?module=members&view=orders&task=detail&id=$item->id") ?>">

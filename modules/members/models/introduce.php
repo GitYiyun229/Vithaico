@@ -7,7 +7,7 @@ class MembersModelsIntroduce extends FSModels
     {
         parent::__construct();
         global $module_config;
-        $this->limit = 2;
+        $this->limit = 15;
     }
     function set_query_body($id)
     {

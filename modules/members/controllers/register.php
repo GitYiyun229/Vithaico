@@ -159,6 +159,8 @@ class MembersControllersRegister extends FSControllers
         $response = [
             'error' => false,
             'message' => FSText::_('Đăng ký thành công!'),
+            'link' => FSRoute::_('index.php?module=members&view=user&task=login'),
+
         ];
 
         if (!$DataPass) {
@@ -225,7 +227,7 @@ class MembersControllersRegister extends FSControllers
             $id_log = $this->model->_add($row_log, 'fs_members_register_log');
             unset($_SESSION['register']);
         }
-
+    
         exitFunc:
         echo json_encode($response);
         exit;

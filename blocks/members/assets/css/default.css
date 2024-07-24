@@ -9,7 +9,7 @@
 
 .grid_box {
   display: grid;
-  grid-template-columns: auto 220px;
+  grid-template-columns: auto 260px;
   grid-gap: 40px;
 }
 .grid_box .level_box h3 {
@@ -133,6 +133,12 @@
   flex-direction: column;
   gap: 12px;
   align-items: center;
+}
+.grid_box .progress_box .progress_bar .list_item_progress .item_bar p.time-rank {
+  font-size: 12px;
+  color: #ea212d;
+  top: -50%;
+  font-weight: 600;
 }
 .grid_box .progress_box .progress_bar .list_item_progress .item_bar img {
   width: 24px;

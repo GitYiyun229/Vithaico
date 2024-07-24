@@ -30,20 +30,29 @@ class Member_statisticsControllersMembers extends Controllers
 			}
 			$data->count_f1 = count($data->list_f1) ? count($data->list_f1) : 0;
 			// số lượng đơn hàng thành viên mua
-			$list_order = $this->model->get_records("user_id = $data->id", 'fs_order', 'id, user_id, created_time, member_coin,products_count,created_time,total_before, ship_price, member_discount_price, code_discount_price, total_end, status', 'id DESC');
-			$data->total_list_order = count($list_order);
+			$data->list_order = $this->model->get_records("user_id = $data->id", 'fs_order', '*', 'id DESC');
+			// print_r( $data->list_order);
+			$data->total_list_order = count($data->list_order);
+			$data->total_coin_list_order = 0; // Initialize total_coin
+			if (!empty($data->list_order)) {
+				foreach ($data->list_order as $item) {
+					$data->total_coin_list_order += $item->member_coin; // Sum up the after_coin values
+				}
+			}
 			// số lượng đơn hàng thành viên f1 mua
 			$list_order_f1 = $this->model->get_records("user_id IN ( $data->orderIdF1) ", 'fs_order', 'id, user_id, created_time, member_coin,products_count,created_time,total_before, ship_price, member_discount_price, code_discount_price, total_end, status', 'id DESC');
 			$data->total_list_orderf1 = count($list_order_f1);
 			// số lượng coin nhận
-			$list_coin = $this->model->get_records("user_id = ( $data->id) ", 'fs_coin_log', 'after_coin,total_coin,before_coin,after_coin,percent,percent_add,order_id', 'id DESC');
+			$list_coin = $this->model->get_records("user_id = ( $data->id) ", 'fs_coin_log', 'dieu_kien_nhan,created_time,after_coin,total_coin,before_coin,after_coin,percent,percent_add,order_id', 'id DESC');
+			$total_coin = 0; // Initialize total_coin
 			if (!empty($list_coin)) {
-				$total_coin = array_map(function ($item) {
-					return $item->after_coin;
-				}, $list_coin);
-				$total_coin += $total_coin;
+				foreach ($list_coin as $item) {
+					if($item->dieu_kien_nhan ==1 ){
+						$total_coin += $item->after_coin; // Sum up the after_coin values
+					}
+				}
 			}
-			$data->total_coin_member = $total_coin[0] ? $total_coin[0] : '0';
+			$data->total_coin_member = $total_coin > 0 ? $total_coin : '0'; // Assign total_coin to total_coin_member, ensuring it's at least '0'
 		}
 		$pagination = $model->getPagination('');
 		include 'modules/' . $this->module . '/views/' . $this->view . '/list.php';
@@ -61,7 +70,9 @@ class Member_statisticsControllersMembers extends Controllers
 		$id = $ids[0];
 		$model  = $this->model;
 		$data = $model->get_record_by_id($id);
+		$rank_member= $model->get_records('level = '.$data->level, 'fs_members_group','image');
 		// print_r($data);
+		$data->rank_image= $rank_member->image;
 		if (!$data)
 			die('Not found url');
 		// tổng số lượng đã giới thiệu
@@ -75,16 +86,35 @@ class Member_statisticsControllersMembers extends Controllers
 		}
 		// số lượng đơn hàng thành viên mua
 		$list_order = $this->model->get_records("user_id = $data->id", 'fs_order', 'id, user_id, created_time, member_coin,products_count,created_time,total_before, ship_price, member_discount_price, code_discount_price, total_end, status', 'id DESC');
+		$total_list_order = 0; // Initialize total_coin
+		$total_coin_list_order = 0; // Initialize total_coin
+		if (!empty($list_order)) {
+			foreach ($list_order as $item) {
+				$total_list_order += $item->total_end; // Sum up the after_coin values
+				$total_coin_list_order += $item->member_coin; // Sum up the after_coin values
+			}
+		}
 		// số lượng đơn hàng thành viên f1 mua
 		$list_order_f1 = $this->model->get_records("user_id IN ( $orderIdF1) ", 'fs_order', 'id, user_id, created_time, member_coin,products_count,created_time,total_before, ship_price, member_discount_price, code_discount_price, total_end, status', 'id DESC');
-		// số lượng coin nhận
-		$list_coin = $this->model->get_records("user_id = ( $data->id) ", 'fs_coin_log', 'after_coin,total_coin,before_coin,after_coin,percent,percent_add,order_id', 'id DESC');
-		if (!empty($list_coin)) {
-			$total_coin = array_map(function ($item) {
-				return $item->after_coin;
-			}, $list_coin);
 
-			$total_coin += $total_coin;
+		$total_coin_f1 = 0;
+		// print_r($list_coin);
+		if (!empty($list_order_f1)) {
+			foreach ($list_order_f1 as $item) {
+				$total_coin_f1 += $item->after_coin;
+			}
+		}
+		
+		// số lượng coin nhận
+		$list_coin = $this->model->get_records("user_id =$data->id", 'fs_coin_log', 'created_time,after_coin,total_coin,before_coin,after_coin,percent,percent_add,order_id,dieu_kien_nhan', 'id DESC');
+		$total_coin = 0;
+		// print_r($list_coin);
+		if (!empty($list_coin)) {
+			foreach ($list_coin as $item) {
+				if($item->dieu_kien_nhan==1){
+					$total_coin += $item->after_coin;
+				}
+			}
 		}
 		$data_f0 = $this->model->get_record("ref_code = $data->ref_by", 'fs_members', '*', 'id DESC');
 		include 'modules/' . $this->module . '/views/' . $this->view . '/detail.php';

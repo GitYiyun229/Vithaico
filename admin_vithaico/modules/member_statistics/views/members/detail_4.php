@@ -1,18 +1,31 @@
+<div>
+    <div class="inner">
+        <p><?php echo FSText::_('Số coin nhận'); ?>
+            <span>
+                <?= @$total_coin_f1 . ' VT-Coin' ?>
+            </span>
+        </p>
+    </div>
+    <div class="inner">
+        <p><?php echo FSText::_('Số tiền tương đương'); ?>
+            <span> <?= format_money(@$total_coin_f1 * 4500, 'đ') ?></span>
+        </p>
+    </div>
+</div>
 <div class="card">
     <div class="card-body p-0">
         <div class="table-responsive">
             <table class="table m-0">
                 <thead>
                     <tr>
-                        <th>Order ID</th>
-                        <th>Total Product</th>
-                        <th>Total Order</th>
-                        <th>Price Ship</th>
-                        <th>Total Price</th>
-                        <th>Coin</th>
-                        <th>Time</th>
-                        <th>Detail</th>
-
+                        <th><?php echo FSText::_('Order ID'); ?></th>
+                        <th><?php echo FSText::_('Total Product'); ?></th>
+                        <th><?php echo FSText::_('Total Order'); ?></th>
+                        <th><?php echo FSText::_('Price Ship'); ?></th>
+                        <th><?php echo FSText::_('Total Price'); ?></th>
+                        <th><?php echo FSText::_('Coin'); ?></th>
+                        <th><?php echo FSText::_('Time'); ?></th>
+                        <th><?php echo FSText::_('Detail'); ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -21,9 +34,9 @@
                         <tr>
                             <td><?= $item->id ?></td>
                             <td><?= $item->products_count ?></td>
-                            <td><?= $item->total_before ?></td>
-                            <td><?= $item->ship_price ?></td>
-                            <td><?= $item->total_end ?></td>
+                            <td><?= format_money($item->total_before, 'đ') ?></td>
+                            <td><?= format_money($item->ship_price, 'đ') ?></td>
+                            <td><?= format_money($item->total_end, 'đ') ?></td>
                             <td><?= $item->member_coin ?></td>
                             <td><?= $item->created_time ?></td>
                             <td>
