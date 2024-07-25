@@ -27,8 +27,7 @@ $tmpl->addScript('default', 'modules/members/assets/js');
                             <input type="text" class="form-control" placeholder="<?php echo FSText::_('Họ và tên') ?>" name="name" id="name" value="<?php echo $user->userInfo->full_name ?>">
                         </div>
                     </div>
-
-                    <div class="d-flex align-items-center mb-3 ">
+                    <div class="address d-flex align-items-center mb-3 ">
                         <label for="address" class="col-3"><?php echo FSText::_('Địa chỉ') ?></label>
                         <div class="col-9 d-flex align-items-center mb-3 gap-2 address-dashboard">
                             <div class="col-4">

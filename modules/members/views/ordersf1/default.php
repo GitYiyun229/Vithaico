@@ -14,7 +14,7 @@ $tmpl->addScript('order_f1', 'modules/members/assets/js');
             </div>
         </div>
         <div class="page-side p-4 bg-white">
-            <div class="page-title mb-3 fs-5 fw-bold text-uppercase"><?php echo FSText::_('Đơn hàng của tôi') ?></div>
+            <div class="page-title mb-3 fs-5 fw-bold text-uppercase"><?php echo FSText::_('Thống kê đơn hàng f1') ?></div>
             <div class="page-content page-orders">
                 <div class="user_f1_title d-flex justify-content-between">
                     <div class="user_f1_title_item"><?php echo FSText::_('stt') ?></div>
@@ -26,9 +26,8 @@ $tmpl->addScript('order_f1', 'modules/members/assets/js');
                     <div class="user_f1_title_item"><?php echo FSText::_('VT-coin') ?></div>
                     <div class="user_f1_title_item"><?php echo FSText::_('Chi tiết') ?></div>
                 </div>
-
+                <?php $sequenceNumber = 1; ?>
                 <?php foreach ($list as $item) { ?>
-                    <?php $sequenceNumber = 1; ?>
                     <div class="item-order mb-3" status="<?php echo $item->status ?>">
                         <div class="user_f1_item d-flex justify-content-between">
                             <div class="user_f1_item_item"> <?= $sequenceNumber++; ?></div>

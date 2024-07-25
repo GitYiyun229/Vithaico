@@ -1,78 +1,3 @@
-<<<<<<< HEAD
-.box_map {
-  margin-bottom: 70px;
-  margin-top: 30px;
-}
-.box_map h1 {
-  font-size: 18px;
-  line-height: 24px;
-  margin: 0;
-  padding-bottom: 10px;
-  font-weight: bold;
-  border-bottom: 1px solid #DDDDDD;
-  margin-bottom: 10px;
-}
-.box_map .list_address {
-  overflow: hidden;
-}
-.box_map .list_address .list_faq_content {
-  height: 686px;
-  overflow-y: auto;
-}
-.box_map .list_address .list_faq_content .item_ad {
-  cursor: pointer;
-  padding: 15px 0;
-  display: flex;
-  justify-content: flex-start;
-  align-items: start;
-  border-bottom: 1px solid #EEEEEE;
-}
-.box_map .list_address .list_faq_content .item_ad .left_map {
-  padding-left: 10px;
-}
-.box_map .list_address .list_faq_content .item_ad .left_map h3 {
-  text-transform: uppercase;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: bold;
-  margin: 0 0 6px 0;
-}
-.box_map .list_address .list_faq_content .item_ad .left_map p {
-  line-height: 24px;
-  margin-bottom: 6px;
-  padding-left: 20px;
-  background: url("../images/map.svg") top 5px left 0 no-repeat;
-}
-.box_map .list_address .list_faq_content .item_ad .left_map a {
-  display: block;
-  line-height: 24px;
-  padding-left: 20px;
-  background: url("../images/phone.svg") top 5px left 0 no-repeat;
-}
-@media (max-width: 991px) {
-  .box_map .list_address {
-    margin-bottom: 30px;
-    box-shadow: 0 3px 2px -2px gray;
-  }
-  .box_map .list_address .list_faq_content {
-    height: 260px;
-  }
-}
-
-#style-44::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
-  background-color: #F5F5F5;
-}
-
-#style-44::-webkit-scrollbar {
-  width: 5px;
-  background-color: #ccc;
-}
-
-#style-44::-webkit-scrollbar-thumb {
-  background-color: #F9920F;
-  border: 2px solid #F9920F;
-=======
 main .section-banner {
   margin-bottom: 48px;
 }
@@ -219,5 +144,4 @@ main .contact-box .right-box #frmContact .box-area {
   main .contact-box .right-box #frmContact .box-area:last-child {
     text-align: center;
   }
->>>>>>> ba6989dab4fd21e9036b62ac7335126d21e3e694
 }/*# sourceMappingURL=contact.css.map */

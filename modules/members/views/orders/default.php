@@ -24,14 +24,19 @@ $titleRate = [
             </div>
         </div>
         <div class="page-side">
-            <div class="page-title mb-3 fs-5 fw-medium"><?php echo FSText::_('Đơn hàng của tôi') ?></div>
             <div class="page-content page-orders">
-                <div class="page-border-radius bg-white mb-3 order-status d-flex align-items-center">
-                    <a href="" class="fs-6 fw-medium status-filter active" status="all">Tất cả</a>
-                    <?php foreach ($this->status as $i => $item) { ?>
-                        <a href="" class="fs-6 fw-medium status-filter" status="<?php echo $i ?>"><?php echo $item ?></a>
-                    <?php } ?>
+                <div class="page-top bg-white">
+
+                    <div class="page-title fs-5 fw-bold text-uppercase"><?php echo FSText::_('Lịch sử giao dịch') ?></div>
+                    <div class="page-border-radius  mb-3 order-status d-flex align-items-center">
+
+                        <a href="" class="fs-6 fw-medium status-filter active" status="all">Tất cả</a>
+                        <?php foreach ($this->status as $i => $item) { ?>
+                            <a href="" class="fs-6 fw-medium status-filter" status="<?php echo $i ?>"><?php echo $item ?></a>
+                        <?php } ?>
+                    </div>
                 </div>
+
 
                 <?php foreach ($list as $item) {
                 ?>
