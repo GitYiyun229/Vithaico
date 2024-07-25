@@ -10,8 +10,6 @@
 			$this->limit = $limit;
 			$this -> table_name = 'fs_members';
 			parent::__construct();
-            //$this -> array_synchronize = array('fs_schedules'=>array('id'=>'user_id','username'=>'user_name','full_name'=>'full_name','sex'=>'sex'
-                                                                       // ,'address'=>'address','level'=>'level','email'=>'email','mobilephone'=>'mobilephone'));                                  
 		}
 		
 		function setQuery()
@@ -28,7 +26,7 @@
 					$ordering .= "  $sort_field $sort_direct, created_time DESC, id DESC ";
 			}
 			$where = "  WHERE 1=1 ";
-			
+	
             // from
 			if(isset($_SESSION[$this -> prefix.'text0']))
 			{
@@ -56,7 +54,7 @@
 				$filter = $_SESSION[$this->prefix . 'filter0'];
 				if ($filter) {
 					$filter_val = $filter - 1;
-					$where .= ' AND a.is_admin = '.$filter_val.' ';
+					$where .= ' AND a.level = '.$filter_val.' ';
 				}
 			}
             
@@ -97,8 +95,6 @@
 			$img_paths[] = PATH_IMG_MEMBER_AVATAR.'resized'.DS;
 			return parent::remove('avatar',$img_paths);
 		}
-
-
 		/*
 		 * Createa folder when create user
 		 */
