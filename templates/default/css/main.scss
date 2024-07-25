@@ -371,7 +371,7 @@ footer {
     }
     .name-banner {
       font-size: 40px;
-      top: 0;
+      top: 50%;
       left: 0;
       right: 0;
       text-align: left;
@@ -979,11 +979,14 @@ footer {
   .section-banner {
     text-align: center;
     .item-banner {
+      height: 100%;
       .img-banner {
+        max-width: unset !important;
+        object-fit: cover;
       }
       .name-banner {
         font-size: 32px;
-        top: -10px;
+        text-align: center;
       }
     }
   }
