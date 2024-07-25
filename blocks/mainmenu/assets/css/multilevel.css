@@ -1,0 +1,73 @@
+ul {
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.parent-ul {
+  display: flex;
+  gap: 32px;
+  height: 80px;
+}
+.parent-ul .li_header {
+  height: 100%;
+}
+.parent-ul .li_header a {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  font-weight: 700;
+  position: relative;
+  color: #000000;
+  font-size: 16px;
+  text-transform: uppercase;
+  transition: all 0.3s;
+}
+.parent-ul .li_header a svg {
+  margin-left: 5px;
+}
+.parent-ul .li_header a:hover {
+  color: #ea212d;
+}
+.parent-ul .li_header a:hover svg {
+  transform: rotate(-180deg);
+}
+.parent-ul .li_header a:hover svg path {
+  stroke: #ea212d;
+}
+.parent-ul .li_header .dropdown-menu {
+  border-radius: 5px;
+  width: 275px;
+  padding: 0px;
+  background: #fff;
+  overflow: hidden;
+}
+.parent-ul .li_header .dropdown-menu .sub-menu-item a {
+  padding: 15px 20px;
+}
+.parent-ul .li_header .dropdown-menu .sub-menu-item:hover a {
+  background: #ea212d;
+  color: #fff;
+}
+.parent-ul .li_header:hover .dropdown-menu {
+  display: block;
+}
+.parent-ul .activated a {
+  color: #ea212d;
+}
+.parent-ul .activated a svg {
+  transform: rotate(-180deg);
+}
+.parent-ul .activated a svg path {
+  stroke: #ea212d;
+}
+
+@media all and (max-width: 1000px) {
+  .parent-ul {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .parent-ul li a {
+    justify-content: flex-start;
+  }
+}/*# sourceMappingURL=multilevel.css.map */

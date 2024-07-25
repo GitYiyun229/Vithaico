@@ -32,11 +32,11 @@ class Templates
         $this->file = $file;
         $this->tmpl = $tmpl;
         $this->tmpl = $tmpl;
-        
-        $this->head_meta_des = isset ($config ['meta_des']) ? $config ['meta_des'] : '';
+
+        $this->head_meta_des = isset($config['meta_des']) ? $config['meta_des'] : '';
         $this->array_meta = $array_meta;
         $this->title = str_replace(chr(13), '', htmlspecialchars($title));
-       
+
         $this->style = array();
         $this->script_top = array();
         $this->script_bottom = array();
@@ -59,7 +59,7 @@ class Templates
 
     function set_data_seo($data, $page = '')
     {
-        $this->variables ['data_seo'] = $data;
+        $this->variables['data_seo'] = $data;
         $this->title = $this->set_seo_auto('fields_seo_title', '|');
         if ($page) {
             $this->title = $this->title . ' trang ' . $page;
@@ -70,17 +70,17 @@ class Templates
 
     function assign($key, $value)
     {
-        $this->variables [$key] = $value;
+        $this->variables[$key] = $value;
     }
 
     function assignRef($key, &$value)
     {
-        $this->variables [$key] = &$value;
+        $this->variables[$key] = &$value;
     }
 
     function get_variables($key)
     {
-        return isset ($this->variables [$key]) ? $this->variables [$key] : '';
+        return isset($this->variables[$key]) ? $this->variables[$key] : '';
     }
 
     function addStylesheet($file, $folder = "")
@@ -102,7 +102,6 @@ class Templates
     {
         if ($position == 'top') {
             array_push($this->script_top, $link);
-
         } else {
             array_push($this->script_bottom, $link);
         }
@@ -123,7 +122,6 @@ class Templates
 
         if ($position == 'top') {
             array_push($this->script_top, $path);
-
         } else {
             array_push($this->script_bottom, $path);
         }
@@ -149,21 +147,21 @@ class Templates
 
     function loadMainModule()
     {
-        if (isset ($_SESSION ['msg_redirect'])) {
-            $msg_redirect = @$_SESSION ['msg_redirect'];
-            $type_redirect = @$_SESSION ['type_redirect'];
+        if (isset($_SESSION['msg_redirect'])) {
+            $msg_redirect = @$_SESSION['msg_redirect'];
+            $type_redirect = @$_SESSION['type_redirect'];
             if (!@$type_redirect)
                 $type_redirect = 'msg';
-            unset ($_SESSION ['msg_redirect']);
-            unset ($_SESSION ['type_redirect']);
+            unset($_SESSION['msg_redirect']);
+            unset($_SESSION['type_redirect']);
         }
-        if (isset ($msg_redirect)) {
+        if (isset($msg_redirect)) {
             echo "<div class='message' >";
             echo "<div class='message-content" . $type_redirect . "'>";
             echo $msg_redirect;
             echo "	</div> </div>";
-            if (isset ($_SESSION ['have_redirect'])) {
-                unset ($_SESSION ['have_redirect']);
+            if (isset($_SESSION['have_redirect'])) {
+                unset($_SESSION['have_redirect']);
             }
         }
 
@@ -180,7 +178,7 @@ class Templates
             return;
         }
         $arr_block = $this->arr_blocks;
-        $block_list = isset ($arr_block [$position]) ? $arr_block [$position] : array();
+        $block_list = isset($arr_block[$position]) ? $arr_block[$position] : array();
         $i = 0;
         $contents = '';
         if (!count($block_list))
@@ -195,7 +193,7 @@ class Templates
             // load parameters
             $parameters = '';
             include_once 'libraries/parameters.php';
-            $parameters = new Parameters ($item->params);
+            $parameters = new Parameters($item->params);
             $module_suffix = $parameters->getParams('suffix');
             $module_style = $parameters->getParams('style');
             $title = $item->title;
@@ -203,26 +201,26 @@ class Templates
             $func = 'type' . $type;
 
             if (method_exists('Templates', $func))
-                $round = $this->$func ($title, $module_style, $item->module, $module_suffix, $i);
+                $round = $this->$func($title, $module_style, $item->module, $module_suffix, $i);
             else
-                $round [0] = $round [1] = "";
+                $round[0] = $round[1] = "";
             if ($item->module == 'contents') {
-                echo $round [0];
+                echo $round[0];
                 echo $content;
-                echo $round [1];
+                echo $round[1];
             } else {
                 if (file_exists(PATH_BASE . DS . 'blocks' . DS . $item->module . DS . 'controllers' . DS . $item->module . '.php')) {
                     ob_start();
                     include_once 'blocks/' . $item->module . '/controllers/' . $item->module . '.php';
                     $c = ucfirst($item->module) . 'BControllers' . ucfirst($item->module);
-                    $controller = new $c ();
+                    $controller = new $c();
                     $controller->display($parameters, $item->title, $item->id);
                     $block_content = ob_get_contents();
                     ob_end_clean();
                     if ($block_content) {
-                        echo $round [0];
+                        echo $round[0];
                         echo $block_content;
-                        echo $round [1];
+                        echo $round[1];
                     }
                 }
             }
@@ -241,11 +239,11 @@ class Templates
 
         include_once 'libraries/parameters.php';
 
-        $parameters = new Parameters ($parameters, 'array');
+        $parameters = new Parameters($parameters, 'array');
         if (file_exists(PATH_BASE . 'blocks' . DS . $module_name . DS . 'controllers' . DS . $module_name . '.php')) {
             require_once 'blocks/' . $module_name . '/controllers/' . $module_name . '.php';
             $c = ucfirst($module_name) . 'BControllers' . ucfirst($module_name);
-            $controller = new $c ();
+            $controller = new $c();
             $controller->display($parameters, $module_name);
         }
     }
@@ -256,9 +254,9 @@ class Templates
             return 1;
         }
         $arr_block = $this->arr_blocks;
-        if (!isset ($arr_block [$position]))
+        if (!isset($arr_block[$position]))
             return 0;
-        $block_list = $arr_block [$position];
+        $block_list = $arr_block[$position];
         return count($block_list);
     }
 
@@ -276,14 +274,14 @@ class Templates
                 $ccode = FSInput::get('ccode');
                 if ($module_current == 'news' && $ccode) {
                     if (!$item->news_categories || (strpos($item->news_categories, ',' . $ccode . ',') !== false)) {
-                        $arr_blocks [$item->position] [$item->id] = $item;
+                        $arr_blocks[$item->position][$item->id] = $item;
                     }
                 } else if ($module_current == 'contents' && $ccode) {
                     if (!$item->contents_categories || (strpos($item->contents_categories, ',' . $ccode . ',') !== false)) {
-                        $arr_blocks [$item->position] [$item->id] = $item;
+                        $arr_blocks[$item->position][$item->id] = $item;
                     }
                 } else {
-                    $arr_blocks [$item->position] [$item->id] = $item;
+                    $arr_blocks[$item->position][$item->id] = $item;
                 }
             }
         }
@@ -316,56 +314,58 @@ class Templates
     function loadHeader()
     {
         global $config, $module_config, $module, $view;
-        $title = $this->genarate_standart($this->title, $this->title_maxlength, isset ($module_config->sepa_seo_title) ? $module_config->sepa_seo_title : ' | ', $config ['title'], $config ['main_title'], $old_sepa = '|');
-        $meta_key = $this->genarate_standart($this->head_meta_key, $this->metakey_maxlength, ',', $config ['meta_key'], $config ['main_meta_key']);
-        $meta_des = $this->genarate_description($this->head_meta_des, $this->metadesc_maxlength, ',', $config ['meta_des'], $config ['main_meta_des']);
+        $title = $this->genarate_standart($this->title, $this->title_maxlength, isset($module_config->sepa_seo_title) ? $module_config->sepa_seo_title : ' | ', $config['title'], $config['main_title'], $old_sepa = '|');
+        $meta_key = $this->genarate_standart($this->head_meta_key, $this->metakey_maxlength, ',', $config['meta_key'], $config['main_meta_key']);
+        $meta_des = $this->genarate_description($this->head_meta_des, $this->metadesc_maxlength, ',', $config['meta_des'], $config['main_meta_des']);
 
         if ($this->on_amp) { ?>
             <!DOCTYPE html>
             <html amp lang="vi">
+
             <head>
-                <meta charset="utf-8"/>
+                <meta charset="utf-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
                 <title><?php echo $title; ?></title>
-                <meta name="keywords" content="<?php echo $meta_key; ?>"/>
-                <meta name="description" content="<?php echo $meta_des; ?>"/>
-                <meta name="geo.region" content="VN"/>
-                <meta name="geo.placename" content="Hanoi, Vietnam"/>
-                <meta property="og:title" content="<?php echo $title; ?>"/>
-                <meta property="og:description" itemprop="description" content="<?php echo $meta_des; ?>"/>
+                <meta name="keywords" content="<?php echo $meta_key; ?>" />
+                <meta name="description" content="<?php echo $meta_des; ?>" />
+                <meta name="geo.region" content="VN" />
+                <meta name="geo.placename" content="Hanoi, Vietnam" />
+                <meta property="og:title" content="<?php echo $title; ?>" />
+                <meta property="og:description" itemprop="description" content="<?php echo $meta_des; ?>" />
                 <?php if ($this->get_variables('og_image')) { ?>
-                    <meta property="og:image" itemprop="thumbnailUrl" content="<?php echo $this->get_variables('og_image'); ?>"/>
+                    <meta property="og:image" itemprop="thumbnailUrl" content="<?php echo $this->get_variables('og_image'); ?>" />
                 <?php } ?>
                 <?php echo $this->style_amp; ?>
-                <link type="image/x-icon" href="<?php echo URL_ROOT . "/images/favicon.ico"; ?>" rel="icon"/>
-            </head>    
+                <link type="image/x-icon" href="<?php echo URL_ROOT . "/images/favicon.ico"; ?>" rel="icon" />
+            </head>
         <?php } else { ?>
             <!DOCTYPE html>
             <html lang="vi-VN">
+
             <head prefix="og: http://ogp.me/ns# fb:http://ogp.me/ns/fb# article:http://ogp.me/ns/article#">
-                <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-                <meta http-equiv="Cache-control" content="public"/>
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                <meta http-equiv="Cache-control" content="public" />
                 <title><?php echo $title; ?></title>
-                <meta name="robots" content="index,follow"/>
-                <meta name="keywords" content="<?php echo $meta_key; ?>"/>
-                <meta name="description" content="<?php echo $meta_des; ?>"/>
-                <meta name="author" content="vuabanlo"/>
-                <meta http-equiv="Content-Type" content='text/html; charset=utf-8'/>
+                <meta name="robots" content="index,follow" />
+                <meta name="keywords" content="<?php echo $meta_key; ?>" />
+                <meta name="description" content="<?php echo $meta_des; ?>" />
+                <meta name="author" content="vuabanlo" />
+                <meta http-equiv="Content-Type" content='text/html; charset=utf-8' />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
-                <link type="image/x-icon" href="<?php echo URL_ROOT . "images/favicon.ico"; ?>" rel="icon"/>
-                <meta property="og:site_name" content="vuabanlo.vn"/>
-                <meta property="og:type" content="website"/>
-                <meta property="og:locale" content="vi_VN"/>
-                <meta property="og:type" content="article"/>
-                <meta property="og:title" content="<?php echo $title; ?>"/>
-                <meta property="og:description" content="<?php echo $meta_des; ?>"/>
-                <meta name="distribution" content="Global"/>
-                <meta name="RATING" content="GENERAL"/>
-                <meta name="Googlebot" content="index,follow"/>
-                <meta name="geo.region" content="VN"/>
-                <meta name='dmca-site-verification' content=''/>
-                <meta name="google-site-verification" content=""/>
-                <link rel="alternate" type="application/rss+xml" title="<?php echo $config ['site_name'] ?> Feed" href="<?php echo URL_ROOT; ?>rss.xml"/>
+                <link type="image/x-icon" href="<?php echo URL_ROOT . "images/favicon.ico"; ?>" rel="icon" />
+                <meta property="og:site_name" content="vuabanlo.vn" />
+                <meta property="og:type" content="website" />
+                <meta property="og:locale" content="vi_VN" />
+                <meta property="og:type" content="article" />
+                <meta property="og:title" content="<?php echo $title; ?>" />
+                <meta property="og:description" content="<?php echo $meta_des; ?>" />
+                <meta name="distribution" content="Global" />
+                <meta name="RATING" content="GENERAL" />
+                <meta name="Googlebot" content="index,follow" />
+                <meta name="geo.region" content="VN" />
+                <meta name='dmca-site-verification' content='' />
+                <meta name="google-site-verification" content="" />
+                <link rel="alternate" type="application/rss+xml" title="<?php echo $config['site_name'] ?> Feed" href="<?php echo URL_ROOT; ?>rss.xml" />
                 <?php
                 if (@$this->str_header) {
                     $str_header = str_replace(array('<p>', '</p>', '<br/>', '<br />'), '', $this->str_header);
@@ -389,11 +389,11 @@ class Templates
                     echo "\r\n<link rel=\"canonical\" href=\"" . $this->get_variables('canonical') . "\" hreflang=\"vi-vn\"/>";
                 }
 
-                if($this->get_variables('link_prev')){
+                if ($this->get_variables('link_prev')) {
                     echo "\r\n<link rel=\"prev\" href=\"" . $this->get_variables('link_prev') . "\" />";
                 }
 
-                if($this->get_variables('link_next')){
+                if ($this->get_variables('link_next')) {
                     echo "\r\n<link rel=\"next\" href=\"" . $this->get_variables('link_next') . "\" />";
                 }
 
@@ -404,9 +404,9 @@ class Templates
                 $array_meta = $this->array_meta;
                 if ($array_meta != null) {
                     for ($i = 0; $i < count($array_meta); $i++) {
-                        $item = $array_meta [$i];
-                        $type = $item [0];
-                        $content = $item [1];
+                        $item = $array_meta[$i];
+                        $type = $item[0];
+                        $content = $item[1];
                         if ($type == 'og:image') {
                             echo "\r\n<meta property=\"$type\" content=\"$content\" />";
                         } else {
@@ -426,9 +426,9 @@ class Templates
                 }
                 ?>
                 <!-- Plugin Script Head here -->
-            </head>   
-        <?php }
-          
+            </head>
+            <?php }
+
         echo "\r\n<body>";
     }
 
@@ -439,7 +439,7 @@ class Templates
             $item_id = FSInput::get('Itemid');
             if ($item_id != 1 && $detect->isMobile() != 1) { ?>
                 <!-- Plugin Script Fotter here -->
-            <?php }  
+        <?php }
             $arr_script_bottom = array_unique($this->script_bottom);
             $arr_script_top = $this->script_top;
             $arr_script_bottom = array_diff_assoc($arr_script_bottom, $arr_script_top);
@@ -459,8 +459,8 @@ class Templates
     {
         $class = 'blocks' . $module_suffix . ' blocks' . $special_class;
 
-        $html [] = "<div class='$class'><div><div>";
-        $html [] = "</div></div></div>";
+        $html[] = "<div class='$class'><div><div>";
+        $html[] = "</div></div></div>";
         return $html;
     }
 
@@ -472,8 +472,8 @@ class Templates
         $str_top = "<div class='$class block' " . $attr_id . ">";
         if ($title)
             $str_top .= '<div class="block_title"><span>' . $title . '</span></div>';
-        $html [] = $str_top;
-        $html [] = "</div>";
+        $html[] = $str_top;
+        $html[] = "</div>";
         return $html;
     }
 
@@ -485,8 +485,8 @@ class Templates
         $str_top = "<div class='$class block' " . $attr_id . ">";
         if ($title)
             $str_top .= '<h2 class="block_title"><span>' . $title . '</span></h2>';
-        $html [] = $str_top;
-        $html [] = "</div>";
+        $html[] = $str_top;
+        $html[] = "</div>";
         return $html;
     }
 
@@ -504,8 +504,8 @@ class Templates
         $str_top = "<div class='$class one-column'><div class ='blocks_content'>";
         if ($title)
             $str_top .= '<h2 class="block_title"><span>' . $title . '</span></h2>';
-        $html [] = $str_top;
-        $html [] = "</div><div class='clear'></div></div>";
+        $html[] = $str_top;
+        $html[] = "</div><div class='clear'></div></div>";
         return $html;
     }
 
@@ -533,7 +533,6 @@ class Templates
         } else {
             $this->str_header .= $str;
         }
-
     }
 
     function addFooter($str)
@@ -552,7 +551,7 @@ class Templates
         }
         $rs = '';
         for ($i = 0; $i < count($arr); $i++) {
-            $item = trim($arr [$i]);
+            $item = trim($arr[$i]);
             if (!$i) {
                 $rs .= $item;
             } else {
@@ -606,7 +605,7 @@ class Templates
             $this->head_meta_key = $this->head_meta_key ? $meta_key . ',' . $this->head_meta_key : $meta_key;
         }
     }
- 
+
     function addMetades($meta_des, $pos = 'pre')
     {
         $meta_des = trim($meta_des, 'UTF-8');
@@ -619,11 +618,11 @@ class Templates
 
     function setMeta($type, $content)
     {
-        $array_meta = isset ($this->array_meta) ? $this->array_meta : array();
+        $array_meta = isset($this->array_meta) ? $this->array_meta : array();
         $new_meta = array();
-        $new_meta [0] = $type;
-        $new_meta [1] = $content;
-        $array_meta [] = $new_meta;
+        $new_meta[0] = $type;
+        $new_meta[1] = $content;
+        $array_meta[] = $new_meta;
         $this->array_meta = $array_meta;
     }
 
@@ -641,24 +640,24 @@ class Templates
         if (!$data_seo)
             return;
         global $module_config;
-        $fields_seo = isset ($module_config->fields_seo_title) ? $module_config->fields_seo_title : '';
+        $fields_seo = isset($module_config->fields_seo_title) ? $module_config->fields_seo_title : '';
         if (!$fields_seo)
             return;
         $arr_fields_seo_title = explode('|', $fields_seo);
         $title = array();
 
         foreach ($arr_fields_seo_title as $data_field_item) {
-            $arr_buffer_data_field_item = explode(',', $data_field_item); 
-            $field_conjugate = isset ($arr_buffer_data_field_item [0]) ? $arr_buffer_data_field_item [0] : 0;
-            $field_name = isset ($arr_buffer_data_field_item [1]) ? $arr_buffer_data_field_item [1] : '';
-            $value = isset ($data_seo->$field_name) ? $data_seo->$field_name : '';
+            $arr_buffer_data_field_item = explode(',', $data_field_item);
+            $field_conjugate = isset($arr_buffer_data_field_item[0]) ? $arr_buffer_data_field_item[0] : 0;
+            $field_name = isset($arr_buffer_data_field_item[1]) ? $arr_buffer_data_field_item[1] : '';
+            $value = isset($data_seo->$field_name) ? $data_seo->$field_name : '';
             if (!$value)
                 continue;
             if ($field_conjugate) {
-                $title [] = $value;
+                $title[] = $value;
             } else {
                 if (!$title)
-                    $title [] = $value;
+                    $title[] = $value;
             }
         }
         $title = implode('|', $title);
@@ -672,7 +671,7 @@ class Templates
         if (!$data_seo)
             return;
         global $module_config;
-        $fields_seo = isset ($module_config->$config_field) ? $module_config->$config_field : '';
+        $fields_seo = isset($module_config->$config_field) ? $module_config->$config_field : '';
         if (!$fields_seo)
             return;
 
@@ -681,20 +680,20 @@ class Templates
 
         foreach ($arr_fields_seo_title as $data_field_item) {
             $arr_buffer_data_field_item = explode(',', $data_field_item);
-            $field_conjugate = isset ($arr_buffer_data_field_item [0]) ? $arr_buffer_data_field_item [0] : 0;
-            $field_name = isset ($arr_buffer_data_field_item [1]) ? $arr_buffer_data_field_item [1] : '';
-            $value = isset ($data_seo->$field_name) ? $data_seo->$field_name : '';
+            $field_conjugate = isset($arr_buffer_data_field_item[0]) ? $arr_buffer_data_field_item[0] : 0;
+            $field_name = isset($arr_buffer_data_field_item[1]) ? $arr_buffer_data_field_item[1] : '';
+            $value = isset($data_seo->$field_name) ? $data_seo->$field_name : '';
             if (!$value)
                 continue;
-            if ($field_conjugate == 1) { 
-                $rs [] = $value;
+            if ($field_conjugate == 1) {
+                $rs[] = $value;
             } else {
                 if (!count($rs))
-                    $rs [] = $value;
+                    $rs[] = $value;
             }
         }
         $rs = implode($sepa, $rs);
-        
+
         return $rs;
     }
 
@@ -724,7 +723,7 @@ class Templates
         }
         $key = md5($key);
         if (CACHE_ASSETS) {
-            
+
             $check_cache_activated = $fsCache->check_activated($key, 'js/', CACHE_ASSETS, '.js');
             if ($check_cache_activated) {
                 echo "<script language=\"javascript\" type=\"text/javascript\" src=\"" . URL_ROOT . "cache/js/" . $key . ".js\"></script>";
@@ -878,5 +877,39 @@ class Templates
             $hash .= strrev(base_convert(dechex($ordStr + $ordKey), 16, 36));
         }
         return $hash;
+    }
+    function newItem($i, $item, $class = null)
+    {
+        ?>
+        <?php
+        $image = str_replace(['.jpg', '.png'], ['.webp', '.webp'], $item->image);
+        if ($i == 0) {
+            $image = str_replace('original/', 'large/', $image);
+        } else {
+            $image = str_replace('original/', 'resized/', $image);
+        }
+        ?>
+        <a href="<?php echo FSRoute::_('index.php?module=news&view=news&code=' . $item->alias . '&id=' . $item->id . '') ?>" class="item_new <?php echo $i != 0 ? '' : ' item_big' ?> <?= $class ?>">
+            <div class="img-box ">
+                <img src="<?php echo URL_ROOT . $image ?>" alt="">
+            </div>
+            <div class="info-box">
+                <p class="created_cat">
+                    <span>
+                        <?php echo date('d/m/Y', strtotime($item->created_time)) ?>
+                    </span>
+                    <span>
+                        <?php echo $item->category_name ?>
+                    </span>
+                </p>
+                <p class="title_new">
+                    <?php echo $item->title ?>
+                </p>
+                <div class="summary_new">
+                    <?php echo $item->summary ?>
+                </div>
+            </div>
+        </a>
+<?php
     }
 }

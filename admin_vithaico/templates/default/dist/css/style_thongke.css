@@ -1,0 +1,218 @@
+:root {
+  --blue: #007bff;
+  --indigo: #6610f2;
+  --purple: #6f42c1;
+  --pink: #e83e8c;
+  --red: #dc3545;
+  --orange: #fd7e14;
+  --yellow: #ffc107;
+  --green: #28a745;
+  --teal: #20c997;
+  --cyan: #17a2b8;
+  --white: #fff;
+  --gray: #6c757d;
+  --gray-dark: #343a40;
+  --primary: #85a8cf;
+  --secondary: #6c757d;
+  --success: #28a745;
+  --info: #17a2b8;
+  --warning: #ffc107;
+  --danger: #dc3545;
+  --light: #f8f9fa;
+  --dark: #343a40;
+  --breakpoint-xs: 0;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --white-xam: #f3f3f3;
+}
+
+body,
+body .panel-info .panel-heading,
+body .navbar-default {
+  background-color: var(--dark) !important;
+}
+
+body .panel-body td a {
+  color: unset;
+}
+
+#link_aff {
+  display: none;
+}
+
+#link_afff0 {
+  display: none;
+}
+
+.member-inffo {
+  display: flex;
+  gap: 20px;
+}
+
+.memmber-to {
+  width: calc((100% - 20px) / 2);
+  background-color: var(--dark);
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.125), 0 1px 3px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+  max-width: 800px;
+}
+.memmber-to h3 {
+  font-size: 20px;
+  color: var(--white);
+  text-align: center;
+  margin-bottom: 20px;
+}
+.memmber-to .info .inner p {
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+}
+.memmber-to .info .inner p span {
+  font-size: 16px;
+  font-weight: 300;
+}
+
+canvas#doughnut {
+  width: 500px !important;
+  height: 500px !important;
+  text-align: center;
+  margin: auto;
+}
+
+.member-info .member-info-title {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.member-info-content-item {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: auto;
+}
+.member-info-content-item .member-info-content-item-title {
+  padding: 2rem;
+  margin-right: 5px;
+  width: calc((100% - 50px) / 4);
+  color: #fff;
+  font-size: 20px;
+  border-radius: 0.75rem;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.125), 0 1px 3px rgba(0, 0, 0, 0.2);
+  display: block;
+  margin-bottom: 20px;
+}
+.member-info-content-item .box-1 {
+  background-color: #17a2b8 !important;
+}
+.member-info-content-item .box-2 {
+  background-color: #28a745 !important;
+}
+.member-info-content-item .box-3 {
+  background-color: rgba(224, 172, 15, 0.9803921569) !important;
+}
+.member-info-content-item .box-4 {
+  background-color: #dc3545 !important;
+}
+.member-info-content-item .box-5 {
+  background: #007bff linear-gradient(180deg, #268fff, #007bff) repeat-x !important;
+}
+
+.ui-tabs .ui-tabs-nav {
+  margin-bottom: 20px;
+}
+
+.card {
+  background-color: var(--white-xam);
+  color: var(--white);
+}
+.card .card {
+  color: var(--white);
+}
+.card .nav.flex-column > li {
+  border-bottom-color: var(--gray-600);
+}
+.card .card-footer {
+  background-color: rgba(var(--black), 0.1);
+}
+.card.card-outline-tabs {
+  border-top: 0;
+}
+.card.card-outline-tabs .card-header a:hover {
+  border-top-color: var(--gray-600);
+  border-bottom-color: transparent;
+}
+.card:not(.card-outline) > .card-header a.active {
+  color: var(--white);
+}
+
+.card-header {
+  background-color: transparent;
+  border-bottom: 1px solid var(--card-border-color);
+  position: relative;
+}
+.collapsed-card .card-header {
+  border-bottom: 0;
+}
+.card-header > .card-tools {
+  float: right;
+}
+.card-header > .card-tools [data-toggle=tooltip] {
+  position: relative;
+}
+
+.card-body {
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: var(--card-spacer-x);
+  color: var(--card-color);
+}
+
+.card-title {
+  margin-bottom: var(--card-spacer-y);
+}
+
+.table {
+  width: 100%;
+  margin-bottom: var(--spacer);
+  color: var(--table-color);
+  background-color: var(--table-bg);
+}
+.table th,
+.table td {
+  padding: var(--table-cell-padding);
+  vertical-align: top;
+  border-top: var(--table-border-width) solid var(--table-border-color);
+  color: var(--dark);
+  font-size: 14px;
+}
+.table th a,
+.table td a {
+  color: var(--dark);
+  font-size: 14px;
+}
+.table thead th {
+  vertical-align: bottom;
+}
+
+.card-header-member {
+  background-color: var(--gray);
+}
+
+.card-header-member {
+  margin-bottom: 20px;
+  max-width: 300px;
+}
+.card-header-member h3 {
+  font-size: 20px;
+  color: var(--white);
+  text-align: center;
+  margin: 0;
+  padding: 10px;
+}/*# sourceMappingURL=style_thongke.css.map */

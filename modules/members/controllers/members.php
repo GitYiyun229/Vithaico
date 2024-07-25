@@ -3,7 +3,7 @@
 class MembersControllersMembers extends FSControllers
 {
     protected $table = 'fs_members';
-    public $userImage = 'images/user-icon.svg';
+    public $userImage = '/modules/members/assets/images/no_image_user.svg.svg';
     public $userLevel = [
         'Đồng', 
         'Bạc', 
@@ -36,4 +36,5 @@ class MembersControllersMembers extends FSControllers
         
         return true;
     }
+    
 }

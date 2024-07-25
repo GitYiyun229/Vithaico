@@ -30,6 +30,7 @@ class FSModels
 			$where = ' WHERE ' . $where;
 		$sql .= $where;
 
+		// print_r($sql);die;
 		if ($show) {
 			echo $sql;
 		}
@@ -69,6 +70,7 @@ class FSModels
 		$sql .= '(' . $str_fields . ") ";
 		$sql .= 'VALUES (' . $str_values . ") ";
 		// print_r($sql);
+		// die;
 		$db->query($sql);
 		$id = $db->insert();
 
@@ -345,7 +347,7 @@ class FSModels
 		if ($limit)
 			$query .= ' LIMIT ' . $limit;
 
-		//		echo $query;
+				// echo $query;
 		global $db;
 		$sql = $db->query($query);
 		if (!$field_key)
@@ -594,7 +596,7 @@ class FSModels
 				FROM fs_promotion_discount_detail 
 				WHERE published = 1 AND product_id = $productsId AND DATE(date_end) >= DATE('$timeNow') 
 				AND ((quantity > 0 AND sold < quantity) OR (quantity = 0)) ORDER BY date_start ASC
-		"; 
+		";
 		return $db->getObject($sql, USE_MEMCACHE);
 	}
 
@@ -608,16 +610,27 @@ class FSModels
 		";
 		return $db->getObjectList($sql, USE_MEMCACHE);
 	}
+	public function getCountMember($RefCode)
+	{
+		global $db;
+		$idSql = "SELECT id
+              FROM fs_members
+              WHERE published = 1 AND ref_code = $RefCode ";
+			//   print_r($idSql);
+		$member = $db->getObjectList($idSql, USE_MEMCACHE);
+
+		return $member;
+	}
 
 	function _remove($where = '', $table_name = '')
-	{ 
+	{
 		if (!$table_name || $where)
 			return false;
 
 		$sql = " DELETE FROM $table_name WHER $where";
 
 		global $db;
-		$rows = $db->affected_rows($sql); 
+		$rows = $db->affected_rows($sql);
 		return $rows;
 	}
 }

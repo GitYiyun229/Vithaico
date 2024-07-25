@@ -6,9 +6,13 @@ $tmpl->addScript('orders', 'modules/members/assets/js');
 ?>
 
 <div class="container">
+    <div class="mb-3">
+        <?php include PATH_BASE . 'modules/members/views/level.php' ?>
+    </div>
     <div class="page-member">
+
         <div class="page-side">
-            <div class="page-sidebar">
+            <div class="page-sidebar p-4 pb-2">
                 <?php include PATH_BASE . 'modules/members/views/sidebar.php' ?>
             </div>
         </div>
@@ -67,7 +71,7 @@ $tmpl->addScript('orders', 'modules/members/assets/js');
                             <?php foreach ($detail as $item) {
                                 $link = FSRoute::_("index.php?module=products&view=product&code=" . $item->productInfo->alias . "&id=" . $item->productInfo->id);
                                 $img = @$item->subInfo->image ? URL_ROOT . image_replace_webp($item->subInfo->image, 'resized') : URL_ROOT . image_replace_webp($item->productInfo->image, 'resized');
-                                ?>
+                            ?>
                                 <tr>
                                     <td>
                                         <a href="<?php echo $link ?>">
@@ -75,7 +79,7 @@ $tmpl->addScript('orders', 'modules/members/assets/js');
                                             <div>
                                                 <div class="fw-medium"><?php echo $item->productInfo->name ?></div>
                                                 <div class="text-grey"><?php echo @$item->subInfo->name ?></div>
-                                            </div>                                           
+                                            </div>
                                         </a>
                                     </td>
                                     <td class="fw-medium">
@@ -99,20 +103,6 @@ $tmpl->addScript('orders', 'modules/members/assets/js');
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <div class="text-grey">Tạm tính</div>
                         <div class="fw-medium"><?php echo format_money($order->total_before) ?></div>
-                    </div>
-                    <?php if ($order->promotion_discount_price) { ?>
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <div class="text-grey">Chiết khấu/ Flashsale</div>
-                            <div class="fw-medium"><?php echo format_money($order->promotion_discount_price) ?></div>
-                        </div>
-                    <?php } ?>    
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <div class="text-grey">Mã giảm giá/ Thẻ quà tặng</div>
-                        <div class="fw-medium"><?php echo format_money($order->code_discount_price, '', '₫0') ?></div>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <div class="text-grey">Hạng thành viên</div>
-                        <div class="fw-medium"><?php echo format_money($order->member_discount_price, '', '₫0') ?></div>
                     </div>
                     <div class="d-flex align-items-center justify-content-between mb-4 border-bottom pb-4">
                         <div class="text-grey">Phí giao hàng</div>

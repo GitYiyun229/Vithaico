@@ -41,7 +41,7 @@ class MembersControllersLog extends FSControllers
         if (!$userlog || !$passlog) {
             $response = [
                 'error' => true,
-                'message' => FSText::_('Email/Số điện thoại, Mật khẩu không được bỏ trống!')
+                'message' => FSText::_('Số điện thoại, Mật khẩu không được bỏ trống!')
             ];
             goto exitFUnc;
         }
@@ -66,6 +66,7 @@ class MembersControllersLog extends FSControllers
     public function logout()
     {
         global $user;
+        unset($_SESSION);
         $_SESSION['have_redirect'] = 1;
         $_SESSION["msg_success"] = [FSText::_('Đăng xuất tài khoản thành công!')];
         $user->logouts(URL_ROOT);

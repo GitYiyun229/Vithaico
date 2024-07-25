@@ -1,41 +1,41 @@
 const loadingHtml = '<div class="loadingio-spinner"><div class="ldio"><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div></div></div>';
 
-const debounce = (mainFunction, delay) => {
-    let timer;
-    return function (...args) {
-        clearTimeout(timer);
-        timer = setTimeout(() => {
-            mainFunction(...args);
-        }, delay);
-    };
-};
+// const debounce = (mainFunction, delay) => {
+//     let timer;
+//     return function (...args) {
+//         clearTimeout(timer);
+//         timer = setTimeout(() => {
+//             mainFunction(...args);
+//         }, delay);
+//     };
+// };
 
-$(window).on('scroll', debounce(function () {
-    let load = $('.loading-scroll');
-    let page = parseInt(load.attr('page')) + 1;
-    let totalCurrent = parseInt(load.attr('total-current'));
-    let total = parseInt(load.attr('total'));
-    let limit = parseInt(load.attr('limit'));
-    let id = parseInt(load.attr('category'));
+// $(window).on('scroll', debounce(function () {
+//     let load = $('.loading-scroll');
+//     let page = parseInt(load.attr('page')) + 1;
+//     let totalCurrent = parseInt(load.attr('total-current'));
+//     let total = parseInt(load.attr('total'));
+//     let limit = parseInt(load.attr('limit'));
+//     let id = parseInt(load.attr('category'));
 
-    if (isElementInViewport($('.loading-scroll')[0]) && totalCurrent < total) {
-        load.fadeIn().append(loadingHtml);
-        load.attr('page', page);
-        load.attr('total-current', totalCurrent + limit);
+//     if (isElementInViewport($('.loading-scroll')[0]) && totalCurrent < total) {
+//         load.fadeIn().append(loadingHtml);
+//         load.attr('page', page);
+//         load.attr('total-current', totalCurrent + limit);
         
-        loadMoreContent(page, limit, id, load);       
-    }
-}, 1000));
+//         loadMoreContent(page, limit, id, load);       
+//     }
+// }, 1000));
 
-function isElementInViewport(el) {
-    var rect = el.getBoundingClientRect();
-    return (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
-}
+// function isElementInViewport(el) {
+//     var rect = el.getBoundingClientRect();
+//     return (
+//         rect.top >= 0 &&
+//         rect.left >= 0 &&
+//         rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+//         rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+//     );
+// }
 
 function loadMoreContent(page, limit, id, load) {
     let price = $('input[name=price]').val();

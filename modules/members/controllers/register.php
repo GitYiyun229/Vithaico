@@ -150,13 +150,17 @@ class MembersControllersRegister extends FSControllers
         }
 
         $DataName = FSInput::get('name');
+        $DataPhone = FSInput::get('phone');
         $DataEmail = FSInput::get('email');
         $DataPass = FSInput::get('password');
         $DataConfirmPass = FSInput::get('repassword');
+        $affiliate = FSInput::get('affiliate');
 
         $response = [
             'error' => false,
             'message' => FSText::_('Đăng ký thành công!'),
+            'link' => FSRoute::_('index.php?module=members&view=user&task=login'),
+
         ];
 
         if (!$DataPass) {
@@ -177,38 +181,53 @@ class MembersControllersRegister extends FSControllers
             goto exitFunc;
         }
 
-        $exist = $this->model->get_record("email = '" . $DataEmail . "' ", 'fs_members', 'id');
-
+        $exist = $this->model->get_record("telephone = '" . $DataPhone . "' ", 'fs_members', 'id');
         if ($exist) {
             $response = [
-                'type' => 'email',
+                'type' => 'phone',
                 'error' => true,
-                'message' => FSText::_('email đã được đăng ký thành viên trước đó!'),
+                'message' => FSText::_('Số điện thoại đã được đăng ký thành viên trước đó!'),
             ];
             goto exitFunc;
         }
 
+        $timestamp = time();
         $row = [
             'full_name' => $DataName,
             'email' => $DataEmail,
+            'telephone' => $DataPhone,
+            'ref_by' => $affiliate,
+            'ref_code' => $timestamp,
             'password' => md5($DataPass),
             'created_time' => date('Y-m-d H:i:s'),
+            'end_time' => date('Y-m-d H:i:s', strtotime("+14 days")),
+            'due_time_month' => date('Y-m-d H:i:s', strtotime("+30 days")),
             'published' => 1,
+            'level' => 1,
         ];
-
+        // print_r($row);die;
         $id = $this->model->_add($row, 'fs_members');
-
-    
-
         if (!$id) {
             $response = [
                 'error' => true,
                 'message' => FSText::_('Đăng ký không thành công. Vui lòng thử lại!'),
             ];
         } else {
+            $row_log = [
+                'user_id' => $id,
+                'user_name' => $DataName,
+                'telephone' => $DataPhone,
+                'email' => $DataEmail,
+                'level' => 1,
+                'ref_by' => $affiliate,
+                'created_time' => date('Y-m-d H:i:s'),
+                'end_time' => date('Y-m-d H:i:s', strtotime("+14 days")),
+            ];
+
+            $id_log = $this->model->_add($row_log, 'fs_members_register_log');
             unset($_SESSION['register']);
         }
-
+    
         exitFunc:
         echo json_encode($response);
         exit;

@@ -1,0 +1,98 @@
+.item {
+  text-align: center;
+  .img-banner {
+  }
+  .info-banner {
+    top: 20%;
+    width: 100%;
+    max-width: 640px;
+    margin: auto;
+    text-align: left;
+    .name-banner,
+    .summary-banner {
+      text-transform: uppercase;
+    }
+    .name-banner {
+      color: #000;
+      span {
+        font-family: "PlusJakartaBold" !important;
+        &:last-child {
+          color: #ea212d;
+        }
+      }
+    }
+    .summary-banner {
+      font-size: 40px;
+      font-weight: 700;
+    }
+    .content-banner {
+      font-size: 16px;
+    }
+    .btn-banner {
+      margin-top: 48px;
+      a {
+        color: #fff;
+        background: #ea212d;
+        padding: 16px 40px;
+        border-radius: 100px;
+        transition: all 0.3s;
+        &:hover {
+          padding: 12px 20px;
+          margin: 0 20px;
+        }
+      }
+    }
+  }
+}
+@media all and (max-width: 1000px) {
+  .item {
+    .img-banner {
+    }
+    .info-banner {
+      top: 3%;
+      .name-banner,
+      .summary-banner {
+      }
+      .name-banner {
+        font-size: 28px;
+      }
+      .summary-banner {
+        font-size: 24px;
+      }
+      .content-banner {
+        font-size: 16px;
+      }
+      .btn-banner {
+        margin-top: 24px;
+        a {
+          padding: 14px 20px;
+        }
+      }
+    }
+  }
+}
+@media all and (max-width: 500px) {
+  .item {
+    .img-banner {
+    }
+    .info-banner {
+      position: unset !important;
+      padding-left: 10px;
+      padding-right: 10px;
+      margin-top: 10px;
+      .name-banner,
+      .summary-banner {
+      }
+      .name-banner {
+      }
+      .summary-banner {
+      }
+      .content-banner {
+      }
+      .btn-banner {
+        a {
+        }
+      }
+    }
+  }
+}

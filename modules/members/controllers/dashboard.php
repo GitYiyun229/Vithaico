@@ -7,16 +7,32 @@ class MembersControllersDashboard extends MembersControllersMembers
     public function display()
     {
         global $tmpl, $user, $config;
-     
+
+        $total_price_orrder_MONTH = $this->calculateMemberRank($user->userInfo->id);
+        //   print_r($total_price_orrder_MONTH);die;
         // $breadcrumbs = array(array(0 => FSText::_('Trang cá nhân'), 1 => ''));
         // $tmpl->assign('breadcrumbs', $breadcrumbs);
         $tmpl->addTitle(FSText::_('Trang cá nhân'));
+
+        $userInfo = $user->userInfo;
+        $where_province = $userInfo->city_id ? $userInfo->city_id : '';
+        $province = $this->model->get_records($where_province, 'fs_provinces', 'code, name, code_name', 'code_name ASC');
+        @$where_bank = $userInfo->bank_code ? $userInfo->bank_code : '';
+        $banks = $this->model->get_records("", 'fs_banks', 'id, bank_name, bank_code', 'id ASC');
+
+        $where_district = $userInfo->district_id ? $userInfo->district_id : '';
+        $district = $this->model->get_records("province_code = '$where_province'", 'fs_districts', 'code, name, code_name, province_code');
+
+        @$where_ward = $userInfo->ward_id ? $userInfo->ward_id : '';
+        $ward = $this->model->get_records("district_code = '$where_district'", 'fs_wards', 'code, name, code_name, district_code');
+        // print_r($ward);
 
         $sex = [
             FSText::_('Nam'),
             FSText::_('Nữ'),
             FSText::_('Khác'),
         ];
+
 
         require PATH_BASE . "modules/$this->module/views/$this->view/default.php";
     }
@@ -29,6 +45,51 @@ class MembersControllersDashboard extends MembersControllersMembers
         $full_name = FSInput::get('name');
         $birthday = FSInput::get('birthday');
         $sex = FSInput::get('sex');
+
+        $city_id = FSInput::get('province');
+        $district_id = FSInput::get('district');
+        $ward_id = FSInput::get('ward');
+        $address = FSInput::get('address');
+
+        $bank_code = FSInput::get('bank') ? FSInput::get('bank') : '';
+        $bank_stk = FSInput::get('stk') ? FSInput::get('stk') : '';
+        $bank_name = FSInput::get('chustk') ? FSInput::get('chustk') : '';
+        $return = FSRoute::_('index.php?module=members&view=dashboard');
+        $member = $this->model->get_record("id = $id", $this->table);
+
+        if (!$member) {
+            setRedirect($return, "Thành viên không tồn tại!", 'error');
+        }
+
+        $row = compact('full_name', 'birthday', 'sex', 'city_id', 'district_id', 'ward_id', 'address', 'bank_code', 'bank_name', 'bank_stk');
+        $id_update = $this->model->_update($row, $this->table, "id = $id");
+
+        if ($id_update) {
+            $member_id = $member->id;
+            $province_id = $city_id;
+            $name = $full_name;
+            $telephone = $member->telephone;
+            $default = 1;
+            $id_address = $this->model->get_record("member_id = $member->id", 'fs_members_address');
+            $timestamp = date('Y-m-d H:i:s');
+            $row_address = compact('name', 'telephone', 'address', 'province_id', 'district_id', 'ward_id', 'default', 'member_id');
+            if ($id_address) {
+                $row_address['updated_time'] = $timestamp;
+                $rs = $this->model->_update($row_address, 'fs_members_address', "member_id = $member->id");
+            } else {
+                $row_address['created_time'] = $timestamp;
+                $rs = $this->model->_add($row_address, 'fs_members_address');
+            }
+            setRedirect($return, "Cập nhật thành công!", 'success');
+        } else {
+            setRedirect($return, "Cập nhật không thành công!", 'error');
+        }
+    }
+    public function saveDashboard_image()
+    {
+        $this->auth('POST');
+
+        $id = FSInput::get('id');
         $return = FSRoute::_('index.php?module=members&view=dashboard');
 
         $member = $this->model->get_record("id = $id", $this->table);
@@ -36,18 +97,15 @@ class MembersControllersDashboard extends MembersControllersMembers
         if (!$member) {
             setRedirect($return, "Thành viên không tồn tại!", 'error');
         }
-
-        $row = compact('full_name', 'birthday', 'sex');
-
+        // print_r($_FILES['image']["name"]);die;
         if ($_FILES['image']["name"]) {
-            // $image = $this->model->upload_image('image', '_' . time(), 1000000, $this->arr_img_paths);
             $fsFile = FSFactory::getClass('FsFiles');
-    
+
             $path = 'images' . DS . 'members' . DS . 'original' . DS;
-    
+
             if (!$fsFile->create_folder($path)) {
                 setRedirect($return, "Không thể tạo folder", 'error');
-            } 
+            }
 
             if ($member->image) {
                 @unlink(PATH_BASE . $member->image);
@@ -57,11 +115,11 @@ class MembersControllersDashboard extends MembersControllersMembers
             }
 
             $img = $fsFile->uploadImage('image', PATH_BASE . $path, 1000000, time());
-		
+
             $image = str_replace(DS, '/', $path) . $img;
 
             $row['image'] = $image;
-        }       
+        }
 
         $id = $this->model->_update($row, $this->table, "id = $id");
 
@@ -76,7 +134,7 @@ class MembersControllersDashboard extends MembersControllersMembers
     {
         $this->auth('POST');
         global $user;
-        
+
         $telephone = FSInput::get('telephone');
         $email = FSInput::get('email');
 
@@ -103,7 +161,7 @@ class MembersControllersDashboard extends MembersControllersMembers
             ];
             goto exitFunc;
         }
-        
+
         $sessionName = $telephone ? 'changeTelephone' : 'changeEmail';
         $otp = '123456';
         $created_time = date('Y-m-d H:i:s');
@@ -132,7 +190,7 @@ class MembersControllersDashboard extends MembersControllersMembers
         if (!$response['error']) {
             $_SESSION['have_redirect'] = 1;
             $_SESSION["msg_success"] = [$response['message']];
-        }      
+        }
 
         echo json_encode($response);
         exit;
@@ -143,7 +201,7 @@ class MembersControllersDashboard extends MembersControllersMembers
         $response = [
             'error' => false,
             'message' => 'Cập nhật thông tin thành công!'
-        ];       
+        ];
 
         if (!$telephone && !$email) {
             $response = [
@@ -211,7 +269,6 @@ class MembersControllersDashboard extends MembersControllersMembers
 
     public function reSendOTP()
     {
-        
     }
 
     public function updatePassword()
@@ -266,7 +323,7 @@ class MembersControllersDashboard extends MembersControllersMembers
             $_SESSION["msg_success"] = [$response['message']];
             $user->logouts();
         }
-        
+
         exitFunc:
 
         echo json_encode($response);

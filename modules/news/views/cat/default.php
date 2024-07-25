@@ -1,25 +1,48 @@
 <?php
 global $tmpl;
 $tmpl->addStylesheet('home', 'modules/news/assets/css');
-//	$tmpl -> addScript('cat','modules/news/assets/js');	
-$total_news_list = count($news_list);
-$Itemid = 7;
-FSFactory::include_class('fsstring');
+$tmpl->addScript('default', 'modules/news/assets/js');
+$class = 'item-new2';
 ?>
-    <div class="news-home clearfix row">
-        <div class="col-md-12">
-            <?php echo $tmpl -> load_direct_blocks('news_filter',array('style'=>'inline')); ?>
-        </div>
-        <div class="list-news col-md-9">
-            <?php include 'default_categories.php'; ?>
-        </div>
-        <div class="col-md-3">
-            <div class="block_newslist">
-                <?php echo $tmpl -> load_direct_blocks('newslist',array('style'=>'default','limit'=>'5')); ?>
+
+<div class="section-banner">
+    <?php echo $tmpl->load_direct_blocks('banners', ['category_id' => '4', 'style' => 'default']); ?>
+</div>
+<div class="section-cat-news">
+    <div class="container list_cat_news">
+        <a href="<?php echo FSRoute::_('index.php?module=news&view=home') ?>" class="item_cat_new">
+            <img src="/images/cat-news0.svg" alt="" class="img-icon" width="32px" height="32px">
+            <div class="item-name">
+                <?php echo FSText::_('Tất cả') ?>
             </div>
-            <?php echo $tmpl -> load_direct_blocks('newslist',array('style'=>'sale','limit'=>'5')); ?>
-        </div>
+        </a>
+        <?php foreach ($list_cat as $item) { ?>
+            <a href="<?php echo FSRoute::_('index.php?module=news&view=cat&ccode=' . $item->alias . '&id=' . $item->id . ' ') ?>" class="item_cat_new <?php echo $cat->id == $item->id ? 'active_cat' : '' ?>">
+                <img src="<?php echo URL_ROOT . image_replace_webp($item->image, 'original')  ?>" alt="<?php echo $item->name ?>" class="img-fluid img-icon">
+                <div class="item-name"><?php echo $item->name ?></div>
+            </a>
+        <?php } ?>
     </div>
-<?php
-if ($pagination) echo $pagination->showPagination(3);
-?>
+
+</div>
+
+<div class="container news_home_main">
+    <div class="list_grid_news grid_hot_news">
+        <?php foreach ($list_hot_news as $i => $item) {
+            echo $tmpl->newItem($i, $item, $class);
+        } ?>
+    </div>
+    <div class="top_h3_cat">
+        <h3 class="h3_title_new h3_bor_right">
+            <?php echo FSText::_('Mới nhất') ?>
+        </h3>
+        <div class="color-box"> </div>
+    </div>
+    <div class="list_grid_news">
+        <?php foreach ($list_news as $i => $item) { ?>
+            <?php echo $tmpl->newItem($i + 1, $item) ?>
+        <?php } ?>
+    </div>
+</div>
+
+<?php if ($pagination) echo $pagination->showPagination(3); ?>

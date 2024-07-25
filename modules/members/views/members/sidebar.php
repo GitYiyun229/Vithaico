@@ -12,7 +12,6 @@ $task = FSInput::get('task');
 </div>
 
 
-
 <div class="user-menu-sidebar mb-3 pb-3">
     <a href="<?php echo FSRoute::_('index.php?module=members&view=members') ?>" class="<?php echo !$task  ? 'active' : '' ?>">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.1585 18.3333C17.1585 15.1083 13.9501 12.5 10.0001 12.5C6.05013 12.5 2.8418 15.1083 2.8418 18.3333M14.1668 5.83332C14.1668 8.13451 12.3013 9.99999 10.0001 9.99999C7.69894 9.99999 5.83346 8.13451 5.83346 5.83332C5.83346 3.53214 7.69894 1.66666 10.0001 1.66666C12.3013 1.66666 14.1668 3.53214 14.1668 5.83332Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>

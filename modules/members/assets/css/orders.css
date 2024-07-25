@@ -14,12 +14,17 @@
   border-color: #d53c00;
 }
 
+.page-content .page-top {
+  border-radius: 16px;
+  padding: 24px 24px 0 24px;
+}
+
 .item-order .page-border-radius {
   border-radius: 8px;
 }
 .item-order .item-order-detail {
   display: grid;
-  grid-template-columns: 88px auto 150px;
+  grid-template-columns: 88px auto;
   grid-gap: 1rem;
   padding: 16px 0;
   border-bottom: 1px solid #ebebeb;
@@ -51,18 +56,18 @@
   border: 2px solid #fff;
 }
 .item-order .item-footer .title {
-  width: 88px;
+  width: 120px;
 }
 .item-order .btn-detail {
   padding: 10px 40px;
-  color: #a3a3a3;
+  color: #d53c00;
   border-radius: 4px;
-  border: 1px solid #a3a3a3;
+  border: 1px solid #d53c00;
 }
 .item-order .btn-detail:hover {
   background: #d53c00;
   border-color: #d53c00;
-  color: #fff;
+  color: #d53c00;
 }
 .item-order .btn-detail-complete {
   display: flex;
@@ -309,5 +314,10 @@
   }
   .item-order .btn-detail {
     padding: 10px;
+  }
+}
+@media (max-width: 767px) {
+  .page-border-radius {
+    white-space: nowrap;
   }
 }/*# sourceMappingURL=orders.css.map */

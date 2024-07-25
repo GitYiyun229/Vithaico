@@ -20,6 +20,10 @@ class FSRoute
     {
         $lang_url = array(
             'ct' => 'ce',
+            'lien-he' => ['en' => 'contact', 'jp' => 'contact-jp'],
+            'tin-tuc' => ['en' => 'news', 'jp' => 'news-jp'],
+            'cn' => ['en' => 'cne', 'jp' => 'cnj'],
+            'dn' => ['en' => 'dne', 'jp' => 'dnj'],
         );
         if ($lang == 'vi')
             return $name;
@@ -119,7 +123,7 @@ class FSRoute
         $url1 = '';
         $lang = isset($_SESSION['lang']) ? $_SESSION['lang'] : 'en';
         switch ($module) {
-           
+
             case 'members':
                 switch ($view) {
                     case 'log': {
@@ -128,7 +132,9 @@ class FSRoute
                                     return $url_first . FSRoute::get_name_encode('dang-xuat', $lang);
                             }
                         }
-                    case 'facebook': 
+                    case 'members': {
+                        }
+                    case 'facebook':
                         switch ($task) {
                             case 'callback':
                                 return $url_first . FSRoute::get_name_encode('fb-oauth-callback', $lang);
@@ -145,15 +151,40 @@ class FSRoute
                             default:
                                 return $url_first . FSRoute::get_name_encode('don-hang-cua-toi', $lang);
                         }
+                    case 'ordersf1':
+                        switch ($task) {
+                            case 'detail':
+                                $id = isset($array_params['id']) ? $array_params['id'] : '';
+                                return $url_first . FSRoute::get_name_encode('chi-tiet-don-hang-f1', $lang) . '-' . $id;
+                            default:
+                                return $url_first . FSRoute::get_name_encode('danh-sach-don-hang-cua-f1', $lang);
+                        }
+                    case 'statistics':
+                        switch ($task) {
+                            default:
+                                return $url_first . FSRoute::get_name_encode('thong-ke-hoa-hong', $lang);
+                        }
+                    case 'user':
+                        switch ($task) {
+                            case 'login':
+                                return $url_first . FSRoute::get_name_encode('dang-nhap', $lang);
+                            case 'register':
+                                return $url_first . FSRoute::get_name_encode('dang-ky-tai-khoan', $lang);
+                            case 'forgot':
+                                return $url_first . FSRoute::get_name_encode('quen-mat-khau', $lang);
+                            default:
+                                return $url_first . FSRoute::get_name_encode('don-hang-cua-toi', $lang);
+                        }
                     case 'level':
                         return $url_first . FSRoute::get_name_encode('hang-thanh-vien', $lang);
                     case 'address':
                         return URL_ROOT . FSRoute::get_name_encode('so-dia-chi', $lang);
                     case 'favorite':
                         return URL_ROOT . FSRoute::get_name_encode('san-pham-yeu-thich', $lang);
+                    case 'introduce':
+                        return URL_ROOT . FSRoute::get_name_encode('thanh-vien-gioi-thieu', $lang);
                     case 'dashboard':
                         return URL_ROOT . FSRoute::get_name_encode('tai-khoan-ca-nhan', $lang);
-
                     default:
                         return URL_ROOT . $url;
                 }
@@ -191,32 +222,20 @@ class FSRoute
                         return $url_first . $url;
                 }
                 break;
+              
             case 'news':
                 switch ($view) {
-                    case 'amp_news':
-                        $code = isset($array_params['code']) ? $array_params['code'] : '';
-                        $ccode = isset($array_params['ccode']) ? $array_params['ccode'] : '';
-                        $id = isset($array_params['id']) ? $array_params['id'] : '';
-                        return $url_first . $ccode . '/amp/' . $code . '-n' . $id;
                     case 'news':
-                        $ccode = isset($array_params['ccode']) ? $array_params['ccode'] : '';
-                        return $url_first . $ccode;
-                    case 'tags':
-                        $ccode = isset($array_params['ccode']) ? $array_params['ccode'] : '';
-                        return $url_first . $ccode;
+                        $code = isset($array_params['code']) ? $array_params['code'] : '';
+                        // $ccode = isset($array_params['ccode']) ? $array_params['ccode'] : '';
+                        $id = isset($array_params['id']) ? $array_params['id'] : '';
+                        return $url_first . FSRoute::get_name_encode('tin-tuc', $lang) . '/' . $code . '-' . FSRoute::get_name_encode('dn', $lang) . $id;
                     case 'cat':
                         $ccode = isset($array_params['ccode']) ? $array_params['ccode'] : '';
-                        return $url_first . $ccode;
+                        $id = isset($array_params['id']) ? $array_params['id'] : '';
+                        return $url_first . FSRoute::get_name_encode('tin-tuc', $lang) . '/' . $ccode . '-' . FSRoute::get_name_encode('cn', $lang) . $id;
                     case 'home':
-                        return $url_first . 'blogs/all';
-                    case 'search':
-
-                        $keyword = isset($array_params['keyword']) ? $array_params['keyword'] : '';
-                        $url = URL_ROOT . 'tim-kiem-tin-tuc';
-                        if ($keyword) {
-                            $url .= '-' . $keyword;
-                        }
-                        return $url;
+                        return $url_first . FSRoute::get_name_encode('tin-tuc', $lang);
                     default:
                         return $url_first . $url;
                 }
@@ -225,12 +244,15 @@ class FSRoute
                 switch ($view) {
                     case 'cat':
                         $ccode = isset($array_params['ccode']) ? $array_params['ccode'] : '';
-                        return $url_first . 'danh-muc/' . $ccode . '.html';
+                        return $url_first  . $ccode . '.html';
                     case 'content':
                         $code = isset($array_params['code']) ? $array_params['code'] : '';
                         $id = isset($array_params['id']) ? $array_params['id'] : '';
                         return $url_first . $code . '-n' . $id . '.html';
                 }
+                break;
+            case 'contact':
+                return $url_first . FSRoute::get_name_encode('lien-he', $lang);
                 break;
 
 

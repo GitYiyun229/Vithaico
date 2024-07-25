@@ -1,0 +1,26 @@
+@media all and (max-width: 500px) {
+  .grid_box {
+    grid-template-columns: unset;
+    grid-gap: 20px;
+  }
+  .grid_box .level_box .bottom_text {
+    display: block;
+  }
+  .grid_box .point_box p {
+    text-align: start;
+  }
+  .grid_box .point_box .text_orange {
+    justify-content: flex-start;
+  }
+  .grid_box .progress_box {
+    margin-bottom: 24px;
+  }
+  .grid_box .progress_box .text_top_progress {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .grid_box .progress_box .text_top_progress p span {
+    font-size: 14px;
+  }
+}/*# sourceMappingURL=default_mobile.css.map */

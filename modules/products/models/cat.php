@@ -10,9 +10,9 @@ class ProductsModelsCat extends FSModels
     public function __construct()
     {
         parent::__construct();
-        $this->limit = FSInput::get('limit', 50);
+        $this->limit = FSInput::get('limit', 6);
     }
-    
+
     public function getCat()
     {
         global $db;
@@ -54,23 +54,24 @@ class ProductsModelsCat extends FSModels
         $sql .= " ORDER BY ";
 
         switch ($sort) {
-            case 0:
-                $sql .= "ordering ASC";
-                break; 
             case 1:
-                $sql .= "is_new DESC";
+                $sql .= "ordering ASC";
                 break;
             case 2:
-                $sql .= "price ASC";
+                $sql .= "is_new DESC, created_time DESC";
                 break;
             case 3:
+                $sql .= "price ASC";
+                break;
+            case 4:
                 $sql .= "price DESC";
                 break;
             default:
                 $sql .= "ordering ASC";
                 break;
         }
-
+        // print_r($sql);
+        // die;
         return $sql;
     }
 
@@ -85,12 +86,20 @@ class ProductsModelsCat extends FSModels
     public function getProducts($query)
     {
         global $db;
-        $sql = "SELECT id, alias, name, image, quantity, price, price_old, sold_out, is_gift, freeship, promotion_end_time, promotion_start_time, data_extends
+        $sql = "SELECT id, alias, name, image, coin, quantity, price, price_discount, price_old, sold_out, is_gift, freeship, promotion_end_time, promotion_start_time, data_extends
                 $query
         ";
         $db->query_limit($sql, $this->limit, $this->page);
         return $db->getObjectList('', USE_MEMCACHE);
     }
+
+    function getPagination($total)
+    {
+        FSFactory::include_class('Pagination');
+        $pagination = new Pagination($this->limit, $total, $this->page);
+        return $pagination;
+    }
+
 
     public function getCategoriesWrap($str)
     {
@@ -133,10 +142,11 @@ class ProductsModelsCat extends FSModels
     {
         global $db;
         $query = "SELECT id, field_name, field_name_display, foreign_id FROM fs_products_tables WHERE table_name = '$table' AND is_filter = 1 ORDER BY ordering ASC, id DESC";
-        return $db->getObjectList($query,USE_MEMCACHE);
+        return $db->getObjectList($query, USE_MEMCACHE);
     }
 
-    function getFilterItem($id){ 
+    function getFilterItem($id)
+    {
         global $db;
         $query = "SELECT id, name, group_id FROM fs_extends_items WHERE published = 1 AND group_id IN ($id) ORDER BY ordering ASC, id DESC";
         return $db->getObjectList($query, USE_MEMCACHE);
