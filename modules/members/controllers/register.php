@@ -223,11 +223,17 @@ class MembersControllersRegister extends FSControllers
                 'created_time' => date('Y-m-d H:i:s'),
                 'end_time' => date('Y-m-d H:i:s', strtotime("+14 days")),
             ];
+            $row_empty = [
+                'level' => 1,
+                'user_id' => $id,
+                'created_time' => date('Y-m-d H:i:s'),
+            ];
+            $this->model->_add($row_empty, 'fs_members_group');
 
             $id_log = $this->model->_add($row_log, 'fs_members_register_log');
             unset($_SESSION['register']);
         }
-    
+
         exitFunc:
         echo json_encode($response);
         exit;

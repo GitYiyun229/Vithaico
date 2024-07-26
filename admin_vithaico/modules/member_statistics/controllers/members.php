@@ -70,7 +70,9 @@ class Member_statisticsControllersMembers extends Controllers
 		$id = $ids[0];
 		$model  = $this->model;
 		$data = $model->get_record_by_id($id);
+		$rank_member= $model->get_records('level = '.$data->level, 'fs_members_group','image');
 		// print_r($data);
+		$data->rank_image= $rank_member->image;
 		if (!$data)
 			die('Not found url');
 		// tổng số lượng đã giới thiệu

@@ -17,7 +17,7 @@ $tmpl->addScript('default', 'modules/members/assets/js');
             </div>
         </div>
         <div class="page-side bg-white">
-            <div class="page-title mb-3 fs-5 fw-bold text-uppercase"><?php echo FSText::_('Thông tin tài khoản') ?></div>
+        <div class="page-title mb-3 fs-5 fw-bold text-uppercase"><?php echo FSText::_('Thông tin tài khoản') ?></div>
             <form class="page-content page-dashboard p-4 page-border-radius d-flex" method="POST" enctype="multipart/form-data">
                 <div class="col-12 pe-4">
                     <div class="mb-3 fs-6 text-body-tertiary text-uppercase "><?php echo FSText::_('Thông tin cá nhân') ?></div>
@@ -27,6 +27,7 @@ $tmpl->addScript('default', 'modules/members/assets/js');
                             <input type="text" class="form-control" placeholder="<?php echo FSText::_('Họ và tên') ?>" name="name" id="name" value="<?php echo $user->userInfo->full_name ?>">
                         </div>
                     </div>
+
                     <div class="address d-flex align-items-center mb-3 ">
                         <label for="address" class="col-3"><?php echo FSText::_('Địa chỉ') ?></label>
                         <div class="col-9 d-flex align-items-center mb-3 gap-2 address-dashboard">

@@ -58,6 +58,7 @@ $tmpl->addStylesheet('login', 'modules/members/assets/css');
                     </a>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

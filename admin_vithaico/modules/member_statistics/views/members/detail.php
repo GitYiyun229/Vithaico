@@ -32,7 +32,12 @@ $this->dt_form_begin(1, 4, 'Thống kê');
 						<p class="info-p"><?php echo FSText::_('Họ và tên : '); ?> <span class="info-span"><?= @$data->full_name ?></span></p>
 						<p class="info-p"><?php echo FSText::_('Số điện thoại : '); ?> <span class="info-span"><?= @$data->telephone ?></span></p>
 						<p class="info-p"><?php echo FSText::_('Email : '); ?> <span class="info-span"><?= @$data->email ?></span></p>
+<<<<<<< HEAD
 						<p class="info-p"><?php echo FSText::_('Mức hoa hồng đang nhận : '); ?> <span class="info-span"><?= @$data->hoa_hong ?>%</span></p>
+=======
+						<p class="info-p"><?php echo FSText::_('Mức hạng hiện tại : '); ?> <img src="<?= @$data->rank_image ?>" alt=""> </p>
+						<p class="info-p"><?php echo FSText::_('Mức hoa hồng đang nhận : '); ?><span class="info-span"><?= @$data->hoa_hong ?>%</span></p>
+>>>>>>> c4c89181f28f5dfb3ec5bf4d136b515bc7fe1e52
 						<p class="info-p"><?php echo FSText::_('Thời gian duy trì tài khoản : '); ?> <span class="info-span"><?= @$data->end_time ?>%</span></p>
 						<p class="info-p"><?php echo FSText::_('Thời gian gia hạn tài khoản theo tháng: '); ?> <span class="info-span"><?= @$data->due_time_month ?>%</span></p>
 						<p class="info-p"><?php echo FSText::_('Link đăng ký : '); ?>

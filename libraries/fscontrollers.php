@@ -373,7 +373,7 @@ class FSControllers
 
 ?>
 		<div class="layout-product-item">
-			<a href="<?php echo $url ?>" title="<?php echo $item->name ?>" class="" target="_blank">
+			<a href="<?php echo $url ?>" title="<?php echo $item->name ?>" class="">
 				<div class="box-img">
 					<img src="<?php echo $src ?>" alt="" class="img-fluid layout-img" onerror="this.src='/images/not_picture.png'">
 				</div>
@@ -387,7 +387,7 @@ class FSControllers
 							<div class="price">
 								<div class="title">Giá bán lẻ</div>
 								<div class="value">
-									
+
 									<?php echo format_money($item->price, '₫') ?>
 								</div>
 							</div>
@@ -487,6 +487,7 @@ class FSControllers
 		if (empty($id) || empty($coin) || empty($dieu_kien_nhan)) {
 			return false;
 		}
+
 		$update = 1;
 		if ($dieu_kien_nhan == 1) {
 			$row = [
@@ -540,7 +541,12 @@ class FSControllers
 				$total_member_coin += $item->member_coin;
 			}
 			$member = $this->model->get_record('id=' . $id, 'fs_members', 'id,level,hoa_hong,ref_code,ref_by,end_time,due_time_month'); // lấy thông tin của id hiện tại
+
 			if (!empty($member)) {
+				$time_member = strtotime($member->due_time_month);
+				$now = time(); // Sử dụng time() để lấy thời gian hiện tại
+				$row['active_account'] = $time_member >= $now ? 1 : 0;
+				$this->model->_update($row, 'fs_members', 'id =' . $member->id);
 
 				$infoF1 = $this->getArrayInfoF1($member->ref_code);
 				$level = $member->level;
@@ -571,7 +577,6 @@ class FSControllers
 						$level_member = 1;
 						break;
 				}
-				// print_r($level_member);
 				// Cập nhật hạng thành viên nếu có thay đổi
 				if ($member->level < $level_member) {
 					$this->updateMemberRank($level_member, $id, $total_member_coin);
@@ -580,10 +585,8 @@ class FSControllers
 		}
 		// Xử lý bước kiểm tra điều kiện F0 ở đây
 		$member = $this->model->get_record('id =' . $id, 'fs_members', 'id,level,hoa_hong,ref_code,ref_by,vt_coin');
-
 		return true;
 	}
-
 
 	/*
 	 *function tính update hạng cho thành viên khi đạt đủ điều kiện lên hạng
@@ -591,18 +594,26 @@ class FSControllers
 	public function UpdateMemberRank($level, $id, $total_member_coin)
 	{
 
-		$member = $this->model->get_record('id=' . $id, 'fs_members', 'id,level,hoa_hong,ref_code,ref_by,vt_coin,created_time,end_time');
+		$member = $this->model->get_record('id=' . $id, 'fs_members', 'id,level,hoa_hong,ref_code,ref_by,vt_coin,created_time,end_time,active_account,due_time_month');
 		$levelInfo = $this->model->get_record('level = ' . $level, 'fs_members_group', '*');
+	
+
 		if (!empty($level) && $level >= $member->level) {
+			$time_member = strtotime($member->due_time_month);
+			$now = time(); // Sử dụng time() để lấy thời gian hiện tại
+			$row['active_account'] = $time_member >= $now ? 1 : 0;
 			$row = [
 				'level' => $level,
 				'hoa_hong' => $levelInfo->member_benefits,
+				'active_account' => $member->active_account == 1 ? 1 : 0, // Gán trực tiếp dựa trên điều kiện
 			];
 			if ($total_member_coin > 100) {
 				$row['end_time'] = date('Y-m-d H:i:s', strtotime($member->end_time . ' + 20 year'));
-			} elseif ($total_member_coin < 100 && $total_member_coin > 0.1) {
+			} elseif ($total_member_coin > 0.1) { // Đã bao gồm điều kiện < 100 từ điều kiện trước
+				$row['active_account'] = 1;
 				$row['end_time'] = date('Y-m-d H:i:s', strtotime($member->created_time . ' + 1 year'));
 			}
+
 			$update_level = $this->model->_update($row, 'fs_members', 'id =' . $member->id);
 			if ($update_level) {
 				$row_log = [
@@ -619,12 +630,10 @@ class FSControllers
 	/*
 	 *function tính phí Mỗi tháng phát sinh đơn hàng 2.800.000đ để duy trì hạng của mình.
 	 */
-	public function calculateMemberCheckToMonth()
+	public function calculateMemberCheckToMonth($id)
 	{
-		global $user;
-		$users = $user->userInfo;
 		$total_month = 0;
-		$order_info_month = $this->model->get_records("user_id = '" . $users->id . "' AND due_time_month >= DATE_FORMAT(NOW() ,'%Y-%m-01') AND due_time_month < DATE_ADD(DATE_FORMAT(NOW() ,'%Y-%m-01'), INTERVAL 1 MONTH ) ", 'fs_order', 'total_before');
+		$order_info_month = $this->model->get_records("user_id = '" . $id . "' AND due_time_month >= DATE_FORMAT(NOW() ,'%Y-%m-01') AND due_time_month < DATE_ADD(DATE_FORMAT(NOW() ,'%Y-%m-01'), INTERVAL 1 MONTH ) ", 'fs_order', 'total_before');
 
 		foreach ($order_info_month as $item) {
 			$total_month += $item->total_before;
@@ -647,5 +656,15 @@ class FSControllers
 		}
 
 		return $total_week;
+	}
+	public function check_dieu_kien_nhan_coin($id, $level, $due_time_month)
+	{
+		$status = 0;
+		if ($level == 1)
+			return $status;
+		if ($level > 1 && $due_time_month < date('Y-m-d H:i:s')) {
+			$status = 1;
+		}
+		return $status;
 	}
 }

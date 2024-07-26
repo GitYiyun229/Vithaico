@@ -32,12 +32,14 @@
   .page-side .page-content .user_f1 .user_f1_title {
     padding-bottom: 10px !important;
     gap: 5px;
-    font-size: 10px !important;
+    font-size: 12px !important;
   }
   .page-side .page-content .user_f1 .user_f1_title .user_f1_title_item {
-    width: 20% !important;
+    width: calc((100% - 5px) / 5) !important;
+    gap: 8px;
     white-space: nowrap;
-    font-size: 10px !important;
+    overflow-x: auto;
+    font-size: 12px !important;
   }
   .page-side .page-content .user_f1 .user_f1_title .user_f1_title_item::-webkit-scrollbar {
     display: none;
@@ -46,12 +48,13 @@
     border-bottom: 1px solid #ebebeb;
     padding: 10px 0;
     gap: 8px;
+    font-size: 12px !important;
   }
   .page-side .page-content .user_f1 .user_f1_item .user_f1_item_item {
-    width: 20% !important;
+    width: calc((100% - 5px) / 5) !important;
     white-space: nowrap;
     overflow-x: auto;
-    font-size: 10px !important;
+    font-size: 12px !important;
   }
   .page-side .page-content .user_f1 .user_f1_item .user_f1_item_item::-webkit-scrollbar {
     display: none;

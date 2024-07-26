@@ -32,8 +32,7 @@ class MembersControllersDashboard extends MembersControllersMembers
             FSText::_('Nữ'),
             FSText::_('Khác'),
         ];
-
-
+           
         require PATH_BASE . "modules/$this->module/views/$this->view/default.php";
     }
 

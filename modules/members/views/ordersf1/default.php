@@ -27,6 +27,7 @@ $tmpl->addScript('order_f1', 'modules/members/assets/js');
                     <div class="user_f1_title_item"><?php echo FSText::_('Chi tiết') ?></div>
                 </div>
                 <?php $sequenceNumber = 1; ?>
+
                 <?php foreach ($list as $item) { ?>
                     <div class="item-order mb-3" status="<?php echo $item->status ?>">
                         <div class="user_f1_item d-flex justify-content-between">
@@ -49,9 +50,6 @@ $tmpl->addScript('order_f1', 'modules/members/assets/js');
                         </div>
                     </div>
                 <?php } ?>
-                 <?php if ($pagination) {
-                    echo $pagination->showPagination(6);
-                }?>
             </div>
         </div>
     </div>

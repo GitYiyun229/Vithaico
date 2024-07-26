@@ -4,7 +4,7 @@ $tmpl->addStylesheet('forgot', 'modules/members/assets/css');
 ?>
 <div class="main-forgot">
     <div class="container">
-        <div class="box-main-forgot m-auto">
+        <div class="box-main-forgot m-auto mt-5">
             <div class="box-img-register text-center mb-5">
                 <img src="/modules/members/assets/images/Group 433.svg">
             </div>
