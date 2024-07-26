@@ -1,6 +1,5 @@
 <?php
 include 'blocks/members/models/members.php';
-// include PATH_BASE . 'libraries' . DS . 'fscontrollers.php';
 class MembersBControllersMembers
 {
   function __construct()
@@ -9,21 +8,18 @@ class MembersBControllersMembers
   function display($parameters, $title)
   {
     $model = new MembersBModelsMembers();
-    global $tmpl, $user, $config;
+    global  $user;
     $user_member = $user->userInfo;
 
     if (!$user_member) {
       setRedirect(URL_ROOT, 'Đăng nhập để sử dụng tính năng này', 'error');
       return;
     }
-
     $total_member_coin = $this->get_total_member_coin($user_member->id);
     $thong_ke_f1 = $this->GetArrayInfoF1($user_member->ref_code);
-    // print_r($thong_ke_f1);
     $level = $user_member->level;
     $table_level = $model->get_records('', 'fs_members_group', '*', 'id asc');
     $this->time_rank($table_level, $user_member->id, $user_member->created_time);
-
     $rank_hientai = $this->get_current_rank($table_level, $level);
     $dieukien_lenrank = $this->get_next_rank($table_level, $level);
     $timeline = $this->calculate_timeline($level, $total_member_coin, $thong_ke_f1);
@@ -33,21 +29,15 @@ class MembersBControllersMembers
     $condition_2 = $dieukien_lenrank->condition_2;
     $condition_3 = format_money($dieukien_lenrank->condition_3, 'đ');
     $current_image = URL_ROOT . ($rank_hientai->image);
-
     $due_time_month = $user_member->due_time_month;
     $level = $user_member->level;
     $total_member_coin = $this->get_total_member_coin($user_member->id);
-
     $interval = $this->interval($total_member_coin, $user_member->end_time, $level, $due_time_month);
-
     if ($level == 1 && $total_member_coin == 0) {
       $start_time = date('Y-m-d H:i:s', strtotime($user_member->end_time));
     } else {
       $start_time = date('Y-m-d H:i:s', strtotime($due_time_month));
     }
-
-
-
     include 'blocks/members/views/members/default.php';
   }
 
@@ -133,10 +123,9 @@ class MembersBControllersMembers
     }
     return $timeline;
   }
-  private function time_rank($ranks, $id, $created_time)
+  public function time_rank($ranks, $id, $created_time)
   {
-    global $tmpl, $user, $config;
-    $user_member = $user->userInfo;
+    
     $model = new MembersBModelsMembers();
     foreach ($ranks as $item) {
       $queryCondition = sprintf("user_id = %d and level = %d", $id, $item->level);
@@ -153,7 +142,7 @@ class MembersBControllersMembers
 
   public function GetArrayInfoF1($ref_code)
   {
-    global $tmpl, $user, $config;
+    global  $user;
     $user_member = $user->userInfo;
     $model = new MembersBModelsMembers();
     $array_id = [
@@ -192,48 +181,56 @@ class MembersBControllersMembers
         }
       }
     }
-    $user = $model->get_record('ref_code = ' . $ref_code, 'fs_members', '*');
-    $rank = $model->get_records('level > 2 ', 'fs_members_group', 'level', ' level desc');
+    // $user = $model->get_record('ref_code = ' . $ref_code, 'fs_members', '*');
+    // $rank = $model->get_records('level > 2 ', 'fs_members_group', 'level', ' level desc');
 
-    foreach ($rank as $item_1) {
-      if ($item_1->level >= 3) {
-        $user_rank = $model->get_record('user_id = ' . $user->id . ' and level =' . $item_1->level, 'fs_update_rank_log', 'level,created_time');
-     
-        $array_id['time_update_rank'][$item_1->level] = [
-          'level' => $item_1->level,
-          'created_time' => $user_rank->created_time,
-        ];
-      }
-    }
+    // foreach ($rank as $item_1) {
+    //   if ($item_1->level >= 3) {
+    //     $user_rank = $model->get_record('user_id = ' . $user->id . ' and level =' . $item_1->level, 'fs_update_rank_log', 'level,created_time');
 
-    // Sắp xếp mảng theo created_time
-    usort($array_id['time_update_rank'], function ($a, $b) {
-      if (empty($a['created_time'])) return 1; // Assume future date for empty created_time
-      if (empty($b['created_time'])) return -1;
-      return strtotime($a['created_time']) - strtotime($b['created_time']);
-    });
+    //     if ($user_rank) { // Kiểm tra nếu $user_rank không phải là null hoặc false
+    //       $array_id['time_update_rank'][$item_1->level] = [
+    //         'level' => $item_1->level,
+    //         'created_time' => $user_rank->created_time,
+    //       ];
+    //     } else {
+    //       // Xử lý trường hợp không tìm thấy bản ghi
+    //       $array_id['time_update_rank'][$item_1->level] = [
+    //         'level' => $item_1->level,
+    //         'created_time' => null, // Hoặc giá trị mặc định khác
+    //       ];
+    //     }
+    //   }
+    // }
 
-    $previous_created_time = null;
-    foreach ($array_id['time_update_rank'] as $index => $item_time) {
-      // Construct the query to fetch records based on created_time
-      $query = "user_id IN ({$array_id['string_ids']})" .
-        ($previous_created_time !== null ? " AND created_time > '{$previous_created_time}'" : "");
-      if (!empty($item_time['created_time'])) {
-        $query .= " AND created_time <= '{$item_time['created_time']}'";
-      }
+    // // Sắp xếp mảng theo created_time
+    // usort($array_id['time_update_rank'], function ($a, $b) {
+    //   if (empty($a['created_time'])) return 1; // Assume future date for empty created_time
+    //   if (empty($b['created_time'])) return -1;
+    //   return strtotime($a['created_time']) - strtotime($b['created_time']);
+    // });
 
-      $total_level = $model->get_records($query, 'fs_order', 'SUM(total_before) AS total_before_sum');
-      $total_before_sum = $total_level[0]->total_before_sum ?? 0;
-      $array_id['time_update_rank'][$index]['total_before_sum'] = $total_before_sum;
+    // $previous_created_time = null;
+    // foreach ($array_id['time_update_rank'] as $index => $item_time) {
+    //   // Construct the query to fetch records based on created_time
+    //   $query = "user_id IN ({$array_id['string_ids']})" .
+    //     ($previous_created_time !== null ? " AND created_time > '{$previous_created_time}'" : "");
+    //   if (!empty($item_time['created_time'])) {
+    //     $query .= " AND created_time <= '{$item_time['created_time']}'";
+    //   }
 
-      if (in_array($item_time['level'], [3, 4, 5, 6])) {
-        $array_id["total_f1_rank{$item_time['level']}"] = $total_before_sum;
-      }
+    //   $total_level = $model->get_records($query, 'fs_order', 'SUM(total_before) AS total_before_sum');
+    //   $total_before_sum = $total_level[0]->total_before_sum ?? 0;
+    //   $array_id['time_update_rank'][$index]['total_before_sum'] = $total_before_sum;
 
-      if (!empty($item_time['created_time'])) {
-        $previous_created_time = $item_time['created_time'];
-      }
-    }
+    //   if (in_array($item_time['level'], [3, 4, 5, 6])) {
+    //     $array_id["total_f1_rank{$item_time['level']}"] = $total_before_sum;
+    //   }
+
+    //   if (!empty($item_time['created_time'])) {
+    //     $previous_created_time = $item_time['created_time'];
+    //   }
+    // }
     return $array_id;
   }
 }
