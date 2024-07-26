@@ -47,7 +47,7 @@ class Member_statisticsControllersMembers extends Controllers
 			$total_coin = 0; // Initialize total_coin
 			if (!empty($list_coin)) {
 				foreach ($list_coin as $item) {
-					if($item->dieu_kien_nhan ==1 ){
+					if ($item->dieu_kien_nhan == 1) {
 						$total_coin += $item->after_coin; // Sum up the after_coin values
 					}
 				}
@@ -70,18 +70,28 @@ class Member_statisticsControllersMembers extends Controllers
 		$id = $ids[0];
 		$model  = $this->model;
 		$data = $model->get_record_by_id($id);
-		$rank_member= $model->get_records('level = '.$data->level, 'fs_members_group','image');
-		// print_r($data);
-		$data->rank_image= $rank_member->image;
+
 		if (!$data)
 			die('Not found url');
+		$rank_member = $model->get_record('level = ' . $data->level, 'fs_members_group', 'image');
 		// tổng số lượng đã giới thiệu
-		$list_f1 = $this->model->get_records("ref_by = $data->ref_code", 'fs_members_register_log', '*', 'id DESC');
+		$list_f1 = $this->model->get_records("ref_by = $data->ref_code", 'fs_members', 'id,full_name,telephone,created_time,level,email', 'id DESC');
 		if (!empty($list_f1)) {
-			$orderIdF1 = array_map(function ($item) {
-				return $item->user_id;
+			// Giả sử mỗi member có một level và mỗi level tương ứng với một image trong fs_members_group
+			// Lấy tất cả images từ fs_members_group một lần để tránh query trong vòng lặp
+			$rank_level = $this->model->get_records('', 'fs_members_group', 'name,level');
+			$name_by_level = [];
+			foreach ($rank_level as $rank) {
+				$name_by_level[$rank->level] = $rank->name;
+			}
+			// Ánh xạ mỗi member với image tương ứng dựa trên level
+			$orderIdF1 = array_map(function ($item) use ($name_by_level) {
+				// Gán image tương ứng với level của member, nếu không có sẽ gán null
+				$item->name_rank = $name_by_level[$item->level] ?? null;
+				return $item->id;
 			}, $list_f1);
 
+			// Chuyển mảng ID thành chuỗi
 			$orderIdF1 = implode(',', $orderIdF1);
 		}
 		// số lượng đơn hàng thành viên mua
@@ -101,22 +111,24 @@ class Member_statisticsControllersMembers extends Controllers
 		// print_r($list_coin);
 		if (!empty($list_order_f1)) {
 			foreach ($list_order_f1 as $item) {
-				$total_coin_f1 += $item->after_coin;
+				$total_coin_f1 += $item->member_coin;
 			}
 		}
-		
+
 		// số lượng coin nhận
-		$list_coin = $this->model->get_records("user_id =$data->id", 'fs_coin_log', 'created_time,after_coin,total_coin,before_coin,after_coin,percent,percent_add,order_id,dieu_kien_nhan', 'id DESC');
+		$list_coin = $this->model->get_records("user_id =$data->id", 'fs_coin_log', 'status_chi_tra,created_time,after_coin,total_coin,before_coin,after_coin,percent,percent_add,order_id,dieu_kien_nhan', 'id DESC');
 		$total_coin = 0;
 		// print_r($list_coin);
 		if (!empty($list_coin)) {
 			foreach ($list_coin as $item) {
-				if($item->dieu_kien_nhan==1){
+				if ($item->dieu_kien_nhan == 1) {
 					$total_coin += $item->after_coin;
 				}
 			}
 		}
 		$data_f0 = $this->model->get_record("ref_code = $data->ref_by", 'fs_members', '*', 'id DESC');
+		$rank_member_f0 = $model->get_record('level = ' . $data_f0->level, 'fs_members_group', 'image');
+
 		include 'modules/' . $this->module . '/views/' . $this->view . '/detail.php';
 	}
 

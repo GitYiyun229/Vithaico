@@ -11,6 +11,7 @@ class ProductsControllersCart extends FSControllers
         'Bạch kim'
     ];
 
+
     public function display()
     {
         // unset($_SESSION['cart']);
@@ -196,6 +197,10 @@ class ProductsControllersCart extends FSControllers
 
     public function saveCart()
     {
+
+
+
+
         $method = $_SERVER['REQUEST_METHOD'];
         if ($method != 'POST') {
             setRedirect(FSRoute::_("index.php?module=products&view=cart"), FSText::_('Invalid method!'), 'error');
@@ -272,6 +277,7 @@ class ProductsControllersCart extends FSControllers
 
         $orderId = $this->model->_add($rowOrder, 'fs_order');
 
+
         if (!$orderId) {
             setRedirect(FSRoute::_("index.php?module=products&view=cart"), FSText::_('Có lỗi xảy ra. Vui lòng thử lại sau!'), 'error');
         }
@@ -298,6 +304,10 @@ class ProductsControllersCart extends FSControllers
         $rowOrder['ward_name'] = $this->model->get_record("code = '" . $rowOrder['recipients_ward'] . "'", 'fs_wards', 'code, name, full_name')->full_name;
 
         $_SESSION['cartCalculated'] = $cart;
+        $now = time();
+        //xử lý cổng thanh toán
+        // $this->VNPAY($orderId);
+        //end xử lý cổng 
         if ($user->userID && $orderId) {
             if ($user->userInfo->level >= 1) {
                 $this->calculateMemberRankDaiLy();
@@ -310,6 +320,20 @@ class ProductsControllersCart extends FSControllers
                 $dieu_kien_nhan = $member_ref->active_account == 1 ? 1 : 0;
                 if ($dieu_kien_nhan == 0) {
                     $dieu_kien_nhan = $this->check_dieu_kien_nhan_coin($member_ref->id, $member_ref->level, $member_ref->due_time_month);
+                }
+
+                if ($user->userInfo->level == 1) {
+                    $count_order_member = $this->model->get_records('user_id=' . $user->userInfo->id, 'fs_order');
+                    $total_records = count($count_order_member);
+                    if ($total_records == 1) {
+                        $row_time['active_account'] = 1;
+                        $row_time['end_time'] = date('Y-m-d H:i:s', strtotime('+1 year', $now));
+                        $this->model->_update($row_time, 'fs_members', 'id =' . $user->userInfo->id);
+                    }
+                }
+                if ($user->userInfo->level > 1) {
+                    $row_time['end_time'] = date('Y-m-d H:i:s', strtotime('+50 year', $now));
+                    $this->model->_update($row_time, 'fs_members', 'id =' . $user->userInfo->id);
                 }
                 $total_coin = $coin_add_affilat + $member_ref->vt_coin;
                 $RowCoin = [
@@ -339,10 +363,69 @@ class ProductsControllersCart extends FSControllers
             }
         }
         $_SESSION['CoinInfo'] = $RowCoin;
-
+        setRedirect(FSRoute::_("index.php?module=products&view=cart&task=orderSuccess"));
+    }
+    public function return_VNPAY()
+    {
         setRedirect(FSRoute::_("index.php?module=products&view=cart&task=orderSuccess"));
     }
 
+    public function VNPAY($id)
+    {
+        $model = $this->model;
+        $now = time();
+        $order = $model->get_record('id=' . $id, 'fs_order');
+        $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+        $vnp_TxnRef = 'DH' . $now . $order->id; //Mã giao dịch thanh toán tham chiếu của merchant  
+        $vnp_Amount =  $order->total_end; // Số tiền thanh toán
+        $vnp_Locale = 'vn'; //Ngôn ngữ chuyển hướng thanh toán
+        $vnp_BankCode = ''; //Mã phương thức thanh toán
+        $vnp_IpAddr = $_SERVER['REMOTE_ADDR']; //IP Khách hàng thanh toán
+        $vnp_HashSecret = 'R34L1WK9KY068059AJFJXLJMYYY7HVA9';
+
+        $expire = date('YmdHis', time() + 30 * 60);
+
+        $inputData = array(
+            "vnp_Version" => "2.1.0",
+            "vnp_TmnCode" => 'VITHAICO',
+            "vnp_Amount" => $vnp_Amount * 100,
+            "vnp_Command" => "pay",
+            "vnp_CreateDate" => date('YmdHis'),
+            "vnp_CurrCode" => "VND",
+            "vnp_IpAddr" => $vnp_IpAddr,
+            "vnp_Locale" => $vnp_Locale,
+            "vnp_OrderInfo" => "Thanh toan GD:" . $vnp_TxnRef,
+            "vnp_OrderType" => "other",
+            "vnp_ReturnUrl" => FSRoute::_("index.php?module=products&view=cart&task=orderSuccess"),
+            "vnp_TxnRef" => $vnp_TxnRef,
+            "vnp_ExpireDate" => $expire
+        );
+
+        if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+            $inputData['vnp_BankCode'] = $vnp_BankCode;
+        }
+
+        ksort($inputData);
+        $query = "";
+        $i = 0;
+        $hashdata = "";
+        foreach ($inputData as $key => $value) {
+            if ($i == 1) {
+                $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
+            } else {
+                $hashdata .= urlencode($key) . "=" . urlencode($value);
+                $i = 1;
+            }
+            $query .= urlencode($key) . "=" . urlencode($value) . '&';
+        }
+
+        $vnp_Url = $vnp_Url . "?" . $query;
+        if (isset($vnp_HashSecret)) {
+            $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret); //  
+            $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
+        }
+        header('Location: ' . $vnp_Url);
+    }
     public function loadDistrict()
     {
         $code = FSInput::get('code');

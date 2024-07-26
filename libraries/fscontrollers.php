@@ -37,6 +37,11 @@ class FSControllers
 			'count_ids' => 0,
 			'count_total_daily' => 0,
 			'total_price_order_F1' => 0,
+			'time_update_rank' => [],
+			'total_f1_rank3' => 0,
+			'total_f1_rank4' => 0,
+			'total_f1_rank5' => 0,
+			'total_f1_rank6' => 0,
 		];
 
 		if (!empty($ref_code)) {
@@ -59,7 +64,51 @@ class FSControllers
 				}
 			}
 		}
+		$user = $this->model->get_record('ref_code = ' . $ref_code, 'fs_members', '*');
+		$rank = $this->model->get_records('level > 2 ', 'fs_members_group', 'level', ' level desc');
 
+		foreach ($rank as $item_1) {
+			if ($item_1->level >= 3 ) {
+				$user_rank = $this->model->get_record('user_id = ' . $user->id . ' and level =' . $item_1->level, 'fs_update_rank_log', 'level,created_time');
+				// print_r($user_rank);
+				$array_id['time_update_rank'][$item_1->level] = [
+					'level' => $item_1->level,
+					'created_time' => $user_rank->created_time,
+				];
+			}
+		}
+		// print_r($array_id['time_update_rank']);
+		// }
+		// Sắp xếp mảng theo created_time
+		usort($array_id['time_update_rank'], function ($a, $b) {
+			if (empty($a['created_time'])) return 1; // Assume future date for empty created_time
+			if (empty($b['created_time'])) return -1;
+			return strtotime($a['created_time']) - strtotime($b['created_time']);
+		});
+
+		$previous_created_time = null;
+		foreach ($array_id['time_update_rank'] as $index => $item_time) {
+			// Construct the query to fetch records based on created_time
+			$query = "user_id IN ({$array_id['string_ids']})" .
+				($previous_created_time !== null ? " AND created_time > '{$previous_created_time}'" : "");
+			if (!empty($item_time['created_time'])) {
+				$query .= " AND created_time <= '{$item_time['created_time']}'";
+			}
+		
+			// print_r($query);
+			$total_level = $this->model->get_records($query, 'fs_order', 'SUM(total_before) AS total_before_sum');
+			$total_before_sum = $total_level[0]->total_before_sum ?? 0;
+			$array_id['time_update_rank'][$index]['total_before_sum'] = $total_before_sum;
+
+			if (in_array($item_time['level'], [3, 4, 5,6])) {
+				$array_id["total_f1_rank{$item_time['level']}"] = $total_before_sum;
+			}
+
+			if (!empty($item_time['created_time'])) {
+				$previous_created_time = $item_time['created_time'];
+			}
+		}
+		unset($item_time['created_time']);
 		return $array_id;
 	}
 
@@ -277,8 +326,6 @@ class FSControllers
 					preg_match('#<img([^>]*)' . $keyword2 . '(.*?)/>#is', $description, $rs);
 					if (count($rs))
 						continue;
-
-
 					if ($item->link)
 						$link = $item->link;
 					else
@@ -549,19 +596,23 @@ class FSControllers
 				$this->model->_update($row, 'fs_members', 'id =' . $member->id);
 
 				$infoF1 = $this->getArrayInfoF1($member->ref_code);
+				$total_price_f1_lv4=$infoF1['total_f1_rank4'];
+				$total_price_f1_lv5=$infoF1['total_f1_rank5'];
+				$total_price_f1_lv6=$infoF1['total_f1_rank6'];
 				$level = $member->level;
 				// Kiểm tra hạng thành viên dựa trên $total_member_coin và các điều kiện F1
 				$table_level = $this->model->get_records('level >=' . $level, 'fs_members_group', '*', ' id DESC');
 
 				$level_member = 1;
+
 				switch (true) {
-					case $level < 6 && $total_member_coin > 300 && ($infoF1['count_total_daily'] >= 200 || $infoF1['total_price_order_F1'] >= 1000000000):
+					case $level < 6 && $total_member_coin > 300 && ($infoF1['count_total_daily'] >= 200 || $total_price_f1_lv6 >= 1000000000):
 						$level_member = 6;
 						break;
-					case $level < 5 && $total_member_coin > 300 && ($infoF1['count_total_daily'] >= 50 || $infoF1['total_price_order_F1'] >= 200000000):
+					case $level < 5 && $total_member_coin > 300 && ($infoF1['count_total_daily'] >= 50 || $total_price_f1_lv5 >= 200000000):
 						$level_member = 5;
 						break;
-					case $level < 4 && $total_member_coin > 300 && ($infoF1['count_total_daily'] >= 10 || $infoF1['total_price_order_F1'] >= 50000000):
+					case $level < 4 && $total_member_coin > 300 && ($infoF1['count_total_daily'] >= 10 || $total_price_f1_lv4 >= 50000000):
 						$level_member = 4;
 						break;
 					case $level < 3 && $total_member_coin > 300:
@@ -577,6 +628,8 @@ class FSControllers
 						$level_member = 1;
 						break;
 				}
+				// echo $level_member ;
+				// die;
 				// Cập nhật hạng thành viên nếu có thay đổi
 				if ($member->level < $level_member) {
 					$this->updateMemberRank($level_member, $id, $total_member_coin);
@@ -593,27 +646,18 @@ class FSControllers
 	 */
 	public function UpdateMemberRank($level, $id, $total_member_coin)
 	{
+		$levelInfo = $this->model->get_record('level = ' . $level, 'fs_members_group', '*');
 
 		$member = $this->model->get_record('id=' . $id, 'fs_members', 'id,level,hoa_hong,ref_code,ref_by,vt_coin,created_time,end_time,active_account,due_time_month');
-		$levelInfo = $this->model->get_record('level = ' . $level, 'fs_members_group', '*');
-	
-
-		if (!empty($level) && $level >= $member->level) {
-			$time_member = strtotime($member->due_time_month);
+		if (!empty($level) && $level > $member->level) {
 			$now = time(); // Sử dụng time() để lấy thời gian hiện tại
-			$row['active_account'] = $time_member >= $now ? 1 : 0;
+			$row['active_account'] = 1;
 			$row = [
 				'level' => $level,
 				'hoa_hong' => $levelInfo->member_benefits,
-				'active_account' => $member->active_account == 1 ? 1 : 0, // Gán trực tiếp dựa trên điều kiện
 			];
-			if ($total_member_coin > 100) {
-				$row['end_time'] = date('Y-m-d H:i:s', strtotime($member->end_time . ' + 20 year'));
-			} elseif ($total_member_coin > 0.1) { // Đã bao gồm điều kiện < 100 từ điều kiện trước
-				$row['active_account'] = 1;
-				$row['end_time'] = date('Y-m-d H:i:s', strtotime($member->created_time . ' + 1 year'));
-			}
-
+			$row_time['end_time'] = date('Y-m-d H:i:s', strtotime('+50 year', $now));
+			$row['due_time_month'] = date('Y-m-d H:i:s', strtotime('+1 month', $now));
 			$update_level = $this->model->_update($row, 'fs_members', 'id =' . $member->id);
 			if ($update_level) {
 				$row_log = [

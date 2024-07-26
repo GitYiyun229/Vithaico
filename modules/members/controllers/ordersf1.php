@@ -26,15 +26,17 @@ class MembersControllersOrdersf1 extends MembersControllersMembers
     public function display()
     {
         global $tmpl, $user, $config;
-        
-        $Member_aff=$this->GetArrayInfoF1($user->userInfo->ref_code);
+        $model = $this->model;
+        $Member_aff = $this->GetArrayInfoF1($user->userInfo->ref_code);
         // print_r($Member_aff);
-
         $tmpl->addTitle(FSText::_('Đơn hàng của F1'));
-  
-        $list = $this->model->get_records("user_id in(". $Member_aff['string_ids'].")", 'fs_order', 'id, user_id,recipients_name,recipients_telephone,email, created_time, total_before, ship_price, member_discount_price, code_discount_price, total_end, status,member_coin', 'id DESC');
+        // $list = $this->model->get_records("user_id in(" . $Member_aff['string_ids'] . ")", 'fs_order', 'id, user_id,recipients_name,recipients_telephone,email, created_time, total_before, ship_price, member_discount_price, code_discount_price, total_end, status,member_coin', 'id DESC');
+        $query_body = $model->set_query_body($Member_aff['string_ids']);
+        $list = $model->get_list($query_body);
 
-       
+        $total = $model->getTotal($query_body);
+        $pagination = $model->getPagination($total);
+
         require PATH_BASE . "modules/$this->module/views/$this->view/default.php";
     }
 
@@ -43,7 +45,7 @@ class MembersControllersOrdersf1 extends MembersControllersMembers
         global $tmpl, $user, $config;
         $id = FSInput::get('id');
         $return = FSRoute::_('index.php?module=members&view=ordersf1');
-      
+
         if (!$id) {
             setRedirect($return);
         }
@@ -53,7 +55,7 @@ class MembersControllersOrdersf1 extends MembersControllersMembers
         // if (!$order || $order->user_id != $user->userID) {
         //     setRedirect($return, 'Đơn hàng không tồn tại!', 'error');
         // }
-       
+
         $detail = $this->getOrderDetail($order->id, $user);
         $province = $this->model->get_record("code = $order->recipients_province", 'fs_provinces', 'code, name')->name;
         $district = $this->model->get_record("code = $order->recipients_district", 'fs_districts', 'code, name')->name;
@@ -69,24 +71,15 @@ class MembersControllersOrdersf1 extends MembersControllersMembers
 
         foreach ($orderDetail as $detail) {
             $productId[] = $detail->product_id;
-
-                      
         }
-      
         $productId = implode(',', $productId);
         $products = $this->model->get_records("id IN ($productId)", 'fs_products', 'id, name, alias, image');
-
-
-       
-
         foreach ($orderDetail as $detail) {
             foreach ($products as $product) {
                 if ($detail->product_id == $product->id) {
                     $detail->productInfo = $product;
                 }
             }
-
-           
         }
 
         return $orderDetail;
@@ -111,7 +104,7 @@ class MembersControllersOrdersf1 extends MembersControllersMembers
         $published = 1;
 
         $row = compact('order_id', 'order_item_id', 'product_id', 'sub_id', 'rating', 'comment', 'user_id', 'created_time', 'edited_time', 'published', 'name');
-        
+
         $rs = $this->model->_add($row, 'fs_products_comments');
 
         if (!$rs) {
@@ -120,9 +113,9 @@ class MembersControllersOrdersf1 extends MembersControllersMembers
 
         if (!empty($_FILES['image']['name'])) {
             $fsFile = FSFactory::getClass('FsFiles');
-    
+
             $path = 'images' . DS . 'products' . DS . 'rate-comment' . DS;
-    
+
             if (!$fsFile->create_folder($path)) {
                 setRedirect($return, "Không thể tạo folder", 'error');
             }
@@ -132,15 +125,15 @@ class MembersControllersOrdersf1 extends MembersControllersMembers
 
                 if ($img && is_string($img)) {
                     $img = str_replace(DS, '/', $path) . $img;
-    
+
                     $arrImage[] = [
                         'record_id' => $rs,
                         'image' => $img,
                         'published' => 1,
                         'file_type' => $_FILES['image']["type"][$i]
                     ];
-                }               
-            } 
+                }
+            }
 
             $this->model->_add_multiple($arrImage, 'fs_products_comments_images');
         }

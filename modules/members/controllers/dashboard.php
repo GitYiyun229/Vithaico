@@ -25,14 +25,13 @@ class MembersControllersDashboard extends MembersControllersMembers
 
         @$where_ward = $userInfo->ward_id ? $userInfo->ward_id : '';
         $ward = $this->model->get_records("district_code = '$where_district'", 'fs_wards', 'code, name, code_name, district_code');
-        // print_r($ward);
+     
 
         $sex = [
             FSText::_('Nam'),
             FSText::_('Nữ'),
             FSText::_('Khác'),
         ];
-
 
         require PATH_BASE . "modules/$this->module/views/$this->view/default.php";
     }
