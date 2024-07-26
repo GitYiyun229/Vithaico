@@ -8,6 +8,7 @@
 }
 @import "main_tiep.scss";
 
+
 .container {
   max-width: 1200px !important;
   padding-right: 0;
@@ -371,7 +372,7 @@ footer {
     }
     .name-banner {
       font-size: 40px;
-      top: 0;
+      top: 50%;
       left: 0;
       right: 0;
       text-align: left;
@@ -451,7 +452,6 @@ footer {
     line-height: normal;
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
     justify-content: space-between;
     .price,
     .price_discount {
@@ -979,11 +979,14 @@ footer {
   .section-banner {
     text-align: center;
     .item-banner {
+      height: 100%;
       .img-banner {
+        max-width: unset !important;
+        object-fit: cover;
       }
       .name-banner {
         font-size: 32px;
-        top: -10px;
+        text-align: center;
       }
     }
   }
@@ -1096,45 +1099,4 @@ footer {
       }
     }
   }
-}
-@media(max-width:767px)
-{
-  .pagination{
-    .current{
-        width: 30px !important;
-        height: 30px !important;
-        font-size: 12px !important;
-        
-    }
-    .other-page{
-        width: 30px !important;
-        height: 30px !important;
-        font-size: 12px !important;
-
-    }
-    .next-page{
-        width: 30px !important;
-        height: 30px !important;
-        font-size: 12px !important;
-
-
-    }
-    .last-page{
-        width: 30px !important;
-        height: 30px !important;
-        font-size: 12px !important;
-
-
-    }
-    .pre-page{
-        width: 30px !important;
-        height: 30px !important;
-        font-size: 12px !important;
-    }
-    .first-page{
-        width: 30px !important;
-        height: 30px !important;
-        font-size: 12px !important;
-    }
-}
 }

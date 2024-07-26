@@ -197,10 +197,6 @@ class ProductsControllersCart extends FSControllers
 
     public function saveCart()
     {
-
-
-
-
         $method = $_SERVER['REQUEST_METHOD'];
         if ($method != 'POST') {
             setRedirect(FSRoute::_("index.php?module=products&view=cart"), FSText::_('Invalid method!'), 'error');
