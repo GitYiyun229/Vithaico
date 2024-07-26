@@ -424,6 +424,7 @@ footer .footer-bot .copyright {
   line-height: normal;
   display: flex;
   flex-wrap: wrap;
+  gap: 10px;
   justify-content: space-between;
 }
 .layout-product-item .layout-public-price .price .title,
@@ -924,4 +925,4 @@ footer .footer-bot .copyright {
   .section-banner .item-banner .name-banner {
     font-size: 24px;
   }
-}/*# sourceMappingURL=main.css.map */
+}/*# sourceMappingURL=main_.css.map */

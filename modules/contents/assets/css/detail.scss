@@ -1,9 +1,6 @@
 .section-banner {
 }
-h3 {
-  font-size: 21px !important;
-  margin-top: 1.5em;
-}
+
 .container {
   .main-content {
     display: grid;
@@ -49,6 +46,10 @@ h3 {
       }
     }
     .content-right {
+      h3 {
+        font-size: 21px !important;
+        margin-top: 1.5em;
+      }
       .top {
         display: flex;
         align-items: center;
