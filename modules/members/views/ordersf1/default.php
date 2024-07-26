@@ -13,19 +13,21 @@ $tmpl->addScript('order_f1', 'modules/members/assets/js');
                 <?php include PATH_BASE . 'modules/members/views/sidebar.php' ?>
             </div>
         </div>
-        <div class="page-side">
-            <div class="page-title mb-3 fs-5 fw-medium"><?php echo FSText::_('Đơn hàng của tôi') ?></div>
+        <div class="page-side p-4 bg-white">
+            <div class="page-title mb-3 fs-5 fw-bold text-uppercase"><?php echo FSText::_('Thống kê đơn hàng f1') ?></div>
             <div class="page-content page-orders">
                 <div class="user_f1_title d-flex justify-content-between">
                     <div class="user_f1_title_item"><?php echo FSText::_('stt') ?></div>
                     <div class="user_f1_title_item"><?php echo FSText::_('Mã đơn hàng') ?></div>
                     <div class="user_f1_title_item"><?php echo FSText::_('Tên Thành viên') ?></div>
                     <div class="user_f1_title_item"><?php echo FSText::_('Điện thoại') ?></div>
+                    <!-- <div class="user_f1_title_item"></?php echo FSText::_('email') ?></div> -->
                     <div class="user_f1_title_item"><?php echo FSText::_('Trạng thái') ?></div>
                     <div class="user_f1_title_item"><?php echo FSText::_('VT-coin') ?></div>
                     <div class="user_f1_title_item"><?php echo FSText::_('Chi tiết') ?></div>
                 </div>
                 <?php $sequenceNumber = 1; ?>
+
                 <?php foreach ($list as $item) { ?>
                     <div class="item-order mb-3" status="<?php echo $item->status ?>">
                         <div class="user_f1_item d-flex justify-content-between">
@@ -33,6 +35,7 @@ $tmpl->addScript('order_f1', 'modules/members/assets/js');
                             <div class="user_f1_item_item"><?= htmlspecialchars($item->id) ?></div>
                             <div class="user_f1_item_item"><?= htmlspecialchars($item->recipients_name) ?></div>
                             <div class="user_f1_item_item"><?= htmlspecialchars($item->recipients_telephone) ?></div>
+                            <!-- <div class="user_f1_item_item"></.?= htmlspecialchars($item->email) ?></div> -->
                             <div class="user_f1_item_item"><?php echo $this->status[$item->status] ?></div>
                             <div class="user_f1_item_item"><?= htmlspecialchars($item->member_coin) ?></div>
                             <div class="user_f1_item_item">
@@ -47,9 +50,6 @@ $tmpl->addScript('order_f1', 'modules/members/assets/js');
                         </div>
                     </div>
                 <?php } ?>
-                <?php if ($pagination) {
-                    echo $pagination->showPagination(6);
-                } ?>
             </div>
         </div>
     </div>
