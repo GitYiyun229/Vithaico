@@ -9,7 +9,7 @@
         <select name="member-detail-1" class="select2" id="member-detail-1" onclick="member_detail_1()">
             <option value=""><?php echo FSText::_('Thành viên đã giới thiệu'); ?></option>
             <?php foreach ($list_f1 as $item) { ?>
-                <option data-id="<?= $item->user_id  ?>" value="<?php echo $item->user_id ?>"><?php echo $item->user_name ?></option>
+                <option data-id="<?= $item->id  ?>" value="<?php echo $item->id ?>"><?php echo $item->full_name ?></option>
             <?php } ?>
         </select>
     </div>
@@ -26,19 +26,19 @@
                         <th><?php echo FSText::_('Telephone'); ?></th>
                         <th><?php echo FSText::_('Email'); ?></th>
                         <th><?php echo FSText::_('Time'); ?></th>
-                        <th><?php echo FSText::_('Detail'); ?></th>
+                        <th><?php echo FSText::_('Rank'); ?></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($list_f1 as $item) { ?>
-                        <tr class="turn_on<?= $item->user_id ?>" data-id>
-                            <td><?= $item->user_id ?></td>
-                            <td><?= $item->user_name ?></td>
+                        <tr class="turn_on<?= $item->id ?>" data-id>
+                            <td><?= $item->id ?></td>
+                            <td><?= $item->full_name ?></td>
                             <td><?= $item->telephone ?></td>
                             <td><?= $item->email ?></td>
                             <td><?= $item->created_time ?></td>
-                            <td>
-                                <a href="#" data-color="#00a65a" data-height="20">Chi tiết</a>
+                            <td class="color_rank_<?=$item->level?>">
+                                <?= $item->name_rank ?>
                             </td>
                         </tr>
                     <?php } ?>

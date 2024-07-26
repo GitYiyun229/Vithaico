@@ -23,6 +23,7 @@ $toolbar->addButton('cancel', FSText::_('Cancel'), '', 'cancel.png');
 $this->dt_form_begin(1, 4, 'Thống kê');
 ?>
 <div id="tabs" class="row">
+<<<<<<< HEAD
 	<div class="member-info">
 		<div class="member-inffo">
 			<div class="memmber-to">
@@ -42,37 +43,112 @@ $this->dt_form_begin(1, 4, 'Thống kê');
 						<p class="info-p"><?php echo FSText::_('Thời gian gia hạn tài khoản theo tháng: '); ?> <span class="info-span"><?= @$data->due_time_month ?>%</span></p>
 						<p class="info-p"><?php echo FSText::_('Link đăng ký : '); ?>
 							<span class="info-span"><?= FSRoute::_('index.php?module=members&view=user&task=register') ?><?= '?affiliate=' . $data->ref_code ?>
+=======
+	<div class="member-inffo">
+		<div class="member-profile">
+			<div class="frame">
+				<div class="center">
+
+					<div class="profile">
+						<div class="profile-rank">
+							<?php if (!empty($rank_member->image)) : ?>
+								<img src="<?php echo URL_ROOT . $rank_member->image ?>" alt="">
+							<?php endif; ?>
+						</div>
+						<div class="image">
+
+							<div class="circle-1"></div>
+							<div class="circle-2"></div>
+							<img style="object-fit: cover;" src="<?php echo URL_ROOT . $data->image ?>" onerror="this.src='/images/user-customer-icon.svg'" width="70" height="70" alt="Jessica Potter">
+						</div>
+						<div class="name">Thông tin thành viên</div>
+						<div class="name"><?= @$data->full_name ?></div>
+						<div class="job">Phone: <?= @$data->telephone ?></div>
+						<div class="job">Email: <?= @$data->email ?></div>
+					</div>
+					<div class="stats">
+						<div class="box">
+							<span class="parameter">Affliate</span>
+							<span class="value"><?= @$data->hoa_hong ? @$data->hoa_hong : '0' ?>%</span>
+						</div>
+						<div class="box">
+							<span class="parameter">
+								<input type="text" value="<?= FSRoute::_('index.php?module=members&view=user&task=register') ?><?= '?affiliate=' . $data->ref_code ?>" class="form-control link_aff_copy" id="link_aff" name="link_aff">
+								<a onclick="myFunction()" class="position-absolute top-50 end-0 translate-middle-y px-4">
+									Link giới thiệu <img src="/modules/members/assets/images/icon-copy.svg" alt="img-copy">
+								</a>
+>>>>>>> 1654bf992e11181694e8b7fccf380335c943753e
 							</span>
-							<input type="text" value="https://vithaico.phongcachso.com/dang-ky-tai-khoan?affiliate=1720862229" class="form-control link_aff_copy" id="link_aff" name="link_aff">
-							<a onclick="myFunction()" class="position-absolute top-50 end-0 translate-middle-y px-4">
-								<img src="/modules/members/assets/images/icon-copy.svg" alt="img-copy">
-							</a>
-						</p>
+						</div>
+						<div class="box">
+							<span class="value"><?= @$data->end_time ?></span></span>
+							<span class="parameter">Thời gian duy trì tài khoản</span>
+						</div>
+						<div class="box">
+							<span class="value"><?= @$data->due_time_month ?></span>
+							<span class="parameter">Thời gian gia hạn tài khoản theo tháng</span>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="memmber-to">
-				<div class="info">
-					<h3><?php echo FSText::_('Thông tin người giới thiệu'); ?></h3>
-					<div class="inner">
-						<p class="info-p"><?php echo FSText::_('Họ và tên : '); ?> <span class="info-span"><?= @$data_f0->full_name ?></span></p>
-						<p class="info-p"><?php echo FSText::_('Số điện thoại : '); ?> <span class="info-span"><?= @$data_f0->telephone ?></span></p>
-						<p class="info-p"><?php echo FSText::_('Email : '); ?> <span class="info-span"><?= @$data_f0->email ?></span></p>
-						<p class="info-p"><?php echo FSText::_('Mức hoa hồng đang nhận : '); ?> <span class="info-span"><?= @$data_f0->hoa_hong ?>%</span></p>
-						<p class="info-p"><?php echo FSText::_('Thời gian duy trì tài khoản : '); ?> <span class="info-span"><?= @$data->end_time ?></span></p>
-						<p class="info-p"><?php echo FSText::_('Thời gian gia hạn tài khoản theo tháng : '); ?> <span class="info-span"><?= @$data->due_time_month ?></span></p>
-						<p class="info-p"><?php echo FSText::_('Link đăng ký : '); ?>
-							<span class="info-span"><?= FSRoute::_('index.php?module=members&view=user&task=register') ?><?= '?affiliate=' . $data_f0->ref_code ?>
-							</span>
-							<input type="text" value="https://vithaico.phongcachso.com/dang-ky-tai-khoan?affiliate=1720862229" class="form-control link_aff_copy" id="link_afff0" name="link_afff0">
-							<a onclick="myFunction()" class="position-absolute top-50 end-0 translate-middle-y px-4">
-								<img src="/modules/members/assets/images/icon-copy.svg" alt="img-copy">
-							</a>
-						</p>
-					</div>
-				</div>
-			</div>
+
 		</div>
+		<div class="member-profile">
+			<div class="frame">
+				<div class="center">
+
+					<div class="profile">
+						<div class="profile-rank">
+							<?php if (!empty($rank_member_f0->image)) : ?>
+								<img src="<?php echo URL_ROOT . $rank_member_f0->image ?>" alt="">
+							<?php endif; ?>
+						</div>
+						<div class="image">
+
+							<div class="circle-1"></div>
+							<div class="circle-2"></div>
+							<img style="object-fit: cover;" src="<?php echo URL_ROOT . $data_f0->image ?>" onerror="this.src='/images/user-customer-icon.svg'" width="70" height="70" alt="Jessica Potter">
+						</div>
+
+						<div class="name">Thông tin thành viên giới thiệu</div>
+						<div class="name"><?= @$data_f0->full_name ?></div>
+						<div class="job">Phone: <?= @$data_f0->telephone ?></div>
+						<div class="job">Email: <?= @$data_f0->email ?></div>
+
+
+					</div>
+
+					<div class="stats">
+						<div class="box">
+							<span class="parameter">Affliate</span>
+							<span class="value"><?= @$data_f0->hoa_hong ? @$data_f0->hoa_hong : '0' ?>%</span>
+						</div>
+						<div class="box">
+							<span class="parameter">
+								<input type="text" value="<?= FSRoute::_('index.php?module=members&view=user&task=register') ?><?= '?affiliate=' . $data_f0->ref_code ?>" class="form-control link_aff_copy" id="link_afff0" name="link_afff0">
+								<a onclick="myFunction1()" class="position-absolute top-50 end-0 translate-middle-y px-4">
+									Link giới thiệu<img src="/modules/members/assets/images/icon-copy.svg" alt="img-copy">
+								</a>
+							</span>
+						</div>
+						<div class="box">
+							<span class="value"><?= @$data_f0->end_time ?></span></span>
+							<span class="parameter">Thời gian duy trì tài khoản</span>
+						</div>
+						<div class="box">
+							<span class="value"><?= @$data_f0->due_time_month ?></span>
+							<span class="parameter">Thời gian gia hạn tài khoản theo tháng</span>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="member-info">
+
 
 		<div class="member-info-content">
 
@@ -161,7 +237,7 @@ $this->dt_form_end(@$data, 1, 0);
 		alert('Copy link thành công !');
 	}
 
-	function myFunction() {
+	function myFunction1() {
 		var copyText = document.getElementById("link_afff0");
 		copyText.select();
 		copyText.setSelectionRange(0, 99999);

@@ -343,7 +343,7 @@ footer .footer-bot .copyright {
 }
 .section-banner .item-banner .name-banner {
   font-size: 40px;
-  top: 0;
+  top: 50%;
   left: 0;
   right: 0;
   text-align: left;
@@ -424,7 +424,6 @@ footer .footer-bot .copyright {
   line-height: normal;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
   justify-content: space-between;
 }
 .layout-product-item .layout-public-price .price .title,
@@ -865,9 +864,17 @@ footer .footer-bot .copyright {
   .section-banner {
     text-align: center;
   }
+  .section-banner .item-banner {
+    height: 100%;
+  }
+  .section-banner .item-banner .img-banner {
+    max-width: unset !important;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
   .section-banner .item-banner .name-banner {
     font-size: 32px;
-    top: -10px;
+    text-align: center;
   }
 }
 @media all and (max-width: 500px) {
@@ -916,37 +923,5 @@ footer .footer-bot .copyright {
   }
   .section-banner .item-banner .name-banner {
     font-size: 24px;
-  }
-}
-@media (max-width: 767px) {
-  .pagination .current {
-    width: 30px !important;
-    height: 30px !important;
-    font-size: 12px !important;
-  }
-  .pagination .other-page {
-    width: 30px !important;
-    height: 30px !important;
-    font-size: 12px !important;
-  }
-  .pagination .next-page {
-    width: 30px !important;
-    height: 30px !important;
-    font-size: 12px !important;
-  }
-  .pagination .last-page {
-    width: 30px !important;
-    height: 30px !important;
-    font-size: 12px !important;
-  }
-  .pagination .pre-page {
-    width: 30px !important;
-    height: 30px !important;
-    font-size: 12px !important;
-  }
-  .pagination .first-page {
-    width: 30px !important;
-    height: 30px !important;
-    font-size: 12px !important;
   }
 }/*# sourceMappingURL=main.css.map */
