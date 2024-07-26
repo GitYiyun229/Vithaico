@@ -68,13 +68,21 @@ class FSControllers
 		$rank = $this->model->get_records('level > 2 ', 'fs_members_group', 'level', ' level desc');
 
 		foreach ($rank as $item_1) {
-			if ($item_1->level >= 3 ) {
+			if ($item_1->level >= 3) {
 				$user_rank = $this->model->get_record('user_id = ' . $user->id . ' and level =' . $item_1->level, 'fs_update_rank_log', 'level,created_time');
-				// print_r($user_rank);
-				$array_id['time_update_rank'][$item_1->level] = [
-					'level' => $item_1->level,
-					'created_time' => $user_rank->created_time,
-				];
+
+				if ($user_rank) { // Kiểm tra nếu $user_rank không phải là null hoặc false
+					$array_id['time_update_rank'][$item_1->level] = [
+						'level' => $item_1->level,
+						'created_time' => $user_rank->created_time,
+					];
+				} else {
+					// Xử lý trường hợp không tìm thấy bản ghi
+					$array_id['time_update_rank'][$item_1->level] = [
+						'level' => $item_1->level,
+						'created_time' => null, // Hoặc giá trị mặc định khác
+					];
+				}
 			}
 		}
 		// print_r($array_id['time_update_rank']);

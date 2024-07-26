@@ -13,7 +13,6 @@ class MembersControllersDashboard extends MembersControllersMembers
         // $breadcrumbs = array(array(0 => FSText::_('Trang cá nhân'), 1 => ''));
         // $tmpl->assign('breadcrumbs', $breadcrumbs);
         $tmpl->addTitle(FSText::_('Trang cá nhân'));
-
         $userInfo = $user->userInfo;
         $where_province = $userInfo->city_id ? $userInfo->city_id : '';
         $province = $this->model->get_records($where_province, 'fs_provinces', 'code, name, code_name', 'code_name ASC');
