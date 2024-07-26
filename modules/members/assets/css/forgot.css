@@ -1,0 +1,21 @@
+.box-main-forgot {
+  max-width: 400px;
+}
+.box-main-forgot h5 {
+  color: #000000;
+}
+.box-main-forgot form .form-control {
+  background: #f5f5f5;
+  border: 0;
+  font-size: 14px;
+  padding: 12px 0 12px 16px;
+  width: 100%;
+}
+.box-main-forgot form .forgot-form {
+  background: #ea212d;
+  border-radius: 8px;
+  padding: 13.5px 24px;
+}
+.box-main-forgot form .forgot-form a {
+  color: #fff;
+}/*# sourceMappingURL=forgot.css.map */
