@@ -6,6 +6,9 @@ main .grid_detail_new {
   grid-template-columns: auto 300px;
   grid-gap: 40px;
 }
+main .grid_detail_new .detail_new-left {
+  max-width: 100%;
+}
 main .grid_detail_new .detail_new-left .title_new {
   color: #000;
   font-size: 40px;
@@ -133,7 +136,7 @@ main .grid_news_related .h2_title_block {
     display: grid;
   }
   main .grid_detail_new .detail_new-left .created_share .created_catname {
-    display: grid;
+    flex-wrap: wrap;
   }
   main .grid_detail_new .detail_new-left .created_share .share_box {
     margin-top: 8px;

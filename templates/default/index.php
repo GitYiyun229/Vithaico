@@ -42,11 +42,7 @@ $alert = array(
         <input type="hidden" id="alert_member" value='<?php echo json_encode($alert) ?>' />
         <header class="bg-white">
             <div class="container header-container d-flex align-items-center justify-content-between">
-                <button class="btn-menu_mobile" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M3 12H21M3 6H21M3 18H15" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                </button>
+               
                 <a href="<?php echo URL_ROOT ?>" title="<?php echo $config['site_name'] ?>">
                     <img src="<?php echo URL_ROOT . $config['logo'] ?>" alt="<?php echo $config['site_name'] ?>" class="img-fluid img-logo">
                 </a>
@@ -54,7 +50,7 @@ $alert = array(
                     <?php echo $tmpl->load_direct_blocks('mainmenu', array('style' => 'home', 'group' => 1)) ?>
                 </div>
                 <div class="block-members_cart_lang d-flex align-items-center gap-3 position-relative">
-                    <div class="search_header">
+                    <!-- <div class="search_header">
                         <a href="" class="btn-guest btn-search">
                             <div>
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -62,7 +58,7 @@ $alert = array(
                                 </svg>
                             </div>
                         </a>
-                    </div>
+                    </div> -->
 
                     <div class="cart_header d-flex align-items-center justify-content-end">
                         <a href="<?php echo FSRoute::_('index.php?module=products&view=cart') ?>" title="<?php echo FSText::_('Giỏ hàng') ?>" class="header-cart position-relative">
@@ -145,26 +141,7 @@ $alert = array(
                             </svg>
                         <?php } ?>
                         <div class="box_members_click">
-                            <?php if (!$user->userID) { ?>
-                                <a href="<?php echo FSRoute::_('index.php?module=members&view=user&task=login') ?>" class="btn-guest btn-login" title="<?php echo FSText::_('Đăng nhập') ?>">
-                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M7.41675 6.29995C7.67508 3.29995 9.21675 2.07495 12.5917 2.07495H12.7001C16.4251 2.07495 17.9167 3.56662 17.9167 7.29162V12.725C17.9167 16.45 16.4251 17.9416 12.7001 17.9416H12.5917C9.24175 17.9416 7.70008 16.7333 7.42508 13.7833M1.66675 9.99995H12.4001M10.5417 7.20828L13.3334 9.99995L10.5417 12.7916" stroke="#3B3B3B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-
-                                    <span>
-                                        <?php echo FSText::_('Đăng nhập') ?>
-                                    </span>
-                                </a>
-                                <a href="<?php echo FSRoute::_('index.php?module=members&view=user&task=register') ?>" class="btn-guest btn-register" title="<?php echo FSText::_('Đăng ký') ?>">
-                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M17.0834 9.41662V5.86663C17.0834 2.5083 16.3001 1.66663 13.1501 1.66663H6.85008C3.70008 1.66663 2.91675 2.5083 2.91675 5.86663V15.2499C2.91675 17.4666 4.13342 17.9916 5.60842 16.4083L5.61674 16.4C6.30007 15.675 7.34174 15.7333 7.93341 16.5249L8.77508 17.65M6.66675 5.83329H13.3334M7.50008 9.16663H12.5001M14.7494 12.7335C14.9994 13.6335 15.6994 14.3335 16.5994 14.5835M15.1759 12.3085L12.2259 15.2585C12.1093 15.3752 12.0009 15.5919 11.9759 15.7502L11.8176 16.8752C11.7593 17.2835 12.0426 17.5669 12.4509 17.5085L13.5759 17.3502C13.7343 17.3252 13.9593 17.2169 14.0676 17.1002L17.0176 14.1502C17.5259 13.6419 17.7676 13.0502 17.0176 12.3002C16.2759 11.5585 15.6843 11.8002 15.1759 12.3085Z" stroke="#3B3B3B" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-
-                                    <span>
-                                        <?php echo FSText::_('Đăng ký') ?>
-                                    </span>
-                                </a>
-                            <?php } else { ?>
+                            <?php if ($user->userID) { ?>
                                 <div class="user_login_btn user_header_btn d-flex gap-2">
                                     <?php if ($userImage) { ?>
                                         <img src="<?php echo URL_ROOT . $userImage ?>" alt="user" class="img-fluid">
@@ -214,7 +191,6 @@ $alert = array(
                                         <?php echo FSText::_('Lịch sử giao dịch') ?>
                                     </span>
                                 </a>
-
                                 <a class="btn-guest" href="<?php echo FSRoute::_("index.php?module=members&view=dashboard") ?>">
                                     <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M12.55 15.1583C15.15 15.4083 16.5334 14.1917 17.2334 11.1833L18.05 7.69999C18.8667 4.21665 17.8 2.49165 14.3084 1.67499L12.9167 1.34999C10.1334 0.691653 8.47504 1.23332 7.50004 3.24999M12.55 15.1583C12.1334 15.125 11.6834 15.05 11.2 14.9333L9.80004 14.6C6.32504 13.775 5.25004 12.0583 6.06671 8.57499L6.88337 5.08332C7.05004 4.37499 7.25004 3.75832 7.50004 3.24999M12.55 15.1583C12.0334 15.5083 11.3834 15.8 10.5917 16.0583L9.27504 16.4917C5.96671 17.5583 4.22504 16.6667 3.15004 13.3583L2.08337 10.0667C1.01671 6.75832 1.90004 5.00832 5.20837 3.94165L6.52504 3.50832C6.86671 3.39999 7.19171 3.30832 7.50004 3.24999M10.5334 6.10832L14.575 7.13332M9.71671 9.33332L12.1334 9.94999" stroke="#757575" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -224,7 +200,6 @@ $alert = array(
                                         <?php echo FSText::_('Thống kê đơn hàng F1') ?>
                                     </span>
                                 </a>
-
                                 <a class="btn-guest" href="<?php echo FSRoute::_("index.php?module=members&view=dashboard") ?>">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M8.95974 14.0503V15.742C8.95974 17.1753 7.6264 18.3337 5.98473 18.3337C4.34306 18.3337 3.00138 17.1753 3.00138 15.742V14.0503M8.95974 14.0503C8.95974 15.4753 7.6264 16.5003 5.98473 16.5003M8.95974 14.0503V11.7583C8.95974 11.0417 8.62642 10.3917 8.09309 9.925C7.55142 9.45833 6.80973 9.16669 5.98473 9.16669C4.33473 9.16669 3.00138 10.325 3.00138 11.7583V14.0503M8.95974 14.0503C8.95974 15.4836 7.6264 16.5003 5.98473 16.5003M3.00138 14.0503C3.00138 15.4836 4.33473 16.5003 5.98473 16.5003M3.00138 14.0503C3.00138 15.4753 4.34306 16.5003 5.98473 16.5003M17.5001 11.7083C17.9668 11.6917 18.3334 11.3167 18.3334 10.8584V9.14166C18.3334 8.68333 17.9668 8.30836 17.5001 8.2917M17.5001 11.7083H15.8668C14.9668 11.7083 14.1418 11.05 14.0668 10.15C14.0168 9.62501 14.2168 9.13334 14.5668 8.79168C14.8751 8.47501 15.3001 8.2917 15.7668 8.2917H17.5001M17.5001 11.7083L17.5001 12.9167C17.5001 15.4167 15.8334 17.0834 13.3334 17.0834H11.2501M17.5001 8.2917L17.5001 7.08335C17.5001 4.80002 16.1084 3.20834 13.9584 2.95834C13.7584 2.92501 13.5501 2.91669 13.3334 2.91669H5.83341C5.60008 2.91669 5.37508 2.93335 5.15842 2.96668C3.03342 3.23335 1.66675 4.81669 1.66675 7.08335V8.75002M8.95842 11.7583C8.95842 12.175 8.84174 12.5583 8.64174 12.8917C8.15008 13.7 7.14173 14.2083 5.97507 14.2083C4.8084 14.2083 3.80006 13.6917 3.30839 12.8917C3.10839 12.5583 2.99177 12.175 2.99177 11.7583C2.99177 11.0417 3.32509 10.4 3.85842 9.93334C4.40009 9.45834 5.14173 9.17503 5.96673 9.17503C6.79173 9.17503 7.53342 9.46667 8.07508 9.93334C8.62508 10.3917 8.95842 11.0417 8.95842 11.7583Z" stroke="#757575" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -243,8 +218,6 @@ $alert = array(
                                         <?php echo FSText::_('Chi trả hoa hồng') ?>
                                     </span>
                                 </a>
-
-
                                 <a class="btn-guest" href="<?php echo FSRoute::_("index.php?module=members&view=log&task=logout") ?>">
                                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M6.41658 5.30001C6.67492 2.30001 8.21658 1.07501 11.5916 1.07501H11.6999C15.4249 1.07501 16.9166 2.56668 16.9166 6.29168V11.725C16.9166 15.45 15.4249 16.9417 11.6999 16.9417H11.5916C8.24158 16.9417 6.69992 15.7333 6.42492 12.7833M11.4999 9.00001H2.01659M3.87492 6.20835L1.08325 9.00001L3.87492 11.7917" stroke="#757575" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -254,20 +227,38 @@ $alert = array(
                                         <?php echo FSText::_('Đăng xuất') ?>
                                     </span>
                                 </a>
+                            <?php } else { ?>
+                                <a href="<?php echo FSRoute::_('index.php?module=members&view=user&task=login') ?>" class="btn-guest btn-login" title="<?php echo FSText::_('Đăng nhập') ?>">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7.41675 6.29995C7.67508 3.29995 9.21675 2.07495 12.5917 2.07495H12.7001C16.4251 2.07495 17.9167 3.56662 17.9167 7.29162V12.725C17.9167 16.45 16.4251 17.9416 12.7001 17.9416H12.5917C9.24175 17.9416 7.70008 16.7333 7.42508 13.7833M1.66675 9.99995H12.4001M10.5417 7.20828L13.3334 9.99995L10.5417 12.7916" stroke="#3B3B3B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+
+                                    <span>
+                                        <?php echo FSText::_('Đăng nhập') ?>
+                                    </span>
+                                </a>
+                                <a href="<?php echo FSRoute::_('index.php?module=members&view=user&task=register') ?>" class="btn-guest btn-register" title="<?php echo FSText::_('Đăng ký') ?>">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M17.0834 9.41662V5.86663C17.0834 2.5083 16.3001 1.66663 13.1501 1.66663H6.85008C3.70008 1.66663 2.91675 2.5083 2.91675 5.86663V15.2499C2.91675 17.4666 4.13342 17.9916 5.60842 16.4083L5.61674 16.4C6.30007 15.675 7.34174 15.7333 7.93341 16.5249L8.77508 17.65M6.66675 5.83329H13.3334M7.50008 9.16663H12.5001M14.7494 12.7335C14.9994 13.6335 15.6994 14.3335 16.5994 14.5835M15.1759 12.3085L12.2259 15.2585C12.1093 15.3752 12.0009 15.5919 11.9759 15.7502L11.8176 16.8752C11.7593 17.2835 12.0426 17.5669 12.4509 17.5085L13.5759 17.3502C13.7343 17.3252 13.9593 17.2169 14.0676 17.1002L17.0176 14.1502C17.5259 13.6419 17.7676 13.0502 17.0176 12.3002C16.2759 11.5585 15.6843 11.8002 15.1759 12.3085Z" stroke="#3B3B3B" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+
+                                    <span>
+                                        <?php echo FSText::_('Đăng ký') ?>
+                                    </span>
+                                </a>
+
                             <?php } ?>
                         </div>
                     </div>
-
-
                 </div>
             </div>
-
-
         </header>
         <main>
             <?php echo $main_content ?>
         </main>
-
+        <div id="menu_mobile">
+            <?php echo $tmpl->load_direct_blocks('botmenumobile', ['style' => 'default']); ?>
+        </div>
         <footer class="position-relative">
             <img src="/images/footer-left.svg" alt="" class="position-absolute top-0 start-0">
 
@@ -412,7 +403,6 @@ $alert = array(
                     <rect width="48" height="48" rx="24" fill="#EA212D" />
                     <path d="M24.1472 20.262C24.1937 20.2763 24.2424 20.286 24.2874 20.3048C24.4097 20.3557 24.4307 20.385 24.5312 20.4675L30.5342 26.4712C30.5964 26.547 30.6594 26.6243 30.6969 26.7143C30.8289 27.0323 30.7082 27.4335 30.4209 27.6255C30.1749 27.7897 29.8329 27.7897 29.5869 27.6255C29.5457 27.5985 29.5112 27.5633 29.4729 27.5325L24.0002 22.0598L18.5282 27.5325L18.4142 27.6255C18.3707 27.6488 18.3294 27.6758 18.2844 27.6945C17.9672 27.8265 17.5682 27.7095 17.3732 27.4185C17.2089 27.1725 17.2089 26.8305 17.3732 26.5845C17.4009 26.544 17.4354 26.5088 17.4669 26.4713L23.4699 20.4675C23.5082 20.4368 23.5427 20.4015 23.5839 20.3745C23.6657 20.3198 23.7572 20.2815 23.8539 20.262C23.9499 20.2433 24.0489 20.253 24.1472 20.262Z" fill="white" />
                 </svg>
-
             </a>
         </div>
     </div>
@@ -442,9 +432,9 @@ $alert = array(
     <div class="offcanvas-header">
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
+
     <div class="offcanvas-body">
         <?php echo $tmpl->load_direct_blocks('mainmenu', array('style' => 'home', 'group' => 1)) ?>
-
     </div>
 </div>
 <?php if (!$user->userID) { ?>
@@ -466,7 +456,7 @@ $alert = array(
                                     <b class="register-success-telephone register-success-email"></b>
                                 </div>
                                 <div class="mb-4 text-center">
-                                    Bạn sẽ được chuyển hướng đến trang đăng nhập trong <span class="re-send-count-down-callback"></span> giây.
+                                    Sẽ chuyển hướng đến trang đăng nhập trong <span class="re-send-count-down-callback"></span> giây.
                                 </div>
                                 <a href="<?php echo FSRoute::_('index.php?module=members&view=user&task=login') ?>" class="form-submit text-uppercase d-flex align-items-center justify-content-center fw-medium"><?php echo FSText::_('Đăng nhập') ?></a>
                             </div>

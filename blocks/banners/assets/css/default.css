@@ -68,6 +68,15 @@
     position: unset !important;
     padding-left: 10px;
     padding-right: 10px;
-    margin-top: 10px;
+    margin-top: 24px;
+  }
+  .item .info-banner .name-banner {
+    text-align: center;
+  }
+  .item .info-banner .content-banner {
+    text-align: center;
+  }
+  .item .info-banner .btn-banner {
+    text-align: center;
   }
 }/*# sourceMappingURL=default.css.map */

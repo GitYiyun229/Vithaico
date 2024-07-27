@@ -3,9 +3,12 @@ global $tmpl;
 $tmpl->addStylesheet('default', 'blocks/members/assets/css');
 if ($interval <= 0) {
     $active_interval = 'active_interval';
-}else{
-     $active_interval ='';
+} else {
+    $active_interval = '';
 }
+$arow = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2.33203 7H11.6654M11.6654 7L8.16536 3.5M11.6654 7L8.16536 10.5" stroke="#ea212d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+         </svg>';
 ?>
 <div class="box-fff p-3">
     <div class="level_point_box grid_box">
@@ -14,19 +17,26 @@ if ($interval <= 0) {
                 <span>
                     <?php echo FSText::_('Hi, ') ?>
                     <?php echo $user_member->full_name ?>
+                    <?php echo FSText::_(' hạng ') ?>
                 </span>
                 <img src="<?= URL_ROOT . ($rank_hientai->image) ?>" alt="image rank member">
                 <?php echo ($level == 1 && $total_member_coin == 0) ? 'tạm thời' : 'Hưởng <span class="hoa_hong">' . FSText::_($rank_hientai->member_benefits . '%/VT-Coin F1') . '</span> phát sinh'; ?>
+                <?php if ($total_member_coin < 0) { ?> Phát sinh đơn hàng để duy trì tài khoản 1 năm <?php } ?>
             </h3>
-
             <div class="bottom_center">
                 <div class="text_center">
-                    <p>
-                        Mỗi tháng phát sinh đơn hàng <span class="fw-bold">2.800.000đ</span> để duy trì hạng của mình. Hạng của bạn còn duy trì đến hết ngày
-                        <span class="fw-bold">
-                            <?= $start_time = date('d-m-Y', strtotime($due_time_month)); ?>
-                        </span>
-                    </p>
+                    <?php if ($total_member_coin > 100) { ?>
+                        <p>
+                            Mỗi tháng phát sinh đơn hàng <span class="fw-bold">2.800.000đ</span> để duy trì hạng của mình. Hạng của bạn còn duy trì đến hết ngày
+                            <span class="fw-bold">
+                                <?= $start_time = date('d-m-Y', strtotime($due_time_month)); ?>
+                            </span>
+                        </p>
+                    <?php } elseif ($total_member_coin > 0 && $total_member_coin < 100) { ?>
+                        <p>
+                            Bạn cần thêm <?php echo 100 - $total_member_coin ?> VT-Coin để đạt mức rank đại lý .
+                        </p>
+                    <?php } ?>
                 </div>
             </div>
             <div class="bottom_text">
@@ -46,13 +56,12 @@ if ($interval <= 0) {
                     </div>
                 </div>
             </div>
-
         </div>
         <div class="box_coin d-flex flex-column align-items-end justify-content-end flex-wrap align-content-end">
-
             <p>Bạn đang có </p>
-            <p class="fw-bold"><img src="/images/vt-coin.svg" alt=""> <?= $user_member->vt_coin ?> <span class="fw-light">VT-Coin</span></p>
-            <p class="fw-bold"><span class="fw-light">Tổng :</span> <?= $thong_ke_f1['total_price_order_F1'] ?> <span class="fw-light">VT-Coin</span></p>
+            <p class="fw-bold">Coin hoa hồng : <img src="/images/vt-coin.svg" alt=""> <?= $user_member->vt_coin ?> <span class="fw-light">VT-Coin</span></p>
+            <p class="fw-bold"><span class="fw-light">Coin F1 : </span> <?= $thong_ke_f1['total_coin_order_F1'] ?> <span class="fw-light">VT-Coin</span></p>
+            <p class="fw-bold"><span class="fw-light">Coin của bạn : </span> <?= $thong_ke_f1['total_coin_order'] ?> <span class="fw-light">VT-Coin</span></p>
         </div>
     </div>
     <div class="progress_golfplus grid_box">
@@ -60,73 +69,36 @@ if ($interval <= 0) {
             <div class="progress_box">
                 <div class="progress_bar">
                     <div class="progress_background"></div>
-                    <div class="progress_timeline" style="width:<?php echo $timeline ?>% "></div>
+                    <div class="progress_timeline " style="width:<?php echo $timeline ?>% ">
+                        <div class="position-relative progress_timeline_pos">
+                            <p class="progress_precent  m-0  position-absolute progress_color_<?= $user_member->level ?>"><?= number_format($timeline , 2) . '%' ?></p>
+                        </div>
+                    </div>
                     <div class="list_item_progress">
                         <?php foreach ($table_level as $item) { ?>
-                            <div class="item_bar">
+                            <div class="item_bar ">
+                                <?php if ($item->time_update_rank) { ?>
+                                    <p class="time-rank m-0  position-absolute"><?= date('d/m/Y', strtotime($item->time_update_rank)) ?></p>
+
+                                <?php } ?>
                                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="6" cy="6" r="5" fill="#FAB731" stroke="white" stroke-width="2" />
                                 </svg>
-                                <img src="<?php echo $item->icon ?>" alt="">
+
+                            </div>
+                        <?php } ?>
+                    </div>
+                    <div class="list_item_progress mt-2">
+                        <?php foreach ($table_level as $item) { ?>
+                            <div class="item_bar ">
+
+                                <img src="<?php echo URL_ROOT . $item->icon ?>" alt="">
                             </div>
                         <?php } ?>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="interval <?= $active_interval ?>">
-            <?php if ($user_member->active_account == 0 ||  $interval  <= 0) { ?>
-                <div class="top_gp">
-                    <p class="mb-0">
-                        <?php echo FSText::_('Tài khoản') ?>
-                    </p>
-                    <p class="mb-0 hethan">Hết hạn</p>
-                </div>
-            <?php } else { ?>
-                <div class="top_gp">
-                    <p class="mb-0">
-                        <?php echo FSText::_('Tài khoản') ?>
-                    </p>
-                    <p class="mb-0 conhan">Còn hạn</p>
-                </div>
-            <?php } ?>
-            <div class="box-mid_gp">
-                <div class="box-grid">
-                    <p>
-                        <?php echo FSText::_('Ngày tạo') ?>
-                    </p>
-                    <p class="m-0">
-                        <?php echo date('d/m/Y', strtotime($user_member->created_time)) ?>
-                    </p>
-                </div>
-                <div class="box-grid">
-                    <p>
-                        <?php echo FSText::_('Hết hạn') ?>
-                    </p>
-                    <p class="m-0">
-                        <?php echo date('d/m/Y', strtotime($start_time)) ?>
-                    </p>
-                </div>
-            </div>
-            <div class="justify-content-center alert_expiration">
-                <?php if ($interval  > 0) { ?>
-                    <div class="date_due pt-1">
-                        <?php echo FSText::_('Hết hạn sau ')  ?>
-                        <span>
-                            <?php echo  $interval ?>
-                        </span>
-                        <?php echo FSText::_(' ngày ')  ?> 
-                    </div>
-
-                <?php } else { ?>
-                    <a href="<?php echo FSRoute::_('index.php?module=home&view=home') ?>" class="alert_expiration-2">
-                        <?php echo FSText::_('Gia hạn tài khoản ') ?>
-                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M2.33203 7H11.6654M11.6654 7L8.16536 3.5M11.6654 7L8.16536 10.5" stroke="#ea212d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </a>
-                <?php } ?>
-            </div>
-        </div>
+        <?php include('time.php') ?>
     </div>
 </div>

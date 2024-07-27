@@ -101,6 +101,13 @@
       .item {
         font-size: 16px;
         text-align: center;
+        .feedback-img {
+          width: 56px;
+          height: 56px;
+          img{
+            object-fit: contain;
+          }
+        }
       }
       .slick-arrow {
         position: absolute;
@@ -376,6 +383,7 @@
       width: calc(50% - 24px);
       gap: 1rem !important;
       .title {
+        text-align: center;
         .title-first {
           font-size: 14px;
         }
@@ -385,10 +393,12 @@
       }
       .content {
         font-size: 14px;
+        text-align: center;
       }
     }
   }
   .show-more {
+    text-align: center;
     .all {
       padding: 12px 22px;
     }

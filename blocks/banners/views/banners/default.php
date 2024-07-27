@@ -3,7 +3,7 @@
 ?>
 
     <div class="item-banner position-relative">
-        <img class="img-fluid img-banner" alt="<?php echo $item->name; ?>" src="<?php echo $src ?>">
+        <div class="mw-100"><img class="img-banner" alt="<?php echo $item->name; ?>" src="<?php echo $src ?>"></div>
         <h3 class="name-banner position-absolute text-white text-uppercase fw-bold"><?= $item->name ?></h3>
     </div>
 

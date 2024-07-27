@@ -100,8 +100,8 @@
                  <div class="slider-nav">
                      <?php foreach (@$contents_feedbacks as $item) { ?>
                          <div class="item d-flex gap-3">
-                             <div class="feeback-img">
-                                 <img src="<?php echo URL_ROOT . $item->image ?>" alt="">
+                             <div class="feedback-img">
+                                 <img src="<?php echo URL_ROOT . $item->image ?>" class="img-fluid" alt="">
                              </div>
                              <div class="feedback-info">
                                  <div class="title fw-bold"><?php echo $item->title ?></div>

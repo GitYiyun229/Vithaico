@@ -273,7 +273,6 @@
       table {
         border: 1px solid #b9b9b9;
         tr {
-        
           padding: 5px;
           th {
             background: #e0dfdf;
@@ -303,7 +302,6 @@
         tr:nth-child(odd) {
           background-color: white;
         }
-
       }
     }
   }
@@ -400,7 +398,10 @@
   margin-bottom: 24px;
 }
 
-@media (max-width: 1000px) {
+@media all and (max-width: 1000px) {
+  .p-line {
+    justify-content: center;
+  }
   .container {
     .section-product-detail {
       flex-direction: column;
@@ -434,7 +435,7 @@
     }
   }
 }
-@media (max-width: 500px) {
+@media all and (max-width: 500px) {
   .container {
     .section-product-detail {
       gap: 26px !important;
@@ -459,6 +460,9 @@
         }
         .box-for {
           width: 100%;
+          .slick-prev {
+            left: 290px;
+          }
         }
       }
       .section-main {
@@ -542,4 +546,9 @@
       }
     }
   }
+}
+@media all and (max-width: 400px) {
+  .container .section-product-detail .section-image .box-for .slick-prev {
+    left: 240px;
+}
 }

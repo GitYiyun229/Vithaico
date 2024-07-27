@@ -93,6 +93,14 @@
   font-size: 16px;
   text-align: center;
 }
+.section-feedback .list-feedback .slider-for .item .feedback-img {
+  width: 56px;
+  height: 56px;
+}
+.section-feedback .list-feedback .slider-for .item .feedback-img img {
+  -o-object-fit: contain;
+     object-fit: contain;
+}
 .section-feedback .list-feedback .slider-for .slick-arrow {
   position: absolute;
   z-index: 10;
@@ -336,6 +344,9 @@
     width: calc(50% - 24px);
     gap: 1rem !important;
   }
+  .section-description .col-6 .title {
+    text-align: center;
+  }
   .section-description .col-6 .title .title-first {
     font-size: 14px;
   }
@@ -344,6 +355,10 @@
   }
   .section-description .col-6 .content {
     font-size: 14px;
+    text-align: center;
+  }
+  .show-more {
+    text-align: center;
   }
   .show-more .all {
     padding: 12px 22px;

@@ -121,39 +121,39 @@ function checkRegister() {
   $("label.label_error").prev().remove();
   $("label.label_error").remove();
 
-  if (!notEmpty("nameregister", alert_members1[0])) {
-    return false;
-  }
-  if (!notEmpty("phoneregister", alert_members1[9])) {
-    return false;
-  }
-  if (!isPhone("phoneregister", alert_members1[10])) {
-    return false;
-  }
-  if (!validationPhone("phoneregister", alert_members1[10])) {
-    return false;
-  }
-  if (!notEmpty("emailregister", alert_members1[2])) {
-    return false;
-  }
-  if (!emailValidator("emailregister", alert_members1[3])) {
-    return false;
-  }
-  if (!notEmpty("passregister", alert_members1[4])) {
-    return false;
-  }
-  if (!lengthMin("passregister", 8, alert_members1[8])) {
-    return false;
-  }
-  if (!notEmpty("repassregister", alert_members1[5])) {
-    return false;
-  }
-  if (!lengthMin("repassregister", 8, alert_members1[8])) {
-    return false;
-  }
-  if (!validateCheckbox("checkregister_text", alert_members1[11])) {
-    return false;
-  }
+  // if (!notEmpty("nameregister", alert_members1[0])) {
+  //   return false;
+  // }
+  // if (!notEmpty("phoneregister", alert_members1[9])) {
+  //   return false;
+  // }
+  // if (!isPhone("phoneregister", alert_members1[10])) {
+  //   return false;
+  // }
+  // if (!validationPhone("phoneregister", alert_members1[10])) {
+  //   return false;
+  // }
+  // if (!notEmpty("emailregister", alert_members1[2])) {
+  //   return false;
+  // }
+  // if (!emailValidator("emailregister", alert_members1[3])) {
+  //   return false;
+  // }
+  // if (!notEmpty("passregister", alert_members1[4])) {
+  //   return false;
+  // }
+  // if (!lengthMin("passregister", 8, alert_members1[8])) {
+  //   return false;
+  // }
+  // if (!notEmpty("repassregister", alert_members1[5])) {
+  //   return false;
+  // }
+  // if (!lengthMin("repassregister", 8, alert_members1[8])) {
+  //   return false;
+  // }
+  // if (!validateCheckbox("checkregister_text", alert_members1[11])) {
+  //   return false;
+  // }
   let name = $("input[name=nameregister]").val();
   let email = $("input[name=emailregister]").val();
   let phone = $("input[name=phoneregister]").val();
@@ -172,6 +172,7 @@ function checkRegister() {
     data: { token, name, email, password, repassword, phone, affiliate },
     dataType: "JSON",
     success: function (result) {
+      // console.log(result)
       if (result.error == false) {
         _this.html(`Đăng ký`).css("pointer-events", "auto");
         $(".register-success-telephone").html(phone);
@@ -188,7 +189,7 @@ function checkRegister() {
           } else {
             clearInterval(countInterval);
             $(".re-send-count-down-call-back").text("");
-            window.location.reload();
+            window.location.href = result.link;
           }
         }, 1000);
       }

@@ -71,7 +71,7 @@ $cat_id = $data->category_id;
             </div>
             <div class="content-right">
                 <div class="top">
-                    <h2><?php echo $data->title ?></h2>
+                    <h1><?php echo $data->title ?></h1>
                 </div>
                 <div class="content__">
                     <?php echo $data->content ?>

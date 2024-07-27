@@ -1,0 +1,52 @@
+.mm-menu {
+  display: none;
+}
+
+.mm-menu_opened {
+  display: block;
+}
+
+.header_menu a {
+  display: block;
+  background: #dd0917;
+  height: 41px;
+  width: 41px;
+  border-radius: 5px;
+  color: #e6e6e6;
+  font-size: 2em;
+  cursor: pointer;
+}
+
+.header_menu a i {
+  margin: 5px;
+}
+
+.header_menu {
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  line-height: 40px;
+  box-sizing: border-box;
+  width: 42px;
+  height: 40px;
+}
+
+.login_icon {
+  position: relative;
+}
+
+.login_icon .fa-check {
+  position: absolute;
+  right: 9px;
+  top: 12px;
+  color: rgba(30, 142, 4, 0.8392156863);
+}
+
+#close-menu {
+  position: absolute;
+  z-index: 4;
+  right: 0;
+  height: 44px;
+  width: 50px;
+  border: unset;
+}/*# sourceMappingURL=megamenu_mobile.css.map */

@@ -149,21 +149,3 @@ window.addEventListener("scroll", function () {
     goTopButton.style.display = "none";
   }
 });
-
-$(".delete-cart").click(function (e) {
-  e.preventDefault();
-  let index = $(this).attr("data-id");
-  let remove = 1;
-  $.ajax({
-    url: "index.php?module=products&view=cart&task=updateCart&raw=1",
-    type: "POST",
-    data: { index, remove },
-    dataType: "JSON",
-    success: function (result) {
-      location.reload();
-    },
-    error: function (XMLHttpRequest, textStatus, errorThrown) {
-      location.reload();
-    },
-  });
-});

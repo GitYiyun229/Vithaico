@@ -6,6 +6,10 @@
   width: calc(50% - 0.5rem);
 }
 
+.section-transport {
+  display: none;
+}
+
 .section-item {
   border-radius: 4px;
 }
@@ -40,7 +44,7 @@
 
 .cart-item {
   display: grid;
-  grid-template-columns: 88px 2.5fr 1.25fr;
+  grid-template-columns: 88px 2.5fr 1.5fr;
   line-height: normal;
 }
 .cart-item .price-origin {

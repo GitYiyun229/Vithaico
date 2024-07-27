@@ -18,11 +18,12 @@
   width: 250px;
   border: 1px solid #dedede;
   padding: 10px;
+  color: #fff;
   border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: #000;
+  color: #111;
   font-weight: 400;
 }
 
@@ -244,10 +245,6 @@
   .cat-h1 {
     margin-bottom: 0;
   }
-  .section-main .section-filter .select-menu .options-list {
-    max-width: 250px;
-    right: 0;
-  }
 }
 @media (max-width: 500px) {
   .section-products {
@@ -261,12 +258,5 @@
   }
   .section-filter-sort {
     gap: 10px !important;
-  }
-  .section-main .section-filter .select-menu .select {
-    width: 200px;
-  }
-  .section-main .section-filter .select-menu .options-list {
-    max-width: 200px;
-    right: 0;
   }
 }/*# sourceMappingURL=category.css.map */

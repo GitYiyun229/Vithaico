@@ -7,9 +7,148 @@
     margin-top: 5px;
   }
 }
+.box-mid_gp .box-grid:nth-child(1) {
+  border-right: 1px solid #e5e5e5;
+}
+.progress_precent.progress_color_1 {
+  background-image: linear-gradient(
+    #006798,
+    #02457a,
+    #0091c6,
+    #006fb8,
+    #0091c6
+  );
+  &::after {
+    background-image: linear-gradient(
+      #006798,
+      #02457a,
+      #0091c6,
+      #006fb8,
+      #0091c6
+    );
+  }
+}
+.progress_precent.progress_color_2 {
+  background-image: linear-gradient(
+    #d26f3a,
+    #984d26,
+    #fdb164,
+    #d67b42,
+    #e79c56
+  );
+  &::after {
+    background-image: linear-gradient(
+      #d26f3a,
+      #984d26,
+      #fdb164,
+      #d67b42,
+      #e79c56
+    );
+  }
+}
+.progress_precent.progress_color_3 {
+  background-image: linear-gradient(
+    #797a7c,
+    #58595b,
+    #b1b2b4,
+    #8d8e90,
+    #ceced0
+  );
+  &::after {
+    background-image: linear-gradient(
+      #797a7c,
+      #58595b,
+      #b1b2b4,
+      #8d8e90,
+      #ceced0
+    );
+  }
+}
+.progress_precent.progress_color_4 {
+  background-image: linear-gradient(
+    #b6944a,
+    #996617,
+    #d8c67a,
+    #986514,
+    #c3a476
+  );
+  &::after {
+    background-image: linear-gradient(
+      #b6944a,
+      #996617,
+      #d8c67a,
+      #986514,
+      #c3a476
+    );
+  }
+}
+.progress_precent.progress_color_5 {
+  background-image: linear-gradient(
+    #588fb8,
+    #3f7b95,
+    #90c0d1,
+    #588fb8,
+    #76aebd
+  );
+  &::after {
+    background-image: linear-gradient(
+      #588fb8,
+      #3f7b95,
+      #90c0d1,
+      #588fb8,
+      #76aebd
+    );
+  }
+}
+.progress_precent.progress_color_6 {
+  background-image: linear-gradient(
+    #b657d8,
+    #9534aa,
+    #e18fef,
+    #b657d8,
+    #d562e9
+  );
+  &::after {
+    background-image: linear-gradient(
+      #b657d8,
+      #9534aa,
+      #e18fef,
+      #b657d8,
+      #d562e9
+    );
+  }
+}
+.progress_timeline .progress_timeline_pos {
+  float: right;
+}
+.progress_precent {
+  font-family: "PlusJakartaBold";
+  border-radius: 4px;
+  box-shadow: 0 4px 5px rgb(0, 0, 0, 0.2);
+  color: #fff;
+  font-size: 12px;
+  padding: 2px;
+  position: absolute;
+  top: -30px;
+  left: 0px;
+  transform: translateX(-50%);
+  width: 50px;
+  text-align: center;
+  transition: left 0.4s linear;
+  &::after {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%) rotate(135deg);
+    height: 10px;
+    width: 10px;
+    z-index: -1;
+  }
+}
 .grid_box {
   display: grid;
-  grid-template-columns: auto 220px;
+  grid-template-columns: auto 260px;
   grid-gap: 40px;
   .level_box {
     h3 {
@@ -128,7 +267,7 @@
         top: 4px;
         left: 0;
         height: 4px;
-        background-color:#FAB731;
+        background-color: #fab731;
         z-index: 2;
       }
       .list_item_progress {
@@ -141,6 +280,12 @@
           flex-direction: column;
           gap: 12px;
           align-items: center;
+          p.time-rank {
+            font-size: 12px;
+            color: #ea212d;
+            top: -50px;
+            font-weight: 600;
+          }
           img {
             width: 24px;
             height: 24px;

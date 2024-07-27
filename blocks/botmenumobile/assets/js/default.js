@@ -21,20 +21,17 @@ $(document).ready(function () {
 		return false;
 	})
 
+  $(".cat_prd").click(function (e) {
+    e.preventDefault();
+    $("#mySidenav").toggle();
+  });
+  $("#close-menu").click(function (e) {
+    e.preventDefault();
+    $("#mySidenav").toggle();
+  });
+  $(".member").click(function (e) {
+    e.preventDefault();
+    $(".box_members_click").toggle();
 
-
-	$('.cat_prd').click(function (e) {
-		e.preventDefault();
-		$('.menu_cat').toggle();
-		$('.member_menu').hide();
-		$('body').toggleClass('open-menu-cat');
-	})
-	$('.member').click(function (e) {
-		e.preventDefault();
-		$('.member_menu').toggle();
-		$('.menu_cat').hide();
-		$('body').toggleClass('open-menu-cat');
-
-
-	})
+  });
 });
