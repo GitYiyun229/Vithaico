@@ -42,11 +42,7 @@ $alert = array(
         <input type="hidden" id="alert_member" value='<?php echo json_encode($alert) ?>' />
         <header class="bg-white">
             <div class="container header-container d-flex align-items-center justify-content-between">
-                <button class="btn-menu_mobile" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M3 12H21M3 6H21M3 18H15" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                </button>
+               
                 <a href="<?php echo URL_ROOT ?>" title="<?php echo $config['site_name'] ?>">
                     <img src="<?php echo URL_ROOT . $config['logo'] ?>" alt="<?php echo $config['site_name'] ?>" class="img-fluid img-logo">
                 </a>
@@ -133,8 +129,6 @@ $alert = array(
                         </div>
                     </div>
                     <div class="members_header">
-
-                 
                         <?php if ($user->userID) { ?>
                             <div class="user_login_btn">
                                 <?php if ($userImage) { ?>
@@ -147,7 +141,7 @@ $alert = array(
                             </svg>
                         <?php } ?>
                         <div class="box_members_click">
-                            <?php if($user->userInfo->id) { ?>
+                            <?php if ($user->userID) { ?>
                                 <div class="user_login_btn user_header_btn d-flex gap-2">
                                     <?php if ($userImage) { ?>
                                         <img src="<?php echo URL_ROOT . $userImage ?>" alt="user" class="img-fluid">
@@ -256,17 +250,15 @@ $alert = array(
                             <?php } ?>
                         </div>
                     </div>
-
-
                 </div>
             </div>
-
-
         </header>
         <main>
             <?php echo $main_content ?>
         </main>
-
+        <div id="menu_mobile">
+            <?php echo $tmpl->load_direct_blocks('botmenumobile', ['style' => 'default']); ?>
+        </div>
         <footer class="position-relative">
             <img src="/images/footer-left.svg" alt="" class="position-absolute top-0 start-0">
 
@@ -411,7 +403,6 @@ $alert = array(
                     <rect width="48" height="48" rx="24" fill="#EA212D" />
                     <path d="M24.1472 20.262C24.1937 20.2763 24.2424 20.286 24.2874 20.3048C24.4097 20.3557 24.4307 20.385 24.5312 20.4675L30.5342 26.4712C30.5964 26.547 30.6594 26.6243 30.6969 26.7143C30.8289 27.0323 30.7082 27.4335 30.4209 27.6255C30.1749 27.7897 29.8329 27.7897 29.5869 27.6255C29.5457 27.5985 29.5112 27.5633 29.4729 27.5325L24.0002 22.0598L18.5282 27.5325L18.4142 27.6255C18.3707 27.6488 18.3294 27.6758 18.2844 27.6945C17.9672 27.8265 17.5682 27.7095 17.3732 27.4185C17.2089 27.1725 17.2089 26.8305 17.3732 26.5845C17.4009 26.544 17.4354 26.5088 17.4669 26.4713L23.4699 20.4675C23.5082 20.4368 23.5427 20.4015 23.5839 20.3745C23.6657 20.3198 23.7572 20.2815 23.8539 20.262C23.9499 20.2433 24.0489 20.253 24.1472 20.262Z" fill="white" />
                 </svg>
-
             </a>
         </div>
     </div>
@@ -441,9 +432,9 @@ $alert = array(
     <div class="offcanvas-header">
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
+
     <div class="offcanvas-body">
         <?php echo $tmpl->load_direct_blocks('mainmenu', array('style' => 'home', 'group' => 1)) ?>
-
     </div>
 </div>
 <?php if (!$user->userID) { ?>

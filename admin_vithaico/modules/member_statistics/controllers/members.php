@@ -143,6 +143,149 @@ class Member_statisticsControllersMembers extends Controllers
 	{
 		setRedirect('index.php?module=' . $this->module . '&view=' . $this->view . '&task=export_file&raw=1');
 	}
+
+
+	function filter_time_hoa_hong()
+	{
+		$time_hoahong_1 = FSInput::get('time_hoahong_0');
+		$time_hoahong_2 = FSInput::get('time_hoahong_1');
+		$hoahong_status = FSInput::get('hoahong_status');
+		$id = FSInput::get('id');
+		$query = 'user_id = ' . $id;
+		if ($hoahong_status == 0) {
+			$query .= ' AND (status_chi_tra = 0 or status_chi_tra  is null) ';
+		} else {
+			$query .= ' AND status_chi_tra = 1 ';
+		}
+		if ($time_hoahong_1 && $time_hoahong_2) {
+			if ($time_hoahong_1) {
+				$date_from = strtotime($time_hoahong_1);
+				$date_new = date('Y-m-d H:i:s', $date_from);
+				$query .= ' AND created_time >=  "' . $date_new . '" ';
+			}
+			if ($time_hoahong_2) {
+				$date_to = $time_hoahong_2 . ' 23:59:59';
+				$date_to = strtotime($date_to);
+				$date_new = date('Y-m-d H:i:s', $date_to);
+				$query .= ' AND created_time <=  "' . $date_new . '" ';
+			}
+		}
+	
+		$list_coin = $this->model->get_records($query, 'fs_coin_log', 'dieu_kien_nhan,created_time,after_coin,total_coin,before_coin,after_coin,percent,percent_add,order_id', 'id DESC');
+
+		$total_coin = 0; // Initialize total_coin
+		$html = ''; // Initialize HTML string
+		if (!empty($list_coin)) {
+			foreach ($list_coin as $item) {
+				if ($item->dieu_kien_nhan == 1) {
+					$total_coin += $item->after_coin; // Sum up the after_coin values
+				}
+				$html .= $this->filter_time_hoa_hong_controller($item); // Append HTML for each item
+			}
+		}
+
+		echo json_encode(
+			[
+				'html' => $html,
+				'total_coin' => $total_coin . ' VT-Coin',
+				'total_vnd' => format_money($total_coin * 4500, 'đ'),
+				'status' => $hoahong_status,
+			]
+		);
+		exit;
+	}
+	function filter_time_order()
+	{
+		$time_order_0 = FSInput::get('time_order_0');
+		$time_order_1 = FSInput::get('time_order_1');
+		$array_f1 = FSInput::get('array_f1');
+		$id = FSInput::get('id');
+		$query = 'user_id = ' . $id;
+		if ($time_order_0 && $time_order_1) {
+			if ($time_order_0) {
+				$date_from = strtotime($time_order_0);
+				$date_new = date('Y-m-d H:i:s', $date_from);
+				$query .= ' AND created_time >=  "' . $date_new . '" ';
+			}
+			if ($time_order_1) {
+				$date_to = $time_order_1 . ' 23:59:59';
+				$date_to = strtotime($date_to);
+				$date_new = date('Y-m-d H:i:s', $date_to);
+				$query .= ' AND created_time <=  "' . $date_new . '" ';
+			}
+		}
+		$list_order = $this->model->get_records($query, 'fs_order', 'id, user_id, created_time, member_coin,products_count,created_time,total_before, ship_price, member_discount_price, code_discount_price, total_end, status', 'id DESC');
+		$html = ''; // Initialize HTML string
+		$total_list_order = 0; // Initialize total_coin
+		$total_coin_list_order = 0; // Initialize total_coin
+		if (!empty($list_order)) {
+			foreach ($list_order as $item) {
+				$total_list_order += $item->total_end; // Sum up the after_coin values
+				$total_coin_list_order += $item->member_coin; // Sum up the after_coin values
+				$html .= $this->filter_time_order_controller($item); // Append HTML for each item
+			}
+		}
+
+
+
+		echo json_encode(
+			[
+				'html' => $html,
+				'total_coin' => $total_coin_list_order . ' VT-Coin',
+				'total_vnd' => format_money($total_list_order, 'đ'),
+			]
+		);
+		exit;
+	}
+	function filter_time_orderf1()
+	{
+		$time_orderf1_0 = FSInput::get('time_orderf1_0');
+		$time_orderf1_1 = FSInput::get('time_orderf1_1');
+		$array_f1 = FSInput::get('array_f1');
+		$id = FSInput::get('id');
+		$query = 'user_id in ( ' . $array_f1 . ') ';
+		if ($time_orderf1_0 && $time_orderf1_1) {
+			if ($time_orderf1_0) {
+				$date_from = strtotime($time_orderf1_0);
+				$date_new = date('Y-m-d H:i:s', $date_from);
+				$query .= ' AND created_time >=  "' . $date_new . '" ';
+			}
+			if ($time_orderf1_1) {
+				$date_to = $time_orderf1_1 . ' 23:59:59';
+				$date_to = strtotime($date_to);
+				$date_new = date('Y-m-d H:i:s', $date_to);
+				$query .= ' AND created_time <=  "' . $date_new . '" ';
+			}
+		}
+		$list_orderf1 = $this->model->get_records($query, 'fs_order', 'id, user_id, created_time, member_coin,products_count,created_time,total_before, ship_price, member_discount_price, code_discount_price, total_end, status', 'id DESC');
+		$html = ''; // Initialize HTML string
+
+		if (!empty($list_orderf1)) {
+			$total_list_order = array_reduce($list_orderf1, function ($carry, $item) {
+				return $carry + $item->total_end;
+			}, 0);
+
+			$total_coin_list_order = array_reduce($list_orderf1, function ($carry, $item) {
+				return $carry + $item->member_coin;
+			}, 0);
+
+			$html = implode('', array_map([$this, 'filter_time_orderf1_controller'], $list_orderf1));
+		} else {
+			$total_list_order = 0;
+			$total_coin_list_order = 0;
+		}
+
+
+
+		echo json_encode(
+			[
+				'html' => $html,
+				'total_coin' => $total_coin_list_order . ' VT-Coin',
+				'total_vnd' => format_money($total_list_order, 'đ'),
+			]
+		);
+		exit;
+	}
 	function export_file()
 	{
 		FSFactory::include_class('excel', 'excel');

@@ -8,7 +8,6 @@
 }
 @import "main_tiep.scss";
 
-
 .container {
   max-width: 1200px !important;
   padding-right: 0;
@@ -19,6 +18,7 @@ main {
   background-color: #ffffff;
   padding-bottom: 48px;
 }
+h1,
 h2,
 h3 {
   font-family: "PlusJakartaBold";
@@ -41,8 +41,6 @@ header {
 
 body {
   font-family: "PlusJakartaSans";
-  // font-style: normal;
-  // font-weight: 400;
   position: relative;
   -webkit-font-smoothing: antialiased;
   font-size: 0.875rem;
@@ -78,9 +76,6 @@ header {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   .header-container {
     height: 80px;
-  }
-  .img-logo {
-    // width: 142.5px;
   }
   .btn-menu_mobile {
     display: none;
@@ -368,8 +363,6 @@ footer {
 .section-banner {
   text-align: center;
   .item-banner {
-    .img-banner {
-    }
     .name-banner {
       font-size: 40px;
       top: 50%;
@@ -425,7 +418,7 @@ footer {
       width: 100%;
       object-fit: contain;
       min-height: 368px;
-         transition: all 0.3s;
+      transition: all 0.3s;
     }
   }
   .layout-content {
@@ -473,14 +466,8 @@ footer {
     }
   }
   &:hover {
-    .layout-content {
-      .layout-name {
-      }
-    }
     .box-img {
-      // padding: 48px;
       padding: 10px;
-      // transform: scale(1.12);
     }
   }
 }
@@ -842,6 +829,16 @@ footer {
 }
 
 @media all and (max-width: 1000px) {
+  header .members_header .box_members_click {
+    right: -10px !important;
+    margin-top: 12px;
+    border-radius: 6px 0 0 6px !important;
+    box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.12) !important;
+  }
+  .side-left_btn,
+  .side-right_btn {
+    bottom: 80px !important;
+  }
   h3 {
     font-size: 32px;
   }
@@ -863,21 +860,8 @@ footer {
         background-color: #fff;
         outline: unset;
       }
-      .img-logo {
-        // width: 130px;
-      }
       .menu-header {
         display: none;
-      }
-      .block-members_cart_lang {
-        .search_header {
-        }
-        .cart_header {
-        }
-        .members_header {
-          .box_members_click {
-          }
-        }
       }
     }
   }
@@ -897,8 +881,6 @@ footer {
       max-height: 240px;
       .img-box {
         max-height: 105px;
-        img {
-        }
       }
       .info-box {
         .created_cat {
@@ -912,19 +894,11 @@ footer {
         .title_new {
           margin-bottom: 8px;
         }
-        .summary_new {
-        }
       }
-      &:hover {
-        .img-box {
-          max-height: 95px;
-          img {
-          }
-        }
-        .info-box {
-          .title_new {
-            -webkit-line-clamp: 2;
-          }
+      &:hover .img-box {
+        max-height: 95px;
+        .title_new {
+          -webkit-line-clamp: 2;
         }
       }
     }
@@ -948,69 +922,34 @@ footer {
       }
     }
   }
-  .list-products_grid {
 
-  }
   .layout-product-item {
     width: calc((100% - 48px) / 2);
-
-    .box-img {
-      .layout-img {
-      }
-    }
-    .layout-content {
-    }
-    .layout-name {
-    }
-
-    .layout-public-price {
-      .price {
-      }
-    }
-    &:hover {
-      .layout-content {
-        .layout-name {
-        }
-      }
-      .layout-img {
-      }
-    }
   }
   .section-banner {
     text-align: center;
     .item-banner {
       height: 100%;
-      .img-banner {
-        max-width: unset !important;
-        object-fit: cover;
-      }
+      overflow-x: hidden;
       .name-banner {
         font-size: 32px;
         text-align: center;
       }
     }
   }
+  .show-more .all:hover {
+    padding: 16px 40px;
+    margin: unset;
+  }
 }
 @media all and (max-width: 500px) {
   header {
     .header-container {
-      .btn-menu_mobile {
-      }
-      .img-logo {
-      }
-      .menu-header {
-      }
       .block-members_cart_lang {
-        .search_header {
-        }
         .cart_header {
           .cart-hover {
             width: 300px;
             right: -40px;
-          }
-        }
-        .members_header {
-          .box_members_click {
           }
         }
       }
@@ -1027,8 +966,6 @@ footer {
       max-height: 226px;
       .img-box {
         max-height: 97px;
-        img {
-        }
       }
       .info-box {
         .created_cat {
@@ -1038,8 +975,6 @@ footer {
       &:hover {
         .img-box {
           max-height: 80px;
-          img {
-          }
         }
       }
     }
@@ -1062,38 +997,18 @@ footer {
     }
   }
   .list-products_grid {
-
+    gap: 24px;
   }
   .layout-product-item {
-    width: 100%;
-    .box-img {
-      .layout-img {
-    
-      }
-    }
-    .layout-content {
-    }
-    .layout-name {
-    }
+    width: calc((100% - 24px) / 2);
 
-    .layout-public-price {
-      .price {
-      }
-    }
-    &:hover {
-      .layout-content {
-        .layout-name {
-        }
-      }
-      .layout-img {
-      }
+    .box-img {
+      max-height: 250px;
     }
   }
   .section-banner {
     text-align: center;
     .item-banner {
-      .img-banner {
-      }
       .name-banner {
         font-size: 24px;
       }

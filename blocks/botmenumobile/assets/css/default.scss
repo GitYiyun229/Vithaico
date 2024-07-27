@@ -1,177 +1,71 @@
-.menu_mobile {
-
-  .list_menu {
-    background-color: #1E8E04;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    padding: 2px 0 0;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 9999;
-  }
-  li {
-    text-align: center;
-    a {
-      display: block;
-      padding: 4px 0;
-      img {
-        margin: auto;
-        height: 28px;
-        width: auto;
-      }
-      .menu_home {
-        margin-top: 5px;
-        max-width: 22px;
-      }
-      .menu_vip {
-        margin-top: 6px;
-        max-width: 40px;
-      }
-      .menu_more {
-        width: 28px;
-      }
-      .menu_sale{
-        max-width: 31px;
-      }
-      .more_m {
-        //margin-top: 9px;
-        display: block;
-      }
-      span {
-        color: #fff;
-        font-size: 11px;
-        margin-top: 2px;
-        display: block;
-      }
-      .mt10 {
-        margin-top: 5px;
-        margin-bottom: 0;
-        display: block;
-      }
-      .day {
-        color: #FF0000;
-      }
-    }
-  }
-  .menu_item_ {
-    position: relative;
-
-    .bo_out{
-      display: block;
-      position: absolute;
-      top: -18px;
-      left: calc(50% - 42.5px);
-      z-index: 99999;
-      width: 85px;
-      height: 85px;
-      border-radius: 50%;
-      margin: auto;
-      background-color: #1E8E04;
-    }
-    .bo_in{
-      display: block;
-      position: absolute;
-      top: -7px;
-      left: 0;
-      right: 0;
-      z-index: 99999;
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      background-color: #fff;
-      margin: auto;
-    }
-
-    a {
-      display: block;
-      position: absolute;
-      left: 0;
-      right: 0;
-      z-index: 99999;
-      margin: auto;
-      img{
-        height: auto;
-      }
-      span{
-        color: #FF0000!important;
-        margin-top: 0;
-      }
-    }
-
-
-  }
+#menu_mobile {
+  display: none;
 }
 
-#navigation-menu {
-  display: none;
-  bottom: 55px !important;
-  top: unset !important;
-  background-clip: unset !important;
-  box-shadow: unset !important;
-  overflow-y: scroll!important;
-  //height: 86vh;
-  height: calc(100% - 167px);
-  position: fixed;
-  left: 0;
-  right: 0;
-  z-index: 999;
-  background-color: #fff;
-  padding-top: 20px;
-  .login_view{
-    a{
-      display: inline-block;
-      padding: 6px 15px;
-      background-color: #1E8E04;
-      border-radius: 12px;
-      color: #fff;
-      font-size: 16px;
-      box-shadow: 4px 6px 8px 0 #a5a5a5;
-    }
-  }
-  .menu_mobile_ {
-    li {
-      text-align: left;
-      padding: 15px 10px;
-      border-bottom: 1px solid #000;
+@media (max-width: 960px) {
+  #menu_mobile {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    background: #fff;
+    z-index: 9999;
+    width: 100%;
+    background: #eeeeee;
+    border-radius: 8px 8px 0 0;
+    .menu_cat {
+      display: none;
+      position: fixed;
+      bottom: 63px;
+      width: 100%;
+      height: calc(100vh - 300px);
+      background: #eeeeee;
+      border-bottom: solid 1px #333333;
+      overflow-y: auto;
+      overflow-x: hidden;
       a {
-        display: grid;
-        grid-template-columns: 55px 1fr;
-        align-items: end;
-        span {
-          color: #333;
+        padding: 10px;
+        margin: 10px;
+        font-size: 16px;
+        .img-hover {
+          display: none;
         }
       }
     }
-  }
-  .box_qr{
-    padding: 15px 35px;
-    display: flex;
-    justify-content: space-between;
-  }
-  .box_uudai{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    justify-items: center;
-    padding: 2px 10px;
-    background-color: #1E8E04;
-    margin-bottom: 20px;
-    position: relative;
-    align-items: center;
-    span{
-      display: inline-block;
-      font-size: 12px;
-      font-weight: bold;
-      color: #fff;
+    .member_menu {
+      display: none;
+      position: fixed;
+      bottom: 64px;
+      width: 100%;
+      height: calc(100vh - 133px);
+      background: #eeeeee;
+      border-bottom: solid 1px #333333;
+      a {
+        display: block;
+        // width: 25%;
+        padding: 20px;
+        font-size: 16px;
+      }
     }
-    .img_ud{
-      img{
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 2px;
-        margin: auto;
+    .list_menu_mobile {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      margin: 0 15px;
+      padding: 0;
+      li {
+        list-style: none;
+        a {
+          display: block;
+          padding: 10px 20px;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          gap: 10px;
+          span {
+            font-size: 14px;
+            font-weight: 600;
+          }
+        }
       }
     }
   }

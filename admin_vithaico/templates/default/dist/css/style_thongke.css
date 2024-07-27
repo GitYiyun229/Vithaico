@@ -113,27 +113,36 @@ canvas#doughnut {
 }
 
 .color_rank_2 {
-  color: #FDB164 !important;
+  color: #fdb164 !important;
   font-weight: 600;
+}
+
+.fw-bold.color-red {
+  font-weight: 600;
+  color: #dc3545;
 }
 
 .color_rank_3 {
-  color: #58595B !important;
+  color: #58595b !important;
   font-weight: 600;
 }
 
+.margin-15 {
+  margin: 15px 0px;
+}
+
 .color_rank_4 {
-  color: #D8C67A !important;
+  color: #d8c67a !important;
   font-weight: 600;
 }
 
 .color_rank_5 {
-  color: #90C0D1 !important;
+  color: #90c0d1 !important;
   font-weight: 600;
 }
 
 .color_rank_6 {
-  color: #C667EE !important;
+  color: #c667ee !important;
   font-weight: 600;
 }
 
@@ -292,7 +301,7 @@ canvas#doughnut {
 .profile .image img {
   display: block;
   border-radius: 50%;
-  background: #F5E8DF;
+  background: #f5e8df;
 }
 .profile .image:hover {
   cursor: pointer;
@@ -341,13 +350,13 @@ canvas#doughnut {
   box-sizing: border-box;
   width: 220px;
   height: 88px;
-  background: #F5E8DF;
+  background: #f5e8df;
   text-align: center;
   padding-top: 20px;
   transition: all 0.4s ease-in-out;
 }
 .stats .box:hover {
-  background: #E1CFC2;
+  background: #e1cfc2;
   cursor: pointer;
 }
 .stats .box:nth-child(2) {
@@ -370,4 +379,31 @@ canvas#doughnut {
 }
 .stats .parameter {
   font-size: 11px;
+}
+
+#css__select2 span.select2.select2-container.select2-container--default {
+  width: 100% !important;
+  height: 34px;
+  padding: 5px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+#css__select2 span.select2-selection.select2-selection--single {
+  border: unset;
+  background-color: unset;
+}
+
+#css__select2 .select2-container .select2-selection--single .select2-selection__rendered {
+  padding-left: unset;
+  padding-right: unset;
+  overflow: hidden;
+  line-height: 22px;
 }/*# sourceMappingURL=style_thongke.css.map */
