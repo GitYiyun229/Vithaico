@@ -16,7 +16,9 @@ class MembersBControllersMembers
       return;
     }
     $total_member_coin = $this->get_total_member_coin($user_member->id);
+    // print_r($total_member_coin);
     $thong_ke_f1 = $this->GetArrayInfoF1($user_member->ref_code);
+    // print_r($thong_ke_f1);
     $level = $user_member->level;
     $table_level = $model->get_records('', 'fs_members_group', '*', 'id asc');
     $this->time_rank($table_level, $user_member->id, $user_member->created_time);
@@ -30,28 +32,33 @@ class MembersBControllersMembers
     $condition_3 = format_money($dieukien_lenrank->condition_3, 'đ');
     $current_image = URL_ROOT . ($rank_hientai->image);
     $due_time_month = $user_member->due_time_month;
-    $level = $user_member->level;
-    $total_member_coin = $this->get_total_member_coin($user_member->id);
     $interval = $this->interval($total_member_coin, $user_member->end_time, $level, $due_time_month);
-    if ($level == 1 && $total_member_coin == 0) {
-      $start_time = date('Y-m-d H:i:s', strtotime($user_member->end_time));
-    } else {
-      $start_time = date('Y-m-d H:i:s', strtotime($due_time_month));
+    if ($level == 1) {
+      // echo 1;
+      $start_time = date('Y-m-d H:i:s', strtotime($user_member->created_time ));
+      $due_time = date('Y-m-d H:i:s', strtotime($user_member->end_time));
+    } elseif ($level > 1) {
+      // echo 2;
+      $start_time = date('Y-m-d H:i:s', strtotime($user_member->start_time_month));
+      $due_time = date('Y-m-d H:i:s', strtotime($due_time_month));
+    }
+    if (empty($user_member->start_time_month)) {
+      $start_time_month = $user_member->due_time_month;
+      $one_month_ago = date('Y-m-d H:i:s', strtotime('-1 month', strtotime($user_member->due_time_month)));
     }
     include 'blocks/members/views/members/default.php';
   }
 
   function interval($total_member_coin, $end_time, $level, $due_time_month)
   {
-    if ($level == 1 && $total_member_coin == 0) {
+
+    if ($level == 1 && $total_member_coin >= 0) {
       $start_time = date('Y-m-d H:i:s', strtotime($end_time));
     } else {
       $start_time = date('Y-m-d H:i:s', strtotime($due_time_month));
     }
-
     $now = new DateTime();
     $start_date = new DateTime($start_time);
-
     if ($start_date > $now) {
       // $start_date lớn hơn $now, trả về số ngày dương
       $interval = $now->diff($start_date)->days;
@@ -61,6 +68,7 @@ class MembersBControllersMembers
     }
     return $interval;
   }
+
   function get_total_member_coin($user_id)
   {
     $model = new MembersBModelsMembers();
@@ -111,11 +119,25 @@ class MembersBControllersMembers
       $timeline = ($total_member_coin / 99) * 20;
     } elseif ($level == 2) {
       $timeline = 20 + ($total_member_coin / 300) * 20;
-    } elseif ($level >= 3 && $level <= 5) {
+    } elseif ($level == 3) {
       list($price_limit, $count_limit, $base_timeline) = $limits[$level];
-      $thong_ke_f1['total_price_order_F1'] = min($thong_ke_f1['total_price_order_F1'], $price_limit);
+      $thong_ke_f1['total_f1_rank4'] = min($thong_ke_f1['total_f1_rank4'], $price_limit);
       $thong_ke_f1['count_total_daily'] = min($thong_ke_f1['count_total_daily'], $count_limit);
-      $tinhtheoF1 = ($thong_ke_f1['total_price_order_F1'] / $price_limit) * 20;
+      $tinhtheoF1 = ($thong_ke_f1['total_f1_rank4'] / $price_limit) * 20;
+      $tinhtheodanhso = ($thong_ke_f1['count_total_daily'] / $count_limit) * 20;
+      $timeline = $base_timeline + max($tinhtheoF1, $tinhtheodanhso);
+    } elseif ($level == 4) {
+      list($price_limit, $count_limit, $base_timeline) = $limits[$level];
+      $thong_ke_f1['total_f1_rank5'] = min($thong_ke_f1['total_f1_rank5'], $price_limit);
+      $thong_ke_f1['count_total_daily'] = min($thong_ke_f1['count_total_daily'], $count_limit);
+      $tinhtheoF1 = ($thong_ke_f1['total_f1_rank5'] / $price_limit) * 20;
+      $tinhtheodanhso = ($thong_ke_f1['count_total_daily'] / $count_limit) * 20;
+      $timeline = $base_timeline + max($tinhtheoF1, $tinhtheodanhso);
+    } elseif ($level == 5) {
+      list($price_limit, $count_limit, $base_timeline) = $limits[$level];
+      $thong_ke_f1['total_f1_rank6'] = min($thong_ke_f1['total_f1_rank6'], $price_limit);
+      $thong_ke_f1['count_total_daily'] = min($thong_ke_f1['count_total_daily'], $count_limit);
+      $tinhtheoF1 = ($thong_ke_f1['total_f1_rank6'] / $price_limit) * 20;
       $tinhtheodanhso = ($thong_ke_f1['count_total_daily'] / $count_limit) * 20;
       $timeline = $base_timeline + max($tinhtheoF1, $tinhtheodanhso);
     } elseif ($level == 6) {
@@ -123,9 +145,10 @@ class MembersBControllersMembers
     }
     return $timeline;
   }
+
   public function time_rank($ranks, $id, $created_time)
   {
-    
+
     $model = new MembersBModelsMembers();
     foreach ($ranks as $item) {
       $queryCondition = sprintf("user_id = %d and level = %d", $id, $item->level);
@@ -181,56 +204,57 @@ class MembersBControllersMembers
         }
       }
     }
-    // $user = $model->get_record('ref_code = ' . $ref_code, 'fs_members', '*');
-    // $rank = $model->get_records('level > 2 ', 'fs_members_group', 'level', ' level desc');
+    $user_mem = $model->get_record('ref_code = ' . $ref_code, 'fs_members', '*');
+    $rank = $model->get_records('level > 2 ', 'fs_members_group', 'level', ' level desc');
 
-    // foreach ($rank as $item_1) {
-    //   if ($item_1->level >= 3) {
-    //     $user_rank = $model->get_record('user_id = ' . $user->id . ' and level =' . $item_1->level, 'fs_update_rank_log', 'level,created_time');
+    foreach ($rank as $item_1) {
+      if ($item_1->level >= 3) {
+        $user_rank = $model->get_record('user_id = ' . $user_mem->id . ' and level =' . $item_1->level, 'fs_update_rank_log', 'level,created_time');
 
-    //     if ($user_rank) { // Kiểm tra nếu $user_rank không phải là null hoặc false
-    //       $array_id['time_update_rank'][$item_1->level] = [
-    //         'level' => $item_1->level,
-    //         'created_time' => $user_rank->created_time,
-    //       ];
-    //     } else {
-    //       // Xử lý trường hợp không tìm thấy bản ghi
-    //       $array_id['time_update_rank'][$item_1->level] = [
-    //         'level' => $item_1->level,
-    //         'created_time' => null, // Hoặc giá trị mặc định khác
-    //       ];
-    //     }
-    //   }
-    // }
+        if ($user_rank) { // Kiểm tra nếu $user_rank không phải là null hoặc false
+          $array_id['time_update_rank'][$item_1->level] = [
+            'level' => $item_1->level,
+            'created_time' => $user_rank->created_time,
+          ];
+        } else {
+          // Xử lý trường hợp không tìm thấy bản ghi
+          $array_id['time_update_rank'][$item_1->level] = [
+            'level' => $item_1->level,
+            'created_time' => null, // Hoặc giá trị mặc định khác
+          ];
+        }
+      }
+    }
 
-    // // Sắp xếp mảng theo created_time
-    // usort($array_id['time_update_rank'], function ($a, $b) {
-    //   if (empty($a['created_time'])) return 1; // Assume future date for empty created_time
-    //   if (empty($b['created_time'])) return -1;
-    //   return strtotime($a['created_time']) - strtotime($b['created_time']);
-    // });
+    // Sắp xếp mảng theo created_time
+    usort($array_id['time_update_rank'], function ($a, $b) {
+      if (empty($a['created_time'])) return 1; // Assume future date for empty created_time
+      if (empty($b['created_time'])) return -1;
+      return strtotime($a['created_time']) - strtotime($b['created_time']);
+    });
 
-    // $previous_created_time = null;
-    // foreach ($array_id['time_update_rank'] as $index => $item_time) {
-    //   // Construct the query to fetch records based on created_time
-    //   $query = "user_id IN ({$array_id['string_ids']})" .
-    //     ($previous_created_time !== null ? " AND created_time > '{$previous_created_time}'" : "");
-    //   if (!empty($item_time['created_time'])) {
-    //     $query .= " AND created_time <= '{$item_time['created_time']}'";
-    //   }
+    $previous_created_time = null;
+    foreach ($array_id['time_update_rank'] as $index => $item_time) {
+      // Construct the query to fetch records based on created_time
+      $query = "user_id IN ({$array_id['string_ids']})" .
+        ($previous_created_time !== null ? " AND created_time > '{$previous_created_time}'" : "");
+      if (!empty($item_time['created_time'])) {
+        $query .= " AND created_time <= '{$item_time['created_time']}'";
+      }
 
-    //   $total_level = $model->get_records($query, 'fs_order', 'SUM(total_before) AS total_before_sum');
-    //   $total_before_sum = $total_level[0]->total_before_sum ?? 0;
-    //   $array_id['time_update_rank'][$index]['total_before_sum'] = $total_before_sum;
+      $total_level = $model->get_records($query, 'fs_order', 'SUM(total_before) AS total_before_sum');
+      $total_before_sum = $total_level[0]->total_before_sum ?? 0;
+      $array_id['time_update_rank'][$index]['total_before_sum'] = $total_before_sum;
 
-    //   if (in_array($item_time['level'], [3, 4, 5, 6])) {
-    //     $array_id["total_f1_rank{$item_time['level']}"] = $total_before_sum;
-    //   }
+      if (in_array($item_time['level'], [3, 4, 5, 6])) {
+        $array_id["total_f1_rank{$item_time['level']}"] = $total_before_sum;
+      }
 
-    //   if (!empty($item_time['created_time'])) {
-    //     $previous_created_time = $item_time['created_time'];
-    //   }
-    // }
+      if (!empty($item_time['created_time'])) {
+        $previous_created_time = $item_time['created_time'];
+      }
+    }
+    unset($item_time['created_time']);
     return $array_id;
   }
 }

@@ -1,12 +1,13 @@
 ﻿<link rel="stylesheet" href="/modules/products/assets/css/select2.min.css">
 <link type="text/css" rel="stylesheet" media="all" href="../libraries/jquery/jquery.ui/jquery-ui.css" />
 <link type="text/css" rel="stylesheet" media="all" href="templates/default/css/products.css" />
-
-<script src="/modules/products/assets/js/select2.min.js"></script>
-
+<link rel="stylesheet" href="templates/default/css/bootstrap-datetimepicker.min.css">
 <link href="templates/default/dist/css/style_thongke.css" rel="stylesheet">
-
 <script type="text/javascript" src="../libraries/jquery/jquery.ui/jquery-ui.js"></script>
+<script src="/modules/products/assets/js/select2.min.js"></script>
+<?php
+echo '';
+?>
 <script>
 	$(document).ready(function() {
 		$("#tabs").tabs();
@@ -22,6 +23,7 @@ $toolbar->addButton('apply', FSText::_('Apply'), '', 'apply.png');
 $toolbar->addButton('cancel', FSText::_('Cancel'), '', 'cancel.png');
 $this->dt_form_begin(1, 4, 'Thống kê');
 ?>
+<input type="hidden" name="array_f1" id="array_f1" value="<?= $orderIdF1 ?>">
 <div id="tabs" class="row">
 	<div class="member-inffo">
 		<div class="member-profile">
@@ -168,6 +170,9 @@ $this->dt_form_begin(1, 4, 'Thống kê');
 		<li><a href="#fragment-3"><span><?php echo FSText::_("Thống kê số lượng đơn hàng"); ?></span></a></li>
 		<li><a href="#fragment-4"><span><?php echo FSText::_("Thống kê số lượng đơn hàng F1"); ?></span></a></li>
 	</ul>
+	<div class="alert alert-danger margin-15" style="display:none;margin:15px opx">
+		<span id="msg_error"></span>
+	</div>
 	<div id="fragment-1" style="padding: 0">
 		<?php include_once 'detail_1.php'; ?>
 	</div>
@@ -227,5 +232,224 @@ $this->dt_form_end(@$data, 1, 0);
 		var targetFragment = $(this).attr('href'); // Get the href attribute value
 		// Exclude the original clicked element when simulating the click
 		$('a[href="' + targetFragment + '"]').not(this).click();
+	});
+	$(function() {
+		$("#time_hoahong_0").datepicker({
+			clickInput: true,
+			dateFormat: 'dd-mm-yy',
+			changeMonth: true,
+			numberOfMonths: 2,
+			changeYear: true,
+			maxDate: " + d ",
+			showMonthAfterYear: true
+		});
+		$("#time_hoahong_1").datepicker({
+			clickInput: true,
+			dateFormat: 'dd-mm-yy',
+			changeMonth: true,
+			numberOfMonths: 2,
+			changeYear: true,
+			maxDate: " + d ",
+			showMonthAfterYear: true
+		});
+		$("#time_order_0").datepicker({
+			clickInput: true,
+			dateFormat: 'dd-mm-yy',
+			changeMonth: true,
+			numberOfMonths: 2,
+			changeYear: true,
+			maxDate: " + d ",
+			showMonthAfterYear: true
+		});
+		$("#time_order_1").datepicker({
+			clickInput: true,
+			dateFormat: 'dd-mm-yy',
+			changeMonth: true,
+			numberOfMonths: 2,
+			changeYear: true,
+			maxDate: " + d ",
+			showMonthAfterYear: true
+		});
+		$("#time_orderf1_0").datepicker({
+			clickInput: true,
+			dateFormat: 'dd-mm-yy',
+			changeMonth: true,
+			numberOfMonths: 2,
+			changeYear: true,
+			maxDate: " + d ",
+			showMonthAfterYear: true
+		});
+		$("#time_orderf1_1").datepicker({
+			clickInput: true,
+			dateFormat: 'dd-mm-yy',
+			changeMonth: true,
+			numberOfMonths: 2,
+			changeYear: true,
+			maxDate: " + d ",
+			showMonthAfterYear: true
+		});
+	});
+	$(document).ready(function() {
+		$(".submit_filter_hoahong").on('click', function(e) {
+			e.preventDefault(); // Ngăn chặn hành động mặc định của nút
+			if (!formValidator0()) {
+				return; // Nếu form không hợp lệ, dừng lại
+			}
+			let time_hoahong_0 = $("#time_hoahong_0").val();
+			let time_hoahong_1 = $("#time_hoahong_1").val();
+			let hoahong_status = $("#hoahong_status").val();
+			let id = $("#id").val();
+			$.ajax({
+				url: "index.php?module=member_statistics&view=members&task=filter_time_hoa_hong&id=<?= $data->id ?>",
+				type: "POST",
+				data: {
+					time_hoahong_0,
+					time_hoahong_1,
+					hoahong_status,
+					id
+				},
+				dataType: "JSON",
+				success: function(result) {
+					$("#tab_filter_2").html(result.html);
+					$("#filter_hoahong_coin").html(result.total_coin);
+					$("#filter_hoahong_vnd").html(result.total_vnd);
+					//fill html 
+					$('#filter-text-date-hoahong').show();
+					$("#filter_hoahong_time_0").html(time_hoahong_0);
+					$("#filter_hoahong_time_1").html(time_hoahong_1);
+					// load.fadeOut().html("");
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					console.log("Có lỗi trong quá trình đưa lên máy chủ. Xin bạn vui lòng kiểm tra lỗi kết nối.");
+				}
+			});
+		});
+		$(".submit_filter_order").on('click', function(e) {
+			e.preventDefault(); // Ngăn chặn hành động mặc định của nút
+			if (!formValidator1()) {
+				return; // Nếu form không hợp lệ, dừng lại
+			}
+			let time_order_0 = $("#time_order_0").val();
+			let time_order_1 = $("#time_order_1").val();
+			let id = $("#id").val();
+			let array_f1 = $("#array_f1").val();
+			$.ajax({
+				url: "index.php?module=member_statistics&view=members&task=filter_time_order&id=<?= $data->id ?>",
+				type: "POST",
+				data: {
+					time_order_0,
+					time_order_1,
+					id,
+					array_f1
+				},
+				dataType: "JSON",
+				success: function(result) {
+					$("#tab_filter_3").html(result.html);
+					$("#filter_order_coin").html(result.total_coin);
+					$("#filter_order_vnd").html(result.total_vnd);
+					// load.fadeOut().html("");
+					//fill html 
+					$('#filter-text-date-order').show();
+					$("#filter_order_time_0").html(time_order_0);
+					$("#filter_order_time_1").html(time_order_1);
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					console.log("Có lỗi trong quá trình đưa lên máy chủ. Xin bạn vui lòng kiểm tra lỗi kết nối.");
+				}
+			});
+		});
+		$(".submit_filter_orderf1").on('click', function(e) {
+			e.preventDefault(); // Ngăn chặn hành động mặc định của nút
+			if (!formValidator2()) {
+				return; // Nếu form không hợp lệ, dừng lại
+			}
+			let time_orderf1_0 = $("#time_orderf1_0").val();
+			let time_orderf1_1 = $("#time_orderf1_1").val();
+			let id = $("#id").val();
+			let array_f1 = $("#array_f1").val();
+			$.ajax({
+				url: "index.php?module=member_statistics&view=members&task=filter_time_orderf1&id=<?= $data->id ?>",
+				type: "POST",
+				data: {
+					time_orderf1_0,
+					time_orderf1_1,
+					id,
+					array_f1
+				},
+				dataType: "JSON",
+				success: function(result) {
+					$("#tab_filter_4").html(result.html);
+					$("#filter_orderf1_coin").html(result.total_coin);
+					$("#filter_orderf1_vnd").html(result.total_vnd);
+					// load.fadeOut().html("");
+					//fill html 
+					$('#filter-text-date-orderf1').show();
+					$("#filter_orderf1_time_0").html(time_orderf1_0);
+					$("#filter_orderf1_time_1").html(time_orderf1_1);
+
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					console.log("Có lỗi trong quá trình đưa lên máy chủ. Xin bạn vui lòng kiểm tra lỗi kết nối.");
+				}
+			});
+		});
+
+		function formValidator0() {
+			$('.alert-danger').show();
+
+			if (!notEmpty('time_hoahong_0', 'Bạn phải chọn ngày bắt đầu')) {
+				return false;
+			}
+
+			if (!notEmpty('time_hoahong_1', 'Bạn phải chọn ngày kết thúc')) {
+				return false;
+			}
+			if (!notEmpty('hoahong_status', 'Bạn phải chọn trạng thái chi trả')) {
+				return false;
+			}
+
+			$('.alert-danger').hide();
+			return true;
+		}
+
+		function formValidator1() {
+			$('.alert-danger').show();
+
+			if (!notEmpty('time_order_0', 'Bạn phải chọn ngày bắt đầu')) {
+				return false;
+			}
+
+			if (!notEmpty('time_order_1', 'Bạn phải chọn ngày kết thúc')) {
+				return false;
+			}
+
+			$('.alert-danger').hide();
+			return true;
+		}
+
+		function formValidator2() {
+			$('.alert-danger').show();
+
+			if (!notEmpty('time_orderf1_0', 'Bạn phải chọn ngày bắt đầu')) {
+				return false;
+			}
+
+			if (!notEmpty('time_orderf1_1', 'Bạn phải chọn ngày kết thúc')) {
+				return false;
+			}
+
+			$('.alert-danger').hide();
+			return true;
+		}
+
+		function notEmpty(id, message) {
+			var value = document.getElementById(id).value;
+			var errorElement = document.getElementById('msg_error');
+			if (value.trim() === "") {
+				errorElement.innerHTML = message;
+				return false;
+			}
+			return true;
+		}
 	});
 </script>

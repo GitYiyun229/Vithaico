@@ -881,4 +881,55 @@ class Controllers
 		echo json_encode($list);
 		exit;
 	}
+
+
+	public function filter_time_hoa_hong_controller($item)
+	{
+		$html = '';
+		$html .= '<tr>';
+		$html .= '    <td>' . $item->order_id . '</td>';
+		$html .= '    <td>' . $item->created_time . '</td>';
+		$html .= '    <td>' . $item->total_coin . ' Coin</td>';
+		$html .= '    <td>' . $item->percent . '%</td>';
+		$html .= '    <td>' . (($item->percent_add - $item->percent) ? ($item->percent_add - $item->percent) : '0') . '%</td>';
+		$html .= '    <td>' . $item->after_coin . ' Coin * 4500đ</td>';
+		$html .= '    <td style="font-weight:600;color:' . ($item->dieu_kien_nhan == 1 ? '#28a745' : 'red') . '">' . ($item->dieu_kien_nhan == 1 ? 'True' : 'False') . '</td>';
+		$html .= '    <td style="font-weight:600;color:' . ($item->status_chi_tra == 1 ? '#28a745' : 'red') . '">' . ($item->status_chi_tra == 1 ? 'True' : 'False') . '</td>';
+		$html .= '    <td>' . format_money($item->after_coin * 4500, 'đ') . '</td>';
+		$html .= '</tr>';
+
+		return $html;
+	}
+	public function filter_time_order_controller($item)
+	{
+		$html = '';
+		$html .= '<tr>';
+		$html .= '    <td>' . $item->id . '</td>';
+		$html .= '    <td>' . $item->products_count . '</td>';
+		$html .= '    <td>' . format_money($item->total_before, 'đ') . '</td>';
+		$html .= '    <td>' . format_money($item->ship_price, 'đ') . '</td>';
+		$html .= '    <td>' . format_money($item->total_end, 'đ') . '</td>';
+		$html .= '    <td>' . $item->member_coin . '</td>';
+		$html .= '    <td>' . $item->created_time . '</td>';
+		$html .= '    <td><a href="#" data-color="#00a65a" data-height="20">Chi tiết</a></td>';
+		$html .= '</tr>';
+
+		return $html;
+	}
+	public function filter_time_orderf1_controller($item)
+	{
+		$html = '';
+		$html .= '<tr>';
+		$html .= '    <td>' . $item->id . '</td>';
+		$html .= '    <td>' . $item->products_count . '</td>';
+		$html .= '    <td>' . format_money($item->total_before, 'đ') . '</td>';
+		$html .= '    <td>' . format_money($item->ship_price, 'đ') . '</td>';
+		$html .= '    <td>' . format_money($item->total_end, 'đ') . '</td>';
+		$html .= '    <td>' . $item->member_coin . '</td>';
+		$html .= '    <td>' . $item->created_time . '</td>';
+		$html .= '    <td><a href="#" data-color="#00a65a" data-height="20">Chi tiết</a></td>';
+		$html .= '</tr>';
+
+		return $html;
+	}
 }

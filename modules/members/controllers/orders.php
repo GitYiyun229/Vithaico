@@ -39,7 +39,6 @@ class MembersControllersOrders extends MembersControllersMembers
             $orderId = implode(',', $orderId);
             $orderDetail = $this->getOrderDetail($orderId, $user);
 
-            $rate = $this->model->get_records("user_id = $user->userID", "fs_products_comments");
 
             foreach ($list as $item) {
                 foreach ($orderDetail as $detail) {

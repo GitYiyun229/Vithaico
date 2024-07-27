@@ -102,13 +102,13 @@ class FSControllers
 			if (!empty($item_time['created_time'])) {
 				$query .= " AND created_time <= '{$item_time['created_time']}'";
 			}
-		
+
 			// print_r($query);
 			$total_level = $this->model->get_records($query, 'fs_order', 'SUM(total_before) AS total_before_sum');
 			$total_before_sum = $total_level[0]->total_before_sum ?? 0;
 			$array_id['time_update_rank'][$index]['total_before_sum'] = $total_before_sum;
 
-			if (in_array($item_time['level'], [3, 4, 5,6])) {
+			if (in_array($item_time['level'], [3, 4, 5, 6])) {
 				$array_id["total_f1_rank{$item_time['level']}"] = $total_before_sum;
 			}
 
@@ -604,9 +604,9 @@ class FSControllers
 				$this->model->_update($row, 'fs_members', 'id =' . $member->id);
 
 				$infoF1 = $this->getArrayInfoF1($member->ref_code);
-				$total_price_f1_lv4=$infoF1['total_f1_rank4'];
-				$total_price_f1_lv5=$infoF1['total_f1_rank5'];
-				$total_price_f1_lv6=$infoF1['total_f1_rank6'];
+				$total_price_f1_lv4 = $infoF1['total_f1_rank4'];
+				$total_price_f1_lv5 = $infoF1['total_f1_rank5'];
+				$total_price_f1_lv6 = $infoF1['total_f1_rank6'];
 				$level = $member->level;
 				// Kiểm tra hạng thành viên dựa trên $total_member_coin và các điều kiện F1
 				$table_level = $this->model->get_records('level >=' . $level, 'fs_members_group', '*', ' id DESC');
@@ -664,6 +664,7 @@ class FSControllers
 				'level' => $level,
 				'hoa_hong' => $levelInfo->member_benefits,
 			];
+			$row['start_time_month'] = date('Y-m-d H:i:s');
 			$row_time['end_time'] = date('Y-m-d H:i:s', strtotime('+50 year', $now));
 			$row['due_time_month'] = date('Y-m-d H:i:s', strtotime('+1 month', $now));
 			$update_level = $this->model->_update($row, 'fs_members', 'id =' . $member->id);
