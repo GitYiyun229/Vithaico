@@ -1,12 +1,17 @@
-$(function () {
-  new Mmenu(document.querySelector("#mySidenav"), {
+
+
+
+$(document).ready(function () {
+  $("#mySidenav").mmenu({
+    classes: "mm-white mm-slide",
+    searchfield: false,
+    counters: false,
+    header: false,
     offCanvas: {
       position: "left",
     },
-    theme: "light",
   });
-});
-$(document).ready(function () {
+  
   let alert1 = $("#alert_ip").val();
   $("#keyword").keypress(function (e) {
     if (e.which == 13) {
@@ -18,7 +23,7 @@ $(document).ready(function () {
         window.location = link1;
         return false;
       } else {
-        alert(alert1)
+        alert(alert1);
         return false;
       }
     }

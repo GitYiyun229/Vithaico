@@ -42,11 +42,9 @@
             gap: 8px;
             .user_f1_item_item {
                 width: calc((100% - 1px) / 7);
-                overflow-x: scroll;
+                // overflow-x: scroll;
 
-                &::-webkit-scrollbar {
-                    display: none;
-                }
+              
                 a {
                     color: #2476ff;
                 }
@@ -383,7 +381,7 @@
             .user_f1_title {
                 padding-bottom: 10px !important;
                 gap: 10px;
-                font-size: 10px !important;
+                font-size: 12px !important;
                 margin: 0 !important;
                 // overflow-x: auto;
                 .user_f1_title_item {
@@ -392,14 +390,25 @@
                     // white-space: nowrap;
                     // overflow-x: auto;
                     font-size: 10px !important;
-                    &::-webkit-scrollbar {
-                        display: none;
-                    }
+                  
                     &:first-child {
-                        width: 5% !important;
+                        width: 7% !important;
                     }
+
                     &:nth-child(2){
-                        // width: 17% !important;
+                        width: 40% !important;
+                    }
+                    &:nth-child(3){
+                        width: 40% !important;
+                    }
+                    &:nth-child(4){
+                        width: 45% !important;
+                    }
+                    &:nth-child(5){
+                        width: 30% !important;
+                    }
+                    &:nth-child(6){
+                        width: 22% !important;
                     }
                 }
             }
@@ -409,14 +418,27 @@
                 .user_f1_item {
                     .user_f1_item_item {
                         width: calc((100%) / 7) !important;
-                        white-space: nowrap;
+                        // white-space: nowrap;
                         overflow-x: auto;
                         font-size: 10px !important;
-                        &::-webkit-scrollbar {
-                            display: none;
-                        }
+                       
                         &:first-child {
-                            width: 5% !important;
+                            width: 8% !important;
+                        }
+                        &:nth-child(2){
+                            width: 40% !important;
+                        }
+                        &:nth-child(3){
+                            width: 40% !important;
+                        }
+                        &:nth-child(4){
+                            width: 45% !important;
+                        }
+                        &:nth-child(5){
+                            width: 30% !important;
+                        }
+                        &:nth-child(6){
+                            width: 22% !important;
                         }
                     }
                 }

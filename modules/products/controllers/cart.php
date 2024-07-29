@@ -30,7 +30,7 @@ class ProductsControllersCart extends FSControllers
             $cartPrice += $item['quantity'] * $item['price'];
         }
 
-        $shipPrice = ($cartPrice <= 1000000 && $config['fee']) ? $config['fee'] : 0;
+        $shipPrice = ($cartPrice <= $config['total_price_freeship'] && $config['fee']) ? $config['fee'] : 0;
 
         $totalPayment = $cartPrice + $shipPrice - $promotionDiscountPrice;
 
@@ -231,7 +231,7 @@ class ProductsControllersCart extends FSControllers
         global $user, $config;
 
         $member_discount_price = 0;
-        $ship_price  = ($total_before <= 1000000 && $config['fee']) ? $config['fee'] : 0;
+        $ship_price  = ($total_before <= $config['total_price_freeship'] && $config['fee']) ? $config['fee'] : 0;
         $code_discount_price = 0;
 
         $rowOrder = [

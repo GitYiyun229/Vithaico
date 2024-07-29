@@ -14,20 +14,32 @@ if ($user->userID) {
 <ul class="list_menu_mobile">
     <li>
         <a href="<?php echo URL_ROOT ?>">
-            <i class="fa-solid fa-house"></i>
+            <img src="images/tab_mobi/home_mobi.svg" alt="">
             <span>Trang chủ</span>
         </a>
     </li>
     <li>
-        <a class="cat_prd" href="javascript:void(0)">
-            <i class="fa-solid fa-list"></i>
+        <a class="" href="javascript:void(0)">
+            <img src="images/tab_mobi/gioithieu_mobi.svg" alt="">
+            <span>Giới thiệu</span>
+        </a>
+    </li>
+    <li>
+        <a class="cat_prd" href="#mySidenav">
+            <img src="images/tab_mobi/danhmuc_mobi.svg" alt="">
             <span>Danh mục</span>
+        </a>
+    </li>
+    <li>
+        <a class="" href="javascript:void(0)">
+            <img src="images/tab_mobi/chinhsach_mobi.svg" alt="">
+            <span>Chính sách</span>
         </a>
     </li>
     <li>
         <?php if ($user->userID) { ?>
             <a class="member" href="javascript:void(0)">
-                <i class="fa-solid fa-user"></i>
+                <img src="images/tab_mobi/user_mobi.svg" alt="">
                 <?php if ($user->userInfo->full_name) { ?>
                     <span><?php echo $user->userInfo->full_name ?></span>
                 <?php } else { ?>
@@ -36,7 +48,7 @@ if ($user->userID) {
             </a>
         <?php } else { ?>
             <a class="btn-login" href="<?= FSRoute::_('index.php?module=members&view=user&task=login') ?>">
-                <i class="fa-solid fa-user"></i>
+                <img src="images/tab_mobi/user_mobi.svg" alt="">
                 <span>Login</span>
             </a>
         <?php } ?>

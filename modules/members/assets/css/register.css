@@ -1,49 +1,78 @@
-.container .box-main-register {
+.main-register {
+  background: #fff;
+  border-radius: 16px;
+  margin: 48px auto;
+}
+.main-register .box-main-register {
   max-width: 400px;
 }
 @media (max-width: 767px) {
-  .container .box-main-register {
+  .main-register .box-main-register {
     padding: 0 15px !important;
+    margin-top: 30px !important;
   }
 }
-.container .box-main-register .text-dk h4 {
+.main-register .box-main-register .text-dk h4 {
   font-weight: bold;
   font-size: 24px;
   line-height: 30px;
 }
-.container .box-main-register .form-register-container form .form-control {
+.main-register .box-main-register .form-register-container form .form-control {
   padding: 12px 0 12px 16px;
   border-radius: 8px;
   background: #f5f5f5;
   border: 0;
   font-size: 14px;
 }
-.container .box-main-register .form-register-container form .form-control::-moz-placeholder {
+@media (max-width: 767px) {
+  .main-register .box-main-register .form-register-container form .form-control {
+    font-size: 12px !important;
+  }
+}
+.main-register .box-main-register .form-register-container form .form-control::-moz-placeholder {
   color: #949494;
 }
-.container .box-main-register .form-register-container form .form-control::placeholder {
+.main-register .box-main-register .form-register-container form .form-control::placeholder {
   color: #949494;
 }
-.container .box-main-register .form-register-container form .submit-register {
+.main-register .box-main-register .form-register-container form .submit-register {
   background: #ea212d;
   border-radius: 8px;
   padding: 13.5px 24px;
 }
-.container .box-main-register .form-register-container form .submit-register .form-submit {
+.main-register .box-main-register .form-register-container form .submit-register .form-submit {
   color: #fff;
 }
-.container .box-main-register .form-register-container .dieu-khoan-thanh-vien {
+@media (max-width: 767px) {
+  .main-register .box-main-register .form-register-container form .submit-register .form-submit {
+    font-size: 12px !important;
+  }
+}
+.main-register .box-main-register .form-register-container .dieu-khoan-thanh-vien {
   border: 1px solid #dedede;
   border-radius: 8px;
   padding: 24px;
   max-height: 220px;
   overflow-y: scroll;
 }
-.container .box-main-register .form-register-container .login-res .text-red {
+@media (max-width: 767px) {
+  .main-register .box-main-register .form-register-container .dieu-khoan-thanh-vien p {
+    font-size: 12px !important;
+  }
+}
+@media (max-width: 767px) {
+  .main-register .box-main-register .form-register-container .login-res {
+    font-size: 12px !important;
+  }
+  .main-register .box-main-register .form-register-container .login-res .text-red {
+    font-size: 12px !important;
+  }
+}
+.main-register .box-main-register .form-register-container .login-res .text-red {
   color: #2476ff;
   font-size: 16px;
 }
-.container .checkbox.style-c {
+.main-register .checkbox.style-c {
   display: inline-block;
   position: relative;
   padding-left: 30px;
@@ -52,26 +81,26 @@
   -moz-user-select: none;
   user-select: none;
 }
-.container .checkbox.style-c input {
+.main-register .checkbox.style-c input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
   height: 0;
   width: 0;
 }
-.container .checkbox.style-c input:checked ~ .checkbox__checkmark {
+.main-register .checkbox.style-c input:checked ~ .checkbox__checkmark {
   background-color: #ea212d;
 }
-.container .checkbox.style-c input:checked ~ .checkbox__checkmark:after {
+.main-register .checkbox.style-c input:checked ~ .checkbox__checkmark:after {
   opacity: 1;
 }
-.container .checkbox.style-c:hover input ~ .checkbox__checkmark {
+.main-register .checkbox.style-c:hover input ~ .checkbox__checkmark {
   background-color: #eee;
 }
-.container .checkbox.style-c:hover input:checked ~ .checkbox__checkmark {
+.main-register .checkbox.style-c:hover input:checked ~ .checkbox__checkmark {
   background-color: #ea212d;
 }
-.container .checkbox.style-c .checkbox__checkmark {
+.main-register .checkbox.style-c .checkbox__checkmark {
   position: absolute;
   top: 2px;
   left: 0;
@@ -82,7 +111,13 @@
   transition: background-color 0.25s ease;
   border-radius: 4px;
 }
-.container .checkbox.style-c .checkbox__checkmark:after {
+@media (max-width: 767px) {
+  .main-register .checkbox.style-c .checkbox__checkmark {
+    height: 16px !important;
+    width: 16px !important;
+  }
+}
+.main-register .checkbox.style-c .checkbox__checkmark:after {
   content: "";
   position: absolute;
   left: 8px;
@@ -95,14 +130,39 @@
   opacity: 0;
   transition: opacity 0.25s ease;
 }
-.container .checkbox.style-c .checkbox__body {
+@media (max-width: 767px) {
+  .main-register .checkbox.style-c .checkbox__checkmark:after {
+    left: 6px !important;
+    top: 1px !important;
+  }
+}
+.main-register .checkbox.style-c .checkbox__body {
   font-size: 16px;
   font-weight: 400;
   color: #3b3b3b;
   line-height: 1.4;
 }
+@media (max-width: 767px) {
+  .main-register .checkbox.style-c .checkbox__body {
+    font-size: 12px !important;
+  }
+}
 
 .modal-body {
-  background: #EBF6E6;
+  background: #ebf6e6;
   border-radius: 8px;
+}
+
+@media (max-width: 767px) {
+  .summary-aff {
+    font-size: 12px !important;
+  }
+}
+#app {
+  background: #f5f5f5;
+}
+
+main {
+  background: #f5f5f5;
+  padding: 0;
 }/*# sourceMappingURL=register.css.map */

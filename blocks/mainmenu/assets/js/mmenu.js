@@ -1,3611 +1,1578 @@
+/*
+ * jQuery mmenu v4.5.5
+ * @requires jQuery 1.7.0 or later
+ *
+ * mmenu.frebsite.nl
+ *
+ * Copyright (c) Fred Heusschen
+ * www.frebsite.nl
+ *
+ * Licensed under the MIT license:
+ * http://en.wikipedia.org/wiki/MIT_License
+ */
 !(function (e) {
-  var t = {};
-
-  function n(i) {
-    if (t[i]) return t[i].exports;
-    var s = (t[i] = { i: i, l: !1, exports: {} });
-    return e[i].call(s.exports, s, s.exports, n), (s.l = !0), s.exports;
+  function n(n, s, t) {
+    if (t) return "object" != typeof n && (n = {}), n;
+    n = e.extend(!0, {}, e[a].defaults, n);
+    for (
+      var i = ["position", "zposition", "modal", "moveBackground"],
+        o = 0,
+        l = i.length;
+      l > o;
+      o++
+    )
+      "undefined" != typeof n[i[o]] &&
+        (e[a].deprecated('The option "' + i[o] + '"', "offCanvas." + i[o]),
+        (n.offCanvas = n.offCanvas || {}),
+        (n.offCanvas[i[o]] = n[i[o]]));
+    return n;
   }
-
-  (n.m = e),
-    (n.c = t),
-    (n.d = function (e, t, i) {
-      n.o(e, t) || Object.defineProperty(e, t, { enumerable: !0, get: i });
-    }),
-    (n.r = function (e) {
-      "undefined" != typeof Symbol &&
-        Symbol.toStringTag &&
-        Object.defineProperty(e, Symbol.toStringTag, { value: "Module" }),
-        Object.defineProperty(e, "__esModule", { value: !0 });
-    }),
-    (n.t = function (e, t) {
-      if ((1 & t && (e = n(e)), 8 & t)) return e;
-      if (4 & t && "object" == typeof e && e && e.__esModule) return e;
-      var i = Object.create(null);
-      if (
-        (n.r(i),
-        Object.defineProperty(i, "default", {
-          enumerable: !0,
-          value: e,
-        }),
-        2 & t && "string" != typeof e)
+  function s(n) {
+    n = e.extend(!0, {}, e[a].configuration, n);
+    for (
+      var s = ["panel", "list", "selected", "label", "spacer"],
+        t = 0,
+        i = s.length;
+      i > t;
+      t++
+    )
+      "undefined" != typeof n[s[t] + "Class"] &&
+        (e[a].deprecated(
+          'The configuration option "' + s[t] + 'Class"',
+          "classNames." + s[t]
+        ),
+        (n.classNames[s[t]] = n[s[t] + "Class"]));
+    if (
+      ("undefined" != typeof n.counterClass &&
+        (e[a].deprecated(
+          'The configuration option "counterClass"',
+          "classNames.counters.counter"
+        ),
+        (n.classNames.counters = n.classNames.counters || {}),
+        (n.classNames.counters.counter = n.counterClass)),
+      "undefined" != typeof n.collapsedClass &&
+        (e[a].deprecated(
+          'The configuration option "collapsedClass"',
+          "classNames.labels.collapsed"
+        ),
+        (n.classNames.labels = n.classNames.labels || {}),
+        (n.classNames.labels.collapsed = n.collapsedClass)),
+      "undefined" != typeof n.header)
+    )
+      for (
+        var s = ["panelHeader", "panelNext", "panelPrev"], t = 0, i = s.length;
+        i > t;
+        t++
       )
-        for (var s in e)
-          n.d(
-            i,
-            s,
-            function (t) {
-              return e[t];
-            }.bind(null, s)
-          );
-      return i;
+        "undefined" != typeof n.header[s[t] + "Class"] &&
+          (e[a].deprecated(
+            'The configuration option "header.' + s[t] + 'Class"',
+            "classNames.header." + s[t]
+          ),
+          (n.classNames.header = n.classNames.header || {}),
+          (n.classNames.header[s[t]] = n.header[s[t] + "Class"]));
+    for (
+      var s = [
+          "pageNodetype",
+          "pageSelector",
+          "menuWrapperSelector",
+          "menuInjectMethod",
+        ],
+        t = 0,
+        i = s.length;
+      i > t;
+      t++
+    )
+      "undefined" != typeof n[s[t]] &&
+        (e[a].deprecated(
+          'The configuration option "' + s[t] + '"',
+          "offCanvas." + s[t]
+        ),
+        (n.offCanvas = n.offCanvas || {}),
+        (n.offCanvas[s[t]] = n[s[t]]));
+    return n;
+  }
+  function t() {
+    (r = !0),
+      (c.$wndw = e(window)),
+      (c.$html = e("html")),
+      (c.$body = e("body")),
+      e.each([o, l, d], function (e, n) {
+        n.add = function (e) {
+          e = e.split(" ");
+          for (var s in e) n[e[s]] = n.mm(e[s]);
+        };
+      }),
+      (o.mm = function (e) {
+        return "mm-" + e;
+      }),
+      o.add(
+        "wrapper menu inline panel nopanel list nolist subtitle selected label spacer current highest hidden opened subopened subopen fullsubopen subclose"
+      ),
+      (o.umm = function (e) {
+        return "mm-" == e.slice(0, 3) && (e = e.slice(3)), e;
+      }),
+      (l.mm = function (e) {
+        return "mm-" + e;
+      }),
+      l.add("parent"),
+      (d.mm = function (e) {
+        return e + ".mm";
+      }),
+      d.add(
+        "toggle open close setSelected transitionend webkitTransitionEnd mousedown mouseup touchstart touchmove touchend scroll resize click keydown keyup"
+      ),
+      (e[a]._c = o),
+      (e[a]._d = l),
+      (e[a]._e = d),
+      (e[a].glbl = c);
+  }
+  var a = "mmenu",
+    i = "4.5.5";
+  if (!e[a]) {
+    var o = {},
+      l = {},
+      d = {},
+      r = !1,
+      c = { $wndw: null, $html: null, $body: null };
+    (e[a] = function (e, s, t) {
+      return (
+        (this.$menu = e),
+        (this.opts = s),
+        (this.conf = t),
+        (this.vars = {}),
+        (this.opts = n(this.opts, this.conf, this.$menu)),
+        this._initMenu(),
+        this._init(this.$menu.children(this.conf.panelNodetype)),
+        this
+      );
     }),
-    (n.n = function (e) {
-      var t =
-        e && e.__esModule
-          ? function () {
-              return e.default;
-            }
-          : function () {
-              return e;
-            };
-      return n.d(t, "a", t), t;
-    }),
-    (n.o = function (e, t) {
-      return Object.prototype.hasOwnProperty.call(e, t);
-    }),
-    (n.p = ""),
-    n((n.s = 0));
-})([
-  function (e, t, n) {
-    "use strict";
-    n.r(t);
-    var i = {
-        hooks: {},
-        extensions: [],
-        wrappers: [],
-        navbar: { add: !0, sticky: !0, title: "Menu", titleLink: "parent" },
-        onClick: { close: null, preventDefault: null, setSelected: !0 },
+      (e[a].version = i),
+      (e[a].addons = []),
+      (e[a].uniqueId = 0),
+      (e[a].defaults = {
+        classes: "",
         slidingSubmenus: !0,
-      },
-      s = {
+        onClick: { setSelected: !0 },
+      }),
+      (e[a].configuration = {
+        panelNodetype: "ul, ol, div",
+        transitionDuration: 400,
+        openingInterval: 25,
         classNames: {
-          inset: "Inset",
-          nolistview: "NoListview",
-          nopanel: "NoPanel",
           panel: "Panel",
           selected: "Selected",
-          vertical: "Vertical",
+          label: "Label",
+          spacer: "Spacer",
         },
-        language: null,
-        openingInterval: 25,
-        panelNodetype: ["ul", "ol", "div"],
-        transitionDuration: 400,
-      };
-
-    function a(e, t) {
-      for (var n in ("object" != o(e) && (e = {}),
-      "object" != o(t) && (t = {}),
-      t))
-        t.hasOwnProperty(n) &&
-          (void 0 === e[n]
-            ? (e[n] = t[n])
-            : "object" == o(e[n]) && a(e[n], t[n]));
-      return e;
-    }
-
-    function o(e) {
-      return {}.toString
-        .call(e)
-        .match(/\s([a-zA-Z]+)/)[1]
-        .toLowerCase();
-    }
-
-    function r(e, t, n) {
-      if ("function" == typeof t) {
-        var i = t.call(e);
-        if (void 0 !== i) return i;
-      }
-      return (null !== t && "function" != typeof t && void 0 !== t) ||
-        void 0 === n
-        ? t
-        : n;
-    }
-
-    function c(e, t, n) {
-      var i = !1,
-        s = function (n) {
-          (void 0 !== n && n.target !== e) ||
-            (i ||
-              (e.removeEventListener("transitionend", s),
-              e.removeEventListener("webkitTransitionEnd", s),
-              t.call(e)),
-            (i = !0));
-        };
-      e.addEventListener("transitionend", s),
-        e.addEventListener("webkitTransitionEnd", s),
-        setTimeout(s, 1.1 * n);
-    }
-
-    function l() {
-      return "mm-" + m++;
-    }
-
-    var m = 0;
-
-    function d(e) {
-      return "mm-" == e.slice(0, 3) ? e.slice(3) : e;
-    }
-
-    var p = {};
-
-    function u(e, t) {
-      void 0 === p[t] && (p[t] = {}), a(p[t], e);
-    }
-
-    var f = { Menu: "منو" },
-      h = { Menu: "Menü" },
-      v = { Menu: "Меню" };
-
-    function b(e) {
-      var t = e.split("."),
-        n = document.createElement(t.shift());
-      return (
-        t.forEach(function (e) {
-          n.classList.add(e);
-        }),
-        n
-      );
-    }
-
-    function g(e, t) {
-      return Array.prototype.slice.call(e.querySelectorAll(t));
-    }
-
-    function _(e, t) {
-      var n = Array.prototype.slice.call(e.children);
-      return t
-        ? n.filter(function (e) {
-            return e.matches(t);
-          })
-        : n;
-    }
-
-    function y(e, t) {
-      for (var n = [], i = e.parentElement; i; )
-        n.push(i), (i = i.parentElement);
-      return t
-        ? n.filter(function (e) {
-            return e.matches(t);
-          })
-        : n;
-    }
-
-    function L(e) {
-      return e.filter(function (e) {
-        return !e.matches(".mm-hidden");
-      });
-    }
-
-    function w(e) {
-      var t = [];
-      return (
-        L(e).forEach(function (e) {
-          t.push.apply(t, _(e, "a.mm-listitem__text"));
-        }),
-        t.filter(function (e) {
-          return !e.matches(".mm-btn_next");
-        })
-      );
-    }
-
-    function E(e, t, n) {
-      e.matches("." + t) && (e.classList.remove(t), e.classList.add(n));
-    }
-
-    var x = {};
-
-    function P(e, t, n) {
-      "number" == typeof e && (e = "(min-width: " + e + "px)"),
-        (x[e] = x[e] || []),
-        x[e].push({ yes: t, no: n });
-    }
-
-    function k(e, t) {
-      for (var n = t.matches ? "yes" : "no", i = 0; i < x[e].length; i++)
-        x[e][i][n]();
-    }
-
-    u({ Menu: "Menu" }, "nl"), u(f, "fa"), u(h, "de"), u(v, "ru");
-    var S = (function () {
-        function e(t, n, i) {
-          return (
-            (this.opts = a(n, e.options)),
-            (this.conf = a(i, e.configs)),
-            (this._api = [
-              "bind",
-              "initPanel",
-              "initListview",
-              "openPanel",
-              "closePanel",
-              "closeAllPanels",
-              "setSelected",
-            ]),
-            (this.node = {}),
-            (this.vars = {}),
-            (this.hook = {}),
-            (this.clck = []),
-            (this.node.menu =
-              "string" == typeof t ? document.querySelector(t) : t),
-            "function" == typeof this._deprecatedWarnings &&
-              this._deprecatedWarnings(),
-            this._initWrappers(),
-            this._initAddons(),
-            this._initExtensions(),
-            this._initHooks(),
-            this._initAPI(),
-            this._initMenu(),
-            this._initPanels(),
-            this._initOpened(),
-            this._initAnchors(),
-            (function () {
-              var e = function (e) {
-                var t = window.matchMedia(e);
-                k(e, t),
-                  (t.onchange = function (n) {
-                    k(e, t);
-                  });
-              };
-              for (var t in x) e(t);
-            })(),
-            this
-          );
-        }
-
-        return (
-          (e.prototype.openPanel = function (e, t) {
-            var n = this;
-            if (
-              (this.trigger("openPanel:before", [e]),
-              e && (e.matches(".mm-panel") || (e = e.closest(".mm-panel")), e))
-            ) {
-              if (
-                ("boolean" != typeof t && (t = !0),
-                e.parentElement.matches(".mm-listitem_vertical"))
-              ) {
-                y(e, ".mm-listitem_vertical").forEach(function (e) {
-                  e.classList.add("mm-listitem_opened"),
-                    _(e, ".mm-panel").forEach(function (e) {
-                      e.classList.remove("mm-hidden");
-                    });
-                });
-                var i = y(e, ".mm-panel").filter(function (e) {
-                  return !e.parentElement.matches(".mm-listitem_vertical");
-                });
-                this.trigger("openPanel:start", [e]),
-                  i.length && this.openPanel(i[0]),
-                  this.trigger("openPanel:finish", [e]);
-              } else {
-                if (e.matches(".mm-panel_opened")) return;
-                var s = _(this.node.pnls, ".mm-panel"),
-                  a = _(this.node.pnls, ".mm-panel_opened")[0];
-                s.filter(function (t) {
-                  return t !== e;
-                }).forEach(function (e) {
-                  e.classList.remove("mm-panel_opened-parent");
-                });
-                for (var o = e.mmParent; o; )
-                  (o = o.closest(".mm-panel")) &&
-                    (o.parentElement.matches(".mm-listitem_vertical") ||
-                      o.classList.add("mm-panel_opened-parent"),
-                    (o = o.mmParent));
-                s.forEach(function (e) {
-                  e.classList.remove("mm-panel_highest");
-                }),
-                  s
-                    .filter(function (e) {
-                      return e !== a;
-                    })
-                    .filter(function (t) {
-                      return t !== e;
-                    })
-                    .forEach(function (e) {
-                      e.classList.add("mm-hidden");
-                    }),
-                  e.classList.remove("mm-hidden");
-                var r = function () {
-                    a && a.classList.remove("mm-panel_opened"),
-                      e.classList.add("mm-panel_opened"),
-                      e.matches(".mm-panel_opened-parent")
-                        ? (a && a.classList.add("mm-panel_highest"),
-                          e.classList.remove("mm-panel_opened-parent"))
-                        : (a && a.classList.add("mm-panel_opened-parent"),
-                          e.classList.add("mm-panel_highest")),
-                      n.trigger("openPanel:start", [e]);
-                  },
-                  l = function () {
-                    a &&
-                      (a.classList.remove("mm-panel_highest"),
-                      a.classList.add("mm-hidden")),
-                      e.classList.remove("mm-panel_highest"),
-                      n.trigger("openPanel:finish", [e]);
-                  };
-                t && !e.matches(".mm-panel_noanimation")
-                  ? setTimeout(function () {
-                      c(
-                        e,
-                        function () {
-                          l();
-                        },
-                        n.conf.transitionDuration
-                      ),
-                        r();
-                    }, this.conf.openingInterval)
-                  : (r(), l());
-              }
-              this.trigger("openPanel:after", [e]);
-            }
-          }),
-          (e.prototype.closePanel = function (e) {
-            this.trigger("closePanel:before", [e]);
-            var t = e.parentElement;
-            t.matches(".mm-listitem_vertical") &&
-              (t.classList.remove("mm-listitem_opened"),
-              e.classList.add("mm-hidden"),
-              this.trigger("closePanel", [e])),
-              this.trigger("closePanel:after", [e]);
-          }),
-          (e.prototype.closeAllPanels = function (e) {
-            this.trigger("closeAllPanels:before"),
-              this.node.pnls
-                .querySelectorAll(".mm-listitem")
-                .forEach(function (e) {
-                  e.classList.remove("mm-listitem_selected"),
-                    e.classList.remove("mm-listitem_opened");
-                });
-            var t = _(this.node.pnls, ".mm-panel"),
-              n = e || t[0];
-            _(this.node.pnls, ".mm-panel").forEach(function (e) {
-              e !== n &&
-                (e.classList.remove("mm-panel_opened"),
-                e.classList.remove("mm-panel_opened-parent"),
-                e.classList.remove("mm-panel_highest"),
-                e.classList.add("mm-hidden"));
-            }),
-              this.openPanel(n, !1),
-              this.trigger("closeAllPanels:after");
-          }),
-          (e.prototype.togglePanel = function (e) {
-            var t = e.parentElement;
-            t.matches(".mm-listitem_vertical") &&
-              this[
-                t.matches(".mm-listitem_opened") ? "closePanel" : "openPanel"
-              ](e);
-          }),
-          (e.prototype.setSelected = function (e) {
-            this.trigger("setSelected:before", [e]),
-              g(this.node.menu, ".mm-listitem_selected").forEach(function (e) {
-                e.classList.remove("mm-listitem_selected");
-              }),
-              e.classList.add("mm-listitem_selected"),
-              this.trigger("setSelected:after", [e]);
-          }),
-          (e.prototype.bind = function (e, t) {
-            (this.hook[e] = this.hook[e] || []), this.hook[e].push(t);
-          }),
-          (e.prototype.trigger = function (e, t) {
-            if (this.hook[e])
-              for (var n = 0, i = this.hook[e].length; n < i; n++)
-                this.hook[e][n].apply(this, t);
-          }),
-          (e.prototype._initAPI = function () {
-            var e = this,
-              t = this;
-            (this.API = {}),
-              this._api.forEach(function (n) {
-                e.API[n] = function () {
-                  var e = t[n].apply(t, arguments);
-                  return void 0 === e ? t.API : e;
-                };
-              }),
-              (this.node.menu.mmApi = this.API);
-          }),
-          (e.prototype._initHooks = function () {
-            for (var e in this.opts.hooks) this.bind(e, this.opts.hooks[e]);
-          }),
-          (e.prototype._initWrappers = function () {
-            this.trigger("initWrappers:before");
-            for (var t = 0; t < this.opts.wrappers.length; t++) {
-              var n = e.wrappers[this.opts.wrappers[t]];
-              "function" == typeof n && n.call(this);
-            }
-            this.trigger("initWrappers:after");
-          }),
-          (e.prototype._initAddons = function () {
-            for (var t in (this.trigger("initAddons:before"), e.addons))
-              e.addons[t].call(this);
-            this.trigger("initAddons:after");
-          }),
-          (e.prototype._initExtensions = function () {
-            var e = this;
-            this.trigger("initExtensions:before"),
-              "array" == o(this.opts.extensions) &&
-                (this.opts.extensions = { all: this.opts.extensions }),
-              Object.keys(this.opts.extensions).forEach(function (t) {
-                var n = e.opts.extensions[t].map(function (e) {
-                  return "mm-menu_" + e;
-                });
-                n.length &&
-                  P(
-                    t,
-                    function () {
-                      n.forEach(function (t) {
-                        e.node.menu.classList.add(t);
-                      });
-                    },
-                    function () {
-                      n.forEach(function (t) {
-                        e.node.menu.classList.remove(t);
-                      });
-                    }
-                  );
-              }),
-              this.trigger("initExtensions:after");
-          }),
-          (e.prototype._initMenu = function () {
-            var e = this;
-            this.trigger("initMenu:before"),
-              (this.node.wrpr = this.node.wrpr || this.node.menu.parentElement),
-              this.node.wrpr.classList.add("mm-wrapper"),
-              (this.node.menu.id = this.node.menu.id || l());
-            var t = b("div.mm-panels");
-            _(this.node.menu).forEach(function (n) {
-              e.conf.panelNodetype.indexOf(n.nodeName.toLowerCase()) > -1 &&
-                t.append(n);
-            }),
-              this.node.menu.append(t),
-              (this.node.pnls = t),
-              this.node.menu.classList.add("mm-menu"),
-              this.trigger("initMenu:after");
-          }),
-          (e.prototype._initPanels = function () {
-            var e = this;
-            this.trigger("initPanels:before"),
-              this.clck.push(function (t, n) {
-                if (n.inMenu) {
-                  var i = t.getAttribute("href");
-                  if (i && i.length > 1 && "#" == i.slice(0, 1))
-                    try {
-                      var s = g(e.node.menu, i)[0];
-                      if (s && s.matches(".mm-panel"))
-                        return (
-                          t.parentElement.matches(".mm-listitem_vertical")
-                            ? e.togglePanel(s)
-                            : e.openPanel(s),
-                          !0
-                        );
-                    } catch (e) {}
-                }
-              }),
-              _(this.node.pnls).forEach(function (t) {
-                e.initPanel(t);
-              }),
-              this.trigger("initPanels:after");
-          }),
-          (e.prototype.initPanel = function (e) {
-            var t = this,
-              n = this.conf.panelNodetype.join(", ");
-            if (
-              e.matches(n) &&
-              (e.matches(".mm-panel") || (e = this._initPanel(e)), e)
-            ) {
-              var i = [];
-              i.push.apply(i, _(e, "." + this.conf.classNames.panel)),
-                _(e, ".mm-listview").forEach(function (e) {
-                  _(e, ".mm-listitem").forEach(function (e) {
-                    i.push.apply(i, _(e, n));
-                  });
-                }),
-                i.forEach(function (e) {
-                  t.initPanel(e);
-                });
-            }
-          }),
-          (e.prototype._initPanel = function (e) {
-            var t = this;
-            if (
-              (this.trigger("initPanel:before", [e]),
-              E(e, this.conf.classNames.panel, "mm-panel"),
-              E(e, this.conf.classNames.nopanel, "mm-nopanel"),
-              E(e, this.conf.classNames.inset, "mm-listview_inset"),
-              e.matches(".mm-listview_inset") && e.classList.add("mm-nopanel"),
-              e.matches(".mm-nopanel"))
-            )
-              return null;
-            var n = e.id || l(),
-              i =
-                e.matches("." + this.conf.classNames.vertical) ||
-                !this.opts.slidingSubmenus;
-            if (
-              (e.classList.remove(this.conf.classNames.vertical),
-              e.matches("ul, ol"))
-            ) {
-              e.removeAttribute("id");
-              var s = b("div");
-              e.before(s), s.append(e), (e = s);
-            }
-            (e.id = n),
-              e.classList.add("mm-panel"),
-              e.classList.add("mm-hidden");
-            var a = [e.parentElement].filter(function (e) {
-              return e.matches("li");
-            })[0];
-            if (
-              (i
-                ? a && a.classList.add("mm-listitem_vertical")
-                : this.node.pnls.append(e),
-              a &&
-                ((a.mmChild = e),
-                (e.mmParent = a),
-                a && a.matches(".mm-listitem") && !_(a, ".mm-btn").length))
-            ) {
-              var o = _(a, ".mm-listitem__text")[0];
-              if (o) {
-                var r = b("a.mm-btn.mm-btn_next.mm-listitem__btn");
-                r.setAttribute("href", "#" + e.id),
-                  o.matches("span")
-                    ? (r.classList.add("mm-listitem__text"),
-                      (r.innerHTML = o.innerHTML),
-                      a.insertBefore(r, o.nextElementSibling),
-                      o.remove())
-                    : a.insertBefore(r, _(a, ".mm-panel")[0]);
-              }
-            }
-            return (
-              this._initNavbar(e),
-              _(e, "ul, ol").forEach(function (e) {
-                t.initListview(e);
-              }),
-              this.trigger("initPanel:after", [e]),
-              e
-            );
-          }),
-          (e.prototype._initNavbar = function (e) {
-            if (
-              (this.trigger("initNavbar:before", [e]),
-              !_(e, ".mm-navbar").length)
-            ) {
-              var t = null,
-                n = null;
-              if (
-                (e.dataset.mmParent
-                  ? (n = g(this.node.pnls, e.dataset.mmParent)[0])
-                  : (t = e.mmParent) && (n = t.closest(".mm-panel")),
-                !t || !t.matches(".mm-listitem_vertical"))
-              ) {
-                var i = b("div.mm-navbar");
-                if (
-                  (this.opts.navbar.add
-                    ? this.opts.navbar.sticky &&
-                      i.classList.add("mm-navbar_sticky")
-                    : i.classList.add("mm-hidden"),
-                  n)
-                ) {
-                  var s = b("a.mm-btn.mm-btn_prev.mm-navbar__btn");
-                  s.setAttribute("href", "#" + n.id), i.append(s);
-                }
-                var a = null;
-                t
-                  ? (a = _(t, ".mm-listitem__text")[0])
-                  : n && (a = g(n, 'a[href="#' + e.id + '"]')[0]);
-                var o = b("a.mm-navbar__title"),
-                  r = b("span");
-                switch (
-                  (o.append(r),
-                  (r.innerHTML =
-                    e.dataset.mmTitle ||
-                    (a ? a.textContent : "") ||
-                    this.i18n(this.opts.navbar.title) ||
-                    this.i18n("Menu")),
-                  this.opts.navbar.titleLink)
-                ) {
-                  case "anchor":
-                    a && o.setAttribute("href", a.getAttribute("href"));
-                    break;
-                  case "parent":
-                    n && o.setAttribute("href", "#" + n.id);
-                }
-                i.append(o),
-                  e.prepend(i),
-                  this.trigger("initNavbar:after", [e]);
-              }
-            }
-          }),
-          (e.prototype.initListview = function (e) {
-            var t = this;
-            this.trigger("initListview:before", [e]),
-              E(e, this.conf.classNames.nolistview, "mm-nolistview"),
-              e.matches(".mm-nolistview") ||
-                (e.classList.add("mm-listview"),
-                _(e).forEach(function (e) {
-                  e.classList.add("mm-listitem"),
-                    E(e, t.conf.classNames.selected, "mm-listitem_selected"),
-                    _(e, "a, span").forEach(function (e) {
-                      e.matches(".mm-btn") ||
-                        e.classList.add("mm-listitem__text");
-                    });
-                })),
-              this.trigger("initListview:after", [e]);
-          }),
-          (e.prototype._initOpened = function () {
-            this.trigger("initOpened:before");
-            var e = this.node.pnls.querySelectorAll(".mm-listitem_selected"),
-              t = null;
-            e.forEach(function (e) {
-              (t = e), e.classList.remove("mm-listitem_selected");
-            }),
-              t && t.classList.add("mm-listitem_selected");
-            var n = t
-              ? t.closest(".mm-panel")
-              : _(this.node.pnls, ".mm-panel")[0];
-            this.openPanel(n, !1), this.trigger("initOpened:after");
-          }),
-          (e.prototype._initAnchors = function () {
-            var e = this;
-            this.trigger("initAnchors:before"),
-              document.addEventListener(
-                "click",
-                function (t) {
-                  var n = t.target.closest("a[href]");
-                  if (n) {
-                    for (
-                      var i = {
-                          inMenu: n.closest(".mm-menu") === e.node.menu,
-                          inListview: n.matches(".mm-listitem > a"),
-                          toExternal:
-                            n.matches('[rel="external"]') ||
-                            n.matches('[target="_blank"]'),
-                        },
-                        s = {
-                          close: null,
-                          setSelected: null,
-                          preventDefault:
-                            "#" == n.getAttribute("href").slice(0, 1),
-                        },
-                        c = 0;
-                      c < e.clck.length;
-                      c++
-                    ) {
-                      var l = e.clck[c].call(e, n, i);
-                      if (l) {
-                        if ("boolean" == typeof l)
-                          return void t.preventDefault();
-                        "object" == o(l) && (s = a(l, s));
-                      }
-                    }
-                    i.inMenu &&
-                      i.inListview &&
-                      !i.toExternal &&
-                      (r(n, e.opts.onClick.setSelected, s.setSelected) &&
-                        e.setSelected(n.parentElement),
-                      r(n, e.opts.onClick.preventDefault, s.preventDefault) &&
-                        t.preventDefault(),
-                      r(n, e.opts.onClick.close, s.close) &&
-                        e.opts.offCanvas &&
-                        "function" == typeof e.close &&
-                        e.close());
-                  }
-                },
-                !0
-              ),
-              this.trigger("initAnchors:after");
-          }),
-          (e.prototype.i18n = function (e) {
-            return (function (e, t) {
-              return ("string" == typeof t && void 0 !== p[t] && p[t][e]) || e;
-            })(e, this.conf.language);
-          }),
-          (e.version = "8.4.5"),
-          (e.options = i),
-          (e.configs = s),
-          (e.addons = {}),
-          (e.wrappers = {}),
-          (e.node = {}),
-          (e.vars = {}),
-          e
-        );
-      })(),
-      M = { blockUI: !0, moveBackground: !0 };
-    var T = {
-      clone: !1,
-      menu: { insertMethod: "prepend", insertSelector: "body" },
-      page: { nodetype: "div", selector: null, noSelector: [] },
-    };
-
-    function A(e) {
-      return e ? e.charAt(0).toUpperCase() + e.slice(1) : "";
-    }
-
-    function C(e, t, n) {
-      var i = t.split(".");
-      (e[(t = "mmEvent" + A(i[0]) + A(i[1]))] = e[t] || []),
-        e[t].push(n),
-        e.addEventListener(i[0], n);
-    }
-
-    function N(e, t) {
-      var n = t.split(".");
-      (t = "mmEvent" + A(n[0]) + A(n[1])),
-        (e[t] || []).forEach(function (t) {
-          e.removeEventListener(n[0], t);
-        });
-    }
-
-    (S.options.offCanvas = M), (S.configs.offCanvas = T);
-    (S.prototype.open = function () {
-      var e = this;
-      this.trigger("open:before"),
-        this.vars.opened ||
-          (this._openSetup(),
-          setTimeout(function () {
-            e._openStart();
-          }, this.conf.openingInterval),
-          this.trigger("open:after"));
-    }),
-      (S.prototype._openSetup = function () {
-        var e = this,
-          t = this.opts.offCanvas;
-        this.closeAllOthers(),
-          (S.node.page.mmStyle = S.node.page.getAttribute("style") || ""),
-          (function (e, t, n) {
-            var i = t.split(".");
-            (e[(t = "mmEvent" + A(i[0]) + A(i[1]))] || []).forEach(function (
-              e
-            ) {
-              e(n || {});
-            });
-          })(window, "resize.page", { force: !0 });
-        var n = ["mm-wrapper_opened"];
-        t.blockUI && n.push("mm-wrapper_blocking"),
-          "modal" == t.blockUI && n.push("mm-wrapper_modal"),
-          t.moveBackground && n.push("mm-wrapper_background"),
-          n.forEach(function (t) {
-            e.node.wrpr.classList.add(t);
-          }),
-          setTimeout(function () {
-            e.vars.opened = !0;
-          }, this.conf.openingInterval),
-          this.node.menu.classList.add("mm-menu_opened");
       }),
-      (S.prototype._openStart = function () {
-        var e = this;
-        c(
-          S.node.page,
+      (e[a].prototype = {
+        _init: function (n) {
+          (n = n.not("." + o.nopanel)),
+            (n = this._initPanels(n)),
+            (n = this._initLinks(n)),
+            (n = this._bindCustomEvents(n));
+          for (var s = 0; s < e[a].addons.length; s++)
+            "function" == typeof this["_init_" + e[a].addons[s]] &&
+              this["_init_" + e[a].addons[s]](n);
+          this._update();
+        },
+        _initMenu: function () {
+          this.opts.offCanvas &&
+            this.conf.clone &&
+            ((this.$menu = this.$menu.clone(!0)),
+            this.$menu
+              .add(this.$menu.find("*"))
+              .filter("[id]")
+              .each(function () {
+                e(this).attr("id", o.mm(e(this).attr("id")));
+              })),
+            this.$menu.contents().each(function () {
+              3 == e(this)[0].nodeType && e(this).remove();
+            }),
+            this.$menu.parent().addClass(o.wrapper);
+          var n = [o.menu];
+          n.push(o.mm(this.opts.slidingSubmenus ? "horizontal" : "vertical")),
+            this.opts.classes && n.push(this.opts.classes),
+            this.$menu.addClass(n.join(" "));
+        },
+        _initPanels: function (n) {
+          var s = this;
+          this.__findAddBack(n, "ul, ol")
+            .not("." + o.nolist)
+            .addClass(o.list);
+          var t = this.__findAddBack(n, "." + o.list).find("> li");
+          this.__refactorClass(t, this.conf.classNames.selected, "selected"),
+            this.__refactorClass(t, this.conf.classNames.label, "label"),
+            this.__refactorClass(t, this.conf.classNames.spacer, "spacer"),
+            t.off(d.setSelected).on(d.setSelected, function (n, s) {
+              n.stopPropagation(),
+                t.removeClass(o.selected),
+                "boolean" != typeof s && (s = !0),
+                s && e(this).addClass(o.selected);
+            }),
+            this.__refactorClass(
+              this.__findAddBack(n, "." + this.conf.classNames.panel),
+              this.conf.classNames.panel,
+              "panel"
+            ),
+            n
+              .add(
+                this.__findAddBack(n, "." + o.list)
+                  .children()
+                  .children()
+                  .filter(this.conf.panelNodetype)
+                  .not("." + o.nopanel)
+              )
+              .addClass(o.panel);
+          var a = this.__findAddBack(n, "." + o.panel),
+            i = e("." + o.panel, this.$menu);
+          a.each(function () {
+            var n = e(this),
+              t = n.attr("id") || s.__getUniqueId();
+            n.attr("id", t);
+          }),
+            a.each(function () {
+              var n = e(this),
+                t = n.is("ul, ol") ? n : n.find("ul ,ol").first(),
+                a = n.parent(),
+                i = a.find("> a, > span"),
+                d = a.closest("." + o.panel);
+              if (a.parent().is("." + o.list)) {
+                n.data(l.parent, a);
+                var r = e(
+                  '<a class="' + o.subopen + '" href="#' + n.attr("id") + '" />'
+                ).insertBefore(i);
+                i.is("a") || r.addClass(o.fullsubopen),
+                  s.opts.slidingSubmenus &&
+                    t.prepend(
+                      '<li class="' +
+                        o.subtitle +
+                        '"><a class="' +
+                        o.subclose +
+                        '" href="#' +
+                        d.attr("id") +
+                        '">' +
+                        i.text() +
+                        "</a></li>"
+                    );
+              }
+            });
+          var r = this.opts.slidingSubmenus ? d.open : d.toggle;
+          if (
+            (i.each(function () {
+              var n = e(this),
+                s = n.attr("id");
+              e('a[href="#' + s + '"]', i)
+                .off(d.click)
+                .on(d.click, function (e) {
+                  e.preventDefault(), n.trigger(r);
+                });
+            }),
+            this.opts.slidingSubmenus)
+          ) {
+            var c = this.__findAddBack(n, "." + o.list).find(
+              "> li." + o.selected
+            );
+            c.parents("li")
+              .removeClass(o.selected)
+              .end()
+              .add(c.parents("li"))
+              .each(function () {
+                var n = e(this),
+                  s = n.find("> ." + o.panel);
+                s.length &&
+                  (n.parents("." + o.panel).addClass(o.subopened),
+                  s.addClass(o.opened));
+              })
+              .closest("." + o.panel)
+              .addClass(o.opened)
+              .parents("." + o.panel)
+              .addClass(o.subopened);
+          } else {
+            var c = e("li." + o.selected, i);
+            c.parents("li")
+              .removeClass(o.selected)
+              .end()
+              .add(c.parents("li"))
+              .addClass(o.opened);
+          }
+          var u = i.filter("." + o.opened);
+          return (
+            u.length || (u = a.first()),
+            u.addClass(o.opened).last().addClass(o.current),
+            this.opts.slidingSubmenus &&
+              a.not(u.last()).addClass(o.hidden).end().appendTo(this.$menu),
+            a
+          );
+        },
+        _initLinks: function (n) {
+          var s = this;
+          return (
+            this.__findAddBack(n, "." + o.list)
+              .find("> li > a")
+              .not("." + o.subopen)
+              .not("." + o.subclose)
+              .not('[rel="external"]')
+              .not('[target="_blank"]')
+              .off(d.click)
+              .on(d.click, function (n) {
+                var t = e(this),
+                  a = t.attr("href") || "";
+                s.__valueOrFn(s.opts.onClick.setSelected, t) &&
+                  t.parent().trigger(d.setSelected);
+                var i = s.__valueOrFn(
+                  s.opts.onClick.preventDefault,
+                  t,
+                  "#" == a.slice(0, 1)
+                );
+                i && n.preventDefault(),
+                  s.__valueOrFn(s.opts.onClick.blockUI, t, !i) &&
+                    c.$html.addClass(o.blocking),
+                  s.__valueOrFn(s.opts.onClick.close, t, i) &&
+                    s.$menu.triggerHandler(d.close);
+              }),
+            n
+          );
+        },
+        _bindCustomEvents: function (n) {
+          var s = this;
+          return (
+            n
+              .off(d.toggle + " " + d.open + " " + d.close)
+              .on(d.toggle + " " + d.open + " " + d.close, function (e) {
+                e.stopPropagation();
+              }),
+            this.opts.slidingSubmenus
+              ? n.on(d.open, function () {
+                  return s._openSubmenuHorizontal(e(this));
+                })
+              : n
+                  .on(d.toggle, function () {
+                    var n = e(this);
+                    return n.triggerHandler(
+                      n.parent().hasClass(o.opened) ? d.close : d.open
+                    );
+                  })
+                  .on(d.open, function () {
+                    return e(this).parent().addClass(o.opened), "open";
+                  })
+                  .on(d.close, function () {
+                    return e(this).parent().removeClass(o.opened), "close";
+                  }),
+            n
+          );
+        },
+        _openSubmenuHorizontal: function (n) {
+          if (n.hasClass(o.current)) return !1;
+          var s = e("." + o.panel, this.$menu),
+            t = s.filter("." + o.current);
+          return (
+            s
+              .removeClass(o.highest)
+              .removeClass(o.current)
+              .not(n)
+              .not(t)
+              .addClass(o.hidden),
+            n.hasClass(o.opened)
+              ? t
+                  .addClass(o.highest)
+                  .removeClass(o.opened)
+                  .removeClass(o.subopened)
+              : (n.addClass(o.highest), t.addClass(o.subopened)),
+            n.removeClass(o.hidden).addClass(o.current),
+            setTimeout(function () {
+              n.removeClass(o.subopened).addClass(o.opened);
+            }, this.conf.openingInterval),
+            "open"
+          );
+        },
+        _update: function (e) {
+          if ((this.updates || (this.updates = []), "function" == typeof e))
+            this.updates.push(e);
+          else
+            for (var n = 0, s = this.updates.length; s > n; n++)
+              this.updates[n].call(this, e);
+        },
+        __valueOrFn: function (e, n, s) {
+          return "function" == typeof e
+            ? e.call(n[0])
+            : "undefined" == typeof e && "undefined" != typeof s
+            ? s
+            : e;
+        },
+        __refactorClass: function (e, n, s) {
+          e.filter("." + n)
+            .removeClass(n)
+            .addClass(o[s]);
+        },
+        __findAddBack: function (e, n) {
+          return e.find(n).add(e.filter(n));
+        },
+        __transitionend: function (e, n, s) {
+          var t = !1,
+            a = function () {
+              t || n.call(e[0]), (t = !0);
+            };
+          e.one(d.transitionend, a),
+            e.one(d.webkitTransitionEnd, a),
+            setTimeout(a, 1.1 * s);
+        },
+        __getUniqueId: function () {
+          return o.mm(e[a].uniqueId++);
+        },
+      }),
+      (e.fn[a] = function (i, o) {
+        return (
+          r || t(),
+          (i = n(i, o)),
+          (o = s(o)),
+          this.each(function () {
+            var n = e(this);
+            n.data(a) || n.data(a, new e[a](n, i, o));
+          })
+        );
+      }),
+      (e[a].support = { touch: "ontouchstart" in window.document }),
+      (e[a].debug = function () {}),
+      (e[a].deprecated = function (e, n) {
+        "undefined" != typeof console &&
+          "undefined" != typeof console.warn &&
+          console.warn(
+            "MMENU: " + e + " is deprecated, use " + n + " instead."
+          );
+      });
+  }
+})(jQuery);
+/*
+ * jQuery mmenu offCanvas addon
+ * mmenu.frebsite.nl
+ *
+ * Copyright (c) Fred Heusschen
+ */
+!(function (e) {
+  function o(o) {
+    return (
+      ("top" == o.position || "bottom" == o.position) &&
+        ("back" == o.zposition || "next" == o.zposition) &&
+        (e[s].deprecated(
+          'Using position "' +
+            o.position +
+            '" in combination with zposition "' +
+            o.zposition +
+            '"',
+          'zposition "front"'
+        ),
+        (o.zposition = "front")),
+      o
+    );
+  }
+  function t(e) {
+    return (
+      "string" != typeof e.pageSelector &&
+        (e.pageSelector = "> " + e.pageNodetype),
+      e
+    );
+  }
+  function n() {
+    (c = !0),
+      (p = e[s]._c),
+      (a = e[s]._d),
+      (r = e[s]._e),
+      p.add("offcanvas modal background opening blocker page"),
+      a.add("style"),
+      r.add("opening opened closing closed setPage"),
+      (l = e[s].glbl),
+      (l.$allMenus = (l.$allMenus || e()).add(this.$menu)),
+      l.$wndw.on(r.keydown, function (e) {
+        return l.$html.hasClass(p.opened) && 9 == e.keyCode
+          ? (e.preventDefault(), !1)
+          : void 0;
+      });
+    var o = 0;
+    l.$wndw.on(r.resize, function (e, t) {
+      if (t || l.$html.hasClass(p.opened)) {
+        var n = l.$wndw.height();
+        (t || n != o) && ((o = n), l.$page.css("minHeight", n));
+      }
+    });
+  }
+  var s = "mmenu",
+    i = "offCanvas";
+  (e[s].prototype["_init_" + i] = function () {
+    if (this.opts[i] && !this.vars[i + "_added"]) {
+      (this.vars[i + "_added"] = !0),
+        c || n(),
+        (this.opts[i] = o(this.opts[i])),
+        (this.conf[i] = t(this.conf[i]));
+      var e = this.opts[i],
+        s = this.conf[i],
+        a = [p.offcanvas];
+      "boolean" != typeof this.vars.opened && (this.vars.opened = !1),
+        "left" != e.position && a.push(p.mm(e.position)),
+        "back" != e.zposition && a.push(p.mm(e.zposition)),
+        this.$menu.addClass(a.join(" ")).parent().removeClass(p.wrapper),
+        this[i + "_initPage"](l.$page),
+        this[i + "_initBlocker"](),
+        this[i + "_initOpenClose"](),
+        this[i + "_bindCustomEvents"](),
+        this.$menu[s.menuInjectMethod + "To"](s.menuWrapperSelector);
+    }
+  }),
+    e[s].addons.push(i),
+    (e[s].defaults[i] = {
+      position: "left",
+      zposition: "back",
+      modal: !1,
+      moveBackground: !0,
+    }),
+    (e[s].configuration[i] = {
+      pageNodetype: "div",
+      pageSelector: null,
+      menuWrapperSelector: "body",
+      menuInjectMethod: "prepend",
+    }),
+    (e[s].prototype.open = function () {
+      if (this.vars.opened) return !1;
+      var e = this;
+      return (
+        this._openSetup(),
+        setTimeout(function () {
+          e._openFinish();
+        }, this.conf.openingInterval),
+        "open"
+      );
+    }),
+    (e[s].prototype._openSetup = function () {
+      l.$allMenus.not(this.$menu).trigger(r.close),
+        l.$page.data(a.style, l.$page.attr("style") || ""),
+        l.$wndw.trigger(r.resize, [!0]);
+      var e = [p.opened];
+      this.opts[i].modal && e.push(p.modal),
+        this.opts[i].moveBackground && e.push(p.background),
+        "left" != this.opts[i].position && e.push(p.mm(this.opts[i].position)),
+        "back" != this.opts[i].zposition &&
+          e.push(p.mm(this.opts[i].zposition)),
+        this.opts.classes && e.push(this.opts.classes),
+        l.$html.addClass(e.join(" ")),
+        (this.vars.opened = !0),
+        this.$menu.addClass(p.current + " " + p.opened);
+    }),
+    (e[s].prototype._openFinish = function () {
+      var e = this;
+      this.__transitionend(
+        l.$page,
+        function () {
+          e.$menu.trigger(r.opened);
+        },
+        this.conf.transitionDuration
+      ),
+        l.$html.addClass(p.opening),
+        this.$menu.trigger(r.opening);
+    }),
+    (e[s].prototype.close = function () {
+      if (!this.vars.opened) return !1;
+      var e = this;
+      return (
+        this.__transitionend(
+          l.$page,
           function () {
-            e.trigger("open:finish");
+            e.$menu.removeClass(p.current).removeClass(p.opened),
+              l.$html
+                .removeClass(p.opened)
+                .removeClass(p.modal)
+                .removeClass(p.background)
+                .removeClass(p.mm(e.opts[i].position))
+                .removeClass(p.mm(e.opts[i].zposition)),
+              e.opts.classes && l.$html.removeClass(e.opts.classes),
+              l.$page.attr("style", l.$page.data(a.style)),
+              (e.vars.opened = !1),
+              e.$menu.trigger(r.closed);
           },
           this.conf.transitionDuration
         ),
-          this.trigger("open:start"),
-          this.node.wrpr.classList.add("mm-wrapper_opening");
+        l.$html.removeClass(p.opening),
+        this.$menu.trigger(r.closing),
+        "close"
+      );
+    }),
+    (e[s].prototype[i + "_initBlocker"] = function () {
+      var o = this;
+      l.$blck ||
+        (l.$blck = e('<div id="' + p.blocker + '" />').appendTo(l.$body)),
+        l.$blck
+          .off(r.touchstart)
+          .on(r.touchstart, function (e) {
+            e.preventDefault(),
+              e.stopPropagation(),
+              l.$blck.trigger(r.mousedown);
+          })
+          .on(r.mousedown, function (e) {
+            e.preventDefault(), l.$html.hasClass(p.modal) || o.close();
+          });
+    }),
+    (e[s].prototype[i + "_initPage"] = function (o) {
+      o ||
+        ((o = e(this.conf[i].pageSelector, l.$body)),
+        o.length > 1 &&
+          (e[s].debug(
+            "Multiple nodes found for the page-node, all nodes are wrapped in one <" +
+              this.conf[i].pageNodetype +
+              ">."
+          ),
+          (o = o.wrapAll("<" + this.conf[i].pageNodetype + " />").parent()))),
+        o.addClass(p.page),
+        (l.$page = o);
+    }),
+    (e[s].prototype[i + "_initOpenClose"] = function () {
+      var o = this,
+        t = this.$menu.attr("id");
+      t &&
+        t.length &&
+        (this.conf.clone && (t = p.umm(t)),
+        e('a[href="#' + t + '"]')
+          .off(r.click)
+          .on(r.click, function (e) {
+            e.preventDefault(), o.open();
+          }));
+      var t = l.$page.attr("id");
+      t &&
+        t.length &&
+        e('a[href="#' + t + '"]').on(r.click, function (e) {
+          e.preventDefault(), o.close();
+        });
+    }),
+    (e[s].prototype[i + "_bindCustomEvents"] = function () {
+      var e = this,
+        o =
+          r.open +
+          " " +
+          r.opening +
+          " " +
+          r.opened +
+          " " +
+          r.close +
+          " " +
+          r.closing +
+          " " +
+          r.closed +
+          " " +
+          r.setPage;
+      this.$menu.off(o).on(o, function (e) {
+        e.stopPropagation();
       }),
-      (S.prototype.close = function () {
-        var e = this;
-        this.trigger("close:before"),
-          this.vars.opened &&
-            (c(
-              S.node.page,
-              function () {
-                e.node.menu.classList.remove("mm-menu_opened");
-                [
-                  "mm-wrapper_opened",
-                  "mm-wrapper_blocking",
-                  "mm-wrapper_modal",
-                  "mm-wrapper_background",
-                ].forEach(function (t) {
-                  e.node.wrpr.classList.remove(t);
-                }),
-                  S.node.page.setAttribute("style", S.node.page.mmStyle),
-                  (e.vars.opened = !1),
-                  e.trigger("close:finish");
-              },
-              this.conf.transitionDuration
-            ),
-            this.trigger("close:start"),
-            this.node.wrpr.classList.remove("mm-wrapper_opening"),
-            this.trigger("close:after"));
-      }),
-      (S.prototype.closeAllOthers = function () {
-        var e = this;
-        g(document.body, ".mm-menu_offcanvas").forEach(function (t) {
-          if (t !== e.node.menu) {
-            var n = t.mmApi;
-            n && n.close && n.close();
+        this.$menu
+          .on(r.open, function () {
+            e.open();
+          })
+          .on(r.close, function () {
+            e.close();
+          })
+          .on(r.setPage, function (o, t) {
+            e[i + "_initPage"](t), e[i + "_initOpenClose"]();
+          });
+    });
+  var p,
+    a,
+    r,
+    l,
+    c = !1;
+})(jQuery);
+/*
+ * jQuery mmenu buttonbars addon
+ * mmenu.frebsite.nl
+ *
+ * Copyright (c) Fred Heusschen
+ */
+!(function (t) {
+  function n(t) {
+    return t;
+  }
+  function a(t) {
+    return t;
+  }
+  function i() {
+    (d = !0),
+      (o = t[r]._c),
+      (e = t[r]._d),
+      (u = t[r]._e),
+      o.add("buttonbar"),
+      (c = t[r].glbl);
+  }
+  var r = "mmenu",
+    s = "buttonbars";
+  (t[r].prototype["_init_" + s] = function (r) {
+    d || i();
+    var e = this.vars[s + "_added"];
+    (this.vars[s + "_added"] = !0),
+      e || ((this.opts[s] = n(this.opts[s])), (this.conf[s] = a(this.conf[s]))),
+      this.opts[s],
+      this.conf[s],
+      this.__refactorClass(
+        t("div", r),
+        this.conf.classNames[s].buttonbar,
+        "buttonbar"
+      ),
+      t("div." + o.buttonbar, r).each(function () {
+        var n = t(this),
+          a = n.children().not("input"),
+          i = n.children().filter("input");
+        n.addClass(o.buttonbar + "-" + a.length),
+          i.each(function () {
+            var n = t(this),
+              i = a.filter('label[for="' + n.attr("id") + '"]');
+            i.length && n.insertBefore(i);
+          });
+      });
+  }),
+    t[r].addons.push(s),
+    (t[r].defaults[s] = {}),
+    (t[r].configuration.classNames[s] = { buttonbar: "Buttonbar" });
+  var o,
+    e,
+    u,
+    c,
+    d = !1;
+})(jQuery);
+/*
+ * jQuery mmenu counters addon
+ * mmenu.frebsite.nl
+ *
+ * Copyright (c) Fred Heusschen
+ */
+!(function (t) {
+  function e(e) {
+    return (
+      "boolean" == typeof e && (e = { add: e, update: e }),
+      "object" != typeof e && (e = {}),
+      (e = t.extend(!0, {}, t[o].defaults[s], e))
+    );
+  }
+  function n(t) {
+    return t;
+  }
+  function a() {
+    (i = !0),
+      (d = t[o]._c),
+      (r = t[o]._d),
+      (u = t[o]._e),
+      d.add("counter search noresultsmsg"),
+      r.add("updatecounter"),
+      (c = t[o].glbl);
+  }
+  var o = "mmenu",
+    s = "counters";
+  (t[o].prototype["_init_" + s] = function (o) {
+    i || a();
+    var u = this.vars[s + "_added"];
+    (this.vars[s + "_added"] = !0),
+      u || ((this.opts[s] = e(this.opts[s])), (this.conf[s] = n(this.conf[s])));
+    var c = this,
+      h = this.opts[s];
+    this.conf[s],
+      this.__refactorClass(
+        t("em", o),
+        this.conf.classNames[s].counter,
+        "counter"
+      ),
+      h.add &&
+        o.each(function () {
+          var e = t(this).data(r.parent);
+          e &&
+            (e.find("> em." + d.counter).length ||
+              e.prepend(t('<em class="' + d.counter + '" />')));
+        }),
+      h.update &&
+        o.each(function () {
+          var e = t(this),
+            n = e.data(r.parent);
+          if (n) {
+            var a = n.find("> em." + d.counter);
+            a.length &&
+              (e.is("." + d.list) || (e = e.find("> ." + d.list)),
+              e.length &&
+                !e.data(r.updatecounter) &&
+                (e.data(r.updatecounter, !0),
+                c._update(function () {
+                  var t = e
+                    .children()
+                    .not("." + d.label)
+                    .not("." + d.subtitle)
+                    .not("." + d.hidden)
+                    .not("." + d.search)
+                    .not("." + d.noresultsmsg);
+                  a.html(t.length);
+                })));
           }
         });
-      }),
-      (S.prototype.setPage = function (e) {
-        this.trigger("setPage:before", [e]);
-        var t = this.conf.offCanvas;
-        if (!e) {
-          var n =
-            "string" == typeof t.page.selector
-              ? g(document.body, t.page.selector)
-              : _(document.body, t.page.nodetype);
-          if (
-            ((n = n.filter(function (e) {
-              return !e.matches(".mm-menu, .mm-wrapper__blocker");
-            })),
-            t.page.noSelector.length &&
-              (n = n.filter(function (e) {
-                return !e.matches(t.page.noSelector.join(", "));
-              })),
-            n.length > 1)
-          ) {
-            var i = b("div");
-            n[0].before(i),
-              n.forEach(function (e) {
-                i.append(e);
-              }),
-              (n = [i]);
-          }
-          e = n[0];
-        }
-        e.classList.add("mm-page"),
-          e.classList.add("mm-slideout"),
-          (e.id = e.id || l()),
-          (S.node.page = e),
-          this.trigger("setPage:after", [e]);
-      });
-    var H = function () {
-        var e = this;
-        N(document.body, "keydown.tabguard"),
-          C(document.body, "keydown.tabguard", function (t) {
-            9 == t.keyCode &&
-              e.node.wrpr.matches(".mm-wrapper_opened") &&
-              t.preventDefault();
-          });
-      },
-      j = function () {
-        var e = this;
-        this.trigger("initBlocker:before");
-        var t = this.opts.offCanvas,
-          n = this.conf.offCanvas;
-        if (t.blockUI) {
-          if (!S.node.blck) {
-            var i = b("div.mm-wrapper__blocker.mm-slideout");
-            (i.innerHTML = "<a></a>"),
-              document.querySelector(n.menu.insertSelector).append(i),
-              (S.node.blck = i);
-          }
-          var s = function (t) {
-            t.preventDefault(),
-              t.stopPropagation(),
-              e.node.wrpr.matches(".mm-wrapper_modal") || e.close();
-          };
-          S.node.blck.addEventListener("mousedown", s),
-            S.node.blck.addEventListener("touchstart", s),
-            S.node.blck.addEventListener("touchmove", s),
-            this.trigger("initBlocker:after");
-        }
-      },
-      D = { aria: !0, text: !0 };
-    var O = {
-        text: {
-          closeMenu: "Close menu",
-          closeSubmenu: "Close submenu",
-          openSubmenu: "Open submenu",
-          toggleSubmenu: "Toggle submenu",
-        },
-      },
-      I = {
-        "Close menu": "بستن منو",
-        "Close submenu": "بستن زیرمنو",
-        "Open submenu": "بازکردن زیرمنو",
-        "Toggle submenu": "سوییچ زیرمنو",
-      },
-      q = {
-        "Close menu": "Menü schließen",
-        "Close submenu": "Untermenü schließen",
-        "Open submenu": "Untermenü öffnen",
-        "Toggle submenu": "Untermenü wechseln",
-      },
-      B = {
-        "Close menu": "Закрыть меню",
-        "Close submenu": "Закрыть подменю",
-        "Open submenu": "Открыть подменю",
-        "Toggle submenu": "Переключить подменю",
-      };
-    u(
-      {
-        "Close menu": "Menu sluiten",
-        "Close submenu": "Submenu sluiten",
-        "Open submenu": "Submenu openen",
-        "Toggle submenu": "Submenu wisselen",
-      },
-      "nl"
-    ),
-      u(I, "fa"),
-      u(q, "de"),
-      u(B, "ru"),
-      (S.options.screenReader = D),
-      (S.configs.screenReader = O);
-    var z;
-    (z = function (e, t, n) {
-      (e[t] = n), n ? e.setAttribute(t, n.toString()) : e.removeAttribute(t);
-    }),
-      (S.sr_aria = function (e, t, n) {
-        z(e, "aria-" + t, n);
-      }),
-      (S.sr_role = function (e, t) {
-        z(e, "role", t);
-      }),
-      (S.sr_text = function (e) {
-        return '<span class="mm-sronly">' + e + "</span>";
-      });
-    var R = { fix: !0 };
-    var U = "ontouchstart" in window || !!navigator.msMaxTouchPoints || !1;
-    S.options.scrollBugFix = R;
-    var W = { height: "default" };
-    S.options.autoHeight = W;
-    var Y = { close: !1, open: !1 };
-    S.options.backButton = Y;
-    var F = { add: !1, visible: { min: 1, max: 3 } };
-    S.options.columns = F;
-    var X = { add: !1, addTo: "panels", count: !1 };
-    (S.options.counters = X),
-      (S.configs.classNames.counters = { counter: "Counter" });
-    var V = { add: !1, addTo: "panels" };
-    (S.options.dividers = V), (S.configs.classNames.divider = "Divider");
-    var Z = { open: !1, node: null };
-    var G = "ontouchstart" in window || !!navigator.msMaxTouchPoints || !1,
-      K = { top: 0, right: 0, bottom: 0, left: 0 },
-      Q = { start: 15, swipe: 15 },
-      J = { x: ["Right", "Left"], y: ["Down", "Up"] },
-      $ = 0,
-      ee = 1,
-      te = 2,
-      ne = function (e, t) {
-        return (
-          "string" == typeof e &&
-            "%" == e.slice(-1) &&
-            (e = t * ((e = parseInt(e.slice(0, -1), 10)) / 100)),
-          e
-        );
-      },
-      ie = (function () {
-        function e(e, t, n) {
-          (this.surface = e),
-            (this.area = a(t, K)),
-            (this.treshold = a(n, Q)),
-            this.surface.mmHasDragEvents ||
-              (this.surface.addEventListener(
-                G ? "touchstart" : "mousedown",
-                this.start.bind(this)
-              ),
-              this.surface.addEventListener(
-                G ? "touchend" : "mouseup",
-                this.stop.bind(this)
-              ),
-              this.surface.addEventListener(
-                G ? "touchleave" : "mouseleave",
-                this.stop.bind(this)
-              ),
-              this.surface.addEventListener(
-                G ? "touchmove" : "mousemove",
-                this.move.bind(this)
-              )),
-            (this.surface.mmHasDragEvents = !0);
-        }
-
-        return (
-          (e.prototype.start = function (e) {
-            this.currentPosition = {
-              x: e.touches ? e.touches[0].pageX : e.pageX || 0,
-              y: e.touches ? e.touches[0].pageY : e.pageY || 0,
-            };
-            var t = this.surface.clientWidth,
-              n = this.surface.clientHeight,
-              i = ne(this.area.top, n);
-            if (!("number" == typeof i && this.currentPosition.y < i)) {
-              var s = ne(this.area.right, t);
-              if (
-                !(
-                  "number" == typeof s &&
-                  ((s = t - s), this.currentPosition.x > s)
-                )
-              ) {
-                var a = ne(this.area.bottom, n);
-                if (
-                  !(
-                    "number" == typeof a &&
-                    ((a = n - a), this.currentPosition.y > a)
-                  )
-                ) {
-                  var o = ne(this.area.left, t);
-                  ("number" == typeof o && this.currentPosition.x < o) ||
-                    ((this.startPosition = {
-                      x: this.currentPosition.x,
-                      y: this.currentPosition.y,
-                    }),
-                    (this.state = ee));
-                }
-              }
-            }
-          }),
-          (e.prototype.stop = function (e) {
-            if (this.state == te) {
-              var t = this._dragDirection(),
-                n = this._eventDetail(t);
-              if (
-                (this._dispatchEvents("drag*End", n),
-                Math.abs(this.movement[this.axis]) > this.treshold.swipe)
-              ) {
-                var i = this._swipeDirection();
-                (n.direction = i), this._dispatchEvents("swipe*", n);
-              }
-            }
-            this.state = $;
-          }),
-          (e.prototype.move = function (e) {
-            switch (this.state) {
-              case ee:
-              case te:
-                var t = {
-                  x: e.changedTouches ? e.touches[0].pageX : e.pageX || 0,
-                  y: e.changedTouches ? e.touches[0].pageY : e.pageY || 0,
-                };
-                (this.movement = {
-                  x: t.x - this.currentPosition.x,
-                  y: t.y - this.currentPosition.y,
-                }),
-                  (this.distance = {
-                    x: t.x - this.startPosition.x,
-                    y: t.y - this.startPosition.y,
-                  }),
-                  (this.currentPosition = {
-                    x: t.x,
-                    y: t.y,
-                  }),
-                  (this.axis =
-                    Math.abs(this.distance.x) > Math.abs(this.distance.y)
-                      ? "x"
-                      : "y");
-                var n = this._dragDirection(),
-                  i = this._eventDetail(n);
-                this.state == ee &&
-                  Math.abs(this.distance[this.axis]) > this.treshold.start &&
-                  (this._dispatchEvents("drag*Start", i), (this.state = te)),
-                  this.state == te && this._dispatchEvents("drag*Move", i);
-            }
-          }),
-          (e.prototype._eventDetail = function (e) {
-            var t = this.distance.x,
-              n = this.distance.y;
-            return (
-              "x" == this.axis &&
-                (t -= t > 0 ? this.treshold.start : 0 - this.treshold.start),
-              "y" == this.axis &&
-                (n -= n > 0 ? this.treshold.start : 0 - this.treshold.start),
-              {
-                axis: this.axis,
-                direction: e,
-                movementX: this.movement.x,
-                movementY: this.movement.y,
-                distanceX: t,
-                distanceY: n,
-              }
-            );
-          }),
-          (e.prototype._dispatchEvents = function (e, t) {
-            var n = new CustomEvent(e.replace("*", ""), { detail: t });
-            this.surface.dispatchEvent(n);
-            var i = new CustomEvent(e.replace("*", this.axis.toUpperCase()), {
-              detail: t,
-            });
-            this.surface.dispatchEvent(i);
-            var s = new CustomEvent(e.replace("*", t.direction), { detail: t });
-            this.surface.dispatchEvent(s);
-          }),
-          (e.prototype._dragDirection = function () {
-            return J[this.axis][this.distance[this.axis] > 0 ? 0 : 1];
-          }),
-          (e.prototype._swipeDirection = function () {
-            return J[this.axis][this.movement[this.axis] > 0 ? 0 : 1];
-          }),
-          e
-        );
-      })(),
-      se = null,
-      ae = null,
-      oe = 0,
-      re = function (e) {
-        var t = this,
-          n = {},
-          i = !1,
-          s = function () {
-            var e = Object.keys(t.opts.extensions);
-            e.length
-              ? (P(
-                  e.join(", "),
-                  function () {},
-                  function () {
-                    n = ce(n, [], t.node.menu);
-                  }
-                ),
-                e.forEach(function (e) {
-                  P(
-                    e,
-                    function () {
-                      n = ce(n, t.opts.extensions[e], t.node.menu);
-                    },
-                    function () {}
-                  );
-                }))
-              : (n = ce(n, [], t.node.menu));
-          };
-        ae && (N(ae, "dragStart"), N(ae, "dragMove"), N(ae, "dragEnd")),
-          (se = new ie((ae = e))),
-          s(),
-          (s = function () {}),
-          ae &&
-            (C(ae, "dragStart", function (e) {
-              e.detail.direction == n.direction &&
-                ((i = !0),
-                t.node.wrpr.classList.add("mm-wrapper_dragging"),
-                t._openSetup(),
-                t.trigger("open:start"),
-                (oe =
-                  t.node.menu["x" == n.axis ? "clientWidth" : "clientHeight"]));
-            }),
-            C(ae, "dragMove", function (e) {
-              if (e.detail.axis == n.axis && i) {
-                var t = e.detail["distance" + n.axis.toUpperCase()];
-                switch (n.position) {
-                  case "right":
-                  case "bottom":
-                    t = Math.min(Math.max(t, -oe), 0);
-                    break;
-                  default:
-                    t = Math.max(Math.min(t, oe), 0);
-                }
-                if ("front" == n.zposition)
-                  switch (n.position) {
-                    case "right":
-                    case "bottom":
-                      t += oe;
-                      break;
-                    default:
-                      t -= oe;
-                  }
-                n.slideOutNodes.forEach(function (e) {
-                  e.style.transform =
-                    "translate" + n.axis.toUpperCase() + "(" + t + "px)";
-                });
-              }
-            }),
-            C(ae, "dragEnd", function (e) {
-              if (e.detail.axis == n.axis && i) {
-                (i = !1),
-                  t.node.wrpr.classList.remove("mm-wrapper_dragging"),
-                  n.slideOutNodes.forEach(function (e) {
-                    e.style.transform = "";
-                  });
-                var s =
-                  Math.abs(e.detail["distance" + n.axis.toUpperCase()]) >=
-                  0.75 * oe;
-                if (!s) {
-                  var a = e.detail["movement" + n.axis.toUpperCase()];
-                  switch (n.position) {
-                    case "right":
-                    case "bottom":
-                      s = a <= 0;
-                      break;
-                    default:
-                      s = a >= 0;
-                  }
-                }
-                s ? t._openStart() : t.close();
-              }
-            }));
-      },
-      ce = function (e, t, n) {
-        switch (
-          ((e.position = "left"),
-          (e.zposition = "back"),
-          ["right", "top", "bottom"].forEach(function (n) {
-            t.indexOf("position-" + n) > -1 && (e.position = n);
-          }),
-          ["front", "top", "bottom"].forEach(function (n) {
-            t.indexOf("position-" + n) > -1 && (e.zposition = "front");
-          }),
-          (se.area = {
-            top: "bottom" == e.position ? "75%" : 0,
-            right: "left" == e.position ? "75%" : 0,
-            bottom: "top" == e.position ? "75%" : 0,
-            left: "right" == e.position ? "75%" : 0,
-          }),
-          e.position)
-        ) {
+  }),
+    t[o].addons.push(s),
+    (t[o].defaults[s] = { add: !1, update: !1 }),
+    (t[o].configuration.classNames[s] = { counter: "Counter" });
+  var d,
+    r,
+    u,
+    c,
+    i = !1;
+})(jQuery);
+/*
+ * jQuery mmenu dragOpen addon
+ * mmenu.frebsite.nl
+ *
+ * Copyright (c) Fred Heusschen
+ */
+!(function (e) {
+  function t(e, t, n) {
+    return t > e && (e = t), e > n && (e = n), e;
+  }
+  function n(t) {
+    return (
+      "boolean" == typeof t && (t = { open: t }),
+      "object" != typeof t && (t = {}),
+      (t = e.extend(!0, {}, e[s].defaults[i], t))
+    );
+  }
+  function o(e) {
+    return e;
+  }
+  function a() {
+    (c = !0),
+      (r = e[s]._c),
+      (p = e[s]._d),
+      (f = e[s]._e),
+      r.add("dragging"),
+      (d = e[s].glbl);
+  }
+  var s = "mmenu",
+    i = "dragOpen";
+  (e[s].prototype["_init_" + i] = function () {
+    if (
+      "function" == typeof Hammer &&
+      this.opts.offCanvas &&
+      !this.vars[i + "_added"]
+    ) {
+      (this.vars[i + "_added"] = !0),
+        c || a(),
+        (this.opts[i] = n(this.opts[i])),
+        (this.conf[i] = o(this.conf[i]));
+      var p = this,
+        h = this.opts[i],
+        m = this.conf[i];
+      if (h.open) {
+        if (Hammer.VERSION < 2)
+          return (
+            e[s].deprecated(
+              "Older version of the Hammer library",
+              "version 2 or newer"
+            ),
+            !1
+          );
+        var u,
+          g,
+          l,
+          v,
+          _ = {},
+          w = 0,
+          b = !1,
+          y = !1,
+          $ = 0,
+          x = 0;
+        switch (this.opts.offCanvas.position) {
+          case "left":
+          case "right":
+            (_.events = "panleft panright"),
+              (_.typeLower = "x"),
+              (_.typeUpper = "X"),
+              (y = "width");
+            break;
           case "top":
           case "bottom":
-            e.axis = "y";
-            break;
-          default:
-            e.axis = "x";
+            (_.events = "panup pandown"),
+              (_.typeLower = "y"),
+              (_.typeUpper = "Y"),
+              (y = "height");
         }
-        switch (e.position) {
+        switch (this.opts.offCanvas.position) {
+          case "left":
           case "top":
-            e.direction = "Down";
+            _.negative = !1;
             break;
           case "right":
-            e.direction = "Left";
+          case "bottom":
+            _.negative = !0;
+        }
+        switch (this.opts.offCanvas.position) {
+          case "left":
+            (_.open_dir = "right"), (_.close_dir = "left");
+            break;
+          case "right":
+            (_.open_dir = "left"), (_.close_dir = "right");
+            break;
+          case "top":
+            (_.open_dir = "down"), (_.close_dir = "up");
             break;
           case "bottom":
-            e.direction = "Up";
-            break;
-          default:
-            e.direction = "Right";
+            (_.open_dir = "up"), (_.close_dir = "down");
         }
-        switch (e.zposition) {
+        var C = this.__valueOrFn(h.pageNode, this.$menu, d.$page);
+        "string" == typeof C && (C = e(C));
+        var k = d.$page;
+        switch (this.opts.offCanvas.zposition) {
           case "front":
-            e.slideOutNodes = [n];
+            k = this.$menu;
             break;
-          default:
-            e.slideOutNodes = g(document.body, ".mm-slideout");
+          case "next":
+            k = k.add(this.$menu);
         }
-        return e;
-      };
-    S.options.drag = Z;
-    var le = {
-      drop: !1,
-      fitViewport: !0,
-      event: "click",
-      position: {},
-      tip: !0,
-    };
-    var me = {
-      offset: { button: { x: -5, y: 5 }, viewport: { x: 20, y: 20 } },
-      height: { max: 880 },
-      width: { max: 440 },
-    };
-    (S.options.dropdown = le), (S.configs.dropdown = me);
-    var de = { insertMethod: "append", insertSelector: "body" };
-    (S.configs.fixedElements = de),
-      (S.configs.classNames.fixedElements = { fixed: "Fixed" });
-    var pe = {
-      use: !1,
-      top: [],
-      bottom: [],
-      position: "left",
-      type: "default",
-    };
-    S.options.iconbar = pe;
-    var ue = {
-      add: !1,
-      blockPanel: !0,
-      hideDivider: !1,
-      hideNavbar: !0,
-      visible: 3,
-    };
-    S.options.iconPanels = ue;
-    var fe = { enable: !1, enhance: !1 };
-    S.options.keyboardNavigation = fe;
-    var he = function (e) {
-        var t = this;
-        N(document.body, "keydown.tabguard"),
-          N(document.body, "focusin.tabguard"),
-          C(document.body, "focusin.tabguard", function (e) {
-            if (t.node.wrpr.matches(".mm-wrapper_opened")) {
-              var n = e.target;
-              if (n.matches(".mm-tabend")) {
-                var i = void 0;
-                n.parentElement.matches(".mm-menu") &&
-                  S.node.blck &&
-                  (i = S.node.blck),
-                  n.parentElement.matches(".mm-wrapper__blocker") &&
-                    (i = g(
-                      document.body,
-                      ".mm-menu_offcanvas.mm-menu_opened"
-                    )[0]),
-                  i || (i = n.parentElement),
-                  i && _(i, ".mm-tabstart")[0].focus();
-              }
-            }
-          }),
-          N(document.body, "keydown.navigate"),
-          C(document.body, "keydown.navigate", function (t) {
-            var n = t.target,
-              i = n.closest(".mm-menu");
-            if (i) {
-              i.mmApi;
-              if (!n.matches("input, textarea"))
-                switch (t.keyCode) {
-                  case 13:
-                    (n.matches(".mm-toggle") || n.matches(".mm-check")) &&
-                      n.dispatchEvent(new Event("click"));
-                    break;
-                  case 32:
-                  case 37:
-                  case 38:
-                  case 39:
-                  case 40:
-                    t.preventDefault();
-                }
-              if (e)
-                if (n.matches("input"))
-                  switch (t.keyCode) {
-                    case 27:
-                      n.value = "";
-                  }
-                else {
-                  var s = i.mmApi;
-                  switch (t.keyCode) {
-                    case 8:
-                      var a = g(i, ".mm-panel_opened")[0].mmParent;
-                      a && s.openPanel(a.closest(".mm-panel"));
-                      break;
-                    case 27:
-                      i.matches(".mm-menu_offcanvas") && s.close();
-                  }
-                }
-            }
-          });
-      },
-      ve = { load: !1 };
-    S.options.lazySubmenus = ve;
-    var be = [];
-    var ge = { breadcrumbs: { separator: "/", removeFirst: !1 } };
-
-    function _e() {
-      var e = this,
-        t = this.opts.navbars;
-      if (void 0 !== t) {
-        t instanceof Array || (t = [t]);
-        var n = {};
-        t.length &&
-          (t.forEach(function (t) {
+        var S = new Hammer(C[0]);
+        S.on("panstart", function (e) {
+          switch (((v = e.center[_.typeLower]), p.opts.offCanvas.position)) {
+            case "right":
+            case "bottom":
+              v >= d.$wndw[y]() - h.maxStartPos && (w = 1);
+              break;
+            default:
+              v <= h.maxStartPos && (w = 1);
+          }
+          b = _.open_dir;
+        })
+          .on(_.events + " panend", function (e) {
+            w > 0 && e.preventDefault();
+          })
+          .on(_.events, function (e) {
             if (
-              !(t = (function (e) {
-                return (
-                  "boolean" == typeof e && e && (e = {}),
-                  "object" != typeof e && (e = {}),
-                  void 0 === e.content && (e.content = ["prev", "title"]),
-                  e.content instanceof Array || (e.content = [e.content]),
-                  void 0 === e.use && (e.use = !0),
-                  "boolean" == typeof e.use && e.use && (e.use = !0),
-                  e
-                );
-              })(t)).use
-            )
-              return !1;
-            var i = b("div.mm-navbar"),
-              s = t.position;
-            "bottom" !== s && (s = "top"),
-              n[s] || (n[s] = b("div.mm-navbars_" + s)),
-              n[s].append(i);
-            for (var a = 0, o = t.content.length; a < o; a++) {
-              var r,
-                c = t.content[a];
-              if ("string" == typeof c)
-                if ("function" == typeof (r = _e.navbarContents[c]))
-                  r.call(e, i);
-                else {
-                  var l = b("span");
-                  l.innerHTML = c;
-                  var m = _(l);
-                  1 == m.length && (l = m[0]), i.append(l);
-                }
-              else i.append(c);
+              ((u = e["delta" + _.typeUpper]),
+              _.negative && (u = -u),
+              u != $ && (b = u >= $ ? _.open_dir : _.close_dir),
+              ($ = u),
+              $ > h.threshold && 1 == w)
+            ) {
+              if (d.$html.hasClass(r.opened)) return;
+              (w = 2),
+                p._openSetup(),
+                p.$menu.trigger(f.opening),
+                d.$html.addClass(r.dragging),
+                (x = t(d.$wndw[y]() * m[y].perc, m[y].min, m[y].max));
             }
-            "string" == typeof t.type &&
-              "function" == typeof (r = _e.navbarTypes[t.type]) &&
-              r.call(e, i);
-            "boolean" != typeof t.use &&
-              P(
-                t.use,
-                function () {
-                  i.classList.remove("mm-hidden"), S.sr_aria(i, "hidden", !1);
-                },
-                function () {
-                  i.classList.add("mm-hidden"), S.sr_aria(i, "hidden", !0);
-                }
-              );
-          }),
-          this.bind("initMenu:after", function () {
-            for (var t in n)
-              e.node.menu["bottom" == t ? "append" : "prepend"](n[t]);
-          }));
+            2 == w &&
+              ((g =
+                t($, 10, x) - ("front" == p.opts.offCanvas.zposition ? x : 0)),
+              _.negative && (g = -g),
+              (l = "translate" + _.typeUpper + "(" + g + "px )"),
+              k.css({ "-webkit-transform": "-webkit-" + l, transform: l }));
+          })
+          .on("panend", function () {
+            2 == w &&
+              (d.$html.removeClass(r.dragging),
+              k.css("transform", ""),
+              p[b == _.open_dir ? "_openFinish" : "close"]()),
+              (w = 0);
+          });
       }
     }
-
-    (S.options.navbars = be),
-      (S.configs.navbars = ge),
-      (S.configs.classNames.navbars = {
-        panelNext: "Next",
-        panelPrev: "Prev",
-        panelTitle: "Title",
-      }),
-      (_e.navbarContents = {
-        breadcrumbs: function (e) {
-          var t = this,
-            n = b("div.mm-navbar__breadcrumbs");
-          e.append(n),
-            this.bind("initNavbar:after", function (e) {
-              if (!e.querySelector(".mm-navbar__breadcrumbs")) {
-                _(e, ".mm-navbar")[0].classList.add("mm-hidden");
-                for (
-                  var n = [],
-                    i = b("span.mm-navbar__breadcrumbs"),
-                    s = e,
-                    a = !0;
-                  s;
-
-                ) {
-                  if (
-                    !(s = s.closest(".mm-panel")).parentElement.matches(
-                      ".mm-listitem_vertical"
-                    )
-                  ) {
-                    var o = g(s, ".mm-navbar__title span")[0];
-                    if (o) {
-                      var r = o.textContent;
-                      r.length &&
-                        n.unshift(
-                          a
-                            ? "<span>" + r + "</span>"
-                            : '<a href="#' + s.id + '">' + r + "</a>"
-                        );
-                    }
-                    a = !1;
-                  }
-                  s = s.mmParent;
-                }
-                t.conf.navbars.breadcrumbs.removeFirst && n.shift(),
-                  (i.innerHTML = n.join(
-                    '<span class="mm-separator">' +
-                      t.conf.navbars.breadcrumbs.separator +
-                      "</span>"
-                  )),
-                  _(e, ".mm-navbar")[0].append(i);
-              }
-            }),
-            this.bind("openPanel:start", function (e) {
-              var t = e.querySelector(".mm-navbar__breadcrumbs");
-              n.innerHTML = t ? t.innerHTML : "";
-            }),
-            this.bind("initNavbar:after:sr-aria", function (e) {
-              g(e, ".mm-breadcrumbs a").forEach(function (e) {
-                S.sr_aria(e, "owns", e.getAttribute("href").slice(1));
-              });
-            });
-        },
-        close: function (e) {
-          var t = this,
-            n = b("a.mm-btn.mm-btn_close.mm-navbar__btn");
-          e.append(n),
-            this.bind("setPage:after", function (e) {
-              n.setAttribute("href", "#" + e.id);
-            }),
-            this.bind("setPage:after:sr-text", function () {
-              (n.innerHTML = S.sr_text(
-                t.i18n(t.conf.screenReader.text.closeMenu)
-              )),
-                S.sr_aria(n, "owns", n.getAttribute("href").slice(1));
-            });
-        },
-        next: function (e) {
-          var t,
-            n,
-            i,
-            s = this,
-            a = b("a.mm-btn.mm-btn_next.mm-navbar__btn");
-          e.append(a),
-            this.bind("openPanel:start", function (e) {
-              (t = e.querySelector("." + s.conf.classNames.navbars.panelNext)),
-                (n = t ? t.getAttribute("href") : ""),
-                (i = t ? t.innerHTML : ""),
-                n ? a.setAttribute("href", n) : a.removeAttribute("href"),
-                a.classList[n || i ? "remove" : "add"]("mm-hidden"),
-                (a.innerHTML = i);
-            }),
-            this.bind("openPanel:start:sr-aria", function (e) {
-              S.sr_aria(a, "hidden", a.matches("mm-hidden")),
-                S.sr_aria(a, "owns", (a.getAttribute("href") || "").slice(1));
-            });
-        },
-        prev: function (e) {
-          var t,
-            n,
-            i,
-            s = this,
-            a = b("a.mm-btn.mm-btn_prev.mm-navbar__btn");
-          e.append(a),
-            this.bind("initNavbar:after", function (e) {
-              _(e, ".mm-navbar")[0].classList.add("mm-hidden");
-            }),
-            this.bind("openPanel:start", function (e) {
-              e.parentElement.matches(".mm-listitem_vertical") ||
-                ((t = e.querySelector(
-                  "." + s.conf.classNames.navbars.panelPrev
-                )) || (t = e.querySelector(".mm-navbar__btn.mm-btn_prev")),
-                (n = t ? t.getAttribute("href") : ""),
-                (i = t ? t.innerHTML : ""),
-                n ? a.setAttribute("href", n) : a.removeAttribute("href"),
-                a.classList[n || i ? "remove" : "add"]("mm-hidden"),
-                (a.innerHTML = i));
-            }),
-            this.bind("initNavbar:after:sr-aria", function (e) {
-              S.sr_aria(e.querySelector(".mm-navbar"), "hidden", !0);
-            }),
-            this.bind("openPanel:start:sr-aria", function (e) {
-              S.sr_aria(a, "hidden", a.matches(".mm-hidden")),
-                S.sr_aria(a, "owns", (a.getAttribute("href") || "").slice(1));
-            });
-        },
-        searchfield: function (e) {
-          "object" != o(this.opts.searchfield) && (this.opts.searchfield = {});
-          var t = b("div.mm-navbar__searchfield");
-          e.append(t),
-            (this.opts.searchfield.add = !0),
-            (this.opts.searchfield.addTo = [t]);
-        },
-        title: function (e) {
-          var t,
-            n,
-            i,
-            s,
-            a = this,
-            o = b("a.mm-navbar__title"),
-            r = b("span");
-          o.append(r),
-            e.append(o),
-            this.bind("openPanel:start", function (e) {
-              e.parentElement.matches(".mm-listitem_vertical") ||
-                ((i = e.querySelector(
-                  "." + a.conf.classNames.navbars.panelTitle
-                )) || (i = e.querySelector(".mm-navbar__title span")),
-                (t = i ? i.getAttribute("href") : "")
-                  ? o.setAttribute("href", t)
-                  : o.removeAttribute("href"),
-                (n = i ? i.innerHTML : ""),
-                (r.innerHTML = n));
-            }),
-            this.bind("openPanel:start:sr-aria", function (e) {
-              if (a.opts.screenReader.text) {
-                if (!s)
-                  _(a.node.menu, ".mm-navbars_top, .mm-navbars_bottom").forEach(
-                    function (e) {
-                      var t = e.querySelector(".mm-btn_prev");
-                      t && (s = t);
-                    }
-                  );
-                if (s) {
-                  var t = !0;
-                  "parent" == a.opts.navbar.titleLink &&
-                    (t = !s.matches(".mm-hidden")),
-                    S.sr_aria(o, "hidden", t);
-                }
-              }
-            });
-        },
-      }),
-      (_e.navbarTypes = {
-        tabs: function (e) {
-          var t = this;
-          e.classList.add("mm-navbar_tabs"),
-            e.parentElement.classList.add("mm-navbars_has-tabs");
-          var n = _(e, "a");
-          e.addEventListener("click", function (e) {
-            var n = e.target;
-            if (n.matches("a"))
-              if (n.matches(".mm-navbar__tab_selected"))
-                e.stopImmediatePropagation();
-              else
-                try {
-                  t.openPanel(
-                    t.node.menu.querySelector(n.getAttribute("href")),
-                    !1
-                  ),
-                    e.stopImmediatePropagation();
-                } catch (e) {}
-          }),
-            this.bind("openPanel:start", function e(t) {
-              n.forEach(function (e) {
-                e.classList.remove("mm-navbar__tab_selected");
-              });
-              var i = n.filter(function (e) {
-                return e.matches('[href="#' + t.id + '"]');
-              })[0];
-              if (i) i.classList.add("mm-navbar__tab_selected");
-              else {
-                var s = t.mmParent;
-                s && e.call(this, s.closest(".mm-panel"));
-              }
-            });
-        },
-      });
-    var ye = { scroll: !1, update: !1 };
-    var Le = { scrollOffset: 0, updateOffset: 50 };
-    (S.options.pageScroll = ye), (S.configs.pageScroll = Le);
-    var we = {
-      add: !1,
-      addTo: "panels",
-      cancel: !1,
-      noResults: "No results found.",
-      placeholder: "Search",
-      panel: {
-        add: !1,
-        dividers: !0,
-        fx: "none",
-        id: null,
-        splash: null,
-        title: "Search",
-      },
-      search: !0,
-      showTextItems: !1,
-      showSubPanels: !0,
-    };
-    var Ee = { clear: !1, form: !1, input: !1, submit: !1 },
-      xe = {
-        Search: "جستجو",
-        "No results found.": "نتیجه‌ای یافت نشد.",
-        cancel: "انصراف",
-      },
-      Pe = {
-        Search: "Suche",
-        "No results found.": "Keine Ergebnisse gefunden.",
-        cancel: "beenden",
-      },
-      ke = {
-        Search: "Найти",
-        "No results found.": "Ничего не найдено.",
-        cancel: "отменить",
-      };
-    u(
-      {
-        Search: "Zoeken",
-        "No results found.": "Geen resultaten gevonden.",
-        cancel: "annuleren",
-      },
-      "nl"
-    ),
-      u(xe, "fa"),
-      u(Pe, "de"),
-      u(ke, "ru"),
-      (S.options.searchfield = we),
-      (S.configs.searchfield = Ee);
-    var Se = function () {
-        var e = this.opts.searchfield,
-          t = (this.conf.searchfield, _(this.node.pnls, ".mm-panel_search")[0]);
-        if (t) return t;
-        (t = b("div.mm-panel.mm-panel_search.mm-hidden")),
-          e.panel.id && (t.id = e.panel.id),
-          e.panel.title && (t.dataset.mmTitle = e.panel.title);
-        var n = b("ul");
-        switch (
-          (t.append(n),
-          this.node.pnls.append(t),
-          this.initListview(n),
-          this._initNavbar(t),
-          e.panel.fx)
-        ) {
-          case !1:
-            break;
-          case "none":
-            t.classList.add("mm-panel_noanimation");
-            break;
-          default:
-            t.classList.add("mm-panel_fx-" + e.panel.fx);
-        }
-        if (e.panel.splash) {
-          var i = b("div.mm-panel__content");
-          (i.innerHTML = e.panel.splash), t.append(i);
-        }
-        return (
-          t.classList.add("mm-panel"),
-          t.classList.add("mm-hidden"),
-          this.node.pnls.append(t),
-          t
-        );
-      },
-      Me = function (e) {
-        var t = this.opts.searchfield,
-          n = this.conf.searchfield;
-        if (e.parentElement.matches(".mm-listitem_vertical")) return null;
-        if ((a = g(e, ".mm-searchfield")[0])) return a;
-
-        function i(e, t) {
-          if (t) for (var n in t) e.setAttribute(n, t[n]);
-        }
-
-        var s,
-          a = b((n.form ? "form" : "div") + ".mm-searchfield"),
-          o = b("div.mm-searchfield__input"),
-          r = b("input");
-        ((r.type = "text"),
-        (r.autocomplete = "off"),
-        (r.placeholder = this.i18n(t.placeholder)),
-        o.append(r),
-        a.append(o),
-        e.prepend(a),
-        i(r, n.input),
-        n.clear) &&
-          ((s = b("a.mm-btn.mm-btn_close.mm-searchfield__btn")).setAttribute(
-            "href",
-            "#"
-          ),
-          o.append(s));
-        (i(a, n.form), n.form && n.submit && !n.clear) &&
-          ((s = b("a.mm-btn.mm-btn_next.mm-searchfield__btn")).setAttribute(
-            "href",
-            "#"
-          ),
-          o.append(s));
-        t.cancel &&
-          ((s = b("a.mm-searchfield__cancel")).setAttribute("href", "#"),
-          (s.textContent = this.i18n("cancel")),
-          a.append(s));
-        return a;
-      },
-      Te = function (e) {
-        var t = this,
-          n = this.opts.searchfield,
-          i = (this.conf.searchfield, {});
-        e.closest(".mm-panel_search")
-          ? ((i.panels = g(this.node.pnls, ".mm-panel")),
-            (i.noresults = [e.closest(".mm-panel")]))
-          : e.closest(".mm-panel")
-          ? ((i.panels = [e.closest(".mm-panel")]), (i.noresults = i.panels))
-          : ((i.panels = g(this.node.pnls, ".mm-panel")),
-            (i.noresults = [this.node.menu])),
-          (i.panels = i.panels.filter(function (e) {
-            return !e.parentElement.matches(".mm-listitem_vertical");
-          })),
-          (i.panels = i.panels.filter(function (e) {
-            return !e.matches(".mm-panel_search");
-          })),
-          (i.listitems = []),
-          (i.dividers = []),
-          i.panels.forEach(function (e) {
-            var t, n;
-            (t = i.listitems).push.apply(t, g(e, ".mm-listitem")),
-              (n = i.dividers).push.apply(n, g(e, ".mm-divider"));
-          });
-        var s = _(this.node.pnls, ".mm-panel_search")[0],
-          a = g(e, "input")[0],
-          o = g(e, ".mm-searchfield__cancel")[0];
-        (a.mmSearchfield = i),
-          n.panel.add &&
-            n.panel.splash &&
-            (N(a, "focus.splash"),
-            C(a, "focus.splash", function (e) {
-              t.openPanel(s);
-            })),
-          n.cancel &&
-            (N(a, "focus.cancel"),
-            C(a, "focus.cancel", function (e) {
-              o.classList.add("mm-searchfield__cancel-active");
-            }),
-            N(o, "click.splash"),
-            C(o, "click.splash", function (e) {
-              if (
-                (e.preventDefault(),
-                o.classList.remove("mm-searchfield__cancel-active"),
-                s.matches(".mm-panel_opened"))
-              ) {
-                var n = _(t.node.pnls, ".mm-panel_opened-parent");
-                n.length && t.openPanel(n[n.length - 1]);
-              }
-            })),
-          n.panel.add &&
-            "panel" == n.addTo &&
-            this.bind("openPanel:finish", function (e) {
-              e === s && a.focus();
-            }),
-          N(a, "input.search"),
-          C(a, "input.search", function (e) {
-            switch (e.keyCode) {
-              case 9:
-              case 16:
-              case 17:
-              case 18:
-              case 37:
-              case 38:
-              case 39:
-              case 40:
-                break;
-              default:
-                t.search(a);
-            }
-          }),
-          this.search(a);
-      },
-      Ae = function (e) {
-        if (e) {
-          var t = this.opts.searchfield;
-          this.conf.searchfield;
-          if (
-            (e.closest(".mm-panel") || (e = _(this.node.pnls, ".mm-panel")[0]),
-            !_(e, ".mm-panel__noresultsmsg").length)
-          ) {
-            var n = b("div.mm-panel__noresultsmsg.mm-hidden");
-            (n.innerHTML = this.i18n(t.noResults)), e.append(n);
-          }
-        }
-      };
-    S.prototype.search = function (e, t) {
-      var n,
-        i = this,
-        s = this.opts.searchfield;
-      this.conf.searchfield;
-      t = (t = t || "" + e.value).toLowerCase().trim();
-      var a = e.mmSearchfield,
-        o = g(e.closest(".mm-searchfield"), ".mm-btn"),
-        r = _(this.node.pnls, ".mm-panel_search")[0],
-        c = a.panels,
-        l = a.noresults,
-        m = a.listitems,
-        d = a.dividers;
+  }),
+    e[s].addons.push(i),
+    (e[s].defaults[i] = { open: !1, maxStartPos: 100, threshold: 50 }),
+    (e[s].configuration[i] = {
+      width: { perc: 0.8, min: 140, max: 440 },
+      height: { perc: 0.8, min: 140, max: 880 },
+    });
+  var r,
+    p,
+    f,
+    d,
+    c = !1;
+})(jQuery);
+/*
+ * jQuery mmenu fixedElements addon
+ * mmenu.frebsite.nl
+ *
+ * Copyright (c) Fred Heusschen
+ */
+!(function (t) {
+  function s(t) {
+    return t;
+  }
+  function o(t) {
+    return t;
+  }
+  function n() {
+    (c = !0),
+      (e = t[i]._c),
+      (f = t[i]._d),
+      (r = t[i]._e),
+      e.add("fixed-top fixed-bottom"),
+      (d = t[i].glbl);
+  }
+  var i = "mmenu",
+    a = "fixedElements";
+  (t[i].prototype["_init_" + a] = function () {
+    if (this.opts.offCanvas) {
+      c || n();
+      var i = this.vars[a + "_added"];
       if (
-        (m.forEach(function (e) {
-          e.classList.remove("mm-listitem_nosubitems"),
-            e.classList.remove("mm-listitem_onlysubitems"),
-            e.classList.remove("mm-hidden");
-        }),
-        r && (_(r, ".mm-listview")[0].innerHTML = ""),
-        c.forEach(function (e) {
-          e.scrollTop = 0;
-        }),
-        t.length)
+        ((this.vars[a + "_added"] = !0),
+        i ||
+          ((this.opts[a] = s(this.opts[a])), (this.conf[a] = o(this.conf[a]))),
+        this.opts[a],
+        this.conf[a],
+        this.__refactorClass(
+          t("div, span, a", d.$page),
+          this.conf.classNames[a].fixedTop,
+          "fixed-top"
+        ),
+        this.__refactorClass(
+          t("div, span, a", d.$page),
+          this.conf.classNames[a].fixedBottom,
+          "fixed-bottom"
+        ),
+        !i)
       ) {
-        d.forEach(function (e) {
-          e.classList.add("mm-hidden");
-        }),
-          m.forEach(function (e) {
-            var n,
-              i = _(e, ".mm-listitem__text")[0],
-              a = !1;
-            i &&
-              ((n = i),
-              Array.prototype.slice
-                .call(n.childNodes)
-                .filter(function (e) {
-                  return 3 == e.nodeType;
-                })
-                .map(function (e) {
-                  return e.textContent;
-                })
-                .join(" "))
-                .toLowerCase()
-                .indexOf(t) > -1 &&
-              (i.matches(".mm-listitem__btn")
-                ? s.showSubPanels && (a = !0)
-                : i.matches("a")
-                ? (a = !0)
-                : s.showTextItems && (a = !0)),
-              a || e.classList.add("mm-hidden");
+        var f, p;
+        this.$menu
+          .on(r.opening, function () {
+            var s = t(window).scrollTop(),
+              o = d.$page.height() - s - d.$wndw.height();
+            (f = t("." + e["fixed-top"])),
+              (p = t("." + e["fixed-bottom"])),
+              f.css({
+                "-webkit-transform": "translateY( " + s + "px )",
+                transform: "translateY( " + s + "px )",
+              }),
+              p.css({
+                "-webkit-transform": "translateY( -" + o + "px )",
+                transform: "translateY( -" + o + "px )",
+              });
+          })
+          .on(r.closed, function () {
+            f.add(p).css({ "-webkit-transform": "none", transform: "none" });
           });
-        var p = m.filter(function (e) {
-          return !e.matches(".mm-hidden");
-        }).length;
-        if (s.panel.add) {
-          var u = [];
-          c.forEach(function (e) {
-            var t = L(g(e, ".mm-listitem"));
-            if (
-              (t = t.filter(function (e) {
-                return !e.matches(".mm-hidden");
-              })).length
-            ) {
-              if (s.panel.dividers) {
-                var n = b("li.mm-divider"),
-                  i = g(e, ".mm-navbar__title")[0];
-                i && ((n.innerHTML = i.innerHTML), u.push(n));
-              }
-              t.forEach(function (e) {
-                u.push(e.cloneNode(!0));
-              });
-            }
-          }),
-            u.forEach(function (e) {
-              e.querySelectorAll(".mm-toggle, .mm-check").forEach(function (e) {
-                e.remove();
-              });
-            }),
-            (n = _(r, ".mm-listview")[0]).append.apply(n, u),
-            this.openPanel(r);
-        } else
-          s.showSubPanels &&
-            c.forEach(function (e) {
-              L(g(e, ".mm-listitem")).forEach(function (e) {
-                var t = e.mmChild;
-                t &&
-                  g(t, ".mm-listitem").forEach(function (e) {
-                    e.classList.remove("mm-hidden");
-                  });
-              });
-            }),
-            c
-              .slice()
-              .reverse()
-              .forEach(function (t, n) {
-                var s = t.mmParent;
-                s &&
-                  (L(g(t, ".mm-listitem")).length
-                    ? (s.matches(".mm-hidden") &&
-                        s.classList.remove("mm-hidden"),
-                      s.classList.add("mm-listitem_onlysubitems"))
-                    : e.closest(".mm-panel") ||
-                      ((t.matches(".mm-panel_opened") ||
-                        t.matches(".mm-panel_opened-parent")) &&
-                        setTimeout(function () {
-                          i.openPanel(s.closest(".mm-panel"));
-                        }, (n + 1) * (1.5 * i.conf.openingInterval)),
-                      s.classList.add("mm-listitem_nosubitems")));
-              }),
-            c.forEach(function (e) {
-              L(g(e, ".mm-listitem")).forEach(function (e) {
-                var t = (function (e, t) {
-                  for (var n = [], i = e.previousElementSibling; i; )
-                    (t && !i.matches(t)) || n.push(i),
-                      (i = i.previousElementSibling);
-                  return n;
-                })(e, ".mm-divider")[0];
-                t && t.classList.remove("mm-hidden");
-              });
-            });
-        o.forEach(function (e) {
-          return e.classList.remove("mm-hidden");
-        }),
-          l.forEach(function (e) {
-            g(e, ".mm-panel__noresultsmsg").forEach(function (e) {
-              return e.classList[p ? "add" : "remove"]("mm-hidden");
-            });
-          }),
-          s.panel.add &&
-            (s.panel.splash &&
-              g(r, ".mm-panel__content").forEach(function (e) {
-                return e.classList.add("mm-hidden");
-              }),
-            m.forEach(function (e) {
-              return e.classList.remove("mm-hidden");
-            }),
-            d.forEach(function (e) {
-              return e.classList.remove("mm-hidden");
-            }));
-      } else if (
-        (m.forEach(function (e) {
-          return e.classList.remove("mm-hidden");
-        }),
-        d.forEach(function (e) {
-          return e.classList.remove("mm-hidden");
-        }),
-        o.forEach(function (e) {
-          return e.classList.add("mm-hidden");
-        }),
-        l.forEach(function (e) {
-          g(e, ".mm-panel__noresultsmsg").forEach(function (e) {
-            return e.classList.add("mm-hidden");
-          });
-        }),
-        s.panel.add)
-      )
-        if (s.panel.splash)
-          g(r, ".mm-panel__content").forEach(function (e) {
-            return e.classList.remove("mm-hidden");
-          });
-        else if (!e.closest(".mm-panel_search")) {
-          var f = _(this.node.pnls, ".mm-panel_opened-parent");
-          this.openPanel(f.slice(-1)[0]);
-        }
-      this.trigger("updateListview");
-    };
-    var Ce = { add: !1, addTo: "panels" };
-    S.options.sectionIndexer = Ce;
-    var Ne = { current: !0, hover: !1, parent: !1 };
-    S.options.setSelected = Ne;
-    var He = {
-      collapsed: { use: !1, blockMenu: !0, hideDivider: !1, hideNavbar: !0 },
-      expanded: { use: !1, initial: "open" },
-    };
-    S.options.sidebar = He;
-    S.configs.classNames.toggles = { toggle: "Toggle", check: "Check" };
-    /*!
-     * mmenu.js
-     * mmenujs.com
-     *
-     * Copyright (c) Fred Heusschen
-     * frebsite.nl
-     *
-     * License: CC-BY-NC-4.0
-     * http://creativecommons.org/licenses/by-nc/4.0/
-     */
-    (S.addons = {
-      offcanvas: function () {
-        var e = this;
-        if (this.opts.offCanvas) {
-          var t = (function (e) {
-            return "object" != typeof e && (e = {}), e;
-          })(this.opts.offCanvas);
-          this.opts.offCanvas = a(t, S.options.offCanvas);
-          var n = this.conf.offCanvas;
-          this._api.push("open", "close", "setPage"),
-            (this.vars.opened = !1),
-            this.bind("initMenu:before", function () {
-              n.clone &&
-                ((e.node.menu = e.node.menu.cloneNode(!0)),
-                e.node.menu.id && (e.node.menu.id = "mm-" + e.node.menu.id),
-                g(e.node.menu, "[id]").forEach(function (e) {
-                  e.id = "mm-" + e.id;
-                })),
-                (e.node.wrpr = document.body),
-                document
-                  .querySelector(n.menu.insertSelector)
-                  [n.menu.insertMethod](e.node.menu);
-            }),
-            this.bind("initMenu:after", function () {
-              j.call(e),
-                e.setPage(S.node.page),
-                H.call(e),
-                e.node.menu.classList.add("mm-menu_offcanvas");
-              var t = window.location.hash;
-              if (t) {
-                var n = d(e.node.menu.id);
-                n &&
-                  n == t.slice(1) &&
-                  setTimeout(function () {
-                    e.open();
-                  }, 1e3);
-              }
-            }),
-            this.bind("setPage:after", function (e) {
-              S.node.blck &&
-                _(S.node.blck, "a").forEach(function (t) {
-                  t.setAttribute("href", "#" + e.id);
-                });
-            }),
-            this.bind("open:start:sr-aria", function () {
-              S.sr_aria(e.node.menu, "hidden", !1);
-            }),
-            this.bind("close:finish:sr-aria", function () {
-              S.sr_aria(e.node.menu, "hidden", !0);
-            }),
-            this.bind("initMenu:after:sr-aria", function () {
-              S.sr_aria(e.node.menu, "hidden", !0);
-            }),
-            this.bind("initBlocker:after:sr-text", function () {
-              _(S.node.blck, "a").forEach(function (t) {
-                t.innerHTML = S.sr_text(
-                  e.i18n(e.conf.screenReader.text.closeMenu)
-                );
-              });
-            }),
-            this.clck.push(function (t, n) {
-              var i = d(e.node.menu.id);
-              if (i && t.matches('[href="#' + i + '"]')) {
-                if (n.inMenu) return e.open(), !0;
-                var s = t.closest(".mm-menu");
-                if (s) {
-                  var a = s.mmApi;
-                  if (a && a.close)
-                    return (
-                      a.close(),
-                      c(
-                        s,
-                        function () {
-                          e.open();
-                        },
-                        e.conf.transitionDuration
-                      ),
-                      !0
-                    );
-                }
-                return e.open(), !0;
-              }
-              if ((i = S.node.page.id) && t.matches('[href="#' + i + '"]'))
-                return e.close(), !0;
-            });
-        }
-      },
-      screenReader: function () {
-        var e = this,
-          t = (function (e) {
-            return (
-              "boolean" == typeof e && (e = { aria: e, text: e }),
-              "object" != typeof e && (e = {}),
-              e
-            );
-          })(this.opts.screenReader);
-        this.opts.screenReader = a(t, S.options.screenReader);
-        var n = this.conf.screenReader;
-        t.aria &&
-          (this.bind("initAddons:after", function () {
-            e.bind("initMenu:after", function () {
-              this.trigger("initMenu:after:sr-aria", [].slice.call(arguments));
-            }),
-              e.bind("initNavbar:after", function () {
-                this.trigger(
-                  "initNavbar:after:sr-aria",
-                  [].slice.call(arguments)
-                );
-              }),
-              e.bind("openPanel:start", function () {
-                this.trigger(
-                  "openPanel:start:sr-aria",
-                  [].slice.call(arguments)
-                );
-              }),
-              e.bind("close:start", function () {
-                this.trigger("close:start:sr-aria", [].slice.call(arguments));
-              }),
-              e.bind("close:finish", function () {
-                this.trigger("close:finish:sr-aria", [].slice.call(arguments));
-              }),
-              e.bind("open:start", function () {
-                this.trigger("open:start:sr-aria", [].slice.call(arguments));
-              }),
-              e.bind("initOpened:after", function () {
-                this.trigger(
-                  "initOpened:after:sr-aria",
-                  [].slice.call(arguments)
-                );
-              });
-          }),
-          this.bind("updateListview", function () {
-            e.node.pnls.querySelectorAll(".mm-listitem").forEach(function (e) {
-              S.sr_aria(e, "hidden", e.matches(".mm-hidden"));
-            });
-          }),
-          this.bind("openPanel:start", function (t) {
-            var n = g(e.node.pnls, ".mm-panel")
-                .filter(function (e) {
-                  return e !== t;
-                })
-                .filter(function (e) {
-                  return !e.parentElement.matches(".mm-panel");
-                }),
-              i = [t];
-            g(t, ".mm-listitem_vertical .mm-listitem_opened").forEach(function (
-              e
-            ) {
-              i.push.apply(i, _(e, ".mm-panel"));
-            }),
-              n.forEach(function (e) {
-                S.sr_aria(e, "hidden", !0);
-              }),
-              i.forEach(function (e) {
-                S.sr_aria(e, "hidden", !1);
-              });
-          }),
-          this.bind("closePanel", function (e) {
-            S.sr_aria(e, "hidden", !0);
-          }),
-          this.bind("initPanel:after", function (e) {
-            g(e, ".mm-btn").forEach(function (e) {
-              S.sr_aria(e, "haspopup", !0);
-              var t = e.getAttribute("href");
-              t && S.sr_aria(e, "owns", t.replace("#", ""));
-            });
-          }),
-          this.bind("initNavbar:after", function (e) {
-            var t = _(e, ".mm-navbar")[0],
-              n = t.matches(".mm-hidden");
-            S.sr_aria(t, "hidden", n);
-          }),
-          t.text &&
-            "parent" == this.opts.navbar.titleLink &&
-            this.bind("initNavbar:after", function (e) {
-              var t = _(e, ".mm-navbar")[0],
-                n = !!t.querySelector(".mm-btn_prev");
-              S.sr_aria(g(t, ".mm-navbar__title")[0], "hidden", n);
-            })),
-          t.text &&
-            (this.bind("initAddons:after", function () {
-              e.bind("setPage:after", function () {
-                this.trigger("setPage:after:sr-text", [].slice.call(arguments));
-              }),
-                e.bind("initBlocker:after", function () {
-                  this.trigger(
-                    "initBlocker:after:sr-text",
-                    [].slice.call(arguments)
-                  );
-                });
-            }),
-            this.bind("initNavbar:after", function (t) {
-              var i = _(t, ".mm-navbar")[0];
-              if (i) {
-                var s = _(i, ".mm-btn_prev")[0];
-                s && (s.innerHTML = S.sr_text(e.i18n(n.text.closeSubmenu)));
-              }
-            }),
-            this.bind("initListview:after", function (t) {
-              var i = t.closest(".mm-panel").mmParent;
-              if (i) {
-                var s = _(i, ".mm-btn_next")[0];
-                if (s) {
-                  var a = e.i18n(
-                    n.text[
-                      s.parentElement.matches(".mm-listitem_vertical")
-                        ? "toggleSubmenu"
-                        : "openSubmenu"
-                    ]
-                  );
-                  s.innerHTML += S.sr_text(a);
-                }
-              }
-            }));
-      },
-      scrollBugFix: function () {
-        var e = this;
-        if (U && this.opts.offCanvas && this.opts.offCanvas.blockUI) {
-          var t = (function (e) {
-            return (
-              "boolean" == typeof e && (e = { fix: e }),
-              "object" != typeof e && (e = {}),
-              e
-            );
-          })(this.opts.scrollBugFix);
-          if (
-            ((this.opts.scrollBugFix = a(t, S.options.scrollBugFix)), t.fix)
-          ) {
-            var n,
-              i,
-              s =
-                ((n = this.node.menu),
-                (i = ""),
-                n.addEventListener("touchmove", function (e) {
-                  (i = ""),
-                    e.movementY > 0
-                      ? (i = "down")
-                      : e.movementY < 0 && (i = "up");
-                }),
-                {
-                  get: function () {
-                    return i;
-                  },
-                });
-            this.node.menu.addEventListener("scroll", o, { passive: !1 }),
-              this.node.menu.addEventListener(
-                "touchmove",
-                function (e) {
-                  var t = e.target.closest(".mm-panel");
-                  t
-                    ? t.scrollHeight === t.offsetHeight
-                      ? o(e)
-                      : ((0 == t.scrollTop && "down" == s.get()) ||
-                          (t.scrollHeight == t.scrollTop + t.offsetHeight &&
-                            "up" == s.get())) &&
-                        o(e)
-                    : o(e);
-                },
-                { passive: !1 }
-              ),
-              this.bind("open:start", function () {
-                var t = _(e.node.pnls, ".mm-panel_opened")[0];
-                t && (t.scrollTop = 0);
-              }),
-              window.addEventListener("orientationchange", function (t) {
-                var n = _(e.node.pnls, ".mm-panel_opened")[0];
-                n &&
-                  ((n.scrollTop = 0),
-                  (n.style["-webkit-overflow-scrolling"] = "auto"),
-                  (n.style["-webkit-overflow-scrolling"] = "touch"));
-              });
-          }
-        }
-
-        function o(e) {
-          e.preventDefault(), e.stopPropagation();
-        }
-      },
-      autoHeight: function () {
-        var e = this,
-          t = (function (e) {
-            return (
-              "boolean" == typeof e && e && (e = { height: "auto" }),
-              "string" == typeof e && (e = { height: e }),
-              "object" != typeof e && (e = {}),
-              e
-            );
-          })(this.opts.autoHeight);
-        if (
-          ((this.opts.autoHeight = a(t, S.options.autoHeight)),
-          "auto" == t.height || "highest" == t.height)
-        ) {
-          var n,
-            i =
-              ((n = function (e) {
-                return (
-                  e.parentElement.matches(".mm-listitem_vertical") &&
-                    (e = y(e, ".mm-panel").filter(function (e) {
-                      return !e.parentElement.matches(".mm-listitem_vertical");
-                    })[0]),
-                  e
-                );
-              }),
-              function () {
-                if (!e.opts.offCanvas || e.vars.opened) {
-                  var i,
-                    s,
-                    a = 0,
-                    o = e.node.menu.offsetHeight - e.node.pnls.offsetHeight;
-                  e.node.menu.classList.add("mm-menu_autoheight-measuring"),
-                    "auto" == t.height
-                      ? ((s = _(e.node.pnls, ".mm-panel_opened")[0]) &&
-                          (s = n(s)),
-                        s || (s = _(e.node.pnls, ".mm-panel")[0]),
-                        (a = s.scrollHeight))
-                      : "highest" == t.height &&
-                        ((i = 0),
-                        _(e.node.pnls, ".mm-panel").forEach(function (e) {
-                          (e = n(e)), (i = Math.max(i, e.scrollHeight));
-                        }),
-                        (a = i)),
-                    (e.node.menu.style.height = a + o + "px"),
-                    e.node.menu.classList.remove(
-                      "mm-menu_autoheight-measuring"
-                    );
-                }
-              });
-          this.bind("initMenu:after", function () {
-            e.node.menu.classList.add("mm-menu_autoheight");
-          }),
-            this.opts.offCanvas && this.bind("open:start", i),
-            "highest" == t.height && this.bind("initPanels:after", i),
-            "auto" == t.height &&
-              (this.bind("updateListview", i), this.bind("openPanel:start", i));
-        }
-      },
-      backButton: function () {
-        var e = this;
-        if (this.opts.offCanvas) {
-          var t = (function (e) {
-            return (
-              "boolean" == typeof e && (e = { close: e }),
-              "object" != typeof e && (e = {}),
-              e
-            );
-          })(this.opts.backButton);
-          this.opts.backButton = a(t, S.options.backButton);
-          var n = "#" + this.node.menu.id;
-          if (t.close) {
-            var i = [],
-              s = function () {
-                (i = [n]),
-                  _(
-                    e.node.pnls,
-                    ".mm-panel_opened, .mm-panel_opened-parent"
-                  ).forEach(function (e) {
-                    i.push("#" + e.id);
-                  });
-              };
-            this.bind("open:finish", function () {
-              history.pushState(null, document.title, n);
-            }),
-              this.bind("open:finish", s),
-              this.bind("openPanel:finish", s),
-              this.bind("close:finish", function () {
-                (i = []),
-                  history.back(),
-                  history.pushState(
-                    null,
-                    document.title,
-                    location.pathname + location.search
-                  );
-              }),
-              window.addEventListener("popstate", function (t) {
-                if (e.vars.opened && i.length) {
-                  var s = (i = i.slice(0, -1))[i.length - 1];
-                  s == n
-                    ? e.close()
-                    : (e.openPanel(e.node.menu.querySelector(s)),
-                      history.pushState(null, document.title, n));
-                }
-              });
-          }
-          t.open &&
-            window.addEventListener("popstate", function (t) {
-              e.vars.opened || location.hash != n || e.open();
-            });
-        }
-      },
-      columns: function () {
-        var e = this,
-          t = (function (e) {
-            return (
-              "boolean" == typeof e && (e = { add: e }),
-              "number" == typeof e &&
-                (e = {
-                  add: !0,
-                  visible: e,
-                }),
-              "object" != typeof e && (e = {}),
-              "number" == typeof e.visible &&
-                (e.visible = {
-                  min: e.visible,
-                  max: e.visible,
-                }),
-              e
-            );
-          })(this.opts.columns);
-        if (((this.opts.columns = a(t, S.options.columns)), t.add)) {
-          (t.visible.min = Math.max(1, Math.min(6, t.visible.min))),
-            (t.visible.max = Math.max(
-              t.visible.min,
-              Math.min(6, t.visible.max)
-            ));
-          for (
-            var n = [],
-              i = [],
-              s = [
-                "mm-panel_opened",
-                "mm-panel_opened-parent",
-                "mm-panel_highest",
-              ],
-              o = 0;
-            o <= t.visible.max;
-            o++
-          )
-            n.push("mm-menu_columns-" + o), i.push("mm-panel_columns-" + o);
-          s.push.apply(s, i),
-            this.bind("openPanel:before", function (t) {
-              var n;
-              if ((t && (n = t.mmParent), n && (n = n.closest(".mm-panel")))) {
-                var i = n.className;
-                if (i.length && (i = i.split("mm-panel_columns-")[1]))
-                  for (var a = parseInt(i.split(" ")[0], 10) + 1; a > 0; ) {
-                    if (!(t = _(e.node.pnls, ".mm-panel_columns-" + a)[0])) {
-                      a = -1;
-                      break;
-                    }
-                    a++,
-                      t.classList.add("mm-hidden"),
-                      s.forEach(function (e) {
-                        t.classList.remove(e);
-                      });
-                  }
-              }
-            }),
-            this.bind("openPanel:start", function (s) {
-              var a = _(e.node.pnls, ".mm-panel_opened-parent").length;
-              s.matches(".mm-panel_opened-parent") || a++,
-                (a = Math.min(t.visible.max, Math.max(t.visible.min, a))),
-                n.forEach(function (t) {
-                  e.node.menu.classList.remove(t);
-                }),
-                e.node.menu.classList.add("mm-menu_columns-" + a);
-              var o = [];
-              _(e.node.pnls, ".mm-panel").forEach(function (e) {
-                i.forEach(function (t) {
-                  e.classList.remove(t);
-                }),
-                  e.matches(".mm-panel_opened-parent") && o.push(e);
-              }),
-                o.push(s),
-                o.slice(-t.visible.max).forEach(function (e, t) {
-                  e.classList.add("mm-panel_columns-" + t);
-                });
-            });
-        }
-      },
-      counters: function () {
-        var e = this,
-          t = (function (e) {
-            return (
-              "boolean" == typeof e &&
-                (e = {
-                  add: e,
-                  addTo: "panels",
-                  count: e,
-                }),
-              "object" != typeof e && (e = {}),
-              "panels" == e.addTo && (e.addTo = ".mm-listview"),
-              e
-            );
-          })(this.opts.counters);
-        if (
-          ((this.opts.counters = a(t, S.options.counters)),
-          this.bind("initListview:after", function (t) {
-            var n = e.conf.classNames.counters.counter;
-            g(t, "." + n).forEach(function (e) {
-              E(e, n, "mm-counter");
-            });
-          }),
-          t.add &&
-            this.bind("initListview:after", function (e) {
-              if (e.matches(t.addTo)) {
-                var n = e.closest(".mm-panel").mmParent;
-                if (n && !g(n, ".mm-counter").length) {
-                  var i = _(n, ".mm-btn")[0];
-                  i && i.prepend(b("span.mm-counter"));
-                }
-              }
-            }),
-          t.count)
-        ) {
-          var n = function (t) {
-            (t
-              ? [t.closest(".mm-panel")]
-              : _(e.node.pnls, ".mm-panel")
-            ).forEach(function (e) {
-              var t = e.mmParent;
-              if (t) {
-                var n = g(t, ".mm-counter")[0];
-                if (n) {
-                  var i = [];
-                  _(e, ".mm-listview").forEach(function (e) {
-                    i.push.apply(i, _(e));
-                  }),
-                    (n.innerHTML = L(i).length.toString());
-                }
-              }
-            });
+      }
+    }
+  }),
+    t[i].addons.push(a),
+    (t[i].defaults[a] = {}),
+    (t[i].configuration.classNames[a] = {
+      fixedTop: "FixedTop",
+      fixedBottom: "FixedBottom",
+    });
+  var e,
+    f,
+    r,
+    d,
+    c = !1;
+})(jQuery);
+/*
+ * jQuery mmenu footer addon
+ * mmenu.frebsite.nl
+ *
+ * Copyright (c) Fred Heusschen
+ */
+!(function (t) {
+  function o(o) {
+    return (
+      "boolean" == typeof o && (o = { add: o, update: o }),
+      "object" != typeof o && (o = {}),
+      (o = t.extend(!0, {}, t[a].defaults[s], o))
+    );
+  }
+  function n(t) {
+    return t;
+  }
+  function e() {
+    (h = !0),
+      (i = t[a]._c),
+      (d = t[a]._d),
+      (r = t[a]._e),
+      i.add("footer hasfooter"),
+      (f = t[a].glbl);
+  }
+  var a = "mmenu",
+    s = "footer";
+  (t[a].prototype["_init_" + s] = function (a) {
+    h || e();
+    var d = this.vars[s + "_added"];
+    (this.vars[s + "_added"] = !0),
+      d || ((this.opts[s] = o(this.opts[s])), (this.conf[s] = n(this.conf[s])));
+    var f = this,
+      u = this.opts[s];
+    if ((this.conf[s], !d && u.add)) {
+      var c = u.content ? u.content : u.title;
+      t('<div class="' + i.footer + '" />')
+        .appendTo(this.$menu)
+        .append(c);
+    }
+    var p = t("div." + i.footer, this.$menu);
+    p.length &&
+      (this.$menu.addClass(i.hasfooter),
+      u.update &&
+        a.each(function () {
+          var o = t(this),
+            n = t("." + f.conf.classNames[s].panelFooter, o),
+            e = n.html();
+          e || (e = u.title);
+          var a = function () {
+            p[e ? "show" : "hide"](), p.html(e);
           };
-          this.bind("initListview:after", n), this.bind("updateListview", n);
-        }
-      },
-      dividers: function () {
-        var e = this,
-          t = (function (e) {
-            return (
-              "boolean" == typeof e && (e = { add: e }),
-              "object" != typeof e && (e = {}),
-              "panels" == e.addTo && (e.addTo = ".mm-listview"),
-              e
+          o.on(r.open, a), o.hasClass(i.current) && a();
+        }),
+      "function" == typeof this._init_buttonbars && this._init_buttonbars(p));
+  }),
+    t[a].addons.push(s),
+    (t[a].defaults[s] = { add: !1, content: !1, title: "", update: !1 }),
+    (t[a].configuration.classNames[s] = { panelFooter: "Footer" });
+  var i,
+    d,
+    r,
+    f,
+    h = !1;
+})(jQuery);
+/*
+ * jQuery mmenu header addon
+ * mmenu.frebsite.nl
+ *
+ * Copyright (c) Fred Heusschen
+ */
+!(function (e) {
+  function t(t) {
+    return (
+      "boolean" == typeof t && (t = { add: t, update: t }),
+      "object" != typeof t && (t = {}),
+      (t = e.extend(!0, {}, e[s].defaults[r], t))
+    );
+  }
+  function a(e) {
+    return e;
+  }
+  function n() {
+    (l = !0),
+      (i = e[s]._c),
+      (o = e[s]._d),
+      (h = e[s]._e),
+      i.add("header hasheader prev next title"),
+      (d = e[s].glbl);
+  }
+  var s = "mmenu",
+    r = "header";
+  (e[s].prototype["_init_" + r] = function (s) {
+    l || n();
+    var o = this.vars[r + "_added"];
+    (this.vars[r + "_added"] = !0),
+      o || ((this.opts[r] = t(this.opts[r])), (this.conf[r] = a(this.conf[r])));
+    var c = this,
+      f = this.opts[r];
+    if ((this.conf[r], !o && f.add)) {
+      var p = f.content
+        ? f.content
+        : '<a class="' +
+          i.prev +
+          '" href="#"></a><span class="' +
+          i.title +
+          '"></span><a class="' +
+          i.next +
+          '" href="#"></a>';
+      e('<div class="' + i.header + '" />')
+        .prependTo(this.$menu)
+        .append(p);
+    }
+    var u = e("div." + i.header, this.$menu);
+    if (u.length) {
+      if ((this.$menu.addClass(i.hasheader), f.update)) {
+        var v = u.find("." + i.title),
+          m = u.find("." + i.prev),
+          _ = u.find("." + i.next),
+          g = !1;
+        d.$page && (g = "#" + d.$page.attr("id")),
+          o ||
+            m
+              .add(_)
+              .off(h.click)
+              .on(h.click, function (t) {
+                t.preventDefault(), t.stopPropagation();
+                var a = e(this).attr("href");
+                "#" !== a &&
+                  (g && a == g
+                    ? c.$menu.trigger(h.close)
+                    : e(a, c.$menu).trigger(h.open));
+              }),
+          s.each(function () {
+            var t = e(this),
+              a = e("." + c.conf.classNames[r].panelHeader, t),
+              n = e("." + c.conf.classNames[r].panelPrev, t),
+              s = e("." + c.conf.classNames[r].panelNext, t),
+              o = a.html(),
+              d = n.attr("href"),
+              l = s.attr("href");
+            o || (o = e("." + i.subclose, t).html()),
+              o || (o = f.title),
+              d || (d = e("." + i.subclose, t).attr("href"));
+            var p = n.html(),
+              u = s.html(),
+              g = function () {
+                v[o ? "show" : "hide"](),
+                  v.html(o),
+                  m[d ? "attr" : "removeAttr"]("href", d),
+                  m[d || p ? "show" : "hide"](),
+                  m.html(p),
+                  _[l ? "attr" : "removeAttr"]("href", l),
+                  _[l || u ? "show" : "hide"](),
+                  _.html(u);
+              };
+            t.on(h.open, g), t.hasClass(i.current) && g();
+          });
+      }
+      "function" == typeof this._init_buttonbars && this._init_buttonbars(u);
+    }
+  }),
+    e[s].addons.push(r),
+    (e[s].defaults[r] = { add: !1, content: !1, title: "Menu", update: !1 }),
+    (e[s].configuration.classNames[r] = {
+      panelHeader: "Header",
+      panelNext: "Next",
+      panelPrev: "Prev",
+    });
+  var i,
+    o,
+    h,
+    d,
+    l = !1;
+})(jQuery);
+/*
+ * jQuery mmenu labels addon
+ * mmenu.frebsite.nl
+ *
+ * Copyright (c) Fred Heusschen
+ */
+!(function (l) {
+  function a(a) {
+    return (
+      "boolean" == typeof a && (a = { collapse: a }),
+      "object" != typeof a && (a = {}),
+      (a = l.extend(!0, {}, l[o].defaults[t], a))
+    );
+  }
+  function e(l) {
+    return l;
+  }
+  function s() {
+    (i = !0),
+      (n = l[o]._c),
+      (d = l[o]._d),
+      (c = l[o]._e),
+      n.add("collapsed"),
+      d.add("updatelabel"),
+      (p = l[o].glbl);
+  }
+  var o = "mmenu",
+    t = "labels";
+  (l[o].prototype["_init_" + t] = function (o) {
+    i || s();
+    var p = this.vars[t + "_added"];
+    (this.vars[t + "_added"] = !0),
+      p || ((this.opts[t] = a(this.opts[t])), (this.conf[t] = e(this.conf[t])));
+    var u = this.opts[t];
+    this.conf[t],
+      u.collapse &&
+        (this.__refactorClass(
+          l("li", this.$menu),
+          this.conf.classNames[t].collapsed,
+          "collapsed"
+        ),
+        l("." + n.label, o).each(function () {
+          var a = l(this),
+            e = a.nextUntil(
+              "." + n.label,
+              "all" == u.collapse ? null : "." + n.collapsed
             );
-          })(this.opts.dividers);
-        (this.opts.dividers = a(t, S.options.dividers)),
-          this.bind("initListview:after", function (t) {
-            _(t).forEach(function (t) {
-              E(t, e.conf.classNames.divider, "mm-divider"),
-                t.matches(".mm-divider") && t.classList.remove("mm-listitem");
-            });
-          }),
-          t.add &&
-            this.bind("initListview:after", function (e) {
-              if (e.matches(t.addTo)) {
-                g(e, ".mm-divider").forEach(function (e) {
-                  e.remove();
-                });
-                var n = "";
-                L(_(e)).forEach(function (t) {
-                  var i = _(t, ".mm-listitem__text")[0]
-                    .textContent.trim()
-                    .toLowerCase()[0];
-                  if (i.length && i != n) {
-                    n = i;
-                    var s = b("li.mm-divider");
-                    (s.textContent = i), e.insertBefore(s, t);
-                  }
-                });
-              }
-            });
-      },
-      drag: function () {
-        var e = this;
-        if (this.opts.offCanvas) {
-          var t = (function (e) {
-            return (
-              "boolean" == typeof e && (e = { open: e }),
-              "object" != typeof e && (e = {}),
-              e
-            );
-          })(this.opts.drag);
-          (this.opts.drag = a(t, S.options.drag)),
-            t.open &&
-              this.bind("setPage:after", function (n) {
-                re.call(e, t.node || n);
-              });
-        }
-      },
-      dropdown: function () {
-        var e = this;
-        if (this.opts.offCanvas) {
-          var t = (function (e) {
-            return (
-              "boolean" == typeof e && e && (e = { drop: e }),
-              "object" != typeof e && (e = {}),
-              "string" == typeof e.position &&
-                (e.position = { of: e.position }),
-              e
-            );
-          })(this.opts.dropdown);
-          this.opts.dropdown = a(t, S.options.dropdown);
-          var n = this.conf.dropdown;
-          if (t.drop) {
-            var i;
-            this.bind("initMenu:after", function () {
-              if (
-                (e.node.menu.classList.add("mm-menu_dropdown"),
-                "string" != typeof t.position.of)
-              ) {
-                var n = d(e.node.menu.id);
-                n && (t.position.of = '[href="#' + n + '"]');
-              }
-              if ("string" == typeof t.position.of) {
-                i = g(document.body, t.position.of)[0];
-                var s = t.event.split(" ");
-                1 == s.length && (s[1] = s[0]),
-                  "hover" == s[0] &&
-                    i.addEventListener(
-                      "mouseenter",
-                      function () {
-                        e.open();
-                      },
-                      { passive: !0 }
-                    ),
-                  "hover" == s[1] &&
-                    e.node.menu.addEventListener(
-                      "mouseleave",
-                      function () {
-                        e.close();
-                      },
-                      { passive: !0 }
+          "all" == u.collapse &&
+            (a.addClass(n.opened), e.removeClass(n.collapsed)),
+            e.length &&
+              (a.data(d.updatelabel) ||
+                (a.data(d.updatelabel, !0),
+                a.wrapInner("<span />"),
+                a.prepend(
+                  '<a href="#" class="' +
+                    n.subopen +
+                    " " +
+                    n.fullsubopen +
+                    '" />'
+                )),
+              a
+                .find("a." + n.subopen)
+                .off(c.click)
+                .on(c.click, function (l) {
+                  l.preventDefault(),
+                    a.toggleClass(n.opened),
+                    e[a.hasClass(n.opened) ? "removeClass" : "addClass"](
+                      n.collapsed
                     );
-              }
-            }),
-              this.bind("open:start", function () {
-                (e.node.menu.mmStyle = e.node.menu.getAttribute("style")),
-                  e.node.wrpr.classList.add("mm-wrapper_dropdown");
-              }),
-              this.bind("close:finish", function () {
-                e.node.menu.setAttribute("style", e.node.menu.mmStyle),
-                  e.node.wrpr.classList.remove("mm-wrapper_dropdown");
-              });
-            var s = function (e, s) {
-              var a,
-                o,
-                r,
-                c = s[0],
-                l = s[1],
-                m = "x" == e ? "offsetWidth" : "offsetHeight",
-                d = "x" == e ? "left" : "top",
-                p = "x" == e ? "right" : "bottom",
-                u = "x" == e ? "width" : "height",
-                f = "x" == e ? "innerWidth" : "innerHeight",
-                h = "x" == e ? "maxWidth" : "maxHeight",
-                v = null,
-                b =
-                  ((a = d),
-                  i.getBoundingClientRect()[a] +
-                    document.body["left" === a ? "scrollLeft" : "scrollTop"]),
-                g = b + i[m],
-                _ = window[f],
-                y = n.offset.button[e] + n.offset.viewport[e];
-              if (t.position[e])
-                switch (t.position[e]) {
-                  case "left":
-                  case "bottom":
-                    v = "after";
-                    break;
-                  case "right":
-                  case "top":
-                    v = "before";
-                }
-              return (
-                null === v &&
-                  (v = b + (g - b) / 2 < _ / 2 ? "after" : "before"),
-                "after" == v
-                  ? ((r = _ - ((o = "x" == e ? b : g) + y)),
-                    (c[d] = o + n.offset.button[e] + "px"),
-                    (c[p] = "auto"),
-                    t.tip &&
-                      l.push("mm-menu_tip-" + ("x" == e ? "left" : "top")))
-                  : ((r = (o = "x" == e ? g : b) - y),
-                    (c[p] =
-                      "calc( 100% - " + (o - n.offset.button[e]) + "px )"),
-                    (c[d] = "auto"),
-                    t.tip &&
-                      l.push("mm-menu_tip-" + ("x" == e ? "right" : "bottom"))),
-                t.fitViewport && (c[h] = Math.min(n[u].max, r) + "px"),
-                [c, l]
-              );
-            };
-            this.bind("open:start", o),
-              window.addEventListener(
-                "resize",
-                function (t) {
-                  o.call(e);
-                },
-                { passive: !0 }
-              ),
-              this.opts.offCanvas.blockUI ||
-                window.addEventListener(
-                  "scroll",
-                  function (t) {
-                    o.call(e);
-                  },
-                  { passive: !0 }
-                );
+                }));
+        }));
+  }),
+    l[o].addons.push(t),
+    (l[o].defaults[t] = { collapse: !1 }),
+    (l[o].configuration.classNames[t] = { collapsed: "Collapsed" });
+  var n,
+    d,
+    c,
+    p,
+    i = !1;
+})(jQuery);
+/*
+ * jQuery mmenu searchfield addon
+ * mmenu.frebsite.nl
+ *
+ * Copyright (c) Fred Heusschen
+ */
+!(function (e) {
+  function s(e) {
+    switch (e) {
+      case 9:
+      case 16:
+      case 17:
+      case 18:
+      case 37:
+      case 38:
+      case 39:
+      case 40:
+        return !0;
+    }
+    return !1;
+  }
+  function n(s) {
+    return (
+      "boolean" == typeof s && (s = { add: s, search: s }),
+      "object" != typeof s && (s = {}),
+      (s = e.extend(!0, {}, e[r].defaults[o], s)),
+      "boolean" != typeof s.showLinksOnly &&
+        (s.showLinksOnly = "menu" == s.addTo),
+      s
+    );
+  }
+  function t(e) {
+    return e;
+  }
+  function a() {
+    (c = !0),
+      (i = e[r]._c),
+      (l = e[r]._d),
+      (d = e[r]._e),
+      i.add("search hassearch noresultsmsg noresults nosubresults"),
+      d.add("search reset change"),
+      (h = e[r].glbl);
+  }
+  var r = "mmenu",
+    o = "searchfield";
+  (e[r].prototype["_init_" + o] = function (r) {
+    c || a();
+    var h = this.vars[o + "_added"];
+    (this.vars[o + "_added"] = !0),
+      h || ((this.opts[o] = n(this.opts[o])), (this.conf[o] = t(this.conf[o])));
+    var u = this,
+      f = this.opts[o];
+    if ((this.conf[o], f.add)) {
+      switch (f.addTo) {
+        case "menu":
+          var p = this.$menu;
+          break;
+        case "panels":
+          var p = r;
+          break;
+        default:
+          var p = e(f.addTo, this.$menu).filter("." + i.panel);
+      }
+      p.length &&
+        p.each(function () {
+          var s = e(this),
+            n = s.is("." + i.list) ? "li" : "div";
+          if (!s.children(n + "." + i.search).length) {
+            if (s.is("." + i.menu))
+              var t = u.$menu,
+                a = "prependTo";
+            else
+              var t = s.children().first(),
+                a = t.is("." + i.subtitle) ? "insertAfter" : "insertBefore";
+            e("<" + n + ' class="' + i.search + '" />')
+              .append(
+                '<input placeholder="' +
+                  f.placeholder +
+                  '" type="text" autocomplete="off" />'
+              )
+              [a](t);
           }
-        }
-
-        function o() {
-          var e = this;
-          if (this.vars.opened) {
-            this.node.menu.setAttribute("style", this.node.menu.mmStyle);
-            var n = [{}, []];
-            for (var i in ((n = s.call(this, "y", n)),
-            (n = s.call(this, "x", n))[0]))
-              this.node.menu.style[i] = n[0][i];
-            if (t.tip) {
-              [
-                "mm-menu_tip-left",
-                "mm-menu_tip-right",
-                "mm-menu_tip-top",
-                "mm-menu_tip-bottom",
-              ].forEach(function (t) {
-                e.node.menu.classList.remove(t);
-              }),
-                n[1].forEach(function (t) {
-                  e.node.menu.classList.add(t);
-                });
-            }
-          }
-        }
-      },
-      fixedElements: function () {
-        var e = this;
-        if (this.opts.offCanvas) {
-          var t,
-            n,
-            i = this.conf.fixedElements;
-          this.bind("setPage:after", function (s) {
-            (t = e.conf.classNames.fixedElements.fixed),
-              (n = g(document, i.insertSelector)[0]),
-              g(s, "." + t).forEach(function (e) {
-                E(e, t, "mm-slideout"), n[i.insertMethod](e);
-              });
-          });
-        }
-      },
-      iconbar: function () {
-        var e,
-          t = this,
-          n = (function (e) {
-            return (
-              "array" == o(e) &&
-                (e = {
-                  use: !0,
-                  top: e,
-                }),
-              "object" != o(e) && (e = {}),
-              void 0 === e.use && (e.use = !0),
-              "boolean" == typeof e.use && e.use && (e.use = !0),
-              e
-            );
-          })(this.opts.iconbar);
-        if (
-          ((this.opts.iconbar = a(n, S.options.iconbar)), n.use) &&
-          (["top", "bottom"].forEach(function (t, i) {
-            var s = n[t];
-            "array" != o(s) && (s = [s]);
-            for (
-              var a = b("div.mm-iconbar__" + t), r = 0, c = s.length;
-              r < c;
-              r++
-            )
-              "string" == typeof s[r] ? (a.innerHTML += s[r]) : a.append(s[r]);
-            a.children.length && (e || (e = b("div.mm-iconbar")), e.append(a));
-          }),
-          e)
-        ) {
-          this.bind("initMenu:after", function () {
-            t.node.menu.prepend(e);
-          });
-          var i = "mm-menu_iconbar-" + n.position,
-            s = function () {
-              t.node.menu.classList.add(i), S.sr_aria(e, "hidden", !1);
-            };
-          if (
-            ("boolean" == typeof n.use
-              ? this.bind("initMenu:after", s)
-              : P(n.use, s, function () {
-                  t.node.menu.classList.remove(i), S.sr_aria(e, "hidden", !0);
-                }),
-            "tabs" == n.type)
-          ) {
-            e.classList.add("mm-iconbar_tabs"),
-              e.addEventListener("click", function (e) {
-                var n = e.target;
-                if (n.matches("a"))
-                  if (n.matches(".mm-iconbar__tab_selected"))
-                    e.stopImmediatePropagation();
-                  else
-                    try {
-                      var i = t.node.menu.querySelector(
-                        n.getAttribute("href")
-                      )[0];
-                      i &&
-                        i.matches(".mm-panel") &&
-                        (e.preventDefault(),
-                        e.stopImmediatePropagation(),
-                        t.openPanel(i, !1));
-                    } catch (e) {}
-              });
-            var r = function (t) {
-              g(e, "a").forEach(function (e) {
-                e.classList.remove("mm-iconbar__tab_selected");
-              });
-              var n = g(e, '[href="#' + t.id + '"]')[0];
-              if (n) n.classList.add("mm-iconbar__tab_selected");
-              else {
-                var i = t.mmParent;
-                i && r(i.closest(".mm-panel"));
-              }
-            };
-            this.bind("openPanel:start", r);
-          }
-        }
-      },
-      iconPanels: function () {
-        var e = this,
-          t = (function (e) {
-            return (
-              "boolean" == typeof e && (e = { add: e }),
-              ("number" != typeof e && "string" != typeof e) ||
-                (e = {
-                  add: !0,
-                  visible: e,
-                }),
-              "object" != typeof e && (e = {}),
-              e
-            );
-          })(this.opts.iconPanels);
-        this.opts.iconPanels = a(t, S.options.iconPanels);
-        var n = !1;
-        if (
-          ("first" == t.visible && ((n = !0), (t.visible = 1)),
-          (t.visible = Math.min(3, Math.max(1, t.visible))),
-          t.visible++,
-          t.add)
-        ) {
-          this.bind("initMenu:after", function () {
-            var n = ["mm-menu_iconpanel"];
-            t.hideNavbar && n.push("mm-menu_hidenavbar"),
-              t.hideDivider && n.push("mm-menu_hidedivider"),
-              n.forEach(function (t) {
-                e.node.menu.classList.add(t);
-              });
-          });
-          var i = [];
-          if (!n)
-            for (var s = 0; s <= t.visible; s++)
-              i.push("mm-panel_iconpanel-" + s);
-          this.bind("openPanel:start", function (s) {
-            var a = _(e.node.pnls, ".mm-panel");
-            if (!(s = s || a[0]).parentElement.matches(".mm-listitem_vertical"))
-              if (n)
-                a.forEach(function (e, t) {
-                  e.classList[0 == t ? "add" : "remove"](
-                    "mm-panel_iconpanel-first"
-                  );
-                });
-              else {
-                a.forEach(function (e) {
-                  i.forEach(function (t) {
-                    e.classList.remove(t);
-                  });
-                }),
-                  (a = a.filter(function (e) {
-                    return e.matches(".mm-panel_opened-parent");
-                  }));
-                var o = !1;
-                a.forEach(function (e) {
-                  s === e && (o = !0);
-                }),
-                  o || a.push(s),
-                  a.forEach(function (e) {
-                    e.classList.remove("mm-hidden");
-                  }),
-                  (a = a.slice(-t.visible)).forEach(function (e, t) {
-                    e.classList.add("mm-panel_iconpanel-" + t);
-                  });
-              }
-          }),
-            this.bind("initPanel:after", function (e) {
-              if (
-                t.blockPanel &&
-                !e.parentElement.matches(".mm-listitem_vertical") &&
-                !_(e, ".mm-panel__blocker")[0]
-              ) {
-                var n = b("a.mm-panel__blocker");
-                n.setAttribute("href", "#" + e.closest(".mm-panel").id),
-                  e.prepend(n);
-              }
-            });
-        }
-      },
-      keyboardNavigation: function () {
-        var e = this;
-        if (!U) {
-          var t = (function (e) {
-            return (
-              ("boolean" != typeof e && "string" != typeof e) ||
-                (e = { enable: e }),
-              "object" != typeof e && (e = {}),
-              e
-            );
-          })(this.opts.keyboardNavigation);
-          if (
-            ((this.opts.keyboardNavigation = a(
-              t,
-              S.options.keyboardNavigation
-            )),
-            t.enable)
-          ) {
-            var n = b("button.mm-tabstart.mm-sronly"),
-              i = b("button.mm-tabend.mm-sronly"),
-              s = b("button.mm-tabend.mm-sronly");
-            this.bind("initMenu:after", function () {
-              t.enhance && e.node.menu.classList.add("mm-menu_keyboardfocus"),
-                he.call(e, t.enhance);
-            }),
-              this.bind("initOpened:before", function () {
-                e.node.menu.prepend(n),
-                  e.node.menu.append(i),
-                  _(e.node.menu, ".mm-navbars-top, .mm-navbars-bottom").forEach(
-                    function (e) {
-                      e.querySelectorAll(".mm-navbar__title").forEach(function (
-                        e
-                      ) {
-                        e.setAttribute("tabindex", "-1");
-                      });
-                    }
-                  );
-              }),
-              this.bind("initBlocker:after", function () {
-                S.node.blck.append(s),
-                  _(S.node.blck, "a")[0].classList.add("mm-tabstart");
-              });
-            var o = "input, select, textarea, button, label, a[href]",
-              r = function (n) {
-                n = n || _(e.node.pnls, ".mm-panel_opened")[0];
-                var i = null,
-                  s = document.activeElement.closest(".mm-navbar");
-                if (!s || s.closest(".mm-menu") != e.node.menu) {
-                  if (
-                    "default" == t.enable &&
-                    ((i = g(n, ".mm-listview a[href]:not(.mm-hidden)")[0]) ||
-                      (i = g(n, o + ":not(.mm-hidden)")[0]),
-                    !i)
-                  ) {
-                    var a = [];
-                    _(
-                      e.node.menu,
-                      ".mm-navbars_top, .mm-navbars_bottom"
-                    ).forEach(function (e) {
-                      a.push.apply(a, g(e, o + ":not(.mm-hidden)"));
-                    }),
-                      (i = a[0]);
-                  }
-                  i || (i = _(e.node.menu, ".mm-tabstart")[0]), i && i.focus();
-                }
-              };
-            this.bind("open:finish", r),
-              this.bind("openPanel:finish", r),
-              this.bind("initOpened:after:sr-aria", function () {
-                [e.node.menu, S.node.blck].forEach(function (e) {
-                  _(e, ".mm-tabstart, .mm-tabend").forEach(function (e) {
-                    S.sr_aria(e, "hidden", !0), S.sr_role(e, "presentation");
-                  });
-                });
-              });
-          }
-        }
-      },
-      lazySubmenus: function () {
-        var e = this,
-          t = (function (e) {
-            return (
-              "boolean" == typeof e && (e = { load: e }),
-              "object" != typeof e && (e = {}),
-              e
-            );
-          })(this.opts.lazySubmenus);
-        (this.opts.lazySubmenus = a(t, S.options.lazySubmenus)),
-          t.load &&
-            (this.bind("initMenu:after", function () {
-              var t = [];
-              g(e.node.pnls, "li").forEach(function (n) {
-                t.push.apply(t, _(n, e.conf.panelNodetype.join(", ")));
-              }),
-                t
-                  .filter(function (e) {
-                    return !e.matches(".mm-listview_inset");
-                  })
-                  .filter(function (e) {
-                    return !e.matches(".mm-nolistview");
-                  })
-                  .filter(function (e) {
-                    return !e.matches(".mm-nopanel");
-                  })
-                  .forEach(function (e) {
-                    [
-                      "mm-panel_lazysubmenu",
-                      "mm-nolistview",
-                      "mm-nopanel",
-                    ].forEach(function (t) {
-                      e.classList.add(t);
-                    });
-                  });
-            }),
-            this.bind("initPanels:before", function () {
-              _(e.node.pnls, e.conf.panelNodetype.join(", ")).forEach(function (
-                e
-              ) {
-                var t = ".mm-panel_lazysubmenu",
-                  n = g(e, t);
-                e.matches(t) && n.unshift(e),
-                  n
-                    .filter(function (e) {
-                      return !e.matches(
-                        ".mm-panel_lazysubmenu .mm-panel_lazysubmenu"
-                      );
-                    })
-                    .forEach(function (e) {
-                      [
-                        "mm-panel_lazysubmenu",
-                        "mm-nolistview",
-                        "mm-nopanel",
-                      ].forEach(function (t) {
-                        e.classList.remove(t);
-                      });
-                    });
-              });
-            }),
-            this.bind("initOpened:before", function () {
-              var t = [];
-              g(e.node.pnls, "." + e.conf.classNames.selected).forEach(
-                function (e) {
-                  t.push.apply(t, y(e, ".mm-panel_lazysubmenu"));
-                }
-              ),
-                t.length &&
-                  (t.forEach(function (e) {
-                    [
-                      "mm-panel_lazysubmenu",
-                      "mm-nolistview",
-                      "mm-nopanel",
-                    ].forEach(function (t) {
-                      e.classList.remove(t);
-                    });
-                  }),
-                  e.initPanel(t[t.length - 1]));
-            }),
-            this.bind("openPanel:before", function (t) {
-              var n = ".mm-panel_lazysubmenu",
-                i = g(t, n);
-              t.matches(n) && i.unshift(t),
-                (i = i.filter(function (e) {
-                  return !e.matches(
-                    ".mm-panel_lazysubmenu .mm-panel_lazysubmenu"
-                  );
-                })).forEach(function (t) {
-                  e.initPanel(t);
-                });
-            }));
-      },
-      navbars: _e,
-      pageScroll: function () {
-        var e = this,
-          t = (function (e) {
-            return (
-              "boolean" == typeof e && (e = { scroll: e }),
-              "object" != typeof e && (e = {}),
-              e
-            );
-          })(this.opts.pageScroll);
-        this.opts.pageScroll = a(t, S.options.pageScroll);
-        var n,
-          i = this.conf.pageScroll;
-
-        function s() {
-          n &&
-            window.scrollTo({
-              top:
-                n.getBoundingClientRect().top +
-                document.scrollingElement.scrollTop -
-                i.scrollOffset,
-              behavior: "smooth",
-            }),
-            (n = null);
-        }
-
-        function o(e) {
-          try {
-            return "#" != e && "#" == e.slice(0, 1)
-              ? S.node.page.querySelector(e)
-              : null;
-          } catch (e) {
-            return null;
-          }
-        }
-
-        if (
-          (t.scroll &&
-            this.bind("close:finish", function () {
-              s();
-            }),
-          this.opts.offCanvas &&
-            t.scroll &&
-            this.clck.push(function (t, i) {
-              if (((n = null), i.inMenu)) {
-                var a = t.getAttribute("href");
-                if ((n = o(a)))
-                  return e.node.menu.matches(".mm-menu_sidebar-expanded") &&
-                    e.node.wrpr.matches(".mm-wrapper_sidebar-expanded")
-                    ? void s()
-                    : { close: !0 };
-              }
-            }),
-          t.update)
-        ) {
-          var r = [];
-          this.bind("initListview:after", function (e) {
-            w(_(e, ".mm-listitem")).forEach(function (e) {
-              var t = o(e.getAttribute("href"));
-              t && r.unshift(t);
-            });
-          });
-          var c = -1;
-          window.addEventListener("scroll", function (t) {
-            for (var n = window.scrollY, s = 0; s < r.length; s++)
-              if (r[s].offsetTop < n + i.updateOffset) {
-                if (c !== s) {
-                  c = s;
-                  var a = w(
-                    g(_(e.node.pnls, ".mm-panel_opened")[0], ".mm-listitem")
-                  );
-                  (a = a.filter(function (e) {
-                    return e.matches('[href="#' + r[s].id + '"]');
-                  })).length && e.setSelected(a[0].parentElement);
-                }
-                break;
-              }
-          });
-        }
-      },
-      searchfield: function () {
-        var e = this,
-          t = (function (e) {
-            return (
-              "boolean" == typeof e && (e = { add: e }),
-              "object" != typeof e && (e = {}),
-              "boolean" == typeof e.panel && (e.panel = { add: e.panel }),
-              "object" != typeof e.panel && (e.panel = {}),
-              "panel" == e.addTo && (e.panel.add = !0),
-              e.panel.add &&
-                ((e.showSubPanels = !1), e.panel.splash && (e.cancel = !0)),
-              e
-            );
-          })(this.opts.searchfield);
-        this.opts.searchfield = a(t, S.options.searchfield);
-        this.conf.searchfield;
-        t.add &&
-          (this.bind("close:start", function () {
-            g(e.node.menu, ".mm-searchfield").forEach(function (e) {
-              e.blur();
-            });
-          }),
-          this.bind("initPanel:after", function (n) {
-            var i = null;
-            t.panel.add && (i = Se.call(e));
-            var s = null;
-            switch (t.addTo) {
-              case "panels":
-                s = [n];
-                break;
-              case "panel":
-                s = [i];
-                break;
-              default:
-                "string" == typeof t.addTo
-                  ? (s = g(e.node.menu, t.addTo))
-                  : "array" == o(t.addTo) && (s = t.addTo);
-            }
-            s.forEach(function (n) {
-              (n = Me.call(e, n)), t.search && n && Te.call(e, n);
-            }),
-              t.noResults && Ae.call(e, t.panel.add ? i : n);
-          }),
-          this.clck.push(function (t, n) {
-            if (n.inMenu && t.matches(".mm-searchfield__btn")) {
-              if (t.matches(".mm-btn_close")) {
-                var i = g((s = t.closest(".mm-searchfield")), "input")[0];
-                return (i.value = ""), e.search(i), !0;
-              }
-              var s;
-              if (t.matches(".mm-btn_next"))
-                return (s = t.closest("form")) && s.submit(), !0;
-            }
-          }));
-      },
-      sectionIndexer: function () {
-        var e = this,
-          t = (function (e) {
-            return (
-              "boolean" == typeof e && (e = { add: e }),
-              "object" != typeof e && (e = {}),
-              e
-            );
-          })(this.opts.sectionIndexer);
-        (this.opts.sectionIndexer = a(t, S.options.sectionIndexer)),
-          t.add &&
-            this.bind("initPanels:after", function () {
-              if (!e.node.indx) {
-                var t = "";
-                "abcdefghijklmnopqrstuvwxyz".split("").forEach(function (e) {
-                  t += '<a href="#">' + e + "</a>";
-                });
-                var n = b("div.mm-sectionindexer");
-                (n.innerHTML = t),
-                  e.node.pnls.prepend(n),
-                  (e.node.indx = n),
-                  e.node.indx.addEventListener("click", function (e) {
-                    e.target.matches("a") && e.preventDefault();
-                  });
-                var i = function (t) {
-                  if (t.target.matches("a")) {
-                    var n = t.target.textContent,
-                      i = _(e.node.pnls, ".mm-panel_opened")[0],
-                      s = -1,
-                      a = i.scrollTop;
-                    (i.scrollTop = 0),
-                      g(i, ".mm-divider")
-                        .filter(function (e) {
-                          return !e.matches(".mm-hidden");
-                        })
-                        .forEach(function (e) {
-                          s < 0 &&
-                            n ==
-                              e.textContent.trim().slice(0, 1).toLowerCase() &&
-                            (s = e.offsetTop);
-                        }),
-                      (i.scrollTop = s > -1 ? s : a);
-                  }
-                };
-                U
-                  ? (e.node.indx.addEventListener("touchstart", i),
-                    e.node.indx.addEventListener("touchmove", i))
-                  : e.node.indx.addEventListener("mouseover", i);
-              }
-              e.bind("openPanel:start", function (t) {
-                var n = g(t, ".mm-divider").filter(function (e) {
-                  return !e.matches(".mm-hidden");
-                }).length;
-                e.node.indx.classList[n ? "add" : "remove"](
-                  "mm-sectionindexer_active"
-                );
-              });
-            });
-      },
-      setSelected: function () {
-        var e = this,
-          t = (function (e) {
-            return (
-              "boolean" == typeof e && (e = { hover: e, parent: e }),
-              "object" != typeof e && (e = {}),
-              e
-            );
-          })(this.opts.setSelected);
-        if (
-          ((this.opts.setSelected = a(t, S.options.setSelected)),
-          "detect" == t.current)
-        ) {
-          var n = function (t) {
-            t = t.split("?")[0].split("#")[0];
-            var i = e.node.menu.querySelector(
-              'a[href="' + t + '"], a[href="' + t + '/"]'
-            );
-            if (i) e.setSelected(i.parentElement);
-            else {
-              var s = t.split("/").slice(0, -1);
-              s.length && n(s.join("/"));
-            }
-          };
-          this.bind("initMenu:after", function () {
-            n.call(e, window.location.href);
-          });
-        } else
-          t.current ||
-            this.bind("initListview:after", function (e) {
-              _(e, ".mm-listitem_selected").forEach(function (e) {
-                e.classList.remove("mm-listitem_selected");
-              });
-            });
-        t.hover &&
-          this.bind("initMenu:after", function () {
-            e.node.menu.classList.add("mm-menu_selected-hover");
-          }),
-          t.parent &&
-            (this.bind("openPanel:finish", function (t) {
-              g(e.node.pnls, ".mm-listitem_selected-parent").forEach(function (
-                e
-              ) {
-                e.classList.remove("mm-listitem_selected-parent");
-              });
-              for (var n = t.mmParent; n; )
-                n.matches(".mm-listitem_vertical") ||
-                  n.classList.add("mm-listitem_selected-parent"),
-                  (n = (n = n.closest(".mm-panel")).mmParent);
-            }),
-            this.bind("initMenu:after", function () {
-              e.node.menu.classList.add("mm-menu_selected-parent");
-            }));
-      },
-      sidebar: function () {
-        var e = this;
-        if (this.opts.offCanvas) {
-          var t = (function (e) {
-            return (
-              ("string" == typeof e ||
-                ("boolean" == typeof e && e) ||
-                "number" == typeof e) &&
-                (e = { expanded: e }),
-              "object" != typeof e && (e = {}),
-              "boolean" == typeof e.collapsed &&
-                e.collapsed &&
-                (e.collapsed = { use: !0 }),
-              ("string" != typeof e.collapsed &&
-                "number" != typeof e.collapsed) ||
-                (e.collapsed = { use: e.collapsed }),
-              "object" != typeof e.collapsed && (e.collapsed = {}),
-              "boolean" == typeof e.expanded &&
-                e.expanded &&
-                (e.expanded = { use: !0 }),
-              ("string" != typeof e.expanded &&
-                "number" != typeof e.expanded) ||
-                (e.expanded = { use: e.expanded }),
-              "object" != typeof e.expanded && (e.expanded = {}),
-              e
-            );
-          })(this.opts.sidebar);
-          if (
-            ((this.opts.sidebar = a(t, S.options.sidebar)), t.collapsed.use)
-          ) {
-            this.bind("initMenu:after", function () {
-              if (
-                (e.node.menu.classList.add("mm-menu_sidebar-collapsed"),
-                t.collapsed.blockMenu &&
-                  e.opts.offCanvas &&
-                  !_(e.node.menu, ".mm-menu__blocker")[0])
-              ) {
-                var n = b("a.mm-menu__blocker");
-                n.setAttribute("href", "#" + e.node.menu.id),
-                  e.node.menu.prepend(n);
-              }
-              t.collapsed.hideNavbar &&
-                e.node.menu.classList.add("mm-menu_hidenavbar"),
-                t.collapsed.hideDivider &&
-                  e.node.menu.classList.add("mm-menu_hidedivider");
-            });
-            var n = function () {
-                e.node.wrpr.classList.add("mm-wrapper_sidebar-collapsed");
-              },
-              i = function () {
-                e.node.wrpr.classList.remove("mm-wrapper_sidebar-collapsed");
-              };
-            "boolean" == typeof t.collapsed.use
-              ? this.bind("initMenu:after", n)
-              : P(t.collapsed.use, n, i);
-          }
-          if (t.expanded.use) {
-            this.bind("initMenu:after", function () {
-              e.node.menu.classList.add("mm-menu_sidebar-expanded");
-            });
-            (n = function () {
-              e.node.wrpr.classList.add("mm-wrapper_sidebar-expanded"),
-                e.node.wrpr.matches(".mm-wrapper_sidebar-closed") || e.open();
-            }),
-              (i = function () {
-                e.node.wrpr.classList.remove("mm-wrapper_sidebar-expanded"),
-                  e.close();
-              });
-            "boolean" == typeof t.expanded.use
-              ? this.bind("initMenu:after", n)
-              : P(t.expanded.use, n, i),
-              this.bind("close:start", function () {
-                e.node.wrpr.matches(".mm-wrapper_sidebar-expanded") &&
-                  (e.node.wrpr.classList.add("mm-wrapper_sidebar-closed"),
-                  "remember" == t.expanded.initial &&
-                    window.localStorage.setItem(
-                      "mmenuExpandedState",
-                      "closed"
-                    ));
-              }),
-              this.bind("open:start", function () {
-                e.node.wrpr.matches(".mm-wrapper_sidebar-expanded") &&
-                  (e.node.wrpr.classList.remove("mm-wrapper_sidebar-closed"),
-                  "remember" == t.expanded.initial &&
-                    window.localStorage.setItem("mmenuExpandedState", "open"));
-              });
-            var s = t.expanded.initial;
-            if ("remember" == t.expanded.initial) {
-              var o = window.localStorage.getItem("mmenuExpandedState");
-              switch (o) {
-                case "open":
-                case "closed":
-                  s = o;
-              }
-            }
-            "closed" == s &&
-              this.bind("initMenu:after", function () {
-                e.node.wrpr.classList.add("mm-wrapper_sidebar-closed");
-              }),
-              this.clck.push(function (n, i) {
-                if (
-                  i.inMenu &&
-                  i.inListview &&
-                  e.node.wrpr.matches(".mm-wrapper_sidebar-expanded")
-                )
-                  return { close: "closed" == t.expanded.initial };
-              });
-          }
-        }
-      },
-      toggles: function () {
-        var e = this;
-        this.bind("initPanel:after", function (t) {
-          g(t, "input").forEach(function (t) {
-            E(t, e.conf.classNames.toggles.toggle, "mm-toggle"),
-              E(t, e.conf.classNames.toggles.check, "mm-check");
-          });
+          f.noResults &&
+            (s.is("." + i.menu) && (s = s.children("." + i.panel).first()),
+            (n = s.is("." + i.list) ? "li" : "div"),
+            s.children(n + "." + i.noresultsmsg).length ||
+              e("<" + n + ' class="' + i.noresultsmsg + '" />')
+                .html(f.noResults)
+                .appendTo(s));
         });
-      },
-    }),
-      (S.wrappers = {
-        angular: function () {
-          this.opts.onClick = {
-            close: !0,
-            preventDefault: !1,
-            setSelected: !0,
-          };
-        },
-        bootstrap: function () {
-          var e = this;
-          if (this.node.menu.matches(".navbar-collapse")) {
-            this.conf.offCanvas && (this.conf.offCanvas.clone = !1);
-            var t = b("nav"),
-              n = b("div");
-            t.append(n),
-              _(this.node.menu).forEach(function (t) {
-                switch (!0) {
-                  case t.matches(".navbar-nav"):
-                    n.append(
-                      (function (e) {
-                        var t = b("ul");
-                        return (
-                          g(e, ".nav-item").forEach(function (e) {
-                            var n = b("li");
-                            if (
-                              (e.matches(".active") &&
-                                n.classList.add("Selected"),
-                              !e.matches(".nav-link"))
-                            ) {
-                              var i = _(e, ".dropdown-menu")[0];
-                              i && n.append(o(i)), (e = _(e, ".nav-link")[0]);
-                            }
-                            n.prepend(a(e)), t.append(n);
-                          }),
-                          t
-                        );
-                      })(t)
-                    );
-                    break;
-                  case t.matches(".dropdown-menu"):
-                    n.append(o(t));
-                    break;
-                  case t.matches(".form-inline"):
-                    (e.conf.searchfield.form = {
-                      action: t.getAttribute("action") || null,
-                      method: t.getAttribute("method") || null,
-                    }),
-                      (e.conf.searchfield.input = {
-                        name:
-                          t.querySelector("input").getAttribute("name") || null,
-                      }),
-                      (e.conf.searchfield.clear = !1),
-                      (e.conf.searchfield.submit = !0);
-                    break;
-                  default:
-                    n.append(t.cloneNode(!0));
-                }
+    }
+    if (
+      (this.$menu.children("div." + i.search).length &&
+        this.$menu.addClass(i.hassearch),
+      f.search)
+    ) {
+      var v = e("." + i.search, this.$menu);
+      v.length &&
+        v.each(function () {
+          var n = e(this);
+          if ("menu" == f.addTo)
+            var t = e("." + i.panel, u.$menu),
+              a = u.$menu;
+          else
+            var t = n.closest("." + i.panel),
+              a = t;
+          var r = n.children("input"),
+            o = u.__findAddBack(t, "." + i.list).children("li"),
+            h = o.filter("." + i.label),
+            c = o
+              .not("." + i.subtitle)
+              .not("." + i.label)
+              .not("." + i.search)
+              .not("." + i.noresultsmsg),
+            p = "> a";
+          f.showLinksOnly || (p += ", > span"),
+            r
+              .off(d.keyup + " " + d.change)
+              .on(d.keyup, function (e) {
+                s(e.keyCode) || n.trigger(d.search);
+              })
+              .on(d.change, function () {
+                n.trigger(d.search);
               }),
-              this.bind("initMenu:before", function () {
-                document.body.prepend(t), (e.node.menu = t);
-              });
-            var i = this.node.menu.parentElement;
-            if (i) {
-              var s = i.querySelector(".navbar-toggler");
-              s &&
-                (delete s.dataset.target,
-                s.removeAttribute("aria-controls"),
-                (s.outerHTML = s.outerHTML),
-                (s = i.querySelector(".navbar-toggler")).addEventListener(
-                  "click",
-                  function (t) {
-                    t.preventDefault(),
-                      t.stopImmediatePropagation(),
-                      e[e.vars.opened ? "close" : "open"]();
-                  }
-                ));
-            }
-          }
-
-          function a(e) {
-            for (
-              var t = b(e.matches("a") ? "a" : "span"),
-                n = ["href", "title", "target"],
-                i = 0;
-              i < n.length;
-              i++
-            )
-              void 0 !== e.getAttribute(n[i]) &&
-                t.setAttribute(n[i], e.getAttribute(n[i]));
-            return (
-              (t.innerHTML = e.innerHTML),
-              g(t, ".sr-only").forEach(function (e) {
-                e.remove();
-              }),
-              t
-            );
-          }
-
-          function o(e) {
-            var t = b("ul");
-            return (
-              _(e).forEach(function (e) {
-                var n = b("li");
-                e.matches(".dropdown-divider")
-                  ? n.classList.add("Divider")
-                  : e.matches(".dropdown-item") && n.append(a(e)),
-                  t.append(n);
-              }),
-              t
-            );
-          }
-        },
-        olark: function () {
-          this.conf.offCanvas.page.noSelector.push("#olark");
-        },
-        turbolinks: function () {
-          var e;
-          document.addEventListener("turbolinks:before-visit", function (t) {
-            e = document
-              .querySelector(".mm-wrapper")
-              .className.split(" ")
-              .filter(function (e) {
-                return /mm-/.test(e);
-              });
-          }),
-            document.addEventListener("turbolinks:load", function (t) {
-              void 0 !== e &&
-                (document.querySelector(".mm-wrapper").className = e);
-            });
-        },
-        wordpress: function () {
-          this.conf.classNames.selected = "current-menu-item";
-          var e = document.getElementById("wpadminbar");
-          e && ((e.style.position = "fixed"), e.classList.add("mm-slideout"));
-        },
-      });
-    var je;
-    t.default = S;
-    (window.Mmenu = S),
-      (je = window.jQuery || window.Zepto || null) &&
-        (je.fn.mmenu = function (e, t) {
-          var n = je();
-          return (
-            this.each(function (i, s) {
-              if (s.mmApi) return;
-              let a = new S(s, e, t),
-                o = je(a.node.menu);
-              o.data("mmenu", a.API), (n = n.add(o));
-            }),
             n
-          );
+              .off(d.reset + " " + d.search)
+              .on(d.reset + " " + d.search, function (e) {
+                e.stopPropagation();
+              })
+              .on(d.reset, function () {
+                n.trigger(d.search, [""]);
+              })
+              .on(d.search, function (s, n) {
+                "string" == typeof n ? r.val(n) : (n = r.val()),
+                  (n = n.toLowerCase()),
+                  t.scrollTop(0),
+                  c.add(h).addClass(i.hidden),
+                  c.each(function () {
+                    var s = e(this);
+                    e(p, s).text().toLowerCase().indexOf(n) > -1 &&
+                      s
+                        .add(s.prevAll("." + i.label).first())
+                        .removeClass(i.hidden);
+                  }),
+                  e(t.get().reverse()).each(function (s) {
+                    var n = e(this),
+                      t = n.data(l.parent);
+                    if (t) {
+                      var a = n
+                        .add(n.find("> ." + i.list))
+                        .find("> li")
+                        .not("." + i.subtitle)
+                        .not("." + i.search)
+                        .not("." + i.noresultsmsg)
+                        .not("." + i.label)
+                        .not("." + i.hidden);
+                      a.length
+                        ? t
+                            .removeClass(i.hidden)
+                            .removeClass(i.nosubresults)
+                            .prevAll("." + i.label)
+                            .first()
+                            .removeClass(i.hidden)
+                        : "menu" == f.addTo &&
+                          (n.hasClass(i.opened) &&
+                            setTimeout(function () {
+                              t.trigger(d.open);
+                            }, 1.5 * (s + 1) * u.conf.openingInterval),
+                          t.addClass(i.nosubresults));
+                    }
+                  }),
+                  a[c.not("." + i.hidden).length ? "removeClass" : "addClass"](
+                    i.noresults
+                  ),
+                  u._update();
+              });
         });
-  },
-]);
+    }
+  }),
+    e[r].addons.push(o),
+    (e[r].defaults[o] = {
+      add: !1,
+      addTo: "menu",
+      search: !1,
+      placeholder: "Search",
+      noResults: "No results found.",
+    });
+  var i,
+    l,
+    d,
+    h,
+    c = !1;
+})(jQuery);
+/*
+ * jQuery mmenu toggles addon
+ * mmenu.frebsite.nl
+ *
+ * Copyright (c) Fred Heusschen
+ */
+!(function (t) {
+  function e(t) {
+    return t;
+  }
+  function s(t) {
+    return t;
+  }
+  function c() {
+    (r = !0),
+      (n = t[i]._c),
+      (o = t[i]._d),
+      (l = t[i]._e),
+      n.add("toggle check"),
+      (h = t[i].glbl);
+  }
+  var i = "mmenu",
+    a = "toggles";
+  (t[i].prototype["_init_" + a] = function (i) {
+    r || c();
+    var o = this.vars[a + "_added"];
+    (this.vars[a + "_added"] = !0),
+      o || ((this.opts[a] = e(this.opts[a])), (this.conf[a] = s(this.conf[a])));
+    var l = this;
+    this.opts[a],
+      this.conf[a],
+      this.__refactorClass(
+        t("input", i),
+        this.conf.classNames[a].toggle,
+        "toggle"
+      ),
+      this.__refactorClass(
+        t("input", i),
+        this.conf.classNames[a].check,
+        "check"
+      ),
+      t("input." + n.toggle, i)
+        .add("input." + n.check, i)
+        .each(function () {
+          var e = t(this),
+            s = e.closest("li"),
+            c = e.hasClass(n.toggle) ? "toggle" : "check",
+            i = e.attr("id") || l.__getUniqueId();
+          s.children('label[for="' + i + '"]').length ||
+            (e.attr("id", i),
+            s.prepend(e),
+            t(
+              '<label for="' + i + '" class="' + n[c] + '"></label>'
+            ).insertBefore(s.children().last()));
+        });
+  }),
+    t[i].addons.push(a),
+    (t[i].defaults[a] = {}),
+    (t[i].configuration.classNames[a] = { toggle: "Toggle", check: "Check" });
+  var n,
+    o,
+    l,
+    h,
+    r = !1;
+})(jQuery);

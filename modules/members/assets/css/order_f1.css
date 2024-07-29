@@ -42,10 +42,6 @@
 }
 .page-side .item-order .user_f1_item .user_f1_item_item {
   width: calc((100% - 1px) / 7);
-  overflow-x: scroll;
-}
-.page-side .item-order .user_f1_item .user_f1_item_item::-webkit-scrollbar {
-  display: none;
 }
 .page-side .item-order .user_f1_item .user_f1_item_item a {
   color: #2476ff;
@@ -366,18 +362,30 @@
   .page-side .page-content .user_f1_title {
     padding-bottom: 10px !important;
     gap: 10px;
-    font-size: 10px !important;
+    font-size: 12px !important;
     margin: 0 !important;
   }
   .page-side .page-content .user_f1_title .user_f1_title_item {
     width: 14.2857142857% !important;
     font-size: 10px !important;
   }
-  .page-side .page-content .user_f1_title .user_f1_title_item::-webkit-scrollbar {
-    display: none;
-  }
   .page-side .page-content .user_f1_title .user_f1_title_item:first-child {
-    width: 5% !important;
+    width: 7% !important;
+  }
+  .page-side .page-content .user_f1_title .user_f1_title_item:nth-child(2) {
+    width: 40% !important;
+  }
+  .page-side .page-content .user_f1_title .user_f1_title_item:nth-child(3) {
+    width: 40% !important;
+  }
+  .page-side .page-content .user_f1_title .user_f1_title_item:nth-child(4) {
+    width: 45% !important;
+  }
+  .page-side .page-content .user_f1_title .user_f1_title_item:nth-child(5) {
+    width: 30% !important;
+  }
+  .page-side .page-content .user_f1_title .user_f1_title_item:nth-child(6) {
+    width: 22% !important;
   }
   .page-side .page-content .item-order {
     padding: 5px 0 !important;
@@ -385,14 +393,25 @@
   }
   .page-side .page-content .item-order .user_f1_item .user_f1_item_item {
     width: 14.2857142857% !important;
-    white-space: nowrap;
     overflow-x: auto;
     font-size: 10px !important;
   }
-  .page-side .page-content .item-order .user_f1_item .user_f1_item_item::-webkit-scrollbar {
-    display: none;
-  }
   .page-side .page-content .item-order .user_f1_item .user_f1_item_item:first-child {
-    width: 5% !important;
+    width: 8% !important;
+  }
+  .page-side .page-content .item-order .user_f1_item .user_f1_item_item:nth-child(2) {
+    width: 40% !important;
+  }
+  .page-side .page-content .item-order .user_f1_item .user_f1_item_item:nth-child(3) {
+    width: 40% !important;
+  }
+  .page-side .page-content .item-order .user_f1_item .user_f1_item_item:nth-child(4) {
+    width: 45% !important;
+  }
+  .page-side .page-content .item-order .user_f1_item .user_f1_item_item:nth-child(5) {
+    width: 30% !important;
+  }
+  .page-side .page-content .item-order .user_f1_item .user_f1_item_item:nth-child(6) {
+    width: 22% !important;
   }
 }/*# sourceMappingURL=order_f1.css.map */

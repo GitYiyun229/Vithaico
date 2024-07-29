@@ -827,7 +827,9 @@ footer {
   justify-content: center;
   align-items: center;
 }
-
+.bg-white1{
+  background-color: #fff;
+}
 @media all and (max-width: 1000px) {
   header .members_header .box_members_click {
     right: -10px !important;
