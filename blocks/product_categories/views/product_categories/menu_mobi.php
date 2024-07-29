@@ -27,7 +27,7 @@ function showMenu($menu, $parent, $parents)
 }
 ?>
 
-<nav id="mySidenav" style="z-index: 3;">
+<nav id="mySidenav">
     <ul>
         <?php showMenu($list_mobile, 0, $parents) ?>
         <?php if (!empty($list_top)) {
@@ -40,6 +40,6 @@ function showMenu($menu, $parent, $parents)
         } ?>
     </ul>
 
-    <button id="close-menu">x</button>
+  
 </nav>
 <!-- End -->

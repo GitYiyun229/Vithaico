@@ -1,9 +1,13 @@
-.container {
+.main-register {
+    background: #fff;
+    border-radius: 16px;
+    margin: 48px auto;
     .box-main-register {
         max-width: 400px;
-
+        // margin: 48px auto;
         @media (max-width: 767px) {
             padding: 0 15px !important;
+            margin-top: 30px !important;
         }
         .text-dk {
             h4 {
@@ -19,9 +23,12 @@
                     border-radius: 8px;
                     background: #f5f5f5;
                     border: 0;
-                  
+
                     font-size: 14px;
-                    &::placeholder{
+                    @media (max-width: 767px) {
+                        font-size: 12px !important;
+                    }
+                    &::placeholder {
                         color: #949494;
                     }
                 }
@@ -31,6 +38,9 @@
                     padding: 13.5px 24px;
                     .form-submit {
                         color: #fff;
+                        @media (max-width: 767px) {
+                            font-size: 12px !important;
+                        }
                     }
                 }
             }
@@ -40,9 +50,20 @@
                 padding: 24px;
                 max-height: 220px;
                 overflow-y: scroll;
+                @media (max-width: 767px) {
+                    p {
+                        font-size: 12px !important;
+                    }
+                }
             }
             .login-res {
-                .text-red{
+                @media (max-width: 767px) {
+                    font-size: 12px !important;
+                    .text-red {
+                        font-size: 12px !important;
+                    }
+                }
+                .text-red {
                     color: #2476ff;
                     font-size: 16px;
                 }
@@ -88,6 +109,10 @@
         border: 1px solid #bfbfbf;
         transition: background-color 0.25s ease;
         border-radius: 4px;
+        @media (max-width: 767px) {
+            height: 16px !important;
+            width: 16px !important;
+        }
     }
     .checkbox.style-c .checkbox__checkmark:after {
         content: "";
@@ -101,16 +126,34 @@
         transform: rotate(45deg);
         opacity: 0;
         transition: opacity 0.25s ease;
+        @media (max-width: 767px) {
+            left: 6px !important;
+            top: 1px !important;
+        }
     }
     .checkbox.style-c .checkbox__body {
         font-size: 16px;
         font-weight: 400;
         color: #3b3b3b;
         line-height: 1.4;
-  
+        @media (max-width: 767px) {
+            font-size: 12px !important;
+        }
     }
 }
-.modal-body{
-    background: #EBF6E6;
+.modal-body {
+    background: #ebf6e6;
     border-radius: 8px;
+}
+@media (max-width: 767px) {
+    .summary-aff {
+        font-size: 12px !important;
+    }
+}
+#app{
+    background: #f5f5f5;
+}
+main{
+    background: #f5f5f5;
+    padding: 0;
 }

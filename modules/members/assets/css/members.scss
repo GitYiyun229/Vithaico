@@ -1,4 +1,4 @@
-main {
+main.bg-white1 {
   background: #f5f5f5;
 }
 .app-main-content {
@@ -190,7 +190,9 @@ main {
 @media (max-width: 767px) {
   .page-sidebar {
     // background: unset !important;
+    display: none;
     border-radius: 0 !important;
+    
   }
   .position-absolute.top-50.end-0.translate-middle-y.px-4 {
     padding: 0 !important;

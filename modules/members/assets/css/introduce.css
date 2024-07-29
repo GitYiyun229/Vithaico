@@ -9,55 +9,77 @@
   color: #a3a3a3;
 }
 .page-side .page-content .user_f1 .user_f1_title .user_f1_title_item:first-child {
-  width: 3% !important;
+  width: 5% !important;
+  text-align: center;
+}
+.page-side .page-content .user_f1 .user_f1_title .user_f1_title_item:nth-child(4) {
+  width: 30% !important;
 }
 .page-side .page-content .user_f1 .user_f1_item {
   border-bottom: 1px solid #ebebeb;
   padding: 20px 0;
-  gap: 20px;
+  gap: 15px;
 }
 .page-side .page-content .user_f1 .user_f1_item .user_f1_item_item {
   width: calc((100% - 20px) / 5);
-  overflow-x: scroll;
-}
-.page-side .page-content .user_f1 .user_f1_item .user_f1_item_item::-webkit-scrollbar {
-  display: none;
 }
 .page-side .page-content .user_f1 .user_f1_item .user_f1_item_item:first-child {
-  width: 3% !important;
+  width: 5% !important;
   text-align: center;
+}
+.page-side .page-content .user_f1 .user_f1_item .user_f1_item_item:nth-child(4) {
+  width: 30% !important;
 }
 
 @media (max-width: 767px) {
   .page-side .page-content .user_f1 .user_f1_title {
     padding-bottom: 10px !important;
     gap: 5px;
-    font-size: 12px !important;
+    font-size: 11px !important;
   }
   .page-side .page-content .user_f1 .user_f1_title .user_f1_title_item {
-    width: calc((100% - 5px) / 5) !important;
     gap: 8px;
     white-space: nowrap;
     overflow-x: auto;
-    font-size: 12px !important;
+    font-size: 11px !important;
   }
   .page-side .page-content .user_f1 .user_f1_title .user_f1_title_item::-webkit-scrollbar {
     display: none;
+  }
+  .page-side .page-content .user_f1 .user_f1_title .user_f1_title_item:first-child {
+    width: 7% !important;
+  }
+  .page-side .page-content .user_f1 .user_f1_title .user_f1_title_item:nth-child(3) {
+    width: 40% !important;
+  }
+  .page-side .page-content .user_f1 .user_f1_title .user_f1_title_item:nth-child(4) {
+    width: 50% !important;
+  }
+  .page-side .page-content .user_f1 .user_f1_title .user_f1_title_item:nth-child(5) {
+    width: 35% !important;
   }
   .page-side .page-content .user_f1 .user_f1_item {
     border-bottom: 1px solid #ebebeb;
     padding: 10px 0;
     gap: 8px;
-    font-size: 12px !important;
+    font-size: 11px !important;
+    align-items: center;
   }
   .page-side .page-content .user_f1 .user_f1_item .user_f1_item_item {
-    width: calc((100% - 5px) / 5) !important;
-    white-space: nowrap;
-    overflow-x: auto;
-    font-size: 12px !important;
+    overflow-x: scroll;
+    font-size: 11px !important;
   }
-  .page-side .page-content .user_f1 .user_f1_item .user_f1_item_item::-webkit-scrollbar {
-    display: none;
+  .page-side .page-content .user_f1 .user_f1_item .user_f1_item_item:first-child {
+    width: 7% !important;
+  }
+  .page-side .page-content .user_f1 .user_f1_item .user_f1_item_item:nth-child(3) {
+    width: 40% !important;
+  }
+  .page-side .page-content .user_f1 .user_f1_item .user_f1_item_item:nth-child(4) {
+    width: 50% !important;
+  }
+  .page-side .page-content .user_f1 .user_f1_item .user_f1_item_item:nth-child(5) {
+    width: 35% !important;
   }
 }
 @media (min-width: 768px) and (max-width: 960px) {
@@ -72,9 +94,6 @@
     overflow-x: auto;
     font-size: 13px !important;
   }
-  .user_f1_title .user_f1_title_item::-webkit-scrollbar {
-    display: none;
-  }
   .user_f1_item {
     font-size: 13px !important;
     gap: 10px !important;
@@ -84,8 +103,5 @@
     white-space: nowrap;
     overflow-x: auto;
     font-size: 13px !important;
-  }
-  .user_f1_item .user_f1_item_item::-webkit-scrollbar {
-    display: none;
   }
 }/*# sourceMappingURL=introduce.css.map */
